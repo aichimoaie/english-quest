@@ -93,10 +93,10 @@ No plan has been run. Plans need a subscription and a tenant.
 
 ## Decisions and caveats
 
-- **Static Web Apps region.** Documented exception: Static Web Apps is not offered in East US. Checked with the Azure CLI, it is offered in Central US, East US 2, West US 2, West Europe and East Asia. The Static Web App uses East US 2. The API and database stay in East US.
+- **Static Web Apps region.** Documented exception: Static Web Apps is not offered in East US. Checked with the Azure CLI, it is offered in Central US, East US 2, West US 2, West Europe and East Asia. The Static Web App uses East US 2. The API and database stay in East US. The captain has signed off this East US 2 exception.
 - **PostgreSQL version.** The default is `18`. The PRD asks for the newest major version Azure offers in the region. Check the subscription before the first apply and change `postgres_version` if a newer one is offered.
 - **Database network access.** The server has public access with the `allow-azure-services` firewall rule, because Consumption Container Apps have no fixed outbound IP. TLS is required and the password is generated. A private VNet setup is a later hardening step.
-- **Key Vault uses RBAC.** The identity that runs OpenTofu gets Key Vault Secrets Officer on the vault, so it can write `database-url`. The deploy identity has no vault role.
+- **Key Vault uses RBAC.** The identity that runs OpenTofu gets Key Vault Secrets Officer on the vault, so it can write `database-url`. The deploy identity has no vault role. On the first apply, the `database-url` write can fail with 403 until the new role assignment propagates. Wait a few minutes and run `tofu apply` once more.
 - **Deploy identity reach.** Contributor on the API container app lets the deploy identity read the app's secrets, including `database-url`. Contributor on the PostgreSQL server lets it reset the administrator password. Scoping to single resources does not remove these management-plane reads. Narrowing them further is an open decision.
 - **Secrets in state.** The generated database password and the database URL are in the OpenTofu state, which is why the state account is private with TLS 1.2 minimum. Restrict who can read the `tfstate` container.
 - **Container image.** The API app starts with a placeholder image and ignores later image changes, so the CI deploy owns the image tag. Ingress targets port 8000, so the API must listen there.
