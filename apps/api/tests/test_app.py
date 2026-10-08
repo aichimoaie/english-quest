@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
+from pydantic import ValidationError
 
 from english_quest_api.config import Settings
 from english_quest_api.main import DEFAULT_OPENAPI_PATH, create_app, export_openapi
@@ -74,6 +75,21 @@ def test_unhandled_error_does_not_leak_details() -> None:
     assert "detail" not in response.json()
 
 
+def test_unhandled_error_response_carries_cors_headers() -> None:
+    app = create_app(Settings(cors_allowed_origins=[WEB_ORIGIN]))
+
+    def explode() -> None:
+        raise RuntimeError("secret internals")
+
+    app.add_api_route("/explode", explode)
+    client = TestClient(app, raise_server_exceptions=False)
+
+    response = client.get("/explode", headers={"Origin": WEB_ORIGIN})
+
+    assert response.status_code == 500
+    assert response.headers["access-control-allow-origin"] == WEB_ORIGIN
+
+
 def test_cors_allows_configured_web_origin(client: TestClient) -> None:
     response = client.get("/health", headers={"Origin": WEB_ORIGIN})
 
@@ -119,6 +135,25 @@ def test_settings_read_from_dotenv_file(isolated_cwd: Path) -> None:
 
     assert settings.environment == "dev"
     assert settings.cors_allowed_origins == ["https://app.example.com"]
+
+
+@pytest.mark.parametrize(
+    "environment_values",
+    [
+        {},
+        {"DATABASE_URL": "postgresql+psycopg://u:p@db:5432/eq"},
+        {"CORS_ALLOWED_ORIGINS": "https://app.example.com"},
+    ],
+)
+def test_production_refuses_to_start_without_explicit_settings(
+    isolated_cwd: Path, monkeypatch: pytest.MonkeyPatch, environment_values: dict[str, str]
+) -> None:
+    monkeypatch.setenv("ENVIRONMENT", "prod")
+    for name, value in environment_values.items():
+        monkeypatch.setenv(name, value)
+
+    with pytest.raises(ValidationError):
+        Settings()
 
 
 def test_settings_default_to_local_web_origin(isolated_cwd: Path) -> None:

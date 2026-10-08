@@ -1,7 +1,1 @@
-# Workstreams
-
-Nine workstreams run in parallel, each in its own worktree and pull request. Each workstream edits only the paths it owns.
-
-## Dependency map
-
 1 Frontend foundation depends on 2 for the OpenAPI document; until it lands, build against the typed client stub it owns and the contract in section 9 of the PRD. 2 Backend foundation provides the app factory, config, health route, and the OpenAPI document; it depends on 3 for the session and DB dependency, which 3 provides as db/session.py. 3 Database owns all tables and the first Alembic revision, including users and sessions. 4 Exercise engine owns grading/ and content/schema; it depends on nothing but the data model in its own report. 5 Authentication depends on 3 for the users and sessions tables and on 2 for the router mount point; it owns identity/ and api/auth.py. 6 Curriculum depends on 4 for content/schema and owns content/days and curriculum/. 7 Azure infrastructure is independent; it owns infra/. 8 CI/CD depends on 7 for deploy outputs; its first PR is the PR checks workflow, which needs only the test commands; it owns .github/workflows/. 9 Automated testing depends on the packages existing; its first PR adds configuration only (playwright.config, vitest and pytest config, tests/ folder skeleton, and the content validator test harness) and owns tests/ and playwright.config.ts.

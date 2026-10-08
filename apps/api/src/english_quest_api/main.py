@@ -24,6 +24,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         summary="API for the 30-day English course.",
     )
 
+    # Error handlers are registered first so the catch-all middleware sits inside CORS.
+    register_error_handlers(app)
     # The web app runs on its own origin and sends the session cookie, so credentials
     # are allowed and origins must be explicit (never "*").
     app.add_middleware(
@@ -33,7 +35,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         allow_methods=["GET", "POST", "OPTIONS"],
         allow_headers=["Content-Type", "Accept"],
     )
-    register_error_handlers(app)
     app.include_router(health_router)
     app.include_router(api_router)
     return app
