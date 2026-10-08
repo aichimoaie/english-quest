@@ -137,7 +137,7 @@ class ExerciseRevision(Base):
     envelope: Mapped[dict[str, Any]] = mapped_column(JSONB)
     content: Mapped[dict[str, Any]] = mapped_column(JSONB)
     # SHA-256 of the canonical envelope, content and answer key. Makes imports idempotent.
-    content_hash: Mapped[str] = mapped_column(Text)
+    content_hash: Mapped[str] = mapped_column(Text, deferred=True)
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=func.now())
 
 

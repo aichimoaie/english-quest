@@ -7,8 +7,9 @@ from contextlib import contextmanager
 from typing import Any
 
 import pytest
-from sqlalchemy import Connection, Engine, insert, text
+from sqlalchemy import Connection, Engine, insert, inspect, text
 from sqlalchemy.exc import DBAPIError
+from sqlalchemy.orm import Session
 
 from english_quest_api.db import models
 from learner_seed import ensure_learner
@@ -270,6 +271,19 @@ def test_the_runtime_role_cannot_read_the_revision_content_hash(conn: Connection
         match="permission denied",
     )
     assert read_revision_column_as_runtime_role(conn, "kind", seed["revision_id"]) == "multiple_choice"
+
+
+def test_the_runtime_role_loads_revisions_through_the_orm(conn: Connection, seed: dict[str, Any]) -> None:
+    conn.execute(text("GRANT USAGE ON SCHEMA public TO english_quest_api"))
+    with as_role(conn, "english_quest_api"):
+        session = Session(bind=conn)
+        try:
+            revision = session.get(models.ExerciseRevision, seed["revision_id"])
+            assert revision is not None
+            assert revision.kind == "multiple_choice"
+            assert "content_hash" in inspect(revision).unloaded
+        finally:
+            session.close()
 
 
 def test_revisions_are_immutable(
