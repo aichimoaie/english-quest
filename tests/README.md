@@ -78,6 +78,6 @@ These names come from the architecture report and are not yet on main. Change th
 
 ## Not in this folder
 
-- `.gitignore` entries for `node_modules/` and `.pytest_cache/` (workstream 2 owns `.gitignore`). The root `.gitignore` here only lists the web build output, `apps/web/.next/` and `apps/web/out/`, which a firstmate decision asked for. Local runs keep failure traces in a private temp directory outside the worktree. CI turns traces off, so the HTML report in `playwright-report/` (which the root `.gitignore` lists) never carries them.
+- `.gitignore` entries for `node_modules/` and `.pytest_cache/` (workstream 2 owns `.gitignore`). The root `.gitignore` here only lists the web build output, `apps/web/.next/` and `apps/web/out/`, which a firstmate decision asked for. Traces are off, so typed credentials and cookies never reach a trace. Failure screenshots and error context go to a private per-run temp directory outside the worktree, which local runs remove when they end. CI keeps the HTML report in `playwright-report/` (which the root `.gitignore` lists).
 - The CI workflow that runs these commands (workstream 8).
 - The root `package.json` and `pnpm-workspace.yaml` (workstream 1 owns them). This folder keeps its own `package.json` and `uv.lock` so the test tooling does not touch the root manifest. No pnpm lock file is committed here.

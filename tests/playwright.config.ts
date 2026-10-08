@@ -45,6 +45,7 @@ const outputRoot = process.env.EQ_E2E_RUN_OUTPUT ?? '';
 export default defineConfig({
   testDir: path.join(repoRoot, 'tests/e2e'),
   globalSetup: path.join(repoRoot, 'tests/e2e/global-setup.ts'),
+  globalTeardown: path.join(repoRoot, 'tests/e2e/global-teardown.ts'),
   testMatch: '**/*.spec.ts',
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
@@ -53,13 +54,13 @@ export default defineConfig({
   reporter: process.env.CI
     ? [['list'], ['html', { open: 'never', outputFolder: path.join(repoRoot, 'playwright-report') }]]
     : [['list']],
-  // Failure traces stay in a private directory outside the worktree. CI keeps them out of the HTML
-  // report, which is uploaded as an artifact, because traces record typed credentials and cookies.
+  // Traces stay off: they would record the typed sign-in password and the session cookies. Failure
+  // screenshots and error context go to a private per-run directory outside the worktree.
   outputDir: path.join(outputRoot, 'test-results'),
   expect: { timeout: 10_000 },
   use: {
     baseURL,
-    trace: process.env.CI ? 'off' : 'retain-on-failure',
+    trace: 'off',
     screenshot: 'only-on-failure',
   },
   projects: [
