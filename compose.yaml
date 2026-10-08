@@ -1,0 +1,21 @@
+# Local development only: one PostgreSQL service for the API.
+# Start it with: docker compose up -d db
+services:
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: english_quest
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-english_quest}
+      POSTGRES_DB: english_quest
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U english_quest -d english_quest"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  db-data:
