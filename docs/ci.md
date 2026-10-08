@@ -75,4 +75,4 @@ Add them as new jobs with the same environment and OIDC pattern when those outpu
 ## Checking the workflows
 
 - `actionlint` with shellcheck on both files, from the repo root: `uvx --from actionlint-py actionlint -shellcheck <path-to-shellcheck> .github/workflows/*.yml`. Passes on the current files.
-- Actions are pinned to a major version. Permissions are read-only by default. Jobs that need `id-token: write` or `pull-requests: read` declare them.
+- Actions are pinned to a major version, except `astral-sh/setup-uv`, which is pinned to an exact tag (`v10.2.0`) because it has no floating major tag. Permissions are read-only by default. Jobs that need `id-token: write` or `pull-requests: read` declare them.
