@@ -49,13 +49,6 @@ module "key_vault" {
   tags                     = local.tags
 }
 
-resource "azurerm_key_vault_secret" "postgres_admin_password" {
-  name         = "postgres-admin-password"
-  value        = module.postgres.administrator_password
-  key_vault_id = module.key_vault.id
-  depends_on   = [module.key_vault]
-}
-
 resource "azurerm_key_vault_secret" "database_url" {
   name         = "database-url"
   value        = local.database_url
@@ -72,9 +65,6 @@ module "container_apps" {
   location            = var.location
   web_origin          = "https://${module.static_web_app.default_host_name}"
   database_url        = local.database_url
-  enable_ghcr_pull    = var.enable_ghcr_pull
-  ghcr_username       = var.ghcr_username
-  ghcr_token          = var.ghcr_token
   tags                = local.tags
 }
 

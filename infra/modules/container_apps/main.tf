@@ -1,19 +1,8 @@
-resource "azurerm_log_analytics_workspace" "this" {
-  name                = "log-${var.name_prefix}"
+resource "azurerm_container_app_environment" "this" {
+  name                = "cae-${var.name_prefix}"
   location            = var.location
   resource_group_name = var.resource_group_name
-  sku                 = "PerGB2018"
-  retention_in_days   = 30
-  daily_quota_gb      = var.log_analytics_daily_quota_gb
   tags                = var.tags
-}
-
-resource "azurerm_container_app_environment" "this" {
-  name                       = "cae-${var.name_prefix}"
-  location                   = var.location
-  resource_group_name        = var.resource_group_name
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.this.id
-  tags                       = var.tags
 }
 
 resource "azurerm_container_app" "api" {
@@ -26,23 +15,6 @@ resource "azurerm_container_app" "api" {
   secret {
     name  = "database-url"
     value = var.database_url
-  }
-
-  dynamic "secret" {
-    for_each = var.enable_ghcr_pull ? [1] : []
-    content {
-      name  = "ghcr-token"
-      value = var.ghcr_token
-    }
-  }
-
-  dynamic "registry" {
-    for_each = var.enable_ghcr_pull ? [1] : []
-    content {
-      server               = "ghcr.io"
-      username             = var.ghcr_username
-      password_secret_name = "ghcr-token"
-    }
   }
 
   ingress {

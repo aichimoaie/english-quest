@@ -53,7 +53,7 @@ output "web_deployment_token" {
 }
 
 output "key_vault_name" {
-  description = "Key Vault that holds the database password and URL."
+  description = "Key Vault that holds the database URL."
   value       = module.key_vault.name
 }
 

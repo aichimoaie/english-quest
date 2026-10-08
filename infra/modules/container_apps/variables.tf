@@ -14,7 +14,7 @@ variable "resource_group_name" {
 }
 
 variable "location" {
-  description = "Azure region for the Log Analytics workspace, the Container Apps environment and the API app."
+  description = "Azure region for the Container Apps environment and the API app."
   type        = string
 }
 
@@ -22,12 +22,6 @@ variable "tags" {
   description = "Tags applied to every resource in this module."
   type        = map(string)
   default     = {}
-}
-
-variable "log_analytics_daily_quota_gb" {
-  description = "Daily ingestion cap for Log Analytics, in GB. The cap keeps logging cost inside the MVP budget."
-  type        = number
-  default     = 1
 }
 
 variable "api_image" {
@@ -63,23 +57,4 @@ variable "database_url" {
 variable "web_origin" {
   description = "Origin of the static web app, for example https://example.azurestaticapps.net. The API uses it for CORS."
   type        = string
-}
-
-variable "enable_ghcr_pull" {
-  description = "Set to true when the GHCR image is private. Requires ghcr_username and ghcr_token."
-  type        = bool
-  default     = false
-}
-
-variable "ghcr_username" {
-  description = "GitHub user name that owns the read:packages token."
-  type        = string
-  default     = null
-}
-
-variable "ghcr_token" {
-  description = "GitHub token with read:packages scope, used by the API app to pull its image from ghcr.io."
-  type        = string
-  default     = null
-  sensitive   = true
 }

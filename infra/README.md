@@ -10,15 +10,14 @@ Per environment (`dev` or `prod`):
 | --- | --- | --- |
 | Resource group `rg-english-quest-<env>` | `envs/<env>/main.tf` | Holds everything below. |
 | Static Web App (Free) `swa-eq-<env>-<suffix>` | `modules/static_web_app` | Hosts the Next.js static export. Region East US 2, see caveats. |
-| Log Analytics `log-eq-<env>` | `modules/container_apps` | Container logs, 30-day retention, 1 GB daily cap. |
 | Container Apps environment `cae-eq-<env>` | `modules/container_apps` | Consumption plan. |
 | API container app `ca-eq-<env>-api` | `modules/container_apps` | 0.25 vCPU, 0.5 GiB, min replicas 1, max 2, HTTP ingress on port 8000. |
 | PostgreSQL Flexible Server `psql-eq-<env>-<suffix>` | `modules/postgres` | Burstable `B_Standard_B1ms`, 32 GiB, no HA, 7-day backups. Database `english_quest`. |
-| Key Vault `kv-eq-<env>-<suffix>` | `modules/key_vault` | Holds `postgres-admin-password` and `database-url`. |
+| Key Vault `kv-eq-<env>-<suffix>` | `modules/key_vault` | Holds `database-url`. |
 | Entra app and service principal `eq-github-deploy-<env>` | `modules/github_oidc` | Federated credential for GitHub environment `<env>`, Contributor on the resource group. No client secret. |
-| Subscription budget, 40 USD per month | `modules/budget` | Created in `envs/prod` only, because it covers the whole subscription. |
+| Subscription budget, 40 USD per month | `modules/budget` | Created in `envs/prod` only, because it covers the whole subscription. See the apply order below. |
 
-Container images are on GitHub Container Registry (`ghcr.io`). No Azure Container Registry is created.
+Container images are on GitHub Container Registry (`ghcr.io`). No Azure Container Registry is created. The GHCR package for the API must be public, because the API app pulls it without credentials.
 
 ## One manual bootstrap step: the state storage account
 
@@ -94,16 +93,16 @@ No plan has been run. Plans need a subscription and a tenant.
 
 ## Decisions and caveats
 
-- **Static Web Apps region.** Static Web Apps is not offered in East US. The app uses East US 2, the nearest supported region. Everything else is in East US.
+- **Static Web Apps region.** Documented exception: Static Web Apps is not offered in East US. Checked with the Azure CLI, it is offered in Central US, East US 2, West US 2, West Europe and East Asia. The Static Web App uses East US 2. The API and database stay in East US.
 - **PostgreSQL version.** The default is `18`. The PRD asks for the newest major version Azure offers in the region. Check the subscription before the first apply and change `postgres_version` if a newer one is offered.
 - **Database network access.** The server has public access with the `AllowAzureServices` firewall rule, because Consumption Container Apps have no fixed outbound IP. TLS is required and the password is generated. A private VNet setup is a later hardening step.
 - **Key Vault uses access policies, not RBAC.** Access policies let the identity that runs OpenTofu write secrets without User Access Administrator.
 - **Secrets in state.** The generated database password and the database URL are in the OpenTofu state, which is why the state account is private with TLS 1.2 minimum. Restrict who can read the `tfstate` container.
 - **Container image.** The API app starts with a placeholder image and ignores later image changes, so the CI deploy owns the image tag. Ingress targets port 8000, so the API must listen there.
-- **Private GHCR images.** Set `enable_ghcr_pull = true` and pass `ghcr_username` and `TF_VAR_ghcr_token`, a token with `read:packages`.
+- **GHCR package visibility.** The API image package on GHCR must be public. The Container App has no registry credentials, so a private package will fail to pull.
 - **Connection string driver.** `DATABASE_URL` is `postgresql+psycopg://…?sslmode=require`. The API must use psycopg 3 for this URL.
-- **Budget.** The budget starts on `budget_start_date`, which must be the first day of a month. Set `budget_contact_emails` in `envs/prod/terraform.tfvars`.
-- **Log Analytics.** Not on the captain's list. It is added because Container Apps logs go there, and without it there is no way to see API errors. The cap is 1 GB per day.
+- **Budget.** The budget starts on `budget_start_date`, which must be the first day of a month. Set `budget_contact_emails` in `envs/prod/terraform.tfvars`. The budget lives only in `envs/prod`, so apply prod once for the subscription budget to exist. Applying dev alone creates no budget alert.
+- **Logging.** No Log Analytics workspace is created, because the MVP keeps to the listed resources. Without one, container logs are not kept. Inspect them with `az containerapp logs show` or log streaming. Add a workspace later if that is not enough.
 - **Entra permissions.** Creating the app registration and federated credential needs the Application Developer role, or equivalent, in the tenant.
 
 ## Not done here
