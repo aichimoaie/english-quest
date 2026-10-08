@@ -51,9 +51,8 @@ variable "budget_amount" {
 }
 
 variable "budget_start_date" {
-  description = "Budget start, at the first day of a month, in RFC 3339 form."
+  description = "Budget start, at the first day of a month, in RFC 3339 form. Set it in terraform.tfvars to a current or future month."
   type        = string
-  default     = "2026-11-01T00:00:00Z"
 }
 
 variable "budget_contact_emails" {

@@ -102,7 +102,7 @@ No plan has been run. Plans need a subscription and a tenant.
 - **Container image.** The API app starts with a placeholder image and ignores later image changes, so the CI deploy owns the image tag. Ingress targets port 8000, so the API must listen there.
 - **GHCR package visibility.** The API image package on GHCR must be public. The Container App has no registry credentials, so a private package will fail to pull.
 - **Connection string driver.** `DATABASE_URL` is `postgresql+psycopg://…?sslmode=require`. The API must use psycopg 3 for this URL.
-- **Budget.** The budget starts on `budget_start_date`, which must be the first day of a month. Set `budget_contact_emails` in `envs/prod/terraform.tfvars`. The budget lives only in `envs/prod`, so apply prod once for the subscription budget to exist. Applying dev alone creates no budget alert.
+- **Budget.** The budget starts on `budget_start_date`, which must be the first day of a month and has no default. Set `budget_start_date` and `budget_contact_emails` in `envs/prod/terraform.tfvars`. The budget lives only in `envs/prod`, so apply prod once for the subscription budget to exist. Applying dev alone creates no budget alert.
 - **Logging.** No Log Analytics workspace is created, because the MVP keeps to the listed resources. Without one, container logs are not kept. Inspect them with `az containerapp logs show` or log streaming. Add a workspace later if that is not enough.
 - **Entra permissions.** Creating the app registration and federated credential needs the Application Developer role, or equivalent, in the tenant.
 
