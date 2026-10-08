@@ -43,4 +43,11 @@ test.describe('@helper no-horizontal-scroll helper', () => {
     await page.setContent(fixture('wide-at-390.html'));
     await expect(expectNoHorizontalScroll(page, 390)).rejects.toThrow(/wide-table/);
   });
+
+  test('fails a page whose unbreakable word overflows a block without widening any element (negative control)', async ({
+    page,
+  }) => {
+    await page.setContent(fixture('unbreakable-at-390.html'));
+    await expect(expectNoHorizontalScroll(page, 390)).rejects.toThrow(/content edge \d+px > viewport 390px/);
+  });
 });
