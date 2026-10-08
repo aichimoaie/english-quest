@@ -5,7 +5,7 @@ Two GitHub Actions workflows live in `.github/workflows/`:
 | Workflow | File | Runs on | Purpose |
 | --- | --- | --- | --- |
 | PR checks | `pr-checks.yml` | pull requests to `main` | Lint, type check, unit tests, and infra format and validate |
-| Deploy | `deploy.yml` | push to `main` that touches `infra/**`, or manual run | Plan and apply OpenTofu for `dev`, then `prod` |
+| Deploy | `deploy.yml` | push to `main` that touches `infra/**` | Plan and apply OpenTofu for `dev`, then `prod` |
 
 ## PR checks
 
@@ -38,30 +38,32 @@ Until these land, a PR that touches an area whose job depends on a pending item 
 
 ## Deploy
 
-`deploy.yml` plans and applies `infra/envs/dev`, then `infra/envs/prod`. The matrix uses `max-parallel: 1`, so prod waits for dev and stops if dev fails.
+`deploy.yml` has four jobs in this order: `plan-dev`, `apply-dev`, `plan-prod`, `apply-prod`. Each plan job runs `tofu init` and `tofu plan -out=tfplan`, then uploads `tfplan` as a workflow artifact. Each apply job downloads that artifact and runs `tofu apply tfplan`. `plan-prod` needs `apply-dev`, so a failed dev apply stops prod.
 
-The job does nothing unless the repository variable `DEPLOY_ENABLED` is `"true"`. The job also requires `refs/heads/main`.
+The plan jobs have no GitHub environment, so they do not wait for reviewers. The apply jobs use the `dev` and `prod` environments, so required reviewers approve the apply after they can read the plan. The artifact is kept for seven days.
+
+The jobs do nothing unless the repository variable `DEPLOY_ENABLED` is `"true"`. The jobs also require `refs/heads/main`.
 
 ### Enable it
 
 Do this after workstream 7 is merged and its outputs exist.
 
-1. **Repository variables** (Settings → Secrets and variables → Actions → Variables):
+1. **Repository variables** (Settings → Secrets and variables → Actions → Variables). These are read by the plan jobs, which have no environment:
    - `DEPLOY_ENABLED` = `true`. Leave it unset until the steps below are done.
+   - `AZURE_CLIENT_ID`: the Entra application or managed identity client ID
+   - `AZURE_TENANT_ID`
+   - `AZURE_SUBSCRIPTION_ID`
 2. **Environments** `dev` and `prod` (Settings → Environments):
    - Deployment branches: `main` only.
    - `prod`: required reviewers. Recommended for `dev` too.
-   - Environment variables (not secrets):
-     - `AZURE_CLIENT_ID`: the Entra application or managed identity client ID
-     - `AZURE_TENANT_ID`
-     - `AZURE_SUBSCRIPTION_ID`
-3. **Azure federated credentials** on that identity, one per environment, with the GitHub subject:
-   - `repo:aichimoaie/english-quest:environment:dev`
-   - `repo:aichimoaie/english-quest:environment:prod`
+3. **Azure federated credentials** on that identity, with these GitHub subjects:
+   - `repo:aichimoaie/english-quest:ref:refs/heads/main` for the plan jobs
+   - `repo:aichimoaie/english-quest:environment:dev` for `apply-dev`
+   - `repo:aichimoaie/english-quest:environment:prod` for `apply-prod`
    The identity needs a role on the target resource group.
 4. **Remote state**: `tofu init` in `infra/envs/<env>` needs the state backend. Workstream 7 defines it, and the workflow does not pass backend settings itself. Add them to the workflow only if workstream 7 chooses `-backend-config` flags.
 
-No deploy secrets are stored in the repository. OIDC means no client secret is needed. The azurerm provider reads the `ARM_*` variables set in the job.
+No deploy secrets are stored in the repository. OIDC means no client secret is needed. The azurerm provider reads the `ARM_*` variables set at workflow level.
 
 ### Not yet covered
 

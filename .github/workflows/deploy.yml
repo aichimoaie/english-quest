@@ -10,7 +10,6 @@ on:
     paths:
       - "infra/**"
       - ".github/workflows/deploy.yml"
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -21,29 +20,21 @@ concurrency:
 
 env:
   TOFU_VERSION: "1.13.1"
+  ARM_USE_OIDC: "true"
+  ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+  ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+  ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
 jobs:
-  infra:
-    name: Infra (${{ matrix.environment }})
+  # Plan runs without an environment, so it does not wait for reviewers.
+  # Reviewers approve the apply job, which runs only after they can read the plan.
+  plan-dev:
+    name: Plan (dev)
     if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    # dev first, then prod. A failed dev run stops prod.
-    strategy:
-      fail-fast: true
-      max-parallel: 1
-      matrix:
-        environment: [dev, prod]
-    # Required reviewers and the main-only deployment branch rule live on the
-    # environment in GitHub settings. Prod approval is enforced there.
-    environment: ${{ matrix.environment }}
     permissions:
       contents: read
       id-token: write
-    env:
-      ARM_USE_OIDC: "true"
-      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
-      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
-      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
     steps:
       - uses: actions/checkout@v7
       - name: Azure login (OIDC)
@@ -56,13 +47,109 @@ jobs:
         with:
           tofu_version: ${{ env.TOFU_VERSION }}
       - name: Init
-        working-directory: infra/envs/${{ matrix.environment }}
+        working-directory: infra/envs/dev
         run: tofu init -input=false
       - name: Plan
-        working-directory: infra/envs/${{ matrix.environment }}
+        working-directory: infra/envs/dev
         run: tofu plan -input=false -out=tfplan
+      - uses: actions/upload-artifact@v7
+        with:
+          name: tfplan-dev
+          path: infra/envs/dev/tfplan
+          retention-days: 7
+
+  apply-dev:
+    name: Apply (dev)
+    needs: plan-dev
+    if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: dev
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: tfplan-dev
+          path: infra/envs/dev
+      - name: Azure login (OIDC)
+        uses: azure/login@v3
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - uses: opentofu/setup-opentofu@v2
+        with:
+          tofu_version: ${{ env.TOFU_VERSION }}
+      - name: Init
+        working-directory: infra/envs/dev
+        run: tofu init -input=false
       - name: Apply
-        working-directory: infra/envs/${{ matrix.environment }}
+        working-directory: infra/envs/dev
+        run: tofu apply -input=false tfplan
+
+  # Prod is planned only after dev is applied, so a failed dev run stops prod.
+  plan-prod:
+    name: Plan (prod)
+    needs: apply-dev
+    if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - name: Azure login (OIDC)
+        uses: azure/login@v3
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - uses: opentofu/setup-opentofu@v2
+        with:
+          tofu_version: ${{ env.TOFU_VERSION }}
+      - name: Init
+        working-directory: infra/envs/prod
+        run: tofu init -input=false
+      - name: Plan
+        working-directory: infra/envs/prod
+        run: tofu plan -input=false -out=tfplan
+      - uses: actions/upload-artifact@v7
+        with:
+          name: tfplan-prod
+          path: infra/envs/prod/tfplan
+          retention-days: 7
+
+  apply-prod:
+    name: Apply (prod)
+    needs: plan-prod
+    if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: prod
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: tfplan-prod
+          path: infra/envs/prod
+      - name: Azure login (OIDC)
+        uses: azure/login@v3
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - uses: opentofu/setup-opentofu@v2
+        with:
+          tofu_version: ${{ env.TOFU_VERSION }}
+      - name: Init
+        working-directory: infra/envs/prod
+        run: tofu init -input=false
+      - name: Apply
+        working-directory: infra/envs/prod
         run: tofu apply -input=false tfplan
 
   # Application deploys (static export to Static Web Apps, API image to Container
