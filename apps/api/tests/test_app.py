@@ -189,6 +189,7 @@ def test_settings_refuse_empty_or_wildcard_values(
         "https://app.example.com:",
         "https://app.example.com:abc",
         "https://app.example.com:²",
+        "http://[::1]:3000",
     ],
 )
 def test_settings_refuse_origins_not_in_scheme_host_port_form(
@@ -201,9 +202,7 @@ def test_settings_refuse_origins_not_in_scheme_host_port_form(
         Settings()
 
 
-@pytest.mark.parametrize(
-    "origin", ["https://app.example.com:8443", "http://localhost:3000", "http://[::1]:3000"]
-)
+@pytest.mark.parametrize("origin", ["https://app.example.com:8443", "http://localhost:3000"])
 def test_settings_accept_scheme_host_port_origin(
     isolated_cwd: Path, monkeypatch: pytest.MonkeyPatch, origin: str
 ) -> None:
