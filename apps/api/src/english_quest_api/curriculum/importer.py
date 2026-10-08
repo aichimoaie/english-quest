@@ -1,8 +1,8 @@
 """Idempotent import of validated day content, keyed by content hash.
 
-`ContentStore` is a port. The database binding is deferred to the database
-integration (workstream 3) and is not part of this module. Importing the same
-content twice writes nothing the second time.
+`ContentStore` is a port. Only the port exists in this change; the database
+binding is deferred to the database integration. Importing the same content
+twice writes nothing the second time.
 """
 
 from collections.abc import Iterable
