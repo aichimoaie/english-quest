@@ -154,6 +154,16 @@ RULE_CASES = [
         id="spelling-empty-accepted-set",
     ),
     pytest.param(
+        _set(PRONUNCIATION, "self_rating", "got_it"),
+        "Extra inputs are not permitted",
+        id="pronunciation-self-rating-not-authored",
+    ),
+    pytest.param(
+        _set(SPELLING, "near_miss_credit", 0.5),
+        "Extra inputs are not permitted",
+        id="spelling-partial-credit-rejected",
+    ),
+    pytest.param(
         _set(0, "learning_area", "Speaking"),
         "Input should be 'Pronunciation'",
         id="unknown-learning-area",

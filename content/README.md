@@ -74,6 +74,20 @@ Every exercise also needs `id`, `learning_area`, `origin: original`, `topics`
 The grader compares a typed answer with `accepted` ignoring letter case and
 surrounding spaces. Everything else must match (PRD section 5).
 
+## Scoring
+
+Captain decisions that apply to content (recorded on the task):
+
+- **Spelling is all-or-nothing.** `spelling_correction` items give full points
+  for an accepted spelling and no points otherwise. Authors must not add
+  near-miss or partial-credit fields; the schema rejects unknown keys.
+- **Pronunciation recognition counts toward stored accuracy.** A
+  `pronunciation_practice` item is scored on its recognition choice, so it
+  carries `points` like any other item (at least 1).
+- **Self-rating is not scored.** The learner's rating after a pronunciation item
+  is recorded for progress only. It is not authored in the content and gives no
+  points.
+
 ## Content rules
 
 - **Original wording only.** Write every word, example and explanation for this
