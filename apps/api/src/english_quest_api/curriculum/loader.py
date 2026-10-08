@@ -28,7 +28,12 @@ class _UniqueKeyLoader(yaml.SafeLoader):
             seen: set[Hashable] = set()
             for key_node, _ in node.value:
                 if key_node.tag == MERGE_TAG:
-                    continue
+                    raise yaml.constructor.ConstructorError(
+                        "while constructing a mapping",
+                        node.start_mark,
+                        "merge keys (<<) are not supported",
+                        key_node.start_mark,
+                    )
                 key = self.construct_object(key_node, deep=deep)
                 if isinstance(key, Hashable):
                     if key in seen:

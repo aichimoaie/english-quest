@@ -251,6 +251,16 @@ def test_impossible_date_is_reported_not_raised(content_dir: Path) -> None:
     assert "invalid YAML" in _messages(report.issues)
 
 
+def test_merge_key_is_rejected_not_applied(content_dir: Path) -> None:
+    (content_dir / "day-01.yaml").write_text(
+        "day: 1\ntitle: Greetings\n<<: {day: 2}\n", encoding="utf-8"
+    )
+    report = validate_content_dir(content_dir)
+
+    assert not report.ok
+    assert "merge keys (<<) are not supported" in _messages(report.issues)
+
+
 def test_top_level_must_be_a_mapping(content_dir: Path) -> None:
     (content_dir / "day-01.yaml").write_text("- one\n- two\n", encoding="utf-8")
     report = validate_content_dir(content_dir)
