@@ -11,6 +11,7 @@ from sqlalchemy import Connection, Engine, insert, text
 from sqlalchemy.exc import DBAPIError
 
 from english_quest_api.db import models
+from learner_seed import ensure_learner
 
 HASH = "0" * 64
 
@@ -196,15 +197,13 @@ def test_only_one_learner_can_exist(conn: Connection, seed: dict[str, Any]) -> N
     )
 
 
-def test_learner_seed_is_safe_to_repeat(conn: Connection, seed_learner: Callable[[Connection], uuid.UUID]) -> None:
-    first = seed_learner(conn)
-    assert seed_learner(conn) == first
+def test_learner_seed_is_safe_to_repeat(conn: Connection) -> None:
+    first = ensure_learner(conn)
+    assert ensure_learner(conn) == first
     assert conn.execute(text("SELECT count(*) FROM users")).scalar_one() == 1
 
 
-def test_concurrent_learner_seeds_converge_on_one_learner(
-    engine: Engine, seed_learner: Callable[[Connection], uuid.UUID]
-) -> None:
+def test_concurrent_learner_seeds_converge_on_one_learner(engine: Engine) -> None:
     holder = engine.connect()
     waiter = engine.connect()
     holder_transaction = holder.begin()
@@ -213,12 +212,12 @@ def test_concurrent_learner_seeds_converge_on_one_learner(
     def seed_from_waiter() -> None:
         try:
             with waiter.begin():
-                outcome["learner_id"] = seed_learner(waiter)
+                outcome["learner_id"] = ensure_learner(waiter)
         except Exception as error:
             outcome["error"] = error
 
     try:
-        holder_learner = seed_learner(holder)
+        holder_learner = ensure_learner(holder)
         thread = threading.Thread(target=seed_from_waiter)
         thread.start()
         holder_transaction.commit()
