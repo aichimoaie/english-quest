@@ -2,8 +2,8 @@ import { expect, type Page } from '@playwright/test';
 import { PHONE_WIDTH_PX, isHorizontallyOverflowing } from './overflow';
 
 /**
- * Sets the viewport to the phone width, then fails if any element's right edge passes the viewport,
- * including content hidden by an overflow:hidden ancestor. The offending elements are included in
+ * Sets the viewport to the phone width, then fails if any element's right edge, or the document's own
+ * scroll width, passes the viewport. Content hidden by an overflow:hidden ancestor still counts. The offending elements are included in
  * the failure message, so a fix can start from the selector rather than from a guess.
  */
 export async function expectNoHorizontalScroll(page: Page, width = PHONE_WIDTH_PX) {
@@ -13,10 +13,11 @@ export async function expectNoHorizontalScroll(page: Page, width = PHONE_WIDTH_P
   const measurement = await page.evaluate(() => {
     const viewportWidth = document.documentElement.clientWidth;
     const elements = Array.from(document.body.querySelectorAll<HTMLElement>('*'));
-    const contentWidth = elements.reduce(
+    const widestElementEdge = elements.reduce(
       (widest, element) => Math.max(widest, element.getBoundingClientRect().right),
       0,
     );
+    const contentWidth = Math.max(document.documentElement.scrollWidth, widestElementEdge);
     const offenders = elements
       .filter((element) => element.getBoundingClientRect().right > viewportWidth + 1)
       .slice(0, 5)

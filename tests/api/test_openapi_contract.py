@@ -22,19 +22,22 @@ if not API_MAIN.exists():
     pytest.skip("Needs apps/api (workstream 2, backend foundation) on main", allow_module_level=True)
 
 TEST_DATABASE_URL = os.environ.get("EQ_TEST_DATABASE_URL")
-if not TEST_DATABASE_URL:
-    pytest.fail(
-        "Set EQ_TEST_DATABASE_URL to the dedicated test PostgreSQL database. The contract run writes to it.",
-        pytrace=False,
-    )
-os.environ["DATABASE_URL"] = TEST_DATABASE_URL
-subprocess.run(["uv", "run", "--project", "apps/api", "alembic", "upgrade", "head"], cwd=REPO_ROOT, check=True)
+if TEST_DATABASE_URL:
+    os.environ["DATABASE_URL"] = TEST_DATABASE_URL
+    subprocess.run(["uv", "run", "--project", "apps/api", "alembic", "upgrade", "head"], cwd=REPO_ROOT, check=True)
 
-from english_quest_api.main import create_app  # noqa: E402
+    from english_quest_api.main import create_app  # noqa: E402
 
-schema = contract_schema(create_app())
+    schema = contract_schema(create_app())
 
+    @schema.parametrize()
+    def test_api_responses_match_its_openapi_document(case: Any) -> None:
+        validate_case(case)
 
-@schema.parametrize()
-def test_api_responses_match_its_openapi_document(case: Any) -> None:
-    validate_case(case)
+else:
+
+    def test_api_responses_match_its_openapi_document() -> None:
+        pytest.fail(
+            "Set EQ_TEST_DATABASE_URL to the dedicated test PostgreSQL database. The contract run writes to it.",
+            pytrace=False,
+        )
