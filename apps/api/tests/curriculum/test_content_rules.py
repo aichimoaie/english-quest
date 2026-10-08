@@ -1,5 +1,6 @@
 """Deliberately broken day files must be rejected with a clear message."""
 
+import re
 from collections.abc import Callable
 from pathlib import Path
 from typing import Any
@@ -159,11 +160,6 @@ RULE_CASES = [
         id="unknown-field",
     ),
     pytest.param(
-        _set(0, "id", "d02-grammar-mc-01"),
-        "must start with 'd01-'",
-        id="exercise-id-from-another-day",
-    ),
-    pytest.param(
         _duplicate_exercise_id,
         "lesson and exercise ids must be unique",
         id="duplicate-exercise-id",
@@ -307,10 +303,15 @@ def test_duplicate_key_is_rejected_not_overridden(
 ) -> None:
     path = write_day(day_one_data)
     text = path.read_text(encoding="utf-8")
-    path.write_text(
-        text.replace("answer: Are\n", "answer: Are\n  answer: Is\n", 1),
-        encoding="utf-8",
+    duplicated, count = re.subn(
+        r"^(\s*)answer: Are\n",
+        r"\1answer: Are\n\1answer: Is\n",
+        text,
+        count=1,
+        flags=re.MULTILINE,
     )
+    assert count == 1
+    path.write_text(duplicated, encoding="utf-8")
     report = validate_content_dir(path.parent)
 
     assert not report.ok

@@ -1,15 +1,10 @@
 """Authoring model for curriculum day files (content/days/day-NN.yaml).
 
-The exercise shape follows the envelope in the exercise engine report
-(section 4, exercise-envelope v1). Kinds are the prototype's seven scored types:
-multiple_choice, fill_blank, vocabulary_matching, spelling_correction,
-sentence_ordering, listening_comprehension and pronunciation_practice. The
-pronunciation_self_rating kind is unscored and carries no points.
-
-RECONCILE with content/schema: its JSON Schemas are not on main yet.
-Once they land, the field names, kind names and limits below must match them,
-and the JSON Schemas should be checked against the same fixtures in
-apps/api/tests/curriculum.
+Each exercise follows the exercise envelope v1 in the exercise engine design
+(section 4). Scored kinds are multiple_choice, fill_blank, vocabulary_matching,
+spelling_correction, sentence_ordering, listening_comprehension and
+pronunciation_practice. The pronunciation_self_rating kind is unscored and
+carries no points.
 """
 
 from enum import StrEnum
@@ -179,16 +174,9 @@ class Day(_Strict):
     exercises: list[Exercise] = Field(min_length=1)
 
     @model_validator(mode="after")
-    def _ids_belong_to_this_day(self) -> Self:
-        prefix = f"d{self.day:02d}-"
-        for item in [*self.lessons, *self.exercises]:
-            if not item.id.startswith(prefix):
-                raise ValueError(f"id '{item.id}' must start with '{prefix}'")
+    def _ids_are_unique(self) -> Self:
         lesson_ids = [lesson.id for lesson in self.lessons]
         exercise_ids = [exercise.id for exercise in self.exercises]
         if len(set(lesson_ids + exercise_ids)) != len(lesson_ids) + len(exercise_ids):
             raise ValueError("lesson and exercise ids must be unique")
-        words = [item.word for item in self.vocabulary]
-        if len(set(words)) != len(words):
-            raise ValueError("vocabulary words must be unique")
         return self

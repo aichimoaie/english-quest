@@ -6,6 +6,7 @@ import re
 from collections.abc import Hashable
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 import yaml
 from pydantic import ValidationError
@@ -25,7 +26,9 @@ class _UniqueKeyLoader(yaml.SafeLoader):
     overridden by an explicit key.
     """
 
-    def construct_mapping(self, node: yaml.MappingNode, deep: bool = False) -> dict:
+    def construct_mapping(
+        self, node: yaml.MappingNode, deep: bool = False
+    ) -> dict[Hashable, Any]:
         if isinstance(node, yaml.MappingNode):
             seen: set[Hashable] = set()
             for key_node, _ in node.value:
