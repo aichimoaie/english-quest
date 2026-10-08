@@ -10,7 +10,8 @@ checks: browser flows, accessibility, layout at phone width, API contract, and c
 |---|---|---|
 | `package.json` | Test scripts and the JavaScript test toolchain (Playwright, axe, Vitest, TypeScript) | `pnpm install` here |
 | `playwright.config.ts` | Playwright config: `desktop-chrome` and `pixel-7` projects, starts the app when it exists. The root `playwright.config.ts` re-exports it. | `pnpm test:e2e` |
-| `e2e/support/` | Helpers: `axe.ts` (accessibility), `auth.ts` (sign-in), `layout.ts` (no horizontal scroll at 390 px), `readiness.ts` (what is on main) | imported by specs |
+| `e2e/support/` | Helpers: `axe.ts` (accessibility), `auth.ts` (sign-in), `layout.ts` (no horizontal scroll at 390 px), `overflow.ts` and `violations.ts` (pure checks, unit-tested), `readiness.ts` (what is on main), `static-server.mjs` (serves the static export) | imported by specs |
+| `e2e/global-setup.ts`, `e2e/global-teardown.ts` | Migrate and seed the test database; remove the per-run output directory | Playwright |
 | `e2e/helpers.spec.ts` | Helper tests with fixed HTML fixtures (`@helper`). Each helper has a negative control. | `pnpm test:e2e:helpers` |
 | `e2e/day-flow.spec.ts` | Smoke test of the day flow through the public UI only (`@smoke`) | `pnpm test:e2e` |
 | `e2e/no-horizontal-scroll.spec.ts` | Every key page at 390 px (`@layout`) | `pnpm test:e2e` |
@@ -37,7 +38,6 @@ pnpm test:e2e                    # all Playwright specs; app-level specs skip un
 Python commands run from the repository root:
 
 ```bash
-
 uv run --project tests pytest -c tests/pytest.ini      # Python tests
 uv run --project tests --with ruff==0.16.10 ruff check tests
 (cd tests && uv run --with mypy==2.4.0 mypy)           # mypy reads its paths from tests/pyproject.toml
@@ -78,6 +78,6 @@ These names come from the architecture report and are not yet on main. Change th
 
 ## Not in this folder
 
-- `.gitignore` entries for `node_modules/` and `.pytest_cache/` (workstream 2 owns `.gitignore`). The root `.gitignore` here only lists the web build output, `apps/web/.next/` and `apps/web/out/`, which a firstmate decision asked for. Traces are off, so typed credentials and cookies never reach a trace. Failure screenshots and error context go to a private per-run temp directory outside the worktree, which each run removes when it ends. CI keeps the HTML report in `playwright-report/` (which the root `.gitignore` lists).
+- `.gitignore` entries for `node_modules/` and `.pytest_cache/` (workstream 2 owns `.gitignore`). The root `.gitignore` lists the web build output (`apps/web/.next/`, `apps/web/out/`) and the CI HTML report (`playwright-report/`). It also lists `test-results/`, which no run writes to now. Traces are off, so typed credentials and cookies never reach a trace. Failure screenshots and error context go to a private per-run temp directory outside the worktree, which each run removes when it ends, in CI as well as locally. CI keeps the HTML report in `playwright-report/`.
 - The CI workflow that runs these commands (workstream 8).
 - The root `package.json` and `pnpm-workspace.yaml` (workstream 1 owns them). This folder keeps its own `package.json` and `uv.lock` so the test tooling does not touch the root manifest. No pnpm lock file is committed here.
