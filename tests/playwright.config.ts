@@ -1,6 +1,7 @@
+import os from 'node:os';
 import path from 'node:path';
 import { defineConfig, devices, type PlaywrightTestConfig } from '@playwright/test';
-import { apiPresent, repoRoot, webAppPresent } from './e2e/support/readiness';
+import { apiPresent, repoRoot, testDatabaseUrl, webAppPresent } from './e2e/support/readiness';
 
 // Browser-level tests live in tests/e2e. Two projects cover the MVP targets: desktop Chrome and
 // Pixel 7 (an emulated phone in Chromium, not a real device).
@@ -8,6 +9,7 @@ import { apiPresent, repoRoot, webAppPresent } from './e2e/support/readiness';
 // Environment variables:
 //   EQ_BASE_URL          run against an already running or deployed web app; no server is started.
 //   EQ_LEARNER_EMAIL     and EQ_LEARNER_PASSWORD: the one learner account for authenticated specs.
+//   EQ_TEST_DATABASE_URL the dedicated database the started API writes to. Never the ambient DATABASE_URL.
 
 const webPort = 3000;
 const apiPort = 8000;
@@ -24,15 +26,26 @@ if (!process.env.EQ_BASE_URL && webAppPresent) {
     timeout: 240_000,
   });
 }
+const apiEnvironment = Object.fromEntries(
+  Object.entries(process.env).filter(
+    (entry): entry is [string, string] => entry[0] !== 'DATABASE_URL' && entry[1] !== undefined,
+  ),
+);
+if (testDatabaseUrl) {
+  apiEnvironment.DATABASE_URL = testDatabaseUrl;
+}
 if (!process.env.EQ_BASE_URL && apiPresent) {
   webServer.push({
     command: `uv run --project apps/api uvicorn english_quest_api.main:create_app --factory --host 127.0.0.1 --port ${apiPort}`,
     cwd: repoRoot,
     url: `http://127.0.0.1:${apiPort}/api/v1/health`,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 120_000,
+    env: apiEnvironment,
   });
 }
+
+const outputRoot = path.join(os.tmpdir(), 'english-quest-e2e');
 
 export default defineConfig({
   testDir: path.join(repoRoot, 'tests/e2e'),
@@ -41,9 +54,11 @@ export default defineConfig({
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 2 : undefined,
-  reporter: process.env.CI ? [['list'], ['html', { open: 'never' }]] : [['list']],
-  // Traces and screenshots of failures. test-results/ and playwright-report/ must be git-ignored.
-  outputDir: path.join(repoRoot, 'tests/test-results'),
+  reporter: process.env.CI
+    ? [['list'], ['html', { open: 'never', outputFolder: path.join(outputRoot, 'report') }]]
+    : [['list']],
+  // Traces and screenshots of failures. They go outside the worktree, so a commit cannot pick them up.
+  outputDir: path.join(outputRoot, 'test-results'),
   expect: { timeout: 10_000 },
   use: {
     baseURL,

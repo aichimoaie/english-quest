@@ -7,6 +7,12 @@ import path from 'node:path';
  */
 export const repoRoot = path.resolve(__dirname, '../../..');
 
+/**
+ * The dedicated database the API may write to during end-to-end runs. Attempts are append-only, so
+ * the smoke test never runs against the ambient DATABASE_URL.
+ */
+export const testDatabaseUrl = process.env.EQ_TEST_DATABASE_URL;
+
 /** Workstream 1 (frontend) owns apps/web; its package manifest marks the app as present. */
 export const webAppPresent = existsSync(path.join(repoRoot, 'apps/web/package.json'));
 

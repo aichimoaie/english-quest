@@ -4,4 +4,4 @@ API_PACKAGE = "english_quest_api"
 
 
 def api_package_is_absent(error: ModuleNotFoundError) -> bool:
-    return (error.name or "").split(".")[0] == API_PACKAGE
+    return error.name == API_PACKAGE

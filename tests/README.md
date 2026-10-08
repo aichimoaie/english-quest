@@ -50,6 +50,7 @@ Playwright uses its bundled Chromium.
 | Variable | Used by | Purpose |
 |---|---|---|
 | `EQ_BASE_URL` | Playwright | Run against a running or deployed web app. No server is started. |
+| `EQ_TEST_DATABASE_URL` | Playwright | The dedicated database the started API and the smoke test use. The API never gets the ambient `DATABASE_URL`, and the smoke test refuses to run without this. |
 | `EQ_LEARNER_EMAIL`, `EQ_LEARNER_PASSWORD` | Playwright | The one learner account for authenticated specs. Never commit them. |
 
 ## What skips, and why
@@ -77,6 +78,6 @@ These names come from the architecture report and are not yet on main. Change th
 
 ## Not in this folder
 
-- `.gitignore` entries for `node_modules/`, `playwright-report/`, `test-results/`, `.pytest_cache/` (workstream 2 owns `.gitignore`).
+- `.gitignore` entries for `node_modules/`, `.pytest_cache/` (workstream 2 owns `.gitignore`). Playwright traces and reports go to the OS temp directory, so they need no entry.
 - The CI workflow that runs these commands (workstream 8).
 - The root `package.json` and `pnpm-workspace.yaml` (workstream 1 owns them). This folder keeps its own `package.json` and `uv.lock` so the test tooling does not touch the root manifest. No pnpm lock file is committed here.
