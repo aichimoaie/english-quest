@@ -1,0 +1,229 @@
+"""Authoring model for curriculum day files (content/days/day-NN.yaml).
+
+The exercise shape follows the envelope in the exercise engine report
+(section 4, exercise-envelope v1). Kinds are the prototype's seven types:
+multiple_choice, fill_blank, vocabulary_matching, spelling_correction,
+sentence_ordering, listening_comprehension and pronunciation_practice.
+
+RECONCILE with workstream 4: content/schema JSON Schemas are not on main yet.
+Once they land, the field names, kind names and limits below must match them,
+and the JSON Schemas should be checked against the same fixtures in
+apps/api/tests/curriculum.
+"""
+
+import re
+from enum import StrEnum
+from typing import Annotated, Literal, Self
+
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Discriminator,
+    Field,
+    StringConstraints,
+    Tag,
+    model_validator,
+)
+
+BLANK_MARKER = "___"
+DAY_MIN = 1
+DAY_MAX = 30
+
+NonBlank = Annotated[str, StringConstraints(min_length=1, pattern=r"\S")]
+EXERCISE_ID = r"^d(\d{2})-[a-z0-9]+(?:-[a-z0-9]+)*$"
+LESSON_ID = r"^d(\d{2})-lesson-[a-z0-9]+(?:-[a-z0-9]+)*$"
+TOPIC = r"^[a-z]+(\.[a-z_]+)+$"
+WORD = r"^[a-z]+(?: [a-z]+)*$"
+
+
+class LearningArea(StrEnum):
+    """The seven learning areas from PRD section 4."""
+
+    PRONUNCIATION = "Pronunciation"
+    GRAMMAR = "Grammar"
+    VOCABULARY = "Vocabulary"
+    SPELLING = "Spelling"
+    LISTENING = "Listening"
+    SENTENCE_CONSTRUCTION = "Sentence construction"
+    REVIEW_AND_RETENTION = "Review and retention"
+
+
+class _Strict(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+
+class LessonCard(_Strict):
+    title: NonBlank
+    body: NonBlank
+    examples: list[NonBlank] = Field(default_factory=list, max_length=3)
+    watch_out: NonBlank | None = None
+
+
+class Lesson(_Strict):
+    id: Annotated[str, StringConstraints(pattern=LESSON_ID)]
+    learning_area: LearningArea
+    title: NonBlank
+    cards: list[LessonCard] = Field(min_length=1, max_length=6)
+
+
+class VocabularyItem(_Strict):
+    word: Annotated[str, StringConstraints(pattern=WORD)]
+    definition: NonBlank
+    example: NonBlank
+
+    @model_validator(mode="after")
+    def _example_uses_word(self) -> Self:
+        if not re.search(rf"\b{re.escape(self.word)}\b", self.example, re.IGNORECASE):
+            raise ValueError(f"example must use the word '{self.word}'")
+        if self.example[-1] not in ".!?":
+            raise ValueError("example must be one sentence ending in . ! or ?")
+        return self
+
+
+class MatchPair(_Strict):
+    word: NonBlank
+    meaning: NonBlank
+
+
+class ExerciseBase(_Strict):
+    id: Annotated[str, StringConstraints(pattern=EXERCISE_ID)]
+    learning_area: LearningArea
+    origin: Literal["original"]
+    topics: list[Annotated[str, StringConstraints(pattern=TOPIC)]] = Field(
+        min_length=1, max_length=4
+    )
+    points: int = Field(ge=1, le=10)
+    prompt: NonBlank
+    explanation: NonBlank
+
+
+class _ChoiceExercise(ExerciseBase):
+    choices: list[NonBlank] = Field(min_length=2, max_length=4)
+    answer: NonBlank
+
+    @model_validator(mode="after")
+    def _exactly_one_correct_answer(self) -> Self:
+        if len(set(self.choices)) != len(self.choices):
+            raise ValueError("choices must be unique")
+        if self.answer not in self.choices:
+            raise ValueError("answer must be one of the choices")
+        return self
+
+
+class MultipleChoiceExercise(_ChoiceExercise):
+    type: Literal["multiple_choice"]
+
+
+class ListeningComprehensionExercise(_ChoiceExercise):
+    type: Literal["listening_comprehension"]
+    audio_text: NonBlank
+
+
+class PronunciationPracticeExercise(_ChoiceExercise):
+    """Recognition only: the learner picks the written sentence they hear."""
+
+    type: Literal["pronunciation_practice"]
+    audio_text: NonBlank
+
+    @model_validator(mode="after")
+    def _audio_matches_answer(self) -> Self:
+        if self.answer != self.audio_text:
+            raise ValueError("answer must match audio_text")
+        return self
+
+
+class FillBlankExercise(ExerciseBase):
+    type: Literal["fill_blank"]
+    accepted: list[NonBlank] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _has_blank(self) -> Self:
+        if BLANK_MARKER not in self.prompt:
+            raise ValueError(f"prompt must contain '{BLANK_MARKER}' for the blank")
+        return self
+
+
+def _normal(text: str) -> str:
+    return " ".join(text.split()).casefold()
+
+
+class SpellingCorrectionExercise(ExerciseBase):
+    type: Literal["spelling_correction"]
+    text: NonBlank
+    accepted: list[NonBlank] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _text_needs_correcting(self) -> Self:
+        if _normal(self.text) in {_normal(a) for a in self.accepted}:
+            raise ValueError("text must differ from the accepted spelling")
+        return self
+
+
+class VocabularyMatchingExercise(ExerciseBase):
+    type: Literal["vocabulary_matching"]
+    pairs: list[MatchPair] = Field(min_length=2, max_length=6)
+
+    @model_validator(mode="after")
+    def _pairs_are_one_to_one(self) -> Self:
+        words = [p.word for p in self.pairs]
+        meanings = [p.meaning for p in self.pairs]
+        if len(set(words)) != len(words):
+            raise ValueError("words must be unique")
+        if len(set(meanings)) != len(meanings):
+            raise ValueError("meanings must be unique")
+        return self
+
+
+class SentenceOrderingExercise(ExerciseBase):
+    type: Literal["sentence_ordering"]
+    tokens: list[NonBlank] = Field(min_length=3, max_length=12)
+    answer: list[NonBlank] = Field(min_length=3)
+
+    @model_validator(mode="after")
+    def _answer_uses_every_token_once(self) -> Self:
+        if sorted(self.answer) != sorted(self.tokens):
+            raise ValueError("answer must use every token exactly once")
+        if self.answer == self.tokens:
+            raise ValueError("tokens must not already be in answer order")
+        return self
+
+
+def _kind(value: object) -> str:
+    if isinstance(value, dict):
+        return str(value.get("type", ""))
+    return str(getattr(value, "type", ""))
+
+
+Exercise = Annotated[
+    Annotated[MultipleChoiceExercise, Tag("multiple_choice")]
+    | Annotated[ListeningComprehensionExercise, Tag("listening_comprehension")]
+    | Annotated[PronunciationPracticeExercise, Tag("pronunciation_practice")]
+    | Annotated[FillBlankExercise, Tag("fill_blank")]
+    | Annotated[SpellingCorrectionExercise, Tag("spelling_correction")]
+    | Annotated[VocabularyMatchingExercise, Tag("vocabulary_matching")]
+    | Annotated[SentenceOrderingExercise, Tag("sentence_ordering")],
+    Discriminator(_kind),
+]
+
+
+class Day(_Strict):
+    day: int = Field(ge=DAY_MIN, le=DAY_MAX)
+    title: NonBlank
+    lessons: list[Lesson] = Field(min_length=1, max_length=4)
+    vocabulary: list[VocabularyItem] = Field(min_length=1, max_length=12)
+    exercises: list[Exercise] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _ids_belong_to_this_day(self) -> Self:
+        prefix = f"d{self.day:02d}-"
+        for item in [*self.lessons, *self.exercises]:
+            if not item.id.startswith(prefix):
+                raise ValueError(f"id '{item.id}' must start with '{prefix}'")
+        lesson_ids = [lesson.id for lesson in self.lessons]
+        exercise_ids = [exercise.id for exercise in self.exercises]
+        if len(set(lesson_ids + exercise_ids)) != len(lesson_ids) + len(exercise_ids):
+            raise ValueError("lesson and exercise ids must be unique")
+        words = [item.word for item in self.vocabulary]
+        if len(set(words)) != len(words):
+            raise ValueError("vocabulary words must be unique")
+        return self

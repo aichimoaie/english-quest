@@ -1,0 +1,304 @@
+"""Deliberately broken day files must be rejected with a clear message."""
+
+from collections.abc import Callable
+from pathlib import Path
+from typing import Any
+
+import pytest
+
+from english_quest_api.curriculum import ContentIssue, validate_content_dir
+from english_quest_api.curriculum.__main__ import main
+
+Data = dict[str, Any]
+Mutation = Callable[[Data], None]
+
+# Index of each Day 1 exercise in content/days/day-01.yaml.
+MULTIPLE_CHOICE = 0
+FILL_BLANK = 1
+LISTENING = 3
+PRONUNCIATION = 4
+MATCHING = 5
+ORDERING = 6
+SPELLING = 7
+
+
+def _exercise(data: Data, index: int) -> Data:
+    exercise: Data = data["exercises"][index]
+    return exercise
+
+
+def _messages(issues: tuple[ContentIssue, ...]) -> str:
+    return "\n".join(str(issue) for issue in issues)
+
+
+def _set(index: int, key: str, value: Any) -> Mutation:
+    def mutate(data: Data) -> None:
+        _exercise(data, index)[key] = value
+
+    return mutate
+
+
+def _del(index: int, key: str) -> Mutation:
+    def mutate(data: Data) -> None:
+        del _exercise(data, index)[key]
+
+    return mutate
+
+
+def _ordering_given_away(data: Data) -> None:
+    exercise = _exercise(data, ORDERING)
+    exercise["tokens"] = list(exercise["answer"])
+
+
+def _duplicate_exercise_id(data: Data) -> None:
+    data["exercises"][FILL_BLANK]["id"] = data["exercises"][MULTIPLE_CHOICE]["id"]
+
+
+def _vocabulary_example(index: int, example: str) -> Mutation:
+    def mutate(data: Data) -> None:
+        data["vocabulary"][index]["example"] = example
+
+    return mutate
+
+
+def _set_day(day: int) -> Mutation:
+    def mutate(data: Data) -> None:
+        data["day"] = day
+
+    return mutate
+
+
+RULE_CASES = [
+    pytest.param(
+        _set(MULTIPLE_CHOICE, "answer", "Be"),
+        "answer must be one of the choices",
+        id="answer-not-in-choices",
+    ),
+    pytest.param(
+        _set(MULTIPLE_CHOICE, "choices", ["Are", "Are", "Is"]),
+        "choices must be unique",
+        id="duplicate-choices",
+    ),
+    pytest.param(
+        _set(MULTIPLE_CHOICE, "choices", ["Am", "Is", "Are", "Be", "Was"]),
+        "List should have at most 4 items",
+        id="too-many-choices",
+    ),
+    pytest.param(
+        _del(MULTIPLE_CHOICE, "answer"),
+        "Field required",
+        id="missing-answer",
+    ),
+    pytest.param(
+        _set(FILL_BLANK, "accepted", []),
+        "List should have at least 1 item",
+        id="fill-blank-empty-accepted-set",
+    ),
+    pytest.param(
+        _set(FILL_BLANK, "prompt", "Complete the sentence."),
+        "prompt must contain '___'",
+        id="fill-blank-without-blank",
+    ),
+    pytest.param(
+        _set(LISTENING, "audio_text", ""),
+        "String should have at least 1 character",
+        id="listening-empty-audio",
+    ),
+    pytest.param(
+        _set(PRONUNCIATION, "answer", "I have a ship."),
+        "answer must match audio_text",
+        id="pronunciation-answer-not-the-audio",
+    ),
+    pytest.param(
+        _set(
+            MATCHING, "pairs", [{"word": "brother", "meaning": "a man in your family"}]
+        ),
+        "List should have at least 2 items",
+        id="matching-too-few-pairs",
+    ),
+    pytest.param(
+        _set(
+            MATCHING,
+            "pairs",
+            [
+                {"word": "brother", "meaning": "a male sibling"},
+                {"word": "sister", "meaning": "a male sibling"},
+            ],
+        ),
+        "meanings must be unique",
+        id="matching-duplicate-meaning",
+    ),
+    pytest.param(
+        _set(ORDERING, "answer", ["My", "brother", "is", "a"]),
+        "answer must use every token exactly once",
+        id="ordering-token-dropped",
+    ),
+    pytest.param(
+        _set(ORDERING, "answer", ["My", "brother", "is", "a", "doctor.", "doctor."]),
+        "answer must use every token exactly once",
+        id="ordering-token-repeated",
+    ),
+    pytest.param(
+        _ordering_given_away,
+        "tokens must not already be in answer order",
+        id="ordering-given-away",
+    ),
+    pytest.param(
+        _set(SPELLING, "text", "We drink coffee in the morning."),
+        "text must differ from the accepted spelling",
+        id="spelling-text-already-correct",
+    ),
+    pytest.param(
+        _set(SPELLING, "accepted", []),
+        "List should have at least 1 item",
+        id="spelling-empty-accepted-set",
+    ),
+    pytest.param(
+        _set(0, "learning_area", "Speaking"),
+        "Input should be 'Pronunciation'",
+        id="unknown-learning-area",
+    ),
+    pytest.param(
+        _set(0, "origin", "adapted"),
+        "Input should be 'original'",
+        id="origin-not-original",
+    ),
+    pytest.param(
+        _del(0, "explanation"),
+        "Field required",
+        id="missing-explanation",
+    ),
+    pytest.param(
+        _set(0, "points", 0),
+        "Input should be greater than or equal to 1",
+        id="zero-points",
+    ),
+    pytest.param(
+        _set(0, "topics", ["Grammar"]),
+        "String should match pattern",
+        id="topic-not-dotted",
+    ),
+    pytest.param(
+        _set(0, "hint", "Think about the subject."),
+        "Extra inputs are not permitted",
+        id="unknown-field",
+    ),
+    pytest.param(
+        _set(0, "id", "d02-grammar-mc-01"),
+        "must start with 'd01-'",
+        id="exercise-id-from-another-day",
+    ),
+    pytest.param(
+        _duplicate_exercise_id,
+        "lesson and exercise ids must be unique",
+        id="duplicate-exercise-id",
+    ),
+    pytest.param(
+        _vocabulary_example(0, "My sibling is taller than me."),
+        "example must use the word 'brother'",
+        id="vocabulary-example-without-word",
+    ),
+    pytest.param(
+        _vocabulary_example(0, "My brother is taller than me"),
+        "example must be one sentence ending in . ! or ?",
+        id="vocabulary-example-without-full-stop",
+    ),
+    pytest.param(
+        _set_day(31),
+        "Input should be less than or equal to 30",
+        id="day-above-thirty",
+    ),
+    pytest.param(
+        _set_day(0),
+        "Input should be greater than or equal to 1",
+        id="day-below-one",
+    ),
+]
+
+
+@pytest.mark.parametrize(("mutate", "expected"), RULE_CASES)
+def test_broken_day_is_rejected(
+    day_one_data: Data,
+    write_day: Callable[..., Path],
+    mutate: Mutation,
+    expected: str,
+) -> None:
+    mutate(day_one_data)
+    report = validate_content_dir(write_day(day_one_data).parent)
+
+    assert not report.ok
+    assert expected in _messages(report.issues)
+
+
+def test_issue_points_at_the_exercise(
+    day_one_data: Data, write_day: Callable[..., Path]
+) -> None:
+    _set(MULTIPLE_CHOICE, "answer", "Be")(day_one_data)
+    report = validate_content_dir(write_day(day_one_data).parent)
+
+    assert len(report.issues) == 1
+    assert report.issues[0].path == "day-01.yaml"
+    assert report.issues[0].location.startswith("exercises.0")
+
+
+def test_every_problem_in_one_run_is_reported(
+    day_one_data: Data, write_day: Callable[..., Path]
+) -> None:
+    _set(MULTIPLE_CHOICE, "answer", "Be")(day_one_data)
+    _set(FILL_BLANK, "accepted", [])(day_one_data)
+    report = validate_content_dir(write_day(day_one_data).parent)
+
+    assert len(report.issues) >= 2
+    assert "answer must be one of the choices" in _messages(report.issues)
+    assert "List should have at least 1 item" in _messages(report.issues)
+
+
+def test_file_name_must_match_day_number(
+    day_one_data: Data, write_day: Callable[..., Path]
+) -> None:
+    report = validate_content_dir(write_day(day_one_data, name="day-02.yaml").parent)
+
+    assert "does not match file name day-02.yaml" in _messages(report.issues)
+
+
+def test_file_name_must_follow_the_pattern(
+    day_one_data: Data, write_day: Callable[..., Path]
+) -> None:
+    report = validate_content_dir(write_day(day_one_data, name="lesson.yaml").parent)
+
+    assert "file name must be day-NN.yaml" in _messages(report.issues)
+
+
+def test_invalid_yaml_is_reported_not_raised(content_dir: Path) -> None:
+    (content_dir / "day-01.yaml").write_text("day: [1, 2\n", encoding="utf-8")
+    report = validate_content_dir(content_dir)
+
+    assert "invalid YAML" in _messages(report.issues)
+
+
+def test_top_level_must_be_a_mapping(content_dir: Path) -> None:
+    (content_dir / "day-01.yaml").write_text("- one\n- two\n", encoding="utf-8")
+    report = validate_content_dir(content_dir)
+
+    assert "top level must be a mapping" in _messages(report.issues)
+
+
+def test_empty_directory_is_reported(content_dir: Path) -> None:
+    report = validate_content_dir(content_dir)
+
+    assert "no day files found" in _messages(report.issues)
+
+
+def test_cli_exit_code_follows_validity(
+    day_one_data: Data,
+    write_day: Callable[..., Path],
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    directory = write_day(day_one_data).parent
+    assert main(["validate", str(directory)]) == 0
+    assert "ok: 1 day file(s) valid (days 1)" in capsys.readouterr().out
+
+    _set(MULTIPLE_CHOICE, "answer", "Be")(day_one_data)
+    write_day(day_one_data)
+    assert main(["validate", str(directory)]) == 1
+    assert "answer must be one of the choices" in capsys.readouterr().err
