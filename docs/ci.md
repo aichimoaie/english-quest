@@ -40,10 +40,8 @@ Until these land, a PR that touches an area whose job depends on a pending item 
 
 `deploy.yml` has four jobs in this order: `plan-dev`, `apply-dev`, `plan-prod`, `apply-prod`. `plan-prod` needs `apply-dev`, so a failed dev apply stops prod.
 
-- **Plan jobs** (`plan-dev`, `plan-prod`) have no GitHub environment, so they do not wait for reviewers. They log in with a read-only identity from the repository variable `AZURE_PLAN_CLIENT_ID`, run `tofu init` and `tofu plan -out=tfplan`, write `tofu show -no-color tfplan` to the run's step summary, and upload `tfplan` as a workflow artifact. The plan job never uses the apply identity. The read-only identity may not be able to take the state lock. That is a workstream 7 decision to resolve, not something to widen here.
-- **Apply jobs** (`apply-dev`, `apply-prod`) run in the `dev` or `prod` environment, so required reviewers approve them. Reviewers read the plan summary on the run page before they approve. The apply job downloads the artifact and runs `tofu apply tfplan` with the environment's identity. The artifact is kept for seven days.
-
-The plan summary is visible to anyone who can read the run, and a plan can contain sensitive values.
+- **Plan jobs** (`plan-dev`, `plan-prod`) have no GitHub environment, so they do not wait for reviewers. Each logs in with a read-only identity for its own environment: `AZURE_DEV_PLAN_CLIENT_ID` for dev and `AZURE_PROD_PLAN_CLIENT_ID` for prod. Each identity can read only its environment's state container and writes nothing. The plan job never uses an apply identity. It runs `tofu init` and `tofu plan -lock=false -out=tfplan`. The plan is unlocked because a lock is a write. Apply still uses the saved `tfplan`, which Terraform checks against the current state serial, so a plan made unlocked cannot be applied over changed state. The step summary lists only resource addresses and planned actions, generated with `jq` from `tofu show -json tfplan`. It has no attribute values. The job uploads `tfplan` as an artifact kept for one day. The artifact still contains values, and repository members with Actions access can download it.
+- **Apply jobs** (`apply-dev`, `apply-prod`) run in the `dev` or `prod` environment, so required reviewers approve them. Reviewers read the redacted plan summary on the run page before they approve. The apply job downloads the artifact and runs `tofu apply tfplan` with the environment's apply identity.
 
 The jobs do nothing unless the repository variable `DEPLOY_ENABLED` is `"true"`. The jobs also require `refs/heads/main`.
 
@@ -53,7 +51,8 @@ Do this after workstream 7 is merged and its outputs exist.
 
 1. **Repository variables** (Settings → Secrets and variables → Actions → Variables):
    - `DEPLOY_ENABLED` = `true`. Leave it unset until the steps below are done.
-   - `AZURE_PLAN_CLIENT_ID`: the client ID of the read-only identity used by the plan jobs
+   - `AZURE_DEV_PLAN_CLIENT_ID`: the client ID of the read-only identity for dev plans
+   - `AZURE_PROD_PLAN_CLIENT_ID`: the client ID of the read-only identity for prod plans
    - `AZURE_TENANT_ID`
    - `AZURE_SUBSCRIPTION_ID`
 2. **Environments** `dev` and `prod` (Settings → Environments):
@@ -62,11 +61,11 @@ Do this after workstream 7 is merged and its outputs exist.
    - Environment variable (not secret), set on each environment with its own apply identity:
      - `AZURE_CLIENT_ID`: the Entra application or managed identity client ID for that environment's apply jobs
 3. **Azure federated credentials**:
-   - On the read-only plan identity, one credential with the GitHub subject `repo:aichimoaie/english-quest:ref:refs/heads/main`. Grant it read access only.
+   - On each read-only plan identity, one credential with the GitHub subject `repo:aichimoaie/english-quest:ref:refs/heads/main`. Scope the role to the state container of its environment only, with read access.
    - On each apply identity, one credential per environment:
      - `repo:aichimoaie/english-quest:environment:dev` for `apply-dev`
      - `repo:aichimoaie/english-quest:environment:prod` for `apply-prod`
-   The apply identities need a role on the target resource group.
+   The apply identities need a role on the target resource group. Workstream 7 must confirm that an unlocked plan with read-only state access works. The read-only identity may not be able to take the state lock, and that is a workstream 7 decision to resolve, not something to widen here.
 4. **Remote state**: `tofu init` in `infra/envs/<env>` needs the state backend. Workstream 7 defines it, and the workflow does not pass backend settings itself. Add them to the workflow only if workstream 7 chooses `-backend-config` flags.
 
 No deploy secrets are stored in the repository. OIDC means no client secret is needed. The azurerm provider reads the `ARM_*` variables set in each job from its identity variables.
