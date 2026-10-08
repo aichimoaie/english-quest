@@ -156,6 +156,27 @@ def test_settings_refuse_to_load_without_database_url_and_web_origin(
         Settings()
 
 
+@pytest.mark.parametrize(
+    "environment_values",
+    [
+        {"DATABASE_URL": "", "CORS_ALLOWED_ORIGINS": "https://app.example.com"},
+        {"DATABASE_URL": DATABASE_URL, "CORS_ALLOWED_ORIGINS": ""},
+        {"DATABASE_URL": DATABASE_URL, "CORS_ALLOWED_ORIGINS": " , "},
+        {"DATABASE_URL": DATABASE_URL, "CORS_ALLOWED_ORIGINS": "*"},
+        {"DATABASE_URL": DATABASE_URL, "CORS_ALLOWED_ORIGINS": "https://app.example.com,*"},
+        {"DATABASE_URL": DATABASE_URL, "CORS_ALLOWED_ORIGINS": "app.example.com"},
+    ],
+)
+def test_settings_refuse_empty_or_wildcard_values(
+    isolated_cwd: Path, monkeypatch: pytest.MonkeyPatch, environment_values: dict[str, str]
+) -> None:
+    for name, value in environment_values.items():
+        monkeypatch.setenv(name, value)
+
+    with pytest.raises(ValidationError):
+        Settings()
+
+
 def test_openapi_lists_the_section_6_surface(client: TestClient) -> None:
     paths = set(client.get("/openapi.json").json()["paths"])
 

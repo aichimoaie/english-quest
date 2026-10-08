@@ -1,7 +1,8 @@
 from functools import lru_cache
 from typing import Annotated
+from urllib.parse import urlsplit
 
-from pydantic import field_validator
+from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
@@ -16,7 +17,7 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    database_url: str
+    database_url: str = Field(min_length=1)
     # Comma-separated in the environment, e.g. CORS_ALLOWED_ORIGINS=https://app.example.com
     cors_allowed_origins: Annotated[list[str], NoDecode]
 
@@ -26,6 +27,17 @@ class Settings(BaseSettings):
         if isinstance(value, str):
             return [origin.strip() for origin in value.split(",") if origin.strip()]
         return value
+
+    @field_validator("cors_allowed_origins")
+    @classmethod
+    def _require_concrete_origins(cls, origins: list[str]) -> list[str]:
+        if not origins:
+            raise ValueError("at least one web origin is required")
+        for origin in origins:
+            parts = urlsplit(origin)
+            if parts.scheme not in ("http", "https") or not parts.netloc:
+                raise ValueError(f"not a concrete http or https origin: {origin!r}")
+        return origins
 
 
 @lru_cache
