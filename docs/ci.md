@@ -40,7 +40,7 @@ Until these land, a PR that touches an area whose job depends on a pending item 
 
 `deploy.yml` has four jobs in this order: `plan-dev`, `apply-dev`, `plan-prod`, `apply-prod`. Each plan job runs `tofu init` and `tofu plan -out=tfplan`, then uploads `tfplan` as a workflow artifact. Each apply job downloads that artifact and runs `tofu apply tfplan`. `plan-prod` needs `apply-dev`, so a failed dev apply stops prod.
 
-The plan jobs have no GitHub environment, so they do not wait for reviewers. The apply jobs use the `dev` and `prod` environments, so required reviewers approve the apply after they can read the plan. The artifact is kept for seven days.
+Every job runs in its environment (`dev` or `prod`), so each uses only that environment's Azure identity variables and federated credential. Required reviewers on an environment therefore approve its plan job as well as its apply job. The apply job is approved after the reviewer can read the plan. The artifact is kept for seven days.
 
 The jobs do nothing unless the repository variable `DEPLOY_ENABLED` is `"true"`. The jobs also require `refs/heads/main`.
 
@@ -48,22 +48,22 @@ The jobs do nothing unless the repository variable `DEPLOY_ENABLED` is `"true"`.
 
 Do this after workstream 7 is merged and its outputs exist.
 
-1. **Repository variables** (Settings → Secrets and variables → Actions → Variables). These are read by the plan jobs, which have no environment:
+1. **Repository variable** (Settings → Secrets and variables → Actions → Variables):
    - `DEPLOY_ENABLED` = `true`. Leave it unset until the steps below are done.
-   - `AZURE_CLIENT_ID`: the Entra application or managed identity client ID
-   - `AZURE_TENANT_ID`
-   - `AZURE_SUBSCRIPTION_ID`
 2. **Environments** `dev` and `prod` (Settings → Environments):
    - Deployment branches: `main` only.
    - `prod`: required reviewers. Recommended for `dev` too.
-3. **Azure federated credentials** on that identity, with these GitHub subjects:
-   - `repo:aichimoaie/english-quest:ref:refs/heads/main` for the plan jobs
-   - `repo:aichimoaie/english-quest:environment:dev` for `apply-dev`
-   - `repo:aichimoaie/english-quest:environment:prod` for `apply-prod`
+   - Environment variables (not secrets), set on each environment with its own identity:
+     - `AZURE_CLIENT_ID`: the Entra application or managed identity client ID
+     - `AZURE_TENANT_ID`
+     - `AZURE_SUBSCRIPTION_ID`
+3. **Azure federated credentials** on that identity, one per environment, with the GitHub subject:
+   - `repo:aichimoaie/english-quest:environment:dev` for `plan-dev` and `apply-dev`
+   - `repo:aichimoaie/english-quest:environment:prod` for `plan-prod` and `apply-prod`
    The identity needs a role on the target resource group.
 4. **Remote state**: `tofu init` in `infra/envs/<env>` needs the state backend. Workstream 7 defines it, and the workflow does not pass backend settings itself. Add them to the workflow only if workstream 7 chooses `-backend-config` flags.
 
-No deploy secrets are stored in the repository. OIDC means no client secret is needed. The azurerm provider reads the `ARM_*` variables set at workflow level.
+No deploy secrets are stored in the repository. OIDC means no client secret is needed. The azurerm provider reads the `ARM_*` variables set in each job from that job's environment.
 
 ### Not yet covered
 

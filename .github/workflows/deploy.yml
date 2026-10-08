@@ -21,20 +21,23 @@ concurrency:
 env:
   TOFU_VERSION: "1.13.1"
   ARM_USE_OIDC: "true"
-  ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
-  ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
-  ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
 jobs:
-  # Plan runs without an environment, so it does not wait for reviewers.
-  # Reviewers approve the apply job, which runs only after they can read the plan.
+  # Each plan and apply job runs in its environment, so it uses only that
+  # environment's Azure identity variables. Required reviewers on the
+  # environment approve the job before it starts.
   plan-dev:
     name: Plan (dev)
     if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: dev
     permissions:
       contents: read
       id-token: write
+    env:
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
     steps:
       - uses: actions/checkout@v7
       - name: Azure login (OIDC)
@@ -67,6 +70,10 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    env:
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/download-artifact@v8
@@ -95,9 +102,14 @@ jobs:
     needs: apply-dev
     if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: prod
     permissions:
       contents: read
       id-token: write
+    env:
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
     steps:
       - uses: actions/checkout@v7
       - name: Azure login (OIDC)
@@ -130,6 +142,10 @@ jobs:
     permissions:
       contents: read
       id-token: write
+    env:
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/download-artifact@v8
