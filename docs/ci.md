@@ -5,7 +5,7 @@ Two GitHub Actions workflows live in `.github/workflows/`:
 | Workflow | File | Runs on | Purpose |
 | --- | --- | --- | --- |
 | PR checks | `pr-checks.yml` | pull requests to `main` | Lint, type check, unit tests, and infra format and validate |
-| Deploy | `deploy.yml` | push to `main` that touches `infra/**` | Plan and apply OpenTofu for `dev`, then `prod` |
+| Deploy | `deploy.yml` | push to `main` that touches `infra/**` or `deploy.yml` | Plan and apply OpenTofu for `dev`, then `prod` |
 
 ## PR checks
 
@@ -40,7 +40,7 @@ Until these land, a PR that touches an area whose job depends on a pending item 
 
 `deploy.yml` has four jobs in this order: `plan-dev`, `apply-dev`, `plan-prod`, `apply-prod`. `plan-prod` needs `apply-dev`, so a failed dev apply stops prod.
 
-- **Plan jobs** (`plan-dev`, `plan-prod`) have no GitHub environment, so they do not wait for reviewers. Each logs in with a read-only identity for its own environment: `AZURE_DEV_PLAN_CLIENT_ID` for dev and `AZURE_PROD_PLAN_CLIENT_ID` for prod. Each identity has read access to its environment's resource group, which the refreshing plan needs, and read access to its environment's state container. It has no write permission and no permission to read secrets such as keys or connection strings. The plan job never uses an apply identity. It runs `tofu init` and `tofu plan -lock=false -out=tfplan`, and discards the plan's stdout so the job log has no attribute values. Stderr stays visible. The plan is unlocked because a lock is a write. Apply still uses the saved `tfplan`, which Terraform checks against the current state serial, so a plan made unlocked cannot be applied over changed state. The step summary lists only resource addresses and planned actions, generated with `jq` from `tofu show -json tfplan`. It has no attribute values. The job uploads `tfplan` as an artifact kept for one day. The artifact still contains values, and repository members with Actions access can download it.
+- **Plan jobs** (`plan-dev`, `plan-prod`) have no GitHub environment, so they do not wait for reviewers. Each logs in with a read-only identity for its own environment: `AZURE_DEV_PLAN_CLIENT_ID` for dev and `AZURE_PROD_PLAN_CLIENT_ID` for prod. Its role scope (read only, no secret access) is set in step 3 of [Enable it](#enable-it). The plan job never uses an apply identity. It runs `tofu init` and `tofu plan -lock=false -out=tfplan`, and discards the plan's stdout so the job log has no attribute values. Stderr stays visible. The plan is unlocked because a lock is a write. Apply still uses the saved `tfplan`, which Terraform checks against the current state serial, so a plan made unlocked cannot be applied over changed state. The step summary lists only resource addresses and planned actions, generated with `jq` from `tofu show -json tfplan`. It has no attribute values. The job uploads `tfplan` as an artifact kept for one day. The artifact still contains values, and repository members with Actions access can download it.
 - **Apply jobs** (`apply-dev`, `apply-prod`) run in the `dev` or `prod` environment, so required reviewers approve them. Reviewers read the redacted plan summary on the run page before they approve. The apply job downloads the artifact and runs `tofu apply tfplan` with the environment's apply identity.
 
 The jobs do nothing unless the repository variable `DEPLOY_ENABLED` is `"true"`. The jobs also require `refs/heads/main`.
