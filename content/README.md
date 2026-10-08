@@ -107,7 +107,7 @@ follow from them:
 - **Ids are stable.** Changing an id creates a new exercise. Change the content
   of an existing id only to fix an error.
 
-## Reconciliation with content/schema (workstream 4)
+## Reconciliation with content/schema
 
 The validator mirrors exercise envelope v1 from the exercise engine report
 (section 4). The JSON Schemas under `content/schema/` are not on main yet, so

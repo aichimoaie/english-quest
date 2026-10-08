@@ -6,7 +6,7 @@ multiple_choice, fill_blank, vocabulary_matching, spelling_correction,
 sentence_ordering, listening_comprehension and pronunciation_practice. The
 pronunciation_self_rating kind is unscored and carries no points.
 
-RECONCILE with workstream 4: content/schema JSON Schemas are not on main yet.
+RECONCILE with content/schema: its JSON Schemas are not on main yet.
 Once they land, the field names, kind names and limits below must match them,
 and the JSON Schemas should be checked against the same fixtures in
 apps/api/tests/curriculum.
