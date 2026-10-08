@@ -1,0 +1,188 @@
+# Day 2: Possessives: my, your, his, her
+# Authored from scratch for English Quest. Not taken from any published book.
+# Learning objective: Use my, your, his and her before a noun to show who owns something.
+# Status: draft until a human reviewer approves it (PRD section 11).
+day: 2
+title: "Possessives: my, your, his, her"
+
+lessons:
+  - id: d02-lesson-my-your
+    learning_area: Grammar
+    title: "My and your"
+    cards:
+      - title: Possessive words come before a noun
+        body: A possessive word shows who owns something. Put it before the noun it describes, and do not add "a" or "the" before it. "My" is for I, and "your" is for you.
+        examples:
+          - "My bag is red."
+          - "Is this your umbrella?"
+        watch_out: Do not write "a my bag" or "the your bag".
+      - title: The same word for one or many
+        body: The word your does not change for the number of things. Use it with you, whether you talk to one person or to several.
+        examples:
+          - "Your keys are on the table."
+          - "Your bags are in the hall."
+
+  - id: d02-lesson-his-her
+    learning_area: Grammar
+    title: "His and her"
+    cards:
+      - title: Choose his or her by the owner
+        body: Use "his" when the owner is a man or a boy, and "her" when the owner is a woman or a girl. The thing that is owned does not decide the word.
+        examples:
+          - "He loves his new bicycle."
+          - "She forgot her passport."
+        watch_out: Do not write "She forgot his passport." Look at who owns the passport.
+      - title: Look at the owner, not the object
+        body: A notebook can be his or her notebook. Read the sentence to find the owner, then pick the matching word.
+        examples:
+          - "Ben lost his notebook."
+          - "Anna lost her notebook."
+
+vocabulary:
+  - word: backpack
+    definition: a bag that you wear on your back
+    example: My backpack has three pockets.
+    audio_ref: d02-vocab-backpack
+  - word: notebook
+    definition: a small book with empty pages for writing notes
+    example: Her notebook is full of new words.
+    audio_ref: d02-vocab-notebook
+  - word: umbrella
+    definition: something you hold over your head to stay dry in the rain
+    example: Take your umbrella, because it might rain.
+    audio_ref: d02-vocab-umbrella
+  - word: passport
+    definition: an official document that shows who you are when you travel
+    example: His passport expires next year.
+    audio_ref: d02-vocab-passport
+  - word: bicycle
+    definition: a vehicle with two wheels that you pedal
+    example: Our bicycle is in the garage.
+    audio_ref: d02-vocab-bicycle
+  - word: jacket
+    definition: a short coat with sleeves that you wear outside
+    example: Her jacket is warm and green.
+    audio_ref: d02-vocab-jacket
+  - word: wallet
+    definition: a small flat case for money and cards
+    example: Your wallet is on the kitchen counter.
+    audio_ref: d02-vocab-wallet
+  - word: mobile phone
+    definition: a small phone that you can carry with you
+    example: My mobile phone needs charging.
+    audio_ref: d02-vocab-mobile-phone
+
+exercises:
+  - id: d02-grammar-mc-01
+    type: multiple_choice
+    learning_area: Grammar
+    origin: original
+    topics:
+      - grammar.possessive.determiner
+    points: 1
+    prompt: "Choose the correct word: ___ name is Lena."
+    choices:
+      - My
+      - Me
+      - I
+    answer: My
+    explanation: "\"My\" is a possessive word, so it goes before the noun \"name\". \"Me\" and \"I\" are pronouns, not possessive words."
+
+  - id: d02-grammar-mc-02
+    type: multiple_choice
+    learning_area: Grammar
+    origin: original
+    topics:
+      - grammar.possessive.determiner
+    points: 1
+    prompt: Which sentence is correct?
+    choices:
+      - She dog is friendly.
+      - Her dog is friendly.
+      - Hers dog is friendly.
+    answer: Her dog is friendly.
+    explanation: "\"Her\" comes before the noun \"dog\". \"Hers\" stands alone, as in \"The dog is hers.\""
+
+  - id: d02-grammar-fill-01
+    type: fill_blank
+    learning_area: Grammar
+    origin: original
+    topics:
+      - grammar.possessive.his_her
+    points: 1
+    prompt: "Fill in the blank: Tom lost ___ keys on the bus."
+    accepted:
+      - his
+    explanation: "Tom is a man, so the owner word is \"his\". Use \"her\" when the owner is a woman or a girl."
+
+  - id: d02-vocabulary-match-01
+    type: vocabulary_matching
+    learning_area: Vocabulary
+    origin: original
+    topics:
+      - vocabulary.everyday_objects
+    points: 4
+    prompt: Match each word with its meaning.
+    pairs:
+      - word: backpack
+        meaning: a bag that you wear on your back
+      - word: notebook
+        meaning: a small book with empty pages for writing notes
+      - word: umbrella
+        meaning: something you hold over your head to stay dry in the rain
+      - word: passport
+        meaning: an official document that shows who you are when you travel
+    explanation: Each word names a thing you carry or use. Read the meanings again if you are unsure.
+
+  - id: d02-spelling-01
+    type: spelling_correction
+    learning_area: Spelling
+    origin: original
+    topics:
+      - spelling.double_letters
+    points: 1
+    prompt: One word is misspelled. Retype the whole sentence with the word fixed.
+    text: I left my umbrela at the station.
+    accepted:
+      - I left my umbrella at the station.
+    explanation: "\"Umbrella\" has two l's together in the middle. Say it in parts: um-brel-la."
+
+  - id: d02-sentence-order-01
+    type: sentence_ordering
+    learning_area: Sentence construction
+    origin: original
+    topics:
+      - sentence.word_order.basic_clause
+    points: 1
+    prompt: Put the words in the correct order to make one sentence.
+    tokens:
+      - is
+      - door.
+      - by
+      - bicycle
+      - Your
+      - the
+    answer:
+      - Your
+      - bicycle
+      - is
+      - by
+      - the
+      - door.
+    explanation: Start with the owner word "Your" and the noun "bicycle". Then add "is", the place "by the door", and the full stop at the end.
+
+  - id: d02-listening-mc-01
+    type: listening_comprehension
+    learning_area: Listening
+    origin: original
+    topics:
+      - listening.detail
+    points: 1
+    prompt: "Listen, then choose the answer: Whose jacket is it?"
+    audio_text: "Excuse me, is this blue jacket yours? No, it is not mine. I think it belongs to Jen. Her jacket is always blue."
+    choices:
+      - Jen
+      - The speaker
+      - Tom
+    answer: Jen
+    explanation: The speaker says the jacket is not theirs and that it belongs to Jen. Listen for the word that comes after "belongs to".

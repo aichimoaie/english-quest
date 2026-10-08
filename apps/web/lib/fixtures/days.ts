@@ -2,7 +2,7 @@
  * TEMPORARY fixture content for the frontend skeleton. Remove when apps/api serves
  * GET /api/v1/days/{day}. Real curriculum lives in content/days (workstream 6).
  *
- * All wording here is original, written for English Quest. Only day 1 has
+ * All wording here is original, written for English Quest. Days 1 and 2 have
  * exercises; the other days are placeholders until their content is reviewed.
  */
 import type { DaySummary, Exercise, Lesson } from "@/lib/api/types";
@@ -15,7 +15,7 @@ export const DAY_TITLES: { title: string; objective: string }[] = [
   { title: "Present simple: I work", objective: "Use the base verb with I, you, we and they." },
   { title: "Present simple: he, she, it", objective: "Add -s to the verb with he, she and it." },
   { title: "Question words", objective: "Ask who, what, where, when and how." },
-  { title: "Possessives: my, your, his", objective: "Show who owns something." },
+  { title: "Possessives: my, your, his, her", objective: "Use my, your, his and her before a noun to show who owns something." },
   { title: "There is, there are", objective: "Say what exists in a place." },
   { title: "Can and can't", objective: "Talk about ability and rules." },
   { title: "Present continuous", objective: "Describe what is happening now." },
@@ -136,5 +136,104 @@ export const DAY_ONE_EXERCISES: Exercise[] = [
     instructions: "Listen, then choose the word you hear. Then rate your own pronunciation.",
     points: 1,
     content: { audioUrl: null, options: ["ship", "sheep"] },
+  },
+];
+
+export const DAY_TWO_LESSON: Lesson = {
+  vocabulary: [
+    {
+      word: "backpack",
+      definition: "A bag that you wear on your back.",
+      example: "My backpack has three pockets.",
+    },
+    {
+      word: "umbrella",
+      definition: "Something you hold over your head to stay dry in the rain.",
+      example: "Take your umbrella, because it might rain.",
+    },
+    {
+      word: "passport",
+      definition: "An official document that shows who you are when you travel.",
+      example: "His passport expires next year.",
+    },
+  ],
+  grammar: [
+    {
+      title: "My and your",
+      explanation: "Put a possessive word before the noun it describes. Use my for I and your for you.",
+      examples: ["My bag is red.", "Is this your umbrella?"],
+    },
+    {
+      title: "His and her",
+      explanation: "Use his for a man or boy, and her for a woman or girl. Look at the owner, not the object.",
+      examples: ["He loves his new bicycle.", "She forgot her passport."],
+    },
+  ],
+};
+
+export const DAY_TWO_EXERCISES: Exercise[] = [
+  {
+    id: "ex_d2_choice_my",
+    kind: "multiple_choice",
+    instructions: "Pick the word that completes the sentence.",
+    points: 1,
+    content: { prompt: "___ name is Lena.", options: ["My", "Me", "I"] },
+  },
+  {
+    id: "ex_d2_choice_her",
+    kind: "multiple_choice",
+    instructions: "Pick the correct sentence.",
+    points: 1,
+    content: {
+      prompt: "Which sentence is correct?",
+      options: ["She dog is friendly.", "Her dog is friendly.", "Hers dog is friendly."],
+    },
+  },
+  {
+    id: "ex_d2_fill",
+    kind: "fill_blank",
+    instructions: "Type the missing word.",
+    points: 1,
+    content: { sentence: "Tom lost ____ keys on the bus.", hint: "Type one word." },
+  },
+  {
+    id: "ex_d2_match",
+    kind: "vocabulary_matching",
+    instructions: "Match each word to its meaning.",
+    points: 4,
+    content: {
+      words: ["backpack", "notebook", "umbrella", "passport"],
+      meanings: [
+        "an official document that shows who you are when you travel",
+        "a bag that you wear on your back",
+        "a small book with empty pages for writing notes",
+        "something you hold over your head to stay dry in the rain",
+      ],
+    },
+  },
+  {
+    id: "ex_d2_spell",
+    kind: "spelling_correction",
+    instructions: "One word is misspelled. Type the sentence with the word fixed.",
+    points: 1,
+    content: { sentence: "I left my umbrela at the station." },
+  },
+  {
+    id: "ex_d2_order",
+    kind: "sentence_ordering",
+    instructions: "Tap the words in the right order.",
+    points: 1,
+    content: { words: ["is", "door.", "by", "bicycle", "Your", "the"] },
+  },
+  {
+    id: "ex_d2_listen",
+    kind: "listening_comprehension",
+    instructions: "Listen to the clip, then answer the question.",
+    points: 1,
+    content: {
+      audioUrl: null,
+      prompt: "Whose jacket is it?",
+      options: ["Jen", "The speaker", "Tom"],
+    },
   },
 ];
