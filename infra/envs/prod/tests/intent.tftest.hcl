@@ -128,9 +128,9 @@ run "key_vault_uses_rbac" {
   }
 
   variables {
-    name                = "kv-eq-prod-abcde"
-    resource_group_name = "rg-english-quest-prod"
-    location            = "eastus"
+    name                     = "kv-eq-prod-abcde"
+    resource_group_name      = "rg-english-quest-prod"
+    location                 = "eastus"
     purge_protection_enabled = true
   }
 
