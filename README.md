@@ -1,3 +1,55 @@
 # English Quest
 
 A web app for improving English over a 30-day learning journey.
+
+Product requirements: [docs/prd/english-quest-prd.md](docs/prd/english-quest-prd.md).
+Workstream dependency map: [docs/implementation/workstreams.md](docs/implementation/workstreams.md).
+
+## Layout
+
+| Path | What it holds |
+|---|---|
+| `apps/api` | FastAPI service (Python 3.12, uv). |
+| `apps/web` | Next.js web app, static export (workstream 1). |
+| `content/` | Curriculum as reviewed YAML and JSON Schemas (workstreams 4 and 6). |
+| `infra/` | OpenTofu modules and the dev and prod environments (workstream 7). |
+| `docs/` | PRD, implementation notes, and ADRs. |
+
+## Run the API locally
+
+Prerequisites: Python 3.12, [uv](https://docs.astral.sh/uv/), and Docker.
+
+```bash
+cp .env.example .env                 # local settings; .env is git-ignored
+docker compose up -d db              # PostgreSQL 18 on localhost:5432
+cd apps/api
+uv sync                              # install the API and dev tools
+uv run uvicorn english_quest_api.main:create_app --factory --reload --port 8000
+```
+
+Then open <http://localhost:8000/api/v1/health> (returns `{"status": "ok"}`) and <http://localhost:8000/docs>.
+
+## Check the API
+
+Run these from `apps/api`:
+
+```bash
+uv run ruff check . && uv run ruff format --check .   # lint and format
+uv run mypy                                           # type-check src and tests
+uv run pytest                                         # unit tests
+```
+
+## OpenAPI document
+
+The web client is generated from `apps/api/openapi.json`. Regenerate it after any change to the API surface:
+
+```bash
+cd apps/api
+uv run export-openapi                # writes apps/api/openapi.json
+```
+
+`tests/test_app.py` fails if the committed file is out of date.
+
+## Errors
+
+Every error response is an RFC 9457 problem document with content type `application/problem+json`. Routes whose service has not landed yet return `501 Not Implemented` in that format.
