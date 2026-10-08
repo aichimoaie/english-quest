@@ -25,11 +25,23 @@ def test_day_one_passes_validation() -> None:
     assert [loaded.day.day for loaded in report.days] == [1]
 
 
-def test_day_one_uses_the_seven_prototype_exercise_types() -> None:
+def test_day_one_uses_the_seven_prototype_exercise_types_and_self_rating() -> None:
     report = validate_content_dir(CONTENT_DAYS)
     day = report.days[0].day
 
-    assert {exercise.type for exercise in day.exercises} == SEVEN_EXERCISE_TYPES
+    assert {exercise.type for exercise in day.exercises} == SEVEN_EXERCISE_TYPES | {
+        "pronunciation_self_rating"
+    }
+
+
+def test_self_rating_item_validates_and_is_unscored() -> None:
+    report = validate_content_dir(CONTENT_DAYS)
+    day = report.days[0].day
+    self_ratings = [e for e in day.exercises if e.type == "pronunciation_self_rating"]
+
+    assert report.issues == ()
+    assert len(self_ratings) == 1
+    assert "points" not in self_ratings[0].model_dump(mode="json")
 
 
 def test_every_day_one_exercise_is_original_and_explained() -> None:

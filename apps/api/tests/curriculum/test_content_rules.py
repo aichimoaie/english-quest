@@ -7,7 +7,6 @@ from typing import Any
 import pytest
 
 from english_quest_api.curriculum import ContentIssue, validate_content_dir
-from english_quest_api.curriculum.__main__ import main
 
 Data = dict[str, Any]
 Mutation = Callable[[Data], None]
@@ -17,9 +16,10 @@ MULTIPLE_CHOICE = 0
 FILL_BLANK = 1
 LISTENING = 3
 PRONUNCIATION = 4
-MATCHING = 5
-ORDERING = 6
-SPELLING = 7
+SELF_RATING = 5
+MATCHING = 6
+ORDERING = 7
+SPELLING = 8
 
 
 def _exercise(data: Data, index: int) -> Data:
@@ -78,6 +78,11 @@ RULE_CASES = [
         _set(MULTIPLE_CHOICE, "choices", ["Are", "Are", "Is"]),
         "choices must be unique",
         id="duplicate-choices",
+    ),
+    pytest.param(
+        _set(MULTIPLE_CHOICE, "choices", ["Are", " are ", "Is"]),
+        "choices must be unique",
+        id="duplicate-choices-ignoring-case-and-spaces",
     ),
     pytest.param(
         _set(MULTIPLE_CHOICE, "choices", ["Am", "Is", "Are", "Be", "Was"]),
@@ -154,9 +159,14 @@ RULE_CASES = [
         id="spelling-empty-accepted-set",
     ),
     pytest.param(
-        _set(PRONUNCIATION, "self_rating", "got_it"),
+        _set(SELF_RATING, "points", 1),
         "Extra inputs are not permitted",
-        id="pronunciation-self-rating-not-authored",
+        id="self-rating-carries-no-points",
+    ),
+    pytest.param(
+        _set(SELF_RATING, "answer", "I have a sheep."),
+        "Extra inputs are not permitted",
+        id="self-rating-has-no-answer",
     ),
     pytest.param(
         _set(SPELLING, "near_miss_credit", 0.5),
@@ -299,16 +309,44 @@ def test_empty_directory_is_reported(content_dir: Path) -> None:
     assert "no day files found" in _messages(report.issues)
 
 
-def test_cli_exit_code_follows_validity(
-    day_one_data: Data,
-    write_day: Callable[..., Path],
-    capsys: pytest.CaptureFixture[str],
-) -> None:
-    directory = write_day(day_one_data).parent
-    assert main(["validate", str(directory)]) == 0
-    assert "ok: 1 day file(s) valid (days 1)" in capsys.readouterr().out
+def test_non_utf8_file_is_reported_not_raised(content_dir: Path) -> None:
+    (content_dir / "day-01.yaml").write_bytes(
+        "day: 1\ntitle: “Greetings”\n".encode("cp1252")
+    )
+    report = validate_content_dir(content_dir)
 
+    assert not report.ok
+    assert "cannot read file" in _messages(report.issues)
+
+
+def test_unreadable_entry_is_reported_not_raised(content_dir: Path) -> None:
+    (content_dir / "day-01.yaml").mkdir()
+    report = validate_content_dir(content_dir)
+
+    assert not report.ok
+    assert "cannot read file" in _messages(report.issues)
+
+
+def test_yml_extension_is_reported_not_skipped(
+    day_one_data: Data, write_day: Callable[..., Path]
+) -> None:
     _set(MULTIPLE_CHOICE, "answer", "Be")(day_one_data)
-    write_day(day_one_data)
-    assert main(["validate", str(directory)]) == 1
-    assert "answer must be one of the choices" in capsys.readouterr().err
+    report = validate_content_dir(write_day(day_one_data, name="day-01.yml").parent)
+
+    assert not report.ok
+    assert "file name must be day-NN.yaml" in _messages(report.issues)
+
+
+def test_duplicate_key_is_rejected_not_overridden(
+    day_one_data: Data, write_day: Callable[..., Path]
+) -> None:
+    path = write_day(day_one_data)
+    text = path.read_text(encoding="utf-8")
+    path.write_text(
+        text.replace("answer: Are\n", "answer: Are\n  answer: Is\n", 1),
+        encoding="utf-8",
+    )
+    report = validate_content_dir(path.parent)
+
+    assert not report.ok
+    assert "duplicate key" in _messages(report.issues)

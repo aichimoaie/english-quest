@@ -10,13 +10,18 @@ Every file is checked by the curriculum validator before it is imported.
 
 ## Validate
 
-```sh
-python -m english_quest_api.curriculum validate content/days
-```
-
-Exit code 0 means every day file is valid. Exit code 1 prints each issue as
+`validate_content_dir` in `apps/api/src/english_quest_api/curriculum` checks
+every entry in this directory. It reports each issue as
 `file: location: message` (the location is omitted when it is not known), and
-all issues are reported in one run.
+all issues are reported in one run. A misnamed file such as `day-02.yml` is
+reported, not skipped.
+
+## Import
+
+`import_days` writes validated content through the `ContentStore` port, keyed by
+content hash, so importing unchanged content writes nothing. The database
+binding of `ContentStore` is deferred to the database integration and is not
+part of this change.
 
 ## Day file layout
 
@@ -61,18 +66,21 @@ The seven areas from PRD section 4. Use the exact spelling:
 |---|---|---|
 | `multiple_choice` | `choices` (2 to 4, unique), `answer` | `answer` is one of `choices` |
 | `listening_comprehension` | `audio_text`, `choices`, `answer` | As above. `audio_text` is the script the audio reads |
-| `pronunciation_practice` | `audio_text`, `choices`, `answer` | `answer` equals `audio_text`. Recognition only; self-rating is not authored |
+| `pronunciation_practice` | `audio_text`, `choices`, `answer` | `answer` equals `audio_text`. Recognition only |
+| `pronunciation_self_rating` | `audio_text` | Unscored. No `points`, `answer`, `choices` or `accepted`. The learner says the sentence aloud and rates it |
 | `fill_blank` | `accepted` (1 or more), `prompt` | `prompt` contains `___` |
 | `spelling_correction` | `text`, `accepted` (1 or more) | `text` differs from every accepted spelling |
 | `vocabulary_matching` | `pairs` (2 to 6 of `word` and `meaning`) | Words and meanings are each unique |
 | `sentence_ordering` | `tokens`, `answer` | `answer` uses every token exactly once. `tokens` is not already in answer order |
 
 Every exercise also needs `id`, `learning_area`, `origin: original`, `topics`
-(dotted, such as `grammar.be.present`), `points` (1 to 10), `prompt` and
-`explanation`. Unknown keys are rejected.
+(dotted, such as `grammar.be.present`), `prompt` and `explanation`. Every type
+except `pronunciation_self_rating` also needs `points` (1 to 10). Unknown keys
+are rejected.
 
-The grader compares a typed answer with `accepted` ignoring letter case and
-surrounding spaces. Everything else must match (PRD section 5).
+Choices are unique when letter case and extra spaces are ignored. The grader
+compares a typed answer with `accepted` ignoring letter case and surrounding
+spaces. Everything else must match (PRD section 5).
 
 ## Scoring
 
@@ -84,9 +92,10 @@ Captain decisions that apply to content (recorded on the task):
 - **Pronunciation recognition counts toward stored accuracy.** A
   `pronunciation_practice` item is scored on its recognition choice, so it
   carries `points` like any other item (at least 1).
-- **Self-rating is not scored.** The learner's rating after a pronunciation item
-  is recorded for progress only. It is not authored in the content and gives no
-  points.
+- **Self-rating is not scored.** A `pronunciation_self_rating` item is authored
+  without `points`, and the validator rejects any scoring field on it. The
+  learner's rating is recorded for progress only. Rating labels are not authored
+  yet; they are an open product question in the PRD.
 
 ## Content rules
 

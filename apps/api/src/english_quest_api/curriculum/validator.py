@@ -17,13 +17,14 @@ class ContentReport:
 
 
 def validate_content_dir(directory: Path) -> ContentReport:
-    """Load every `*.yaml` file in `directory` and collect all issues.
+    """Load every entry in `directory` as a day file and collect all issues.
 
-    Each day file is checked on its own. Ids are prefixed with the day number,
-    so they cannot collide across files. The day number is tied to the file
-    name, so two files cannot claim the same day.
+    Every entry is checked, so a misnamed file such as `day-02.yml` is reported
+    rather than skipped. Each day file is checked on its own. Ids are prefixed
+    with the day number, so they cannot collide across files. The day number is
+    tied to the file name, so two files cannot claim the same day.
     """
-    paths = sorted(directory.glob("*.yaml"))
+    paths = sorted(directory.glob("*"))
     if not paths:
         issue = ContentIssue(str(directory), "", "no day files found")
         return ContentReport(issues=(issue,))

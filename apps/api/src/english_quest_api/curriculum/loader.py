@@ -3,6 +3,7 @@
 import hashlib
 import json
 import re
+from collections.abc import Hashable
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -13,6 +14,29 @@ from pydantic_core import ErrorDetails
 from english_quest_api.curriculum.models import Day
 
 DAY_FILE_PATTERN = re.compile(r"^day-(\d{2})\.yaml$")
+
+
+class _UniqueKeyLoader(yaml.SafeLoader):
+    """Safe YAML loader that rejects a mapping key written twice.
+
+    PyYAML keeps the last value silently, which could change an answer key.
+    """
+
+    def construct_mapping(self, node: yaml.MappingNode, deep: bool = False) -> dict:
+        if isinstance(node, yaml.MappingNode):
+            seen: set[Hashable] = set()
+            for key_node, _ in node.value:
+                key = self.construct_object(key_node, deep=deep)
+                if isinstance(key, Hashable):
+                    if key in seen:
+                        raise yaml.constructor.ConstructorError(
+                            "while constructing a mapping",
+                            node.start_mark,
+                            f"found duplicate key {key!r}",
+                            key_node.start_mark,
+                        )
+                    seen.add(key)
+        return super().construct_mapping(node, deep=deep)
 
 
 @dataclass(frozen=True)
@@ -67,7 +91,12 @@ def load_day_file(path: Path) -> tuple[LoadedDay | None, list[ContentIssue]]:
     file_day = int(match.group(1))
 
     try:
-        raw = yaml.safe_load(path.read_text(encoding="utf-8"))
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError) as error:
+        return None, [ContentIssue(name, "", f"cannot read file: {error}")]
+
+    try:
+        raw = yaml.load(text, Loader=_UniqueKeyLoader)
     except yaml.YAMLError as error:
         return None, [ContentIssue(name, "", f"invalid YAML: {error}")]
     if not isinstance(raw, dict):

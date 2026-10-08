@@ -1,9 +1,10 @@
 """Authoring model for curriculum day files (content/days/day-NN.yaml).
 
 The exercise shape follows the envelope in the exercise engine report
-(section 4, exercise-envelope v1). Kinds are the prototype's seven types:
+(section 4, exercise-envelope v1). Kinds are the prototype's seven scored types:
 multiple_choice, fill_blank, vocabulary_matching, spelling_correction,
-sentence_ordering, listening_comprehension and pronunciation_practice.
+sentence_ordering, listening_comprehension and pronunciation_practice. The
+pronunciation_self_rating kind is unscored and carries no points.
 
 RECONCILE with workstream 4: content/schema JSON Schemas are not on main yet.
 Once they land, the field names, kind names and limits below must match them,
@@ -18,10 +19,8 @@ from typing import Annotated, Literal, Self
 from pydantic import (
     BaseModel,
     ConfigDict,
-    Discriminator,
     Field,
     StringConstraints,
-    Tag,
     model_validator,
 )
 
@@ -92,18 +91,25 @@ class ExerciseBase(_Strict):
     topics: list[Annotated[str, StringConstraints(pattern=TOPIC)]] = Field(
         min_length=1, max_length=4
     )
-    points: int = Field(ge=1, le=10)
     prompt: NonBlank
     explanation: NonBlank
 
 
-class _ChoiceExercise(ExerciseBase):
+class ScoredExercise(ExerciseBase):
+    points: int = Field(ge=1, le=10)
+
+
+def _normal(text: str) -> str:
+    return " ".join(text.split()).casefold()
+
+
+class _ChoiceExercise(ScoredExercise):
     choices: list[NonBlank] = Field(min_length=2, max_length=4)
     answer: NonBlank
 
     @model_validator(mode="after")
     def _exactly_one_correct_answer(self) -> Self:
-        if len(set(self.choices)) != len(self.choices):
+        if len({_normal(choice) for choice in self.choices}) != len(self.choices):
             raise ValueError("choices must be unique")
         if self.answer not in self.choices:
             raise ValueError("answer must be one of the choices")
@@ -132,7 +138,15 @@ class PronunciationPracticeExercise(_ChoiceExercise):
         return self
 
 
-class FillBlankExercise(ExerciseBase):
+class PronunciationSelfRatingExercise(ExerciseBase):
+    """Unscored: the learner listens, says the sentence aloud and rates it."""
+
+    type: Literal["pronunciation_self_rating"]
+    learning_area: Literal[LearningArea.PRONUNCIATION]
+    audio_text: NonBlank
+
+
+class FillBlankExercise(ScoredExercise):
     type: Literal["fill_blank"]
     accepted: list[NonBlank] = Field(min_length=1)
 
@@ -143,11 +157,7 @@ class FillBlankExercise(ExerciseBase):
         return self
 
 
-def _normal(text: str) -> str:
-    return " ".join(text.split()).casefold()
-
-
-class SpellingCorrectionExercise(ExerciseBase):
+class SpellingCorrectionExercise(ScoredExercise):
     type: Literal["spelling_correction"]
     text: NonBlank
     accepted: list[NonBlank] = Field(min_length=1)
@@ -159,7 +169,7 @@ class SpellingCorrectionExercise(ExerciseBase):
         return self
 
 
-class VocabularyMatchingExercise(ExerciseBase):
+class VocabularyMatchingExercise(ScoredExercise):
     type: Literal["vocabulary_matching"]
     pairs: list[MatchPair] = Field(min_length=2, max_length=6)
 
@@ -174,7 +184,7 @@ class VocabularyMatchingExercise(ExerciseBase):
         return self
 
 
-class SentenceOrderingExercise(ExerciseBase):
+class SentenceOrderingExercise(ScoredExercise):
     type: Literal["sentence_ordering"]
     tokens: list[NonBlank] = Field(min_length=3, max_length=12)
     answer: list[NonBlank] = Field(min_length=3)
@@ -188,21 +198,16 @@ class SentenceOrderingExercise(ExerciseBase):
         return self
 
 
-def _kind(value: object) -> str:
-    if isinstance(value, dict):
-        return str(value.get("type", ""))
-    return str(getattr(value, "type", ""))
-
-
 Exercise = Annotated[
-    Annotated[MultipleChoiceExercise, Tag("multiple_choice")]
-    | Annotated[ListeningComprehensionExercise, Tag("listening_comprehension")]
-    | Annotated[PronunciationPracticeExercise, Tag("pronunciation_practice")]
-    | Annotated[FillBlankExercise, Tag("fill_blank")]
-    | Annotated[SpellingCorrectionExercise, Tag("spelling_correction")]
-    | Annotated[VocabularyMatchingExercise, Tag("vocabulary_matching")]
-    | Annotated[SentenceOrderingExercise, Tag("sentence_ordering")],
-    Discriminator(_kind),
+    MultipleChoiceExercise
+    | ListeningComprehensionExercise
+    | PronunciationPracticeExercise
+    | PronunciationSelfRatingExercise
+    | FillBlankExercise
+    | SpellingCorrectionExercise
+    | VocabularyMatchingExercise
+    | SentenceOrderingExercise,
+    Field(discriminator="type"),
 ]
 
 

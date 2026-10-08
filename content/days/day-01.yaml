@@ -144,6 +144,16 @@ exercises:
     answer: I have a sheep.
     explanation: "\"Sheep\" has a long vowel, as in \"see\". \"Ship\" has a short vowel, as in \"sit\"."
 
+  - id: d01-pronunciation-self-01
+    type: pronunciation_self_rating
+    learning_area: Pronunciation
+    origin: original
+    topics:
+      - pronunciation.vowel_length
+    prompt: "Listen, say the sentence aloud, then rate how well you said the short and long vowels."
+    audio_text: "Please sit in the seat."
+    explanation: "\"Sit\" has a short vowel, as in \"sip\". \"Seat\" has a long vowel, as in \"see\". Listen again, then rate your own answer."
+
   - id: d01-vocabulary-match-01
     type: vocabulary_matching
     learning_area: Vocabulary
