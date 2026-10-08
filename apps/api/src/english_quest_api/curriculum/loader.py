@@ -100,7 +100,7 @@ def load_day_file(path: Path) -> tuple[LoadedDay | None, list[ContentIssue]]:
 
     try:
         raw = yaml.load(text, Loader=_UniqueKeyLoader)
-    except yaml.YAMLError as error:
+    except (yaml.YAMLError, ValueError) as error:
         return None, [ContentIssue(name, "", f"invalid YAML: {error}")]
     if not isinstance(raw, dict):
         return None, [ContentIssue(name, "", "top level must be a mapping")]
