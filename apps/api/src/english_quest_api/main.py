@@ -1,7 +1,6 @@
 import argparse
 import json
 from pathlib import Path
-from typing import Any
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -38,12 +37,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     return app
 
 
-def openapi_document(app: FastAPI) -> dict[str, Any]:
-    return app.openapi()
-
-
 def export_openapi(output: Path = DEFAULT_OPENAPI_PATH, settings: Settings | None = None) -> Path:
-    document = openapi_document(create_app(settings))
+    document = create_app(settings).openapi()
     output.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
     return output
 

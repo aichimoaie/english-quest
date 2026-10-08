@@ -188,6 +188,7 @@ def test_settings_refuse_empty_or_wildcard_values(
         "https://user@app.example.com",
         "https://app.example.com:",
         "https://app.example.com:abc",
+        "https://app.example.com:²",
     ],
 )
 def test_settings_refuse_origins_not_in_scheme_host_port_form(

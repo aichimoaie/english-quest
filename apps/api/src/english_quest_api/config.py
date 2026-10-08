@@ -1,3 +1,4 @@
+import re
 from functools import lru_cache
 from typing import Annotated
 from urllib.parse import urlsplit
@@ -40,7 +41,7 @@ class Settings(BaseSettings):
                 parts.scheme not in ("http", "https")
                 or not parts.hostname
                 or "@" in parts.netloc
-                or (colon and not port_text.isdigit())
+                or (colon and not re.fullmatch(r"[0-9]+", port_text))
                 or origin != f"{parts.scheme}://{parts.netloc}"
             ):
                 raise ValueError(f"origin must be exactly scheme://host[:port]: {origin!r}")
