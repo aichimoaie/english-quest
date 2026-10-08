@@ -86,7 +86,7 @@ class SchemaStore:
                 raise SchemaViolationError(problems)
 
 
-def _option_id_problems(option_ids: list[str], where: str) -> list[str]:
+def _unique_id_problems(option_ids: list[str], where: str) -> list[str]:
     if len(set(option_ids)) != len(option_ids):
         return [f"{where}: option ids must be unique"]
     return []
@@ -97,7 +97,7 @@ def _choice_problems(
     correct_ids: list[str],
     allow_multiple: bool,
 ) -> list[str]:
-    problems = _option_id_problems(option_ids, "content/options")
+    problems = _unique_id_problems(option_ids, "content/options")
     unknown = sorted(set(correct_ids) - set(option_ids))
     if unknown:
         problems.append(f"answer_key/correct_option_ids: not option ids {unknown}")
@@ -118,20 +118,22 @@ def _pronunciation_block(
     content: Mapping[str, Any], answer_key: Mapping[str, Any]
 ) -> list[str]:
     option_ids = [option["id"] for option in content["recognition_options"]]
-    problems = _option_id_problems(option_ids, "content/recognition_options")
+    problems = _unique_id_problems(option_ids, "content/recognition_options")
     if answer_key["correct_option_id"] not in option_ids:
         problems.append("answer_key/correct_option_id: not a recognition option id")
     return problems
 
 
 def _matching_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:
-    left_ids = {item["id"] for item in content["left"]}
-    right_ids = {item["id"] for item in content["right"]}
+    left_ids = [item["id"] for item in content["left"]]
+    right_ids = [item["id"] for item in content["right"]]
     pairs: Mapping[str, str] = answer_key["pairs"]
-    problems: list[str] = []
-    if set(pairs) != left_ids:
+    problems = _unique_id_problems(left_ids, "content/left") + _unique_id_problems(
+        right_ids, "content/right"
+    )
+    if set(pairs) != set(left_ids):
         problems.append("answer_key/pairs: keys must be exactly the left ids")
-    if not set(pairs.values()) <= right_ids:
+    if not set(pairs.values()) <= set(right_ids):
         problems.append("answer_key/pairs: values must be right ids")
     if len(set(pairs.values())) != len(pairs):
         problems.append("answer_key/pairs: each right id may appear in only one pair")
@@ -139,10 +141,11 @@ def _matching_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -
 
 
 def _ordering_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:
-    fragment_ids = {fragment["id"] for fragment in content["fragments"]}
-    if set(answer_key["correct_order"]) != fragment_ids:
-        return ["answer_key/correct_order: must list exactly the fragment ids"]
-    return []
+    fragment_ids = [fragment["id"] for fragment in content["fragments"]]
+    problems = _unique_id_problems(fragment_ids, "content/fragments")
+    if set(answer_key["correct_order"]) != set(fragment_ids):
+        problems.append("answer_key/correct_order: must list exactly the fragment ids")
+    return problems
 
 
 _CROSS_FIELD_CHECKS: Final[

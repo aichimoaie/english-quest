@@ -238,6 +238,55 @@ def test_duplicate_option_ids_are_rejected_before_scoring() -> None:
         SchemaStore().validate_exercise(pronunciation)
 
 
+@pytest.mark.parametrize(
+    ("kind", "content", "answer_key"),
+    [
+        (
+            "word_matching",
+            {
+                "left": [
+                    {"id": "a", "text": "cat"},
+                    {"id": "a", "text": "dog"},
+                    {"id": "b", "text": "fish"},
+                ],
+                "right": MATCHING_CONTENT["right"],
+            },
+            {"pairs": {"a": "x", "b": "y"}},
+        ),
+        (
+            "vocabulary_matching",
+            {
+                "left": MATCHING_CONTENT["left"],
+                "right": [
+                    {"id": "x", "text": "warm"},
+                    {"id": "x", "text": "hot"},
+                    {"id": "y", "text": "large"},
+                ],
+            },
+            {"pairs": {"a": "x", "b": "y"}},
+        ),
+        (
+            "sentence_ordering",
+            {
+                "fragments": [
+                    {"id": "f1", "text": "is boiling"},
+                    {"id": "f1", "text": "The kettle"},
+                    {"id": "f2", "text": "right now."},
+                    {"id": "f3", "text": "again."},
+                ]
+            },
+            {"correct_order": ["f1", "f2", "f3"]},
+        ),
+    ],
+)
+def test_duplicate_ids_in_matching_and_ordering_are_rejected(
+    kind: str, content: dict[str, Any], answer_key: dict[str, Any]
+) -> None:
+    document = _valid_envelope(kind=kind, content=content, answer_key=answer_key)
+    with pytest.raises(SchemaViolationError):
+        SchemaStore().validate_exercise(document)
+
+
 def test_envelope_schema_rejects_repeated_topic_entries() -> None:
     topic = {"topic": "grammar.tense.past_simple", "weight": 1.0}
     with pytest.raises(SchemaViolationError):
