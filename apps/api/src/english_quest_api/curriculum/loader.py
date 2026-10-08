@@ -14,6 +14,7 @@ from pydantic_core import ErrorDetails
 from english_quest_api.curriculum.models import Day
 
 DAY_FILE_PATTERN = re.compile(r"^day-(\d{2})\.yaml$")
+MERGE_TAG = "tag:yaml.org,2002:merge"
 
 
 class _UniqueKeyLoader(yaml.SafeLoader):
@@ -26,6 +27,8 @@ class _UniqueKeyLoader(yaml.SafeLoader):
         if isinstance(node, yaml.MappingNode):
             seen: set[Hashable] = set()
             for key_node, _ in node.value:
+                if key_node.tag == MERGE_TAG:
+                    continue
                 key = self.construct_object(key_node, deep=deep)
                 if isinstance(key, Hashable):
                     if key in seen:
