@@ -11,7 +11,6 @@ import pytest
 from curriculum_validator import (
     CONTENT_DAYS,
     run_validator,
-    validator_command,
     validator_missing_reason,
 )
 
@@ -49,15 +48,6 @@ def test_slow_validator_times_out_instead_of_hanging(tmp_path: Path) -> None:
             command=(sys.executable, "-c", "import time; time.sleep(5)"),
             timeout=0.2,
         )
-
-
-def test_override_environment_variable_replaces_the_default_command() -> None:
-    command = validator_command({"EQ_CURRICULUM_VALIDATOR": "uv run --project apps/api validate-content"})
-    assert command == ("uv", "run", "--project", "apps/api", "validate-content")
-
-
-def test_default_command_is_used_without_an_override() -> None:
-    assert validator_command({})[-1] == "english_quest_api.curriculum.validate"
 
 
 # Real content: skipped until the curriculum and its validator are on main.

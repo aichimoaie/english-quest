@@ -14,10 +14,6 @@ describe('blockingViolations', () => {
     expect(blockingViolations(results).map((v) => v.id)).toEqual(['image-alt', 'color-contrast']);
   });
 
-  it('honours an explicit list of impacts', () => {
-    expect(blockingViolations(results, ['moderate']).map((v) => v.id)).toEqual(['region']);
-  });
-
   it('returns nothing for an empty result', () => {
     expect(blockingViolations([])).toEqual([]);
   });

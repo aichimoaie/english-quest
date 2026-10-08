@@ -1,12 +1,11 @@
 import { existsSync } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 /**
  * Repository root, resolved from this file so the answer does not depend on
  * the directory Playwright or Vitest was started from.
  */
-export const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..');
+export const repoRoot = path.resolve(__dirname, '../../..');
 
 /** Workstream 1 (frontend) owns apps/web; its package manifest marks the app as present. */
 export const webAppPresent = existsSync(path.join(repoRoot, 'apps/web/package.json'));

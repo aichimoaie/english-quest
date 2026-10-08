@@ -1,15 +1,14 @@
 {
-  "name": "english-quest",
+  "name": "english-quest-tests",
   "private": true,
-  "type": "module",
   "engines": {
     "node": ">=22.12"
   },
   "scripts": {
-    "test:unit": "vitest run --config tests/vitest.config.ts",
+    "test:unit": "vitest run --config vitest.config.ts",
     "test:e2e": "playwright test",
     "test:e2e:helpers": "playwright test --grep @helper",
-    "typecheck:tests": "tsc -p tests/tsconfig.json --noEmit"
+    "typecheck:tests": "tsc -p tsconfig.json --noEmit"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

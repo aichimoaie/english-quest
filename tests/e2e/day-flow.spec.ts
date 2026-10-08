@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { checkAccessibility } from './support/axe';
+import { signIn } from './support/auth';
 import { appSkipReason, appUnderTest } from './support/readiness';
 
 // Smoke test for the day flow. It uses only the public UI: no API calls, no database access, and
@@ -18,12 +19,8 @@ test.describe('@smoke day flow', () => {
   );
 
   test('signs in, opens day 1, answers an exercise and sees immediate feedback', async ({ page }) => {
-    await page.goto('/login');
-    await page.getByLabel('Email').fill(email ?? '');
-    await page.getByLabel('Password').fill(password ?? '');
-    await page.getByRole('button', { name: 'Sign in' }).click();
+    await signIn(page, email ?? '', password ?? '');
 
-    await expect(page.getByRole('heading', { name: 'Your 30 days' })).toBeVisible();
     await page.getByRole('link', { name: /^Day 1\b/ }).or(page.getByRole('button', { name: /^Day 1\b/ })).click();
     await expect(page.getByRole('heading', { level: 2 }).first()).toBeVisible();
     await checkAccessibility(page);

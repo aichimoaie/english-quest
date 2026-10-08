@@ -3,16 +3,14 @@
 The validator is run as a subprocess, the same way CI runs it, so a failure is judged by its exit
 code and its own messages rather than by importing its internals.
 
-By default the command is `python -m english_quest_api.curriculum.validate <content_dir>`. That
-module name is an assumption until workstream 6 lands. Set EQ_CURRICULUM_VALIDATOR to any command
-line to use a different validator; the content directory is appended as the last argument.
+The command is `python -m english_quest_api.curriculum.validate <content_dir>`. That module name is
+an assumption until workstream 6 lands.
 """
 
 from __future__ import annotations
 
 import importlib
 import os
-import shlex
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -20,6 +18,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CONTENT_DAYS = REPO_ROOT / "content" / "days"
+API_SRC = REPO_ROOT / "apps" / "api" / "src"
 DEFAULT_COMMAND: tuple[str, ...] = (sys.executable, "-m", "english_quest_api.curriculum.validate")
 TIMEOUT_SECONDS = 120
 
@@ -45,18 +44,15 @@ class ValidatorRun:
         )
 
 
-def validator_command(environ: dict[str, str] | None = None) -> tuple[str, ...]:
-    """The validator command: EQ_CURRICULUM_VALIDATOR if set, otherwise the default module."""
-    override = (environ if environ is not None else os.environ).get("EQ_CURRICULUM_VALIDATOR")
-    if override:
-        return tuple(shlex.split(override))
-    return DEFAULT_COMMAND
+def validator_environment() -> dict[str, str]:
+    """The environment the validator runs in: apps/api/src first on PYTHONPATH, as the pytest process has it."""
+    existing = os.environ.get("PYTHONPATH")
+    paths = [str(API_SRC), existing] if existing else [str(API_SRC)]
+    return {**os.environ, "PYTHONPATH": os.pathsep.join(paths)}
 
 
-def validator_missing_reason(command: tuple[str, ...] = DEFAULT_COMMAND) -> str | None:
-    """Why the default validator cannot run yet, or None when it can. Overrides are always assumed runnable."""
-    if command != DEFAULT_COMMAND:
-        return None
+def validator_missing_reason() -> str | None:
+    """Why the validator cannot run yet, or None when it can."""
     try:
         importlib.import_module("english_quest_api.curriculum.validate")
     except ImportError as error:
@@ -70,7 +66,7 @@ def run_validator(
     timeout: float = TIMEOUT_SECONDS,
 ) -> ValidatorRun:
     """Runs the validator over one content directory and captures its output. Never raises on a rejection."""
-    resolved = command if command is not None else validator_command()
+    resolved = command if command is not None else DEFAULT_COMMAND
     full_command = (*resolved, str(content_dir))
     completed = subprocess.run(
         full_command,
@@ -78,6 +74,7 @@ def run_validator(
         text=True,
         timeout=timeout,
         cwd=REPO_ROOT,
+        env=validator_environment(),
         check=False,
     )
     return ValidatorRun(

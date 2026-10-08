@@ -18,11 +18,8 @@ export interface AxeViolationLike {
   nodes: readonly unknown[];
 }
 
-export function blockingViolations<T extends { impact?: Impact | null }>(
-  violations: readonly T[],
-  impacts: readonly Impact[] = BLOCKING_IMPACTS,
-): T[] {
-  return violations.filter((violation) => violation.impact != null && impacts.includes(violation.impact));
+export function blockingViolations<T extends { impact?: Impact | null }>(violations: readonly T[]): T[] {
+  return violations.filter((violation) => violation.impact != null && BLOCKING_IMPACTS.includes(violation.impact));
 }
 
 /** One line per violation, so a failing test shows what to fix and where to read about it. */

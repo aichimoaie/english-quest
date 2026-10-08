@@ -8,8 +8,9 @@ checks: browser flows, accessibility, layout at phone width, API contract, and c
 
 | Path | What it is | Runs with |
 |---|---|---|
-| `../playwright.config.ts` | Playwright config: `desktop-chrome` and `pixel-7` projects, starts the app when it exists | `pnpm test:e2e` |
-| `e2e/support/` | Helpers: `axe.ts` (accessibility), `layout.ts` (no horizontal scroll at 390 px), `readiness.ts` (what is on main) | imported by specs |
+| `package.json` | Test scripts and the JavaScript test toolchain (Playwright, axe, Vitest, TypeScript) | `pnpm install` here |
+| `playwright.config.ts` | Playwright config: `desktop-chrome` and `pixel-7` projects, starts the app when it exists. The root `playwright.config.ts` re-exports it. | `pnpm test:e2e` |
+| `e2e/support/` | Helpers: `axe.ts` (accessibility), `auth.ts` (sign-in), `layout.ts` (no horizontal scroll at 390 px), `readiness.ts` (what is on main) | imported by specs |
 | `e2e/helpers.spec.ts` | Helper tests with fixed HTML fixtures (`@helper`). Each helper has a negative control. | `pnpm test:e2e:helpers` |
 | `e2e/day-flow.spec.ts` | Smoke test of the day flow through the public UI only (`@smoke`) | `pnpm test:e2e` |
 | `e2e/no-horizontal-scroll.spec.ts` | Every key page at 390 px (`@layout`) | `pnpm test:e2e` |
@@ -22,32 +23,34 @@ checks: browser flows, accessibility, layout at phone width, API contract, and c
 
 ## Commands
 
-From the repository root:
+JavaScript commands run from `tests/`, where `package.json` lives:
 
 ```bash
+cd tests
 pnpm install                     # JavaScript test tooling
 pnpm test:unit                   # Vitest
 pnpm typecheck:tests             # tsc over tests/ and playwright.config.ts
 pnpm test:e2e:helpers            # Playwright helper tests (no app needed)
 pnpm test:e2e                    # all Playwright specs; app-level specs skip until the app is on main
+```
+
+Python commands run from the repository root:
+
+```bash
 
 uv run --project tests pytest -c tests/pytest.ini      # Python tests
 uv run --project tests --with ruff==0.16.10 ruff check tests
 (cd tests && uv run --with mypy==2.4.0 mypy)           # mypy reads its paths from tests/pyproject.toml
 ```
 
-Playwright uses its bundled Chromium. To use an installed Chrome instead, set `EQ_PW_CHANNEL=chrome`.
+Playwright uses its bundled Chromium.
 
 ## Environment variables
 
 | Variable | Used by | Purpose |
 |---|---|---|
 | `EQ_BASE_URL` | Playwright | Run against a running or deployed web app. No server is started. |
-| `EQ_WEB_COMMAND` | Playwright | Command that serves the web app. Default: build `apps/web` and serve `apps/web/out`. |
-| `EQ_API_COMMAND` | Playwright | Command that starts the API. Default: `uvicorn english_quest_api.main:create_app --factory`. |
-| `EQ_PW_CHANNEL` | Playwright | Browser channel, for example `chrome`. |
 | `EQ_LEARNER_EMAIL`, `EQ_LEARNER_PASSWORD` | Playwright | The one learner account for authenticated specs. Never commit them. |
-| `EQ_CURRICULUM_VALIDATOR` | pytest | Command for the curriculum validator. Default: `python -m english_quest_api.curriculum.validate`. |
 
 ## What skips, and why
 
@@ -75,4 +78,4 @@ These names come from the architecture report and are not yet on main. Change th
 
 - `.gitignore` entries for `node_modules/`, `playwright-report/`, `test-results/`, `.pytest_cache/` (workstream 2 owns `.gitignore`).
 - The CI workflow that runs these commands (workstream 8).
-- `pnpm-workspace.yaml`, the root `pnpm-lock.yaml`, and the root `package.json` scripts beyond the test ones (workstream 1 owns them).
+- The root `package.json` and `pnpm-workspace.yaml` (workstream 1 owns them). This folder keeps its own `package.json` and lock file so the test tooling does not touch the root manifest.
