@@ -35,8 +35,13 @@ class Settings(BaseSettings):
             raise ValueError("at least one web origin is required")
         for origin in origins:
             parts = urlsplit(origin)
-            if parts.scheme not in ("http", "https") or not parts.netloc:
-                raise ValueError(f"not a concrete http or https origin: {origin!r}")
+            if (
+                parts.scheme not in ("http", "https")
+                or not parts.hostname
+                or "@" in parts.netloc
+                or origin != f"{parts.scheme}://{parts.netloc}"
+            ):
+                raise ValueError(f"origin must be exactly scheme://host[:port]: {origin!r}")
         return origins
 
 

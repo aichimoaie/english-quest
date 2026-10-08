@@ -177,6 +177,35 @@ def test_settings_refuse_empty_or_wildcard_values(
         Settings()
 
 
+@pytest.mark.parametrize(
+    "origin",
+    [
+        "https://app.example.com/",
+        "https://app.example.com/path",
+        "https://app.example.com?x=1",
+        "https://app.example.com#top",
+        "https://user@app.example.com",
+    ],
+)
+def test_settings_refuse_origins_that_are_not_scheme_host_port(
+    isolated_cwd: Path, monkeypatch: pytest.MonkeyPatch, origin: str
+) -> None:
+    monkeypatch.setenv("DATABASE_URL", DATABASE_URL)
+    monkeypatch.setenv("CORS_ALLOWED_ORIGINS", origin)
+
+    with pytest.raises(ValidationError):
+        Settings()
+
+
+def test_settings_accept_origin_with_port(
+    isolated_cwd: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("DATABASE_URL", DATABASE_URL)
+    monkeypatch.setenv("CORS_ALLOWED_ORIGINS", "https://app.example.com:8443")
+
+    assert Settings().cors_allowed_origins == ["https://app.example.com:8443"]
+
+
 def test_openapi_lists_the_section_6_surface(client: TestClient) -> None:
     paths = set(client.get("/openapi.json").json()["paths"])
 
