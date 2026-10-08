@@ -123,6 +123,8 @@ def _matching_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -
         problems.append("answer_key/pairs: keys must be exactly the left ids")
     if not set(pairs.values()) <= right_ids:
         problems.append("answer_key/pairs: values must be right ids")
+    if len(set(pairs.values())) != len(pairs):
+        problems.append("answer_key/pairs: each right id may appear in only one pair")
     return problems
 
 

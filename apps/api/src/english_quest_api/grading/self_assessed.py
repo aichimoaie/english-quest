@@ -21,35 +21,6 @@ class SelfRating(StrEnum):
     SKIPPED = "skipped"
 
 
-def evaluate_self_rating(rating: str) -> EvaluationResult:
-    """Score a bare self-rating. Credit is 1.0 for got_it and 0.0 for unsure.
-
-    The rating never counts toward accuracy. A skipped rating records nothing.
-    """
-    try:
-        parsed = SelfRating(rating)
-    except ValueError as error:
-        raise InvalidResponseError(f"unknown self rating: {rating}") from error
-
-    normalized_response = {"self_rating": parsed.value}
-    if parsed is SelfRating.SKIPPED:
-        return EvaluationResult(
-            credit=None,
-            feedback_code="skipped",
-            normalized_response=normalized_response,
-            family=Family.SELF_ASSESSED,
-            counts_toward_accuracy=False,
-            recorded=False,
-        )
-    return EvaluationResult(
-        credit=1.0 if parsed is SelfRating.GOT_IT else 0.0,
-        feedback_code=parsed.value,
-        normalized_response=normalized_response,
-        family=Family.SELF_ASSESSED,
-        counts_toward_accuracy=False,
-    )
-
-
 def evaluate_pronunciation(
     *,
     recognition: EvaluationResult,
@@ -60,13 +31,16 @@ def evaluate_pronunciation(
     Credit and feedback come from the recognition choice, even when the
     self-rating is skipped. The self-rating is stored in the normalised response.
     """
-    rating = evaluate_self_rating(self_rating)
+    try:
+        rating = SelfRating(self_rating)
+    except ValueError as error:
+        raise InvalidResponseError(f"unknown self rating: {self_rating}") from error
     return EvaluationResult(
         credit=recognition.credit,
         feedback_code=recognition.feedback_code,
         normalized_response={
             **recognition.normalized_response,
-            **rating.normalized_response,
+            "self_rating": rating.value,
         },
         family=Family.SELF_ASSESSED,
         counts_toward_accuracy=recognition.counts_toward_accuracy,

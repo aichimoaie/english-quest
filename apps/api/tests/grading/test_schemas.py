@@ -171,6 +171,11 @@ ORDERING_CONTENT = {
             {"pairs": {"a": "x", "b": "z"}},
         ),
         (
+            "word_matching",
+            MATCHING_CONTENT,
+            {"pairs": {"a": "x", "b": "x"}},
+        ),
+        (
             "sentence_ordering",
             ORDERING_CONTENT,
             {"correct_order": ["f1", "f2", "f9"]},
