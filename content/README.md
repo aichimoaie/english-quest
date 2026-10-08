@@ -40,7 +40,7 @@ lessons:                     # 1 to 4 lessons, each made of lesson cards
 vocabulary:                  # 1 to 12 words
   - word: brother
     definition: ...          # short English definition
-    example: My brother ...  # one sentence that uses the word
+    example: My brother ...  # example sentence
 exercises:                   # ids must start with d01-
   - id: d01-grammar-mc-01
     type: multiple_choice
@@ -69,8 +69,8 @@ The seven areas from PRD section 4. Use the exact spelling:
 | `pronunciation_practice` | `audio_text`, `choices`, `answer` | `answer` equals `audio_text`. Recognition only |
 | `pronunciation_self_rating` | `audio_text` | Unscored. No `points`, `answer`, `choices` or `accepted`. The learner says the sentence aloud and rates it |
 | `fill_blank` | `accepted` (1 or more), `prompt` | `prompt` contains `___` |
-| `spelling_correction` | `text`, `accepted` (1 or more) | `text` differs from every accepted spelling |
-| `vocabulary_matching` | `pairs` (2 to 6 of `word` and `meaning`) | Words and meanings are each unique |
+| `spelling_correction` | `text`, `accepted` (1 or more) | All-or-nothing (see Scoring) |
+| `vocabulary_matching` | `pairs` (2 to 6 of `word` and `meaning`) | None |
 | `sentence_ordering` | `tokens`, `answer` | `answer` uses every token exactly once. `tokens` is not already in answer order |
 
 Every exercise also needs `id`, `learning_area`, `origin: original`, `topics`

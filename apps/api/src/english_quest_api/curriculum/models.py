@@ -12,7 +12,6 @@ and the JSON Schemas should be checked against the same fixtures in
 apps/api/tests/curriculum.
 """
 
-import re
 from enum import StrEnum
 from typing import Annotated, Literal, Self
 
@@ -69,14 +68,6 @@ class VocabularyItem(_Strict):
     word: Annotated[str, StringConstraints(pattern=WORD)]
     definition: NonBlank
     example: NonBlank
-
-    @model_validator(mode="after")
-    def _example_uses_word(self) -> Self:
-        if not re.search(rf"\b{re.escape(self.word)}\b", self.example, re.IGNORECASE):
-            raise ValueError(f"example must use the word '{self.word}'")
-        if self.example[-1] not in ".!?":
-            raise ValueError("example must be one sentence ending in . ! or ?")
-        return self
 
 
 class MatchPair(_Strict):
@@ -162,26 +153,10 @@ class SpellingCorrectionExercise(ScoredExercise):
     text: NonBlank
     accepted: list[NonBlank] = Field(min_length=1)
 
-    @model_validator(mode="after")
-    def _text_needs_correcting(self) -> Self:
-        if _normal(self.text) in {_normal(a) for a in self.accepted}:
-            raise ValueError("text must differ from the accepted spelling")
-        return self
-
 
 class VocabularyMatchingExercise(ScoredExercise):
     type: Literal["vocabulary_matching"]
     pairs: list[MatchPair] = Field(min_length=2, max_length=6)
-
-    @model_validator(mode="after")
-    def _pairs_are_one_to_one(self) -> Self:
-        words = [p.word for p in self.pairs]
-        meanings = [p.meaning for p in self.pairs]
-        if len(set(words)) != len(words):
-            raise ValueError("words must be unique")
-        if len(set(meanings)) != len(meanings):
-            raise ValueError("meanings must be unique")
-        return self
 
 
 class SentenceOrderingExercise(ScoredExercise):

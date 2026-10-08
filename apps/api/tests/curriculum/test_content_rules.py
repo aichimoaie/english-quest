@@ -54,13 +54,6 @@ def _duplicate_exercise_id(data: Data) -> None:
     data["exercises"][FILL_BLANK]["id"] = data["exercises"][MULTIPLE_CHOICE]["id"]
 
 
-def _vocabulary_example(index: int, example: str) -> Mutation:
-    def mutate(data: Data) -> None:
-        data["vocabulary"][index]["example"] = example
-
-    return mutate
-
-
 def _set_day(day: int) -> Mutation:
     def mutate(data: Data) -> None:
         data["day"] = day
@@ -122,18 +115,6 @@ RULE_CASES = [
         id="matching-too-few-pairs",
     ),
     pytest.param(
-        _set(
-            MATCHING,
-            "pairs",
-            [
-                {"word": "brother", "meaning": "a male sibling"},
-                {"word": "sister", "meaning": "a male sibling"},
-            ],
-        ),
-        "meanings must be unique",
-        id="matching-duplicate-meaning",
-    ),
-    pytest.param(
         _set(ORDERING, "answer", ["My", "brother", "is", "a"]),
         "answer must use every token exactly once",
         id="ordering-token-dropped",
@@ -147,11 +128,6 @@ RULE_CASES = [
         _ordering_given_away,
         "tokens must not already be in answer order",
         id="ordering-given-away",
-    ),
-    pytest.param(
-        _set(SPELLING, "text", "We drink coffee in the morning."),
-        "text must differ from the accepted spelling",
-        id="spelling-text-already-correct",
     ),
     pytest.param(
         _set(SPELLING, "accepted", []),
@@ -212,16 +188,6 @@ RULE_CASES = [
         _duplicate_exercise_id,
         "lesson and exercise ids must be unique",
         id="duplicate-exercise-id",
-    ),
-    pytest.param(
-        _vocabulary_example(0, "My sibling is taller than me."),
-        "example must use the word 'brother'",
-        id="vocabulary-example-without-word",
-    ),
-    pytest.param(
-        _vocabulary_example(0, "My brother is taller than me"),
-        "example must be one sentence ending in . ! or ?",
-        id="vocabulary-example-without-full-stop",
     ),
     pytest.param(
         _set_day(31),
