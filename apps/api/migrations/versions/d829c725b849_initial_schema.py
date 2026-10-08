@@ -32,7 +32,6 @@ depends_on: str | Sequence[str] | None = None
 API_TABLE_PRIVILEGES: dict[str, str] = {
     "days": "SELECT",
     "exercises": "SELECT",
-    "exercise_revisions": "SELECT",
     "day_exercises": "SELECT",
     "users": "SELECT, INSERT, UPDATE",
     "sessions": "SELECT, INSERT, DELETE",
@@ -429,6 +428,10 @@ def upgrade() -> None:
 
     for table, privileges in API_TABLE_PRIVILEGES.items():
         op.execute(f"GRANT {privileges} ON {table} TO english_quest_api")
+    op.execute(
+        "GRANT SELECT (id, exercise_id, revision_no, kind, kind_version, envelope, content, created_at) "
+        "ON exercise_revisions TO english_quest_api"
+    )
 
 
 def downgrade() -> None:

@@ -255,6 +255,23 @@ def update_attempts_as_runtime_role(conn: Connection) -> None:
         conn.execute(text("UPDATE attempts SET feedback_code = 'changed'"))
 
 
+def read_revision_column_as_runtime_role(conn: Connection, column: str, revision_id: uuid.UUID) -> Any:
+    with as_role(conn, "english_quest_api"):
+        return conn.execute(
+            text(f"SELECT {column} FROM exercise_revisions WHERE id = :id"), {"id": revision_id}
+        ).scalar_one()
+
+
+def test_the_runtime_role_cannot_read_the_revision_content_hash(conn: Connection, seed: dict[str, Any]) -> None:
+    conn.execute(text("GRANT USAGE ON SCHEMA public TO english_quest_api"))
+    assert_rejected(
+        conn,
+        lambda: read_revision_column_as_runtime_role(conn, "content_hash", seed["revision_id"]),
+        match="permission denied",
+    )
+    assert read_revision_column_as_runtime_role(conn, "kind", seed["revision_id"]) == "multiple_choice"
+
+
 def test_revisions_are_immutable(
     conn: Connection, seed: dict[str, Any], make_attempt: Callable[..., dict[str, Any]]
 ) -> None:
