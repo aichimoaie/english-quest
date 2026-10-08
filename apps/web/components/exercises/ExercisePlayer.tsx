@@ -26,6 +26,7 @@ export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel 
   const [results, setResults] = useState<Record<string, AnswerResult>>({});
   const [busy, setBusy] = useState(false);
   const [finishing, setFinishing] = useState(false);
+  const [ratingSaving, setRatingSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const exercise = exercises[index];
@@ -63,12 +64,15 @@ export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel 
 
   async function handleSelfRate(rating: "got_it" | "needs_practice") {
     if (!exercise || !rate) return false;
+    setRatingSaving(true);
     try {
       await rate(exercise, rating);
       return true;
     } catch {
       setError("We could not save your self-rating. Your answer is still recorded.");
       return false;
+    } finally {
+      setRatingSaving(false);
     }
   }
 
@@ -110,7 +114,7 @@ export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel 
       ) : null}
 
       {result ? (
-        <button type="button" className="btn btn-primary btn-block" onClick={handleContinue} disabled={finishing}>
+        <button type="button" className="btn btn-primary btn-block" onClick={handleContinue} disabled={finishing || ratingSaving}>
           {isLast ? (finishing ? "Saving…" : finishLabel) : "Continue"}
         </button>
       ) : null}
