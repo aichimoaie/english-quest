@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { defineConfig, devices, type PlaywrightTestConfig } from '@playwright/test';
@@ -44,7 +45,7 @@ if (apiPresent) {
   });
 }
 
-const outputRoot = path.join(os.tmpdir(), 'english-quest-e2e');
+const outputRoot = (process.env.EQ_E2E_OUTPUT_ROOT ??= fs.mkdtempSync(path.join(os.tmpdir(), 'english-quest-e2e-')));
 
 export default defineConfig({
   testDir: path.join(repoRoot, 'tests/e2e'),

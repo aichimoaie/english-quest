@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { checkAccessibility } from './support/axe';
 import { signIn } from './support/auth';
-import { appSkipReason, appUnderTest, testDatabaseUrl } from './support/readiness';
+import { appSkipReason, appUnderTest, requireTestDatabase } from './support/readiness';
 
 // Smoke test for the day flow. It uses only the public UI: no API calls, no database access, and
 // no answer keys. It proves that a learner can sign in, open day 1, answer one exercise and see
@@ -19,11 +19,7 @@ test.describe('@smoke day flow', () => {
   );
 
   test('signs in, opens day 1, answers an exercise and sees immediate feedback', async ({ page }) => {
-    if (!testDatabaseUrl) {
-      throw new Error(
-        'Set EQ_TEST_DATABASE_URL to a dedicated test database. This test submits an attempt, so it never runs against the ambient DATABASE_URL.',
-      );
-    }
+    requireTestDatabase();
     await signIn(page, email ?? '', password ?? '');
 
     await page.getByRole('link', { name: /^Day 1\b/ }).or(page.getByRole('button', { name: /^Day 1\b/ })).click();

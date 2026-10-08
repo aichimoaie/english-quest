@@ -25,6 +25,7 @@ out/
 .idea/
 .vscode/
 
-# Playwright test output (traces and reports must never be committed)
+apps/web/.next/
+apps/web/out/
 test-results/
 playwright-report/

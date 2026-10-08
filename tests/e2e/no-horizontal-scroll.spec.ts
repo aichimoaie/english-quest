@@ -1,7 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import { signIn } from './support/auth';
 import { expectNoHorizontalScroll } from './support/layout';
-import { appSkipReason, appUnderTest } from './support/readiness';
+import { appSkipReason, appUnderTest, requireTestDatabase } from './support/readiness';
 import { PHONE_WIDTH_PX } from './support/overflow';
 
 // Routes from the architecture report (apps/web/app). The sign-in page is public; the rest need the
@@ -35,6 +35,7 @@ test.describe(`@layout no horizontal scroll at ${PHONE_WIDTH_PX}px`, () => {
 
     for (const route of learnerRoutes) {
       test(`learner page ${route} does not scroll sideways`, async ({ page }) => {
+        requireTestDatabase();
         await signIn(page, email ?? '', password ?? '');
         await openPage(page, route);
         await expectNoHorizontalScroll(page, PHONE_WIDTH_PX);

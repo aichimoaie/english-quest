@@ -13,6 +13,15 @@ export const repoRoot = path.resolve(__dirname, '../../..');
  */
 export const testDatabaseUrl = process.env.EQ_TEST_DATABASE_URL;
 
+/** Refuses to run a spec that writes to the API unless the dedicated test database is configured. */
+export function requireTestDatabase(): void {
+  if (!testDatabaseUrl) {
+    throw new Error(
+      'Set EQ_TEST_DATABASE_URL to a dedicated test database. This test writes to the API, so it never runs against the ambient DATABASE_URL.',
+    );
+  }
+}
+
 /** Workstream 1 (frontend) owns apps/web; its package manifest marks the app as present. */
 export const webAppPresent = existsSync(path.join(repoRoot, 'apps/web/package.json'));
 
