@@ -8,5 +8,9 @@ export function AudioButton({ audioUrl, label = "Play audio" }: { audioUrl: stri
     return <p className="t-small">Audio for this item is not ready yet. Read the text instead.</p>;
   }
 
-  return <audio src={audioUrl} preload="none" controls aria-label={label} style={{ width: "100%", minHeight: 48 }} />;
+  return (
+    <div style={{ minHeight: 56, display: "flex", alignItems: "center" }}>
+      <audio src={audioUrl} preload="none" controls aria-label={label} style={{ width: "100%", minHeight: 56 }} />
+    </div>
+  );
 }

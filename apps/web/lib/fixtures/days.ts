@@ -126,7 +126,6 @@ export const DAY_ONE_EXERCISES: Exercise[] = [
     points: 1,
     content: {
       audioUrl: null,
-      transcript: "The shop opens at eight in the morning.",
       prompt: "What time does the shop open?",
       options: ["At seven", "At eight", "At nine"],
     },

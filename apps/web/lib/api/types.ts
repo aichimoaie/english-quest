@@ -73,7 +73,7 @@ export type Exercise =
     })
   | (ExerciseBase & {
       kind: "listening_comprehension";
-      content: { audioUrl: string | null; transcript: string; prompt: string; options: string[] };
+      content: { audioUrl: string | null; prompt: string; options: string[] };
     })
   | (ExerciseBase & {
       kind: "pronunciation_practice";

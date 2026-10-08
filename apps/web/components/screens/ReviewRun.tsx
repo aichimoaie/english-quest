@@ -4,11 +4,12 @@ import Link from "next/link";
 import { useState } from "react";
 import { ExercisePlayer } from "@/components/exercises/ExercisePlayer";
 import { ErrorState, LoadingState } from "@/components/ui/QueryState";
-import { useReview, useSubmitReviewAnswer } from "@/lib/api/hooks";
+import { useRatePronunciation, useReview, useSubmitReviewAnswer } from "@/lib/api/hooks";
 
 export function ReviewRun({ mode }: { mode: "daily" | "mixed" }) {
   const query = useReview(mode);
   const submitReviewAnswer = useSubmitReviewAnswer();
+  const ratePronunciation = useRatePronunciation();
   const [finished, setFinished] = useState(false);
   const title = mode === "daily" ? "Daily review" : "Mixed review";
 
@@ -50,6 +51,7 @@ export function ReviewRun({ mode }: { mode: "daily" | "mixed" }) {
       <ExercisePlayer
         exercises={query.data.items}
         submit={(exercise, submitted) => submitReviewAnswer.mutateAsync({ exerciseId: exercise.id, submitted })}
+        rate={(exercise, rating) => ratePronunciation.mutateAsync({ itemId: exercise.id, method: "recognition", selfRating: rating })}
         finishLabel="Finish review"
         onFinish={async () => setFinished(true)}
       />
