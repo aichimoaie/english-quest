@@ -123,6 +123,7 @@ def load_day_file(path: Path) -> tuple[LoadedDay | None, list[ContentIssue]]:
         message = f"day {day.day} does not match file name day-{file_day:02d}.yaml"
         return None, [ContentIssue(name, "day", message)]
 
+    # The schema normally rejects a lone surrogate before this point, so this guard is defensive.
     try:
         digest = content_hash(day)
     except UnicodeEncodeError as error:
