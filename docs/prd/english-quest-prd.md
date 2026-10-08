@@ -23,7 +23,7 @@ Success for the MVP means the learner completes the 30 days on the app and can s
 - **Order:** days unlock in order. Day N+1 unlocks only after Day N is complete.
 - **Completion:** a day counts as complete when one run of its lessons reaches 70% (see section 6).
 - **Missed days:** a missed day pauses the schedule. It does not break the streak, and the learner resumes at the next unlocked day.
-- **Retries:** the learner can retry any exercise, and can start a new run of the day, without limit. Retries give feedback and never change accuracy, which counts first attempts only (section 6).
+- **Retries:** the learner can retry any exercise, and can start a new run of the day, without limit. Retries give feedback and never change accuracy (section 6).
 - **Content:** every day also includes a short review of earlier days. Whether each day has one focus area is **Open** (section 18).
 
 ## 4. Learning areas
@@ -62,7 +62,7 @@ Each type has one line of definition and one scoring rule. The scoring rules are
 
 - **Points:** each scored item gives points as shown in section 5. Within a run, items are scored on the **first attempt only**.
 - **Run:** one pass through a day's lesson exercises. Each new run is scored separately.
-- **Accuracy:** accuracy = points earned on first attempts ÷ points available on first attempts, across all runs and all daily review answers, shown as a percentage. Retries never change accuracy.
+- **Accuracy:** accuracy = points earned on each item's first-ever answer ÷ points available on those items, including daily review answers, shown as a percentage. A repeat of an item, in any run, never counts.
 - **Day completion threshold: 70%.** A day is complete when one run reaches at least 70%. The run uses the day's lesson exercises; daily review and pronunciation practice do not count toward it.
 - **Skill mastery:** the 80% skill-mastery threshold and its measurement window are **Open** (section 18).
 - **Vocabulary learned:** a word counts as learned when it is answered correctly on two separate days (section 10).
@@ -96,7 +96,7 @@ The exact spacing and the weighting toward weak topics are **Open**.
 - **Self-rating:** after each item, the learner rates their own pronunciation. The rating options and labels are **Open** (section 18). The rating is recorded for progress but is not scored.
 - **Speech scoring is excluded.** The app does not use the microphone and does not grade the learner's speech.
 - Audio plays on demand and can be replayed without limit.
-- Pronunciation practice counts toward progress (section 7) and toward accuracy on first attempts (section 6), but not toward the day's 70% threshold.
+- Pronunciation practice counts toward progress (section 7) and toward accuracy (section 6), but not toward the day's 70% threshold.
 
 ## 10. Vocabulary requirements
 
@@ -119,7 +119,6 @@ The exact spacing and the weighting toward weak topics are **Open**.
 
 - Spelling words come from the vocabulary list, so the learner practises words they are learning.
 - Spelling correction and fill-in exercises accept a typed answer after ignoring letter case and surrounding spaces; everything else must match exactly.
-- Each spelling item shows the correct form after the answer, with a short English note when a rule applies (for example, doubling a consonant).
 - Accepted spelling variants (for example, British and American forms) are **Open**.
 
 ## 13. Listening requirements
@@ -209,3 +208,4 @@ These are not decided. Each needs an answer before the feature that depends on i
 21. **Grammar worked examples:** whether each grammar point includes a worked example.
 22. **Per-area accuracy:** whether accuracy is also shown per learning area, in addition to overall.
 23. **Audio play control:** the design of the play control on mobile browsers (for example, a single large button).
+24. **Spelling feedback:** whether each spelling item shows the correct form after the answer, with a short English note when a rule applies (for example, doubling a consonant).
