@@ -115,6 +115,13 @@ describe("fixture server", () => {
     expect(attempt.exercises).toHaveLength(7);
   });
 
+  it("shows Day 2 with the possessives title and objective", async () => {
+    const day2 = await call<DayDetail>("GET", `${BASE}/days/2`);
+
+    expect(day2.title).toBe("Possessives: my, your, his, her");
+    expect(day2.objective).toBe("Use my, your, his and her before a noun to show who owns something.");
+  });
+
   it("rejects an exercise that is not part of the attempt", async () => {
     const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
 

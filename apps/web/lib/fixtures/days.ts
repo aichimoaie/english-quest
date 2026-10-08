@@ -11,7 +11,7 @@ export { TOTAL_DAYS } from "@/lib/course";
 
 export const DAY_TITLES: { title: string; objective: string }[] = [
   { title: "Be: am, is, are", objective: "Choose am, is or are with names, pronouns and places." },
-  { title: "Articles: a, an, the", objective: "Choose a, an or the before nouns." },
+  { title: "Possessives: my, your, his, her", objective: "Use my, your, his and her before a noun to show who owns something." },
   { title: "Present simple: I work", objective: "Use the base verb with I, you, we and they." },
   { title: "Present simple: he, she, it", objective: "Add -s to the verb with he, she and it." },
   { title: "Question words", objective: "Ask who, what, where, when and how." },
