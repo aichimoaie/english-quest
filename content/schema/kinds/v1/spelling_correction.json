@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "english-quest/exercise-kind/spelling_correction/v1",
+  "title": "Spelling correction v1",
+  "x-kind": "spelling_correction",
+  "x-kind-version": 1,
+  "$defs": {
+    "content": {
+      "type": "object",
+      "required": [
+        "misspelled_word",
+        "sentence"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sentence": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 200
+        },
+        "misspelled_word": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        }
+      }
+    },
+    "answer_key": {
+      "type": "object",
+      "required": [
+        "accepted"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "accepted": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "required": [
+        "word"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "word": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "english-quest/exercise-kind/sentence_ordering/v1",
+  "title": "Sentence ordering v1",
+  "x-kind": "sentence_ordering",
+  "x-kind-version": 1,
+  "$defs": {
+    "content": {
+      "type": "object",
+      "required": [
+        "fragments"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "fragments": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "text"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^f[0-9]+$"
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100
+              }
+            }
+          }
+        }
+      }
+    },
+    "answer_key": {
+      "type": "object",
+      "required": [
+        "correct_order"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "correct_order": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^f[0-9]+$"
+          }
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "required": [
+        "ordered_fragment_ids"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ordered_fragment_ids": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^f[0-9]+$"
+          }
+        }
+      }
+    }
+  }
+}

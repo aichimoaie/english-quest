@@ -1,0 +1,49 @@
+import string
+
+from english_quest_api.grading.normalise import normalise_text
+from hypothesis import given
+from hypothesis import strategies as st
+
+WORDS = st.from_regex(r"[a-z]+( [a-z]+)*", fullmatch=True)
+
+
+def test_case_and_surrounding_whitespace_are_ignored() -> None:
+    assert normalise_text("  Receive  ") == "receive"
+    assert normalise_text("\tWALKS\n") == "walks"
+
+
+def test_letter_forms_are_not_folded_together() -> None:
+    assert normalise_text("Stra\u00dfe") != normalise_text("strasse")
+    assert normalise_text("\ufb01le") != normalise_text("file")
+
+
+def test_punctuation_is_kept() -> None:
+    assert normalise_text("Receive.") == "receive."
+    assert normalise_text("Don't stop!") == "don't stop!"
+
+
+def test_inner_whitespace_is_kept() -> None:
+    assert normalise_text("ice  cream") == "ice  cream"
+    assert normalise_text("a\t\nb") == "a\t\nb"
+
+
+def test_curly_quotes_are_not_mapped_to_straight_quotes() -> None:
+    assert normalise_text("don\N{RIGHT SINGLE QUOTATION MARK}t") != normalise_text(
+        "don't"
+    )
+
+
+@given(st.text(max_size=60))
+def test_normalise_is_idempotent(text: str) -> None:
+    once = normalise_text(text)
+    assert normalise_text(once) == once
+
+
+@given(st.text(alphabet=string.ascii_letters + " ", min_size=1, max_size=40))
+def test_case_and_padding_variants_are_equal(text: str) -> None:
+    assert normalise_text(f"  {text.upper()}\t") == normalise_text(text.lower())
+
+
+@given(WORDS)
+def test_adding_a_final_full_stop_changes_the_answer(text: str) -> None:
+    assert normalise_text(text + ".") != normalise_text(text)
