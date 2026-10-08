@@ -1,0 +1,991 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "English Quest API",
+    "summary": "API for the 30-day English course.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Get Health",
+        "operationId": "get_health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/days": {
+      "get": {
+        "tags": [
+          "learning"
+        ],
+        "summary": "List Days",
+        "operationId": "list_days_api_v1_days_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/DaySummary"
+                  },
+                  "type": "array",
+                  "title": "Response List Days Api V1 Days Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/days/{day}": {
+      "get": {
+        "tags": [
+          "learning"
+        ],
+        "summary": "Get Day",
+        "operationId": "get_day_api_v1_days__day__get",
+        "parameters": [
+          {
+            "name": "day",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 30,
+              "minimum": 1,
+              "title": "Day"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DayDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/days/{day}/attempts": {
+      "post": {
+        "tags": [
+          "learning"
+        ],
+        "summary": "Start Attempt",
+        "operationId": "start_attempt_api_v1_days__day__attempts_post",
+        "parameters": [
+          {
+            "name": "day",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "maximum": 30,
+              "minimum": 1,
+              "title": "Day"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttemptStarted"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/attempts/{attempt_id}/answers": {
+      "post": {
+        "tags": [
+          "learning"
+        ],
+        "summary": "Submit Answer",
+        "operationId": "submit_answer_api_v1_attempts__attempt_id__answers_post",
+        "parameters": [
+          {
+            "name": "attempt_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Attempt Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnswerSubmission"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnswerResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/attempts/{attempt_id}/complete": {
+      "post": {
+        "tags": [
+          "learning"
+        ],
+        "summary": "Complete Attempt",
+        "operationId": "complete_attempt_api_v1_attempts__attempt_id__complete_post",
+        "parameters": [
+          {
+            "name": "attempt_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Attempt Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttemptCompleted"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/daily": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Get Daily Review",
+        "operationId": "get_daily_review_api_v1_review_daily_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewSet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/mixed": {
+      "get": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Get Mixed Review",
+        "operationId": "get_mixed_review_api_v1_review_mixed_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewSet"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/review/answers": {
+      "post": {
+        "tags": [
+          "review"
+        ],
+        "summary": "Submit Review Answer",
+        "operationId": "submit_review_answer_api_v1_review_answers_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AnswerSubmission"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnswerResult"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/progress": {
+      "get": {
+        "tags": [
+          "progress"
+        ],
+        "summary": "Get Progress",
+        "operationId": "get_progress_api_v1_progress_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Progress"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/progress/streak": {
+      "get": {
+        "tags": [
+          "progress"
+        ],
+        "summary": "Get Streak",
+        "operationId": "get_streak_api_v1_progress_streak_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreakDetail"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/vocabulary": {
+      "get": {
+        "tags": [
+          "progress"
+        ],
+        "summary": "List Vocabulary",
+        "operationId": "list_vocabulary_api_v1_vocabulary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/VocabularyItem"
+                  },
+                  "type": "array",
+                  "title": "Response List Vocabulary Api V1 Vocabulary Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/pronunciation/attempts": {
+      "post": {
+        "tags": [
+          "pronunciation"
+        ],
+        "summary": "Record Pronunciation Attempt",
+        "operationId": "record_pronunciation_attempt_api_v1_pronunciation_attempts_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PronunciationAttemptIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PronunciationAttemptOut"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AnswerResult": {
+        "properties": {
+          "isCorrect": {
+            "type": "boolean",
+            "title": "Iscorrect"
+          },
+          "expected": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "feedbackKey": {
+            "type": "string",
+            "title": "Feedbackkey"
+          }
+        },
+        "type": "object",
+        "required": [
+          "isCorrect",
+          "explanation",
+          "feedbackKey"
+        ],
+        "title": "AnswerResult"
+      },
+      "AnswerSubmission": {
+        "properties": {
+          "exerciseId": {
+            "type": "string",
+            "title": "Exerciseid"
+          },
+          "submitted": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            ],
+            "title": "Submitted"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exerciseId",
+          "submitted"
+        ],
+        "title": "AnswerSubmission"
+      },
+      "AttemptCompleted": {
+        "properties": {
+          "scorePct": {
+            "type": "integer",
+            "maximum": 100.0,
+            "minimum": 0.0,
+            "title": "Scorepct"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "passed",
+              "not_passed"
+            ],
+            "title": "Status"
+          },
+          "dayStatus": {
+            "type": "string",
+            "enum": [
+              "locked",
+              "current",
+              "completed"
+            ],
+            "title": "Daystatus"
+          },
+          "nextDay": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nextday"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scorePct",
+          "status",
+          "dayStatus"
+        ],
+        "title": "AttemptCompleted"
+      },
+      "AttemptStarted": {
+        "properties": {
+          "attemptId": {
+            "type": "string",
+            "title": "Attemptid"
+          },
+          "exercises": {
+            "items": {
+              "$ref": "#/components/schemas/ExercisePrompt"
+            },
+            "type": "array",
+            "title": "Exercises"
+          }
+        },
+        "type": "object",
+        "required": [
+          "attemptId",
+          "exercises"
+        ],
+        "title": "AttemptStarted"
+      },
+      "DayDetail": {
+        "properties": {
+          "dayNumber": {
+            "type": "integer",
+            "title": "Daynumber"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "objective": {
+            "type": "string",
+            "title": "Objective"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "locked",
+              "current",
+              "completed"
+            ],
+            "title": "Status"
+          },
+          "lesson": {
+            "type": "string",
+            "title": "Lesson"
+          },
+          "exercises": {
+            "items": {
+              "$ref": "#/components/schemas/ExercisePrompt"
+            },
+            "type": "array",
+            "title": "Exercises"
+          }
+        },
+        "type": "object",
+        "required": [
+          "dayNumber",
+          "title",
+          "objective",
+          "status",
+          "lesson",
+          "exercises"
+        ],
+        "title": "DayDetail"
+      },
+      "DaySummary": {
+        "properties": {
+          "dayNumber": {
+            "type": "integer",
+            "title": "Daynumber"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "objective": {
+            "type": "string",
+            "title": "Objective"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "locked",
+              "current",
+              "completed"
+            ],
+            "title": "Status"
+          },
+          "bestScorePct": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bestscorepct"
+          }
+        },
+        "type": "object",
+        "required": [
+          "dayNumber",
+          "title",
+          "objective",
+          "status"
+        ],
+        "title": "DaySummary"
+      },
+      "ExercisePrompt": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "multiple_choice",
+              "fill_in_blank",
+              "choose_word",
+              "spelling_correction",
+              "word_matching",
+              "sentence_ordering",
+              "vocabulary_matching",
+              "grammar_correction",
+              "listening_comprehension",
+              "pronunciation_practice",
+              "sentence_transformation",
+              "daily_review",
+              "mixed_review"
+            ],
+            "title": "Type"
+          },
+          "prompt": {
+            "type": "string",
+            "title": "Prompt"
+          },
+          "options": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Options"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "prompt"
+        ],
+        "title": "ExercisePrompt",
+        "description": "An exercise as the learner sees it. Never includes the answer key."
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Health": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "Health"
+      },
+      "Progress": {
+        "properties": {
+          "completedDays": {
+            "type": "integer",
+            "title": "Completeddays"
+          },
+          "overallPct": {
+            "type": "integer",
+            "title": "Overallpct"
+          },
+          "accuracyPct": {
+            "type": "integer",
+            "title": "Accuracypct"
+          },
+          "streak": {
+            "$ref": "#/components/schemas/Streak"
+          },
+          "weakTopics": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Weaktopics"
+          },
+          "vocabularyLearned": {
+            "type": "integer",
+            "title": "Vocabularylearned"
+          }
+        },
+        "type": "object",
+        "required": [
+          "completedDays",
+          "overallPct",
+          "accuracyPct",
+          "streak",
+          "weakTopics",
+          "vocabularyLearned"
+        ],
+        "title": "Progress"
+      },
+      "PronunciationAttemptIn": {
+        "properties": {
+          "itemId": {
+            "type": "string",
+            "title": "Itemid"
+          },
+          "method": {
+            "type": "string",
+            "const": "recognition",
+            "title": "Method"
+          },
+          "transcript": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transcript"
+          },
+          "selfRating": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selfrating"
+          }
+        },
+        "type": "object",
+        "required": [
+          "itemId",
+          "method"
+        ],
+        "title": "PronunciationAttemptIn"
+      },
+      "PronunciationAttemptOut": {
+        "properties": {
+          "score": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "feedback": {
+            "type": "string",
+            "title": "Feedback"
+          }
+        },
+        "type": "object",
+        "required": [
+          "feedback"
+        ],
+        "title": "PronunciationAttemptOut"
+      },
+      "ReviewSet": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ExercisePrompt"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "title": "ReviewSet"
+      },
+      "Streak": {
+        "properties": {
+          "current": {
+            "type": "integer",
+            "title": "Current"
+          },
+          "longest": {
+            "type": "integer",
+            "title": "Longest"
+          }
+        },
+        "type": "object",
+        "required": [
+          "current",
+          "longest"
+        ],
+        "title": "Streak"
+      },
+      "StreakDetail": {
+        "properties": {
+          "current": {
+            "type": "integer",
+            "title": "Current"
+          },
+          "longest": {
+            "type": "integer",
+            "title": "Longest"
+          },
+          "lastActiveDate": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Lastactivedate"
+          },
+          "graceUsed": {
+            "type": "boolean",
+            "title": "Graceused"
+          }
+        },
+        "type": "object",
+        "required": [
+          "current",
+          "longest",
+          "graceUsed"
+        ],
+        "title": "StreakDetail"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VocabularyItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "word": {
+            "type": "string",
+            "title": "Word"
+          },
+          "definition": {
+            "type": "string",
+            "title": "Definition"
+          },
+          "example": {
+            "type": "string",
+            "title": "Example"
+          },
+          "dayNumber": {
+            "type": "integer",
+            "title": "Daynumber"
+          },
+          "timesCorrect": {
+            "type": "integer",
+            "title": "Timescorrect"
+          },
+          "timesWrong": {
+            "type": "integer",
+            "title": "Timeswrong"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "word",
+          "definition",
+          "example",
+          "dayNumber",
+          "timesCorrect",
+          "timesWrong"
+        ],
+        "title": "VocabularyItem"
+      }
+    }
+  }
+}
