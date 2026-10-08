@@ -66,6 +66,31 @@ describe("ExercisePlayer", () => {
     await waitFor(() => expect(onFinish).toHaveBeenCalledTimes(1));
   });
 
+  it("does not mark a self-rating as chosen when it fails to save", async () => {
+    const pronunciation: Exercise[] = [
+      {
+        id: "ex_say",
+        kind: "pronunciation_practice",
+        instructions: "Listen, then choose the word you hear.",
+        points: 1,
+        content: { audioUrl: null, options: ["ship", "sheep"] },
+      },
+    ];
+    const submit = vi.fn(async () => ({ isCorrect: true, explanation: "Yes.", feedbackKey: "ok" }));
+    const rate = vi.fn(async () => {
+      throw new Error("offline");
+    });
+    render(<ExercisePlayer exercises={pronunciation} submit={submit} rate={rate} onFinish={vi.fn()} finishLabel="Finish" />);
+
+    fireEvent.click(screen.getByRole("button", { name: "sheep" }));
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Got it" }));
+
+    expect(await screen.findByText(/could not save your self-rating/)).toBeTruthy();
+    expect(rate).toHaveBeenCalledWith(pronunciation[0], "got_it");
+    expect(screen.getByRole("button", { name: "Got it" }).getAttribute("aria-pressed")).toBe("false");
+  });
+
   it("shows a plain message when the server cannot check an answer", async () => {
     const submit = vi.fn(async () => {
       throw new Error("offline");

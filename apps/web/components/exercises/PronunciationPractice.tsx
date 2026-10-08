@@ -15,9 +15,8 @@ export function PronunciationPractice({ exercise, result, busy, onSubmit, onSelf
   const [rated, setRated] = useState<"got_it" | "needs_practice" | null>(null);
   const locked = result !== null || busy;
 
-  function rate(rating: "got_it" | "needs_practice") {
-    setRated(rating);
-    onSelfRate?.(rating);
+  async function rate(rating: "got_it" | "needs_practice") {
+    if (await onSelfRate?.(rating)) setRated(rating);
   }
 
   return (

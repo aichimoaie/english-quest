@@ -6,7 +6,7 @@
  * No component calls fetch directly. Everything goes through `api`.
  */
 import type { ApiProblem, AnswerInput, AnswerResult, CompletedAttempt, DayDetail, DaySummary, PronunciationRatingInput, Progress, ReviewSet, StartedAttempt, VocabularyEntry } from "./types";
-import { API_BASE_URL, USE_FIXTURES } from "./config";
+import { API_BASE_URL } from "./config";
 import { ApiError } from "./errors";
 
 export { ApiError };
@@ -14,7 +14,7 @@ export { ApiError };
 const PREFIX = "/api/v1";
 
 async function call<T>(method: "GET" | "POST", path: string, body?: unknown): Promise<T> {
-  if (USE_FIXTURES) {
+  if (process.env.NODE_ENV !== "production" && API_BASE_URL === "") {
     // Loaded on demand so the fixture answer keys stay out of the main bundle.
     const { fixtureCall } = await import("@/lib/fixtures/server");
     return fixtureCall<T>(method, `${PREFIX}${path}`, body);

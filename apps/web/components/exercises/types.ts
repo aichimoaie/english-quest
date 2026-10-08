@@ -12,7 +12,7 @@ export interface ExerciseProps<E extends Exercise = Exercise> {
   busy: boolean;
   onSubmit: (submitted: Submitted) => void;
   /** Only pronunciation items use this: the learner's self-rating after the recognition answer. */
-  onSelfRate?: (rating: "got_it" | "needs_practice") => void;
+  onSelfRate?: (rating: "got_it" | "needs_practice") => Promise<boolean>;
 }
 
 export type ExerciseOf<K extends Exercise["kind"]> = Extract<Exercise, { kind: K }>;

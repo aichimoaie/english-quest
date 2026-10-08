@@ -62,11 +62,13 @@ export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel 
   }
 
   async function handleSelfRate(rating: "got_it" | "needs_practice") {
-    if (!exercise || !rate) return;
+    if (!exercise || !rate) return false;
     try {
       await rate(exercise, rating);
+      return true;
     } catch {
       setError("We could not save your self-rating. Your answer is still recorded.");
+      return false;
     }
   }
 
