@@ -42,6 +42,7 @@ vocabulary:                  # 1 to 12 words
   - word: brother
     definition: ...          # short English definition
     example: My brother ...  # example sentence
+    audio_ref: d01-vocab-brother  # name of the word's audio file (required)
 exercises:                   # ids: dNN-<name>, lowercase, unique within the day
   - id: d01-grammar-mc-01
     type: multiple_choice
