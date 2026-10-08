@@ -1,3 +1,8 @@
+output "container_app_id" {
+  description = "ID of the API container app, used to scope the deploy identity."
+  value       = azurerm_container_app.api.id
+}
+
 output "container_app_name" {
   description = "Name of the API container app, used by the CI deploy step."
   value       = azurerm_container_app.api.name

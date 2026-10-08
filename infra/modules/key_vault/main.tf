@@ -7,9 +7,7 @@ resource "azurerm_key_vault" "this" {
   tenant_id           = data.azurerm_client_config.current.tenant_id
   sku_name            = "standard"
 
-  # Access policies let the identity that runs OpenTofu write secrets without
-  # Azure role assignments. RBAC would need User Access Administrator on the group.
-  rbac_authorization_enabled = false
+  rbac_authorization_enabled = true
 
   soft_delete_retention_days = 7
   purge_protection_enabled   = var.purge_protection_enabled
@@ -17,10 +15,8 @@ resource "azurerm_key_vault" "this" {
   tags = var.tags
 }
 
-resource "azurerm_key_vault_access_policy" "deployer" {
-  key_vault_id = azurerm_key_vault.this.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = data.azurerm_client_config.current.object_id
-
-  secret_permissions = ["Get", "List", "Set", "Delete", "Recover", "Purge"]
+resource "azurerm_role_assignment" "deployer_secrets_officer" {
+  scope                = azurerm_key_vault.this.id
+  role_definition_name = "Key Vault Secrets Officer"
+  principal_id         = data.azurerm_client_config.current.object_id
 }

@@ -1,5 +1,5 @@
 variable "name_prefix" {
-  description = "Suffix for resource names, for example eq-dev. Names are built as log-<prefix>, cae-<prefix> and ca-<prefix>-api."
+  description = "Suffix for resource names, for example eq-dev. Names are built as cae-<prefix> and ca-<prefix>-api."
   type        = string
 }
 

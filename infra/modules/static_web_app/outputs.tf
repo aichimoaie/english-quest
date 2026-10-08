@@ -1,3 +1,8 @@
+output "id" {
+  description = "Static Web App ID, used to scope the deploy identity."
+  value       = azurerm_static_web_app.this.id
+}
+
 output "name" {
   description = "Static Web App name, used by the CI deploy step."
   value       = azurerm_static_web_app.this.name

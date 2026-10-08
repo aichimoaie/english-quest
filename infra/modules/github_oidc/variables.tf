@@ -18,7 +18,17 @@ variable "github_environment" {
   type        = string
 }
 
-variable "resource_group_id" {
-  description = "Resource group ID that the deploy identity may change."
+variable "container_app_id" {
+  description = "ID of the API container app that the deploy identity may update."
+  type        = string
+}
+
+variable "static_web_app_id" {
+  description = "ID of the Static Web App that the deploy identity may update."
+  type        = string
+}
+
+variable "postgres_server_id" {
+  description = "ID of the PostgreSQL flexible server that the deploy identity may manage."
   type        = string
 }

@@ -1,3 +1,8 @@
+output "id" {
+  description = "Flexible server ID, used to scope the deploy identity."
+  value       = azurerm_postgresql_flexible_server.this.id
+}
+
 output "name" {
   description = "Flexible server name."
   value       = azurerm_postgresql_flexible_server.this.name
@@ -14,7 +19,7 @@ output "administrator_login" {
 }
 
 output "administrator_password" {
-  description = "Generated administrator password. The environment writes it to Key Vault and never prints it."
+  description = "Generated administrator password. It is used only to build database_url and is held in OpenTofu state."
   value       = random_password.administrator.result
   sensitive   = true
 }

@@ -18,10 +18,22 @@ resource "azuread_application_federated_identity_credential" "github_environment
   subject        = "repo:${var.github_owner}/${var.github_repository}:environment:${var.github_environment}"
 }
 
-# Contributor covers container app updates and the Static Web Apps upload. It
-# cannot grant role assignments, which keeps the CI identity out of IAM.
-resource "azurerm_role_assignment" "deploy_contributor" {
-  scope                = var.resource_group_id
+# Contributor on each deploy target only. It cannot grant role assignments, which
+# keeps the CI identity out of IAM.
+resource "azurerm_role_assignment" "deploy_container_app" {
+  scope                = var.container_app_id
+  role_definition_name = "Contributor"
+  principal_id         = azuread_service_principal.deploy.object_id
+}
+
+resource "azurerm_role_assignment" "deploy_static_web_app" {
+  scope                = var.static_web_app_id
+  role_definition_name = "Contributor"
+  principal_id         = azuread_service_principal.deploy.object_id
+}
+
+resource "azurerm_role_assignment" "deploy_postgres_server" {
+  scope                = var.postgres_server_id
   role_definition_name = "Contributor"
   principal_id         = azuread_service_principal.deploy.object_id
 }

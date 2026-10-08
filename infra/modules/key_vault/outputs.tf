@@ -1,5 +1,5 @@
 output "id" {
-  description = "Key Vault ID. The environment uses it to write secrets after the access policy exists."
+  description = "Key Vault ID. The environment uses it to write secrets after the Secrets Officer role assignment exists."
   value       = azurerm_key_vault.this.id
 }
 

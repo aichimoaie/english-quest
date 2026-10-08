@@ -75,7 +75,9 @@ module "github_oidc" {
   github_owner       = var.github_owner
   github_repository  = var.github_repository
   github_environment = var.environment
-  resource_group_id  = azurerm_resource_group.this.id
+  container_app_id   = module.container_apps.container_app_id
+  static_web_app_id  = module.static_web_app.id
+  postgres_server_id = module.postgres.id
 }
 
 # The budget covers the whole subscription, so it lives in one environment only.
