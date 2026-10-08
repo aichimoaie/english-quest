@@ -24,7 +24,7 @@ Success for the MVP means the learner completes the 30 days on the app and can s
 - **Completion:** a day counts as complete when one run of its lessons reaches 70% (see section 6).
 - **Missed days:** a missed day pauses the schedule. It does not break the streak, and the learner resumes at the next unlocked day.
 - **Retries:** the learner can retry any exercise, and can start a new run of the day, without limit. Retries give feedback; accuracy is still counted on first attempts (section 6).
-- **Content:** each day has one focus area, but every day also includes a short review of earlier days.
+- **Content:** every day also includes a short review of earlier days. Whether each day has one focus area is **Open** (section 18).
 
 ## 4. Learning areas
 
@@ -62,7 +62,7 @@ Each type has one line of definition and one scoring rule. The rules are propose
 
 - **Points:** each scored item gives points as shown in section 5. Within a run, items are scored on the **first attempt only**.
 - **Run:** one pass through a day's lesson exercises. Each new run is scored separately.
-- **Accuracy:** accuracy = points earned on first attempts ÷ points available on first attempts, across all runs, shown as a percentage. Retries never change accuracy.
+- **Accuracy:** accuracy = points earned on first attempts ÷ points available on first attempts, across all runs and all daily review answers, shown as a percentage. Retries never change accuracy.
 - **Day completion threshold: 70%.** A day is complete when one run reaches at least 70%. The run uses the day's lesson exercises; daily review does not count toward it.
 - **Skill mastery:** the 80% skill-mastery threshold and its measurement window are **Open** (section 18).
 - **Vocabulary learned:** a word counts as learned when it is answered correctly on two separate days (section 10).
@@ -104,7 +104,7 @@ The exact spacing and the weighting toward weak topics are **Open**.
 - Example (new wording): *"The shop opens early, so we can buy bread before work."*
 - A word is **learned** when the learner answers it correctly on two separate days. The date rule uses the learner's time zone (**Open**, section 18).
 - Vocabulary is practised through the matching, multiple-choice, fill-in, and listening types.
-- Words are never copied from published books; all content is written for this app (section 11 and section 14 content policy).
+- Words are never copied from published books; all content is written for this app (section 11 content policy).
 
 ## 11. Grammar requirements
 
@@ -126,14 +126,14 @@ The exact spacing and the weighting toward weak topics are **Open**.
 
 - Every vocabulary word and every listening item has audio.
 - Audio can be played, paused, and replayed without limit. Replays do not change the score.
-- Listening comprehension items use short clips (a few seconds to about 20 seconds).
+- Listening comprehension items use short clips. Clip length is **Open** (section 18).
 - The audio source and whether files are pre-generated and stored are **Open**.
 - Playback works on mobile browsers with a single large play button.
 
 ## 14. UX principles
 
 - **Clean and friendly, not academic.** Short sentences, plain labels, no jargon. Explanations are in simple English.
-- **Mobile-first.** Layouts are designed for a phone first. Touch targets are at least 44 × 44 CSS pixels, with a 16 px side margin. There is no horizontal page scrolling.
+- **Mobile-first.** Layouts are designed for a phone first. Touch targets are at least 44 × 44 CSS pixels. The side margin is **Open** (section 18). There is no horizontal page scrolling.
 - **Clear, immediate feedback.** Each answer is marked correct or incorrect at once, with the right answer and a short explanation.
 - **Low cognitive load.** One task per screen. The next step is always obvious.
 - **Motivation without manipulation.** Progress is shown plainly (days, accuracy, streak). No timers that pressure the learner, no loss-aversion tricks, no pop-up upsells.
@@ -201,3 +201,6 @@ These are not decided. Each needs an answer before the feature that depends on i
 13. **Content volume per day:** exact count of words, grammar points, and exercises per day.
 14. **Domain names:** the names for the web app and API hostnames, and the dev and prod variants.
 15. **Browser support:** the minimum supported mobile and desktop browser versions.
+16. **Focus area per day:** whether each day has one focus area, or a mix of topics.
+17. **Listening clip length:** the maximum length of a listening clip (for example, about 20 seconds).
+18. **Mobile side margin:** the side margin on phone layouts (for example, 16 px).
