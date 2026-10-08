@@ -26,9 +26,7 @@ def evaluate_matching(
     if unknown:
         raise InvalidResponseError(f"unknown left-hand ids: {sorted(unknown)}")
 
-    correct = sum(
-        1 for left, right in answer_key.items() if response.get(left) == right
-    )
+    correct = sum(1 for left, right in answer_key.items() if response.get(left) == right)
     total = len(answer_key)
     if correct == total:
         feedback_code = "correct"
@@ -39,8 +37,6 @@ def evaluate_matching(
     return EvaluationResult(
         credit=correct / total,
         feedback_code=feedback_code,
-        normalized_response={
-            "pairs": {left: response[left] for left in sorted(response)}
-        },
+        normalized_response={"pairs": {left: response[left] for left in sorted(response)}},
         family=Family.MATCHING,
     )

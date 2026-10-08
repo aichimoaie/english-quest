@@ -14,10 +14,10 @@ from typing import Any
 import pytest
 from alembic import command
 from alembic.config import Config
+from learner_seed import ensure_learner
 from sqlalchemy import Connection, Engine, create_engine, insert, text
 
 from english_quest_api.db import models
-from learner_seed import ensure_learner
 
 API_ROOT = Path(__file__).resolve().parents[2]
 

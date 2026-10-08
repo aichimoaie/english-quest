@@ -26,9 +26,7 @@ class _UniqueKeyLoader(yaml.SafeLoader):
     overridden by an explicit key.
     """
 
-    def construct_mapping(
-        self, node: yaml.MappingNode, deep: bool = False
-    ) -> dict[Hashable, Any]:
+    def construct_mapping(self, node: yaml.MappingNode, deep: bool = False) -> dict[Hashable, Any]:
         if isinstance(node, yaml.MappingNode):
             seen: set[Hashable] = set()
             for key_node, _ in node.value:
@@ -118,9 +116,7 @@ def load_day_file(path: Path) -> tuple[LoadedDay | None, list[ContentIssue]]:
     try:
         day = Day.model_validate(raw)
     except ValidationError as error:
-        issues = [
-            ContentIssue(name, _location(item), item["msg"]) for item in error.errors()
-        ]
+        issues = [ContentIssue(name, _location(item), item["msg"]) for item in error.errors()]
         return None, issues
 
     if day.day != file_day:

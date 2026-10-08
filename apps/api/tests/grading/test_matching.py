@@ -1,8 +1,9 @@
 import pytest
-from english_quest_api.grading.matching import evaluate_matching
-from english_quest_api.grading.results import Family, InvalidResponseError
 from hypothesis import given
 from hypothesis import strategies as st
+
+from english_quest_api.grading.matching import evaluate_matching
+from english_quest_api.grading.results import Family, InvalidResponseError
 
 KEY = {"hot": "cold", "big": "small", "fast": "slow"}
 
@@ -48,16 +49,11 @@ def test_right_hand_item_may_appear_once_in_the_key() -> None:
     st.permutations(["cold", "small", "slow", "dry"]),
     st.lists(st.booleans(), min_size=4, max_size=4),
 )
-def test_credit_equals_share_of_correct_pairs(
-    rights: list[str], keep: list[bool]
-) -> None:
+def test_credit_equals_share_of_correct_pairs(rights: list[str], keep: list[bool]) -> None:
     lefts = ["hot", "big", "fast", "wet"]
     key = dict(zip(lefts, ["cold", "small", "slow", "dry"], strict=True))
     response = {
-        left: (right if ok else "none")
-        for left, right, ok in zip(lefts, rights, keep, strict=True)
+        left: (right if ok else "none") for left, right, ok in zip(lefts, rights, keep, strict=True)
     }
     expected = sum(1 for left in lefts if response[left] == key[left]) / 4
-    assert evaluate_matching(answer_key=key, response=response).credit == pytest.approx(
-        expected
-    )
+    assert evaluate_matching(answer_key=key, response=response).credit == pytest.approx(expected)

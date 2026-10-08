@@ -1,14 +1,15 @@
 from datetime import date, timedelta
 
 import pytest
+from hypothesis import given
+from hypothesis import strategies as st
+
 from english_quest_api.grading.mastery import (
     AttemptRecord,
     TopicWeight,
     derive_progress,
     first_scored_answers,
 )
-from hypothesis import given
-from hypothesis import strategies as st
 
 TODAY = date(2026, 10, 8)
 SPELLING = (TopicWeight("spelling.ie_ei", 1.0),)
@@ -55,9 +56,7 @@ def test_accuracy_is_points_weighted() -> None:
 def test_practice_answers_never_change_accuracy() -> None:
     base = [attempt(1, "ex_a", 1.0)]
     with_practice = [*base, attempt(2, "ex_b", 0.0, practice=True)]
-    assert derive_progress(base, today=TODAY) == derive_progress(
-        with_practice, today=TODAY
-    )
+    assert derive_progress(base, today=TODAY) == derive_progress(with_practice, today=TODAY)
 
 
 def test_a_wrong_first_answer_is_not_replaced_by_a_later_right_one() -> None:
@@ -163,9 +162,7 @@ def test_first_answer_is_chosen_by_sequence_not_input_order() -> None:
 def test_adding_a_retry_never_changes_accuracy(
     history: list[tuple[str, float]],
 ) -> None:
-    attempts = [
-        attempt(i, ex, credit) for i, (ex, credit) in enumerate(history, start=1)
-    ]
+    attempts = [attempt(i, ex, credit) for i, (ex, credit) in enumerate(history, start=1)]
     before = derive_progress(attempts, today=TODAY)
     retry = attempt(len(attempts) + 1, history[0][0], 0.0)
     after = derive_progress([*attempts, retry], today=TODAY)
@@ -173,11 +170,7 @@ def test_adding_a_retry_never_changes_accuracy(
 
 
 @given(st.lists(st.floats(0, 1), min_size=1, max_size=10), st.integers(0, 60))
-def test_smoothed_accuracy_stays_inside_the_unit_interval(
-    credits: list[float], age: int
-) -> None:
-    attempts = [
-        attempt(i, f"ex_{i}", c, days_ago=age) for i, c in enumerate(credits, start=1)
-    ]
+def test_smoothed_accuracy_stays_inside_the_unit_interval(credits: list[float], age: int) -> None:
+    attempts = [attempt(i, f"ex_{i}", c, days_ago=age) for i, c in enumerate(credits, start=1)]
     for topic in derive_progress(attempts, today=TODAY).topics:
         assert 0.0 < topic.smoothed_accuracy < 1.0
