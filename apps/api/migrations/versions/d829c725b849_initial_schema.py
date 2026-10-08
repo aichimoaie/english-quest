@@ -5,6 +5,11 @@ revisions, day_exercises, learning_sessions, attempts (append-only),
 pronunciation_self_ratings, and the derived day_progress, activity_days,
 topic_mastery and user_vocabulary.
 
+Roles. The owner role runs migrations (MIGRATION_DATABASE_URL). The API connects
+as the english_quest_api login role (DATABASE_URL), which is a member of the
+NOLOGIN english_quest_server role. Only english_quest_server can read answer
+keys. Infrastructure sets the english_quest_api password outside this revision.
+
 Revision ID: d829c725b849
 Revises:
 Create Date: 2026-10-08 20:35:28.046126
@@ -52,10 +57,13 @@ def upgrade() -> None:
         sa.Column("display_name", sa.Text(), nullable=False),
         sa.Column("password_hash", sa.Text(), nullable=False),
         sa.Column("timezone", sa.Text(), nullable=False),
+        sa.Column("single_learner", sa.Boolean(), server_default=sa.text("true"), nullable=False),
         sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
         sa.CheckConstraint("email = lower(email)", name=op.f("ck_users_email_lowercase")),
+        sa.CheckConstraint("single_learner", name=op.f("ck_users_single_learner_only")),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_users")),
         sa.UniqueConstraint("email", name=op.f("uq_users_email")),
+        sa.UniqueConstraint("single_learner", name="uq_users_single_learner"),
     )
     op.create_table(
         "exercise_revisions",
@@ -113,12 +121,16 @@ def upgrade() -> None:
             IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'english_quest_server') THEN
                 CREATE ROLE english_quest_server NOLOGIN;
             END IF;
+            IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'english_quest_api') THEN
+                CREATE ROLE english_quest_api LOGIN;
+            END IF;
         END
         $$;
         """
     )
+    op.execute("GRANT english_quest_server TO english_quest_api")
     op.execute("REVOKE ALL ON exercise_revision_answer_keys FROM PUBLIC")
-    op.execute("GRANT SELECT, INSERT ON exercise_revision_answer_keys TO english_quest_server")
+    op.execute("GRANT SELECT ON exercise_revision_answer_keys TO english_quest_server")
     op.create_table(
         "sessions",
         sa.Column("id", sa.Uuid(), nullable=False),

@@ -15,11 +15,21 @@ from sqlalchemy import Engine, create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
 
-def database_url() -> str:
-    url = os.environ.get("DATABASE_URL")
+def _required_url(name: str) -> str:
+    url = os.environ.get(name)
     if not url:
-        raise RuntimeError("DATABASE_URL is not set; point it at the English Quest PostgreSQL database")
+        raise RuntimeError(f"{name} is not set; point it at the English Quest PostgreSQL database")
     return url
+
+
+def database_url() -> str:
+    """The API's runtime connection, as the english_quest_api login role (member of english_quest_server)."""
+    return _required_url("DATABASE_URL")
+
+
+def migration_database_url() -> str:
+    """Connection for schema changes, as the owner role. The API role cannot run DDL."""
+    return _required_url("MIGRATION_DATABASE_URL")
 
 
 @functools.cache

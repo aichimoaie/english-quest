@@ -14,7 +14,8 @@ from typing import Any
 import pytest
 from alembic import command
 from alembic.config import Config
-from sqlalchemy import Connection, Engine, create_engine, insert, text
+from sqlalchemy import Connection, Engine, create_engine, insert, select, text
+from sqlalchemy.dialects.postgresql import insert as postgresql_insert
 
 from english_quest_api.db import models
 
@@ -73,22 +74,37 @@ HASH = "0" * 64
 
 
 @pytest.fixture
-def seed(conn: Connection) -> dict[str, Any]:
+def seed_learner(conn: Connection) -> Callable[[], uuid.UUID]:
+    """Returns a function that ensures the single learner exists and returns its id.
+
+    Safe to call repeatedly and concurrently: the insert skips the row when the
+    learner already exists, and the id is read back from the table.
+    """
+
+    def ensure_learner() -> uuid.UUID:
+        conn.execute(
+            postgresql_insert(models.User)
+            .values(
+                email="learner@example.com",
+                display_name="Learner",
+                password_hash="argon2id-placeholder",
+                timezone="Europe/Bucharest",
+            )
+            .on_conflict_do_nothing(index_elements=["single_learner"])
+        )
+        return conn.execute(select(models.User.id)).scalar_one()
+
+    return ensure_learner
+
+
+@pytest.fixture
+def seed(conn: Connection, seed_learner: Callable[[], uuid.UUID]) -> dict[str, Any]:
     """Insert one user, day 1, one exercise with a revision, and a day run."""
-    user_id = uuid.uuid4()
+    user_id = seed_learner()
     revision_id = uuid.uuid4()
     session_id = uuid.uuid4()
     exercise_id = "past-simple-choice"
 
-    conn.execute(
-        insert(models.User).values(
-            id=user_id,
-            email="learner@example.com",
-            display_name="Learner",
-            password_hash="argon2id-placeholder",
-            timezone="Europe/Bucharest",
-        )
-    )
     conn.execute(
         insert(models.Day).values(
             day_number=1,

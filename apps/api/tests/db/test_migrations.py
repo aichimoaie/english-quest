@@ -52,7 +52,7 @@ def test_migrations_run_from_a_database_url_with_percent_escapes(
 ) -> None:
     reset_schema()
     separator = "&" if "?" in database_url else "?"
-    monkeypatch.setenv("DATABASE_URL", f"{database_url}{separator}application_name=english%20quest")
+    monkeypatch.setenv("MIGRATION_DATABASE_URL", f"{database_url}{separator}application_name=english%20quest")
     config = Config(str(Path(__file__).resolve().parents[2] / "alembic.ini"))
 
     command.upgrade(config, "head")

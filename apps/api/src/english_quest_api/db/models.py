@@ -45,8 +45,14 @@ TIMESTAMP = DateTime(timezone=True)
 
 
 class User(Base):
+    """The course has one learner. The table holds at most one row."""
+
     __tablename__ = "users"
-    __table_args__ = (CheckConstraint("email = lower(email)", name="email_lowercase"),)
+    __table_args__ = (
+        CheckConstraint("email = lower(email)", name="email_lowercase"),
+        CheckConstraint("single_learner", name="single_learner_only"),
+        UniqueConstraint("single_learner", name="uq_users_single_learner"),
+    )
 
     id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
     email: Mapped[str] = mapped_column(Text, unique=True)
@@ -54,6 +60,7 @@ class User(Base):
     password_hash: Mapped[str] = mapped_column(Text)
     # IANA time zone name, for example "Europe/Bucharest". Validated in the app.
     timezone: Mapped[str] = mapped_column(Text)
+    single_learner: Mapped[bool] = mapped_column(Boolean, server_default=text("true"))
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=func.now())
 
 
@@ -135,7 +142,7 @@ class ExerciseRevision(Base):
 
 
 class ExerciseRevisionAnswerKey(Base):
-    """The answer key of one revision. Readable by the server role only."""
+    """The answer key of one revision. Only the english_quest_server role can read it."""
 
     __tablename__ = "exercise_revision_answer_keys"
 

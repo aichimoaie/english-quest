@@ -7,7 +7,7 @@ from sqlalchemy import engine_from_config, pool
 
 from english_quest_api.db import models  # noqa: F401  (registers every table on Base.metadata)
 from english_quest_api.db.base import Base
-from english_quest_api.db.session import database_url
+from english_quest_api.db.session import migration_database_url
 
 config = context.config
 
@@ -16,7 +16,7 @@ if config.config_file_name is not None:
 
 # An explicit URL set on the config (tests do this) wins over the environment.
 if not config.get_main_option("sqlalchemy.url"):
-    config.set_main_option("sqlalchemy.url", database_url().replace("%", "%%"))
+    config.set_main_option("sqlalchemy.url", migration_database_url().replace("%", "%%"))
 
 target_metadata = Base.metadata
 
