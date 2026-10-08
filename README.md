@@ -38,7 +38,7 @@ pnpm install                         # from the repo root
 pnpm dev                             # http://localhost:3000
 ```
 
-When `NEXT_PUBLIC_API_BASE_URL` is unset, the app uses a temporary fixture server in the browser, so it can be previewed without the API. Exercise attempts are not recorded there. Set `NEXT_PUBLIC_API_BASE_URL` to a running API to use the real one. `pnpm build` writes the static export to `apps/web/out`. The checks are `pnpm lint`, `pnpm typecheck`, and `pnpm test`; CI runs the same commands (see [docs/ci.md](docs/ci.md)).
+In `pnpm dev` and tests, when `NEXT_PUBLIC_API_BASE_URL` is unset, the app uses a temporary fixture server in the browser, so it can be previewed without the API. Fixture state lives in memory and resets on reload. Fixtures are not included in production builds, so set `NEXT_PUBLIC_API_BASE_URL` to a running API for any build you deploy or preview against the real one. `pnpm build` writes the static export to `apps/web/out`. The checks are `pnpm lint`, `pnpm typecheck`, and `pnpm test`; CI runs the same commands (see [docs/ci.md](docs/ci.md)).
 
 ## Check the API
 
