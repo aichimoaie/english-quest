@@ -3,8 +3,8 @@
 The validator is run as a subprocess, the same way CI runs it, so a failure is judged by its exit
 code and its own messages rather than by importing its internals.
 
-The command is `python -m english_quest_api.curriculum.validate <content_dir>`. That module name is
-an assumption until workstream 6 lands.
+The default command calls `validate_content_dir` from `english_quest_api.curriculum.validator` (apps/api)
+through a small `python -c` snippet, prints every issue to stderr and exits 1 when the report is not ok.
 """
 
 from __future__ import annotations
@@ -18,7 +18,14 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CONTENT_DAYS = REPO_ROOT / "content" / "days"
 API_SRC = REPO_ROOT / "apps" / "api" / "src"
-DEFAULT_COMMAND: tuple[str, ...] = (sys.executable, "-m", "english_quest_api.curriculum.validate")
+VALIDATE_SNIPPET = (
+    "import sys; from pathlib import Path; "
+    "from english_quest_api.curriculum.validator import validate_content_dir; "
+    "report = validate_content_dir(Path(sys.argv[1])); "
+    "[print(issue, file=sys.stderr) for issue in report.issues]; "
+    "sys.exit(0 if report.ok else 1)"
+)
+DEFAULT_COMMAND: tuple[str, ...] = (sys.executable, "-c", VALIDATE_SNIPPET)
 TIMEOUT_SECONDS = 120
 
 

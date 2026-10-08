@@ -38,7 +38,7 @@ pnpm test:e2e                    # all Playwright specs; app-level specs skip un
 Python commands run from the repository root:
 
 ```bash
-uv run --project tests pytest -c tests/pytest.ini      # Python tests
+uv run --project tests pytest -c tests/pytest.ini tests   # Python tests (pass the directory: bare runs also collect apps/api)
 uv run --project tests --with ruff==0.16.10 ruff check tests
 (cd tests && uv run --with mypy==2.4.0 mypy)           # mypy reads its paths from tests/pyproject.toml
 ```
