@@ -2,9 +2,9 @@
 
 from typing import Literal
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
-from english_quest_api.api.common import ApiModel, not_implemented
+from english_quest_api.api.common import ApiModel
 
 router = APIRouter(prefix="/pronunciation", tags=["pronunciation"])
 
@@ -24,4 +24,4 @@ class PronunciationAttemptOut(ApiModel):
 
 @router.post("/attempts", response_model=PronunciationAttemptOut)
 def record_pronunciation_attempt(body: PronunciationAttemptIn) -> PronunciationAttemptOut:
-    not_implemented("Pronunciation practice")
+    raise HTTPException(status_code=501, detail="Pronunciation practice is not implemented yet.")

@@ -24,10 +24,10 @@ cp .env.example .env                 # local settings; .env is git-ignored
 docker compose up -d db              # PostgreSQL 18 on localhost:5432
 cd apps/api
 uv sync                              # install the API and dev tools
-uv run uvicorn english_quest_api.main:app --reload --port 8000
+uv run uvicorn english_quest_api.main:create_app --factory --reload --port 8000
 ```
 
-Then open <http://localhost:8000/health> (returns `{"status": "ok"}`) and <http://localhost:8000/docs>.
+Then open <http://localhost:8000/api/v1/health> (returns `{"status": "ok"}`) and <http://localhost:8000/docs>.
 
 ## Check the API
 

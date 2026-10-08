@@ -7,7 +7,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from english_quest_api.api.errors import register_error_handlers
-from english_quest_api.api.health import router as health_router
 from english_quest_api.api.router import api_router
 from english_quest_api.config import Settings, get_settings
 
@@ -35,7 +34,6 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         allow_methods=["GET", "POST", "OPTIONS"],
         allow_headers=["Content-Type", "Accept"],
     )
-    app.include_router(health_router)
     app.include_router(api_router)
     return app
 
@@ -44,8 +42,8 @@ def openapi_document(app: FastAPI) -> dict[str, Any]:
     return app.openapi()
 
 
-def export_openapi(output: Path = DEFAULT_OPENAPI_PATH) -> Path:
-    document = openapi_document(create_app())
+def export_openapi(output: Path = DEFAULT_OPENAPI_PATH, settings: Settings | None = None) -> Path:
+    document = openapi_document(create_app(settings))
     output.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
     return output
 
@@ -61,9 +59,6 @@ def export_openapi_cli(argv: list[str] | None = None) -> None:
     args = parser.parse_args(argv)
     written = export_openapi(args.output)
     print(f"Wrote OpenAPI document to {written}")
-
-
-app = create_app()
 
 
 if __name__ == "__main__":

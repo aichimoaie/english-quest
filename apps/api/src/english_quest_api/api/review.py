@@ -1,9 +1,9 @@
 """Review routes: /review from the API sketch. Practice only; never changes accuracy."""
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 from pydantic import Field
 
-from english_quest_api.api.common import ApiModel, not_implemented
+from english_quest_api.api.common import ApiModel
 from english_quest_api.api.exercises import AnswerResult, AnswerSubmission, ExercisePrompt
 
 router = APIRouter(prefix="/review", tags=["review"])
@@ -15,14 +15,14 @@ class ReviewSet(ApiModel):
 
 @router.get("/daily", response_model=ReviewSet)
 def get_daily_review() -> ReviewSet:
-    not_implemented("Daily review")
+    raise HTTPException(status_code=501, detail="Daily review is not implemented yet.")
 
 
 @router.get("/mixed", response_model=ReviewSet)
 def get_mixed_review() -> ReviewSet:
-    not_implemented("Mixed review")
+    raise HTTPException(status_code=501, detail="Mixed review is not implemented yet.")
 
 
 @router.post("/answers", response_model=AnswerResult)
 def submit_review_answer(body: AnswerSubmission) -> AnswerResult:
-    not_implemented("Answering a review item")
+    raise HTTPException(status_code=501, detail="Answering a review item is not implemented yet.")

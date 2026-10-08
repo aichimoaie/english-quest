@@ -2,10 +2,10 @@
 
 from typing import Annotated, Literal
 
-from fastapi import APIRouter, Path
+from fastapi import APIRouter, HTTPException, Path
 from pydantic import Field
 
-from english_quest_api.api.common import ApiModel, not_implemented
+from english_quest_api.api.common import ApiModel
 from english_quest_api.api.exercises import AnswerResult, AnswerSubmission, ExercisePrompt
 
 router = APIRouter(tags=["learning"])
@@ -45,25 +45,25 @@ class AttemptCompleted(ApiModel):
 
 @router.get("/days", response_model=list[DaySummary])
 def list_days() -> list[DaySummary]:
-    not_implemented("Listing days")
+    raise HTTPException(status_code=501, detail="Listing days is not implemented yet.")
 
 
 @router.get("/days/{day}", response_model=DayDetail)
 def get_day(day: DayNumber) -> DayDetail:
-    not_implemented("Reading a day")
+    raise HTTPException(status_code=501, detail="Reading a day is not implemented yet.")
 
 
 @router.post("/days/{day}/attempts", response_model=AttemptStarted, status_code=201)
 def start_attempt(day: DayNumber) -> AttemptStarted:
     # 409 when the day is locked, once the learning service exists.
-    not_implemented("Starting a run")
+    raise HTTPException(status_code=501, detail="Starting a run is not implemented yet.")
 
 
 @router.post("/attempts/{attempt_id}/answers", response_model=AnswerResult)
 def submit_answer(attempt_id: str, body: AnswerSubmission) -> AnswerResult:
-    not_implemented("Submitting an answer")
+    raise HTTPException(status_code=501, detail="Submitting an answer is not implemented yet.")
 
 
 @router.post("/attempts/{attempt_id}/complete", response_model=AttemptCompleted)
 def complete_attempt(attempt_id: str) -> AttemptCompleted:
-    not_implemented("Completing a run")
+    raise HTTPException(status_code=501, detail="Completing a run is not implemented yet.")

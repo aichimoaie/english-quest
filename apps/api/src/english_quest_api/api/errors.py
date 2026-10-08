@@ -69,11 +69,6 @@ async def _validation_exception_handler(request: Request, exc: Exception) -> JSO
     )
 
 
-async def _not_implemented_handler(request: Request, exc: Exception) -> JSONResponse:
-    # Routes whose service has not landed yet raise NotImplementedError.
-    return _problem_response(request, HTTPStatus.NOT_IMPLEMENTED, detail=str(exc))
-
-
 async def _unhandled_error_middleware(
     request: Request, call_next: RequestResponseEndpoint
 ) -> Response:
@@ -89,5 +84,4 @@ async def _unhandled_error_middleware(
 def register_error_handlers(app: FastAPI) -> None:
     app.add_exception_handler(StarletteHTTPException, _http_exception_handler)
     app.add_exception_handler(RequestValidationError, _validation_exception_handler)
-    app.add_exception_handler(NotImplementedError, _not_implemented_handler)
     app.add_middleware(BaseHTTPMiddleware, dispatch=_unhandled_error_middleware)

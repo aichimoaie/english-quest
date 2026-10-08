@@ -11,15 +11,17 @@ from english_quest_api.main import DEFAULT_OPENAPI_PATH, create_app, export_open
 
 PROBLEM_JSON = "application/problem+json"
 WEB_ORIGIN = "http://localhost:3000"
+DATABASE_URL = "postgresql+psycopg://u:p@db:5432/eq"
+SETTINGS = Settings(database_url=DATABASE_URL, cors_allowed_origins=[WEB_ORIGIN])
 
 
 @pytest.fixture
 def client() -> TestClient:
-    return TestClient(create_app(Settings(cors_allowed_origins=[WEB_ORIGIN])))
+    return TestClient(create_app(SETTINGS))
 
 
 def test_health_returns_200(client: TestClient) -> None:
-    response = client.get("/health")
+    response = client.get("/api/v1/health")
 
     assert response.status_code == 200
     assert response.json() == {"status": "ok"}
@@ -59,7 +61,7 @@ def test_routes_without_a_service_return_501_problem(client: TestClient) -> None
 
 
 def test_unhandled_error_does_not_leak_details() -> None:
-    app = create_app(Settings())
+    app = create_app(SETTINGS)
 
     def explode() -> None:
         raise RuntimeError("secret internals")
@@ -76,7 +78,7 @@ def test_unhandled_error_does_not_leak_details() -> None:
 
 
 def test_unhandled_error_response_carries_cors_headers() -> None:
-    app = create_app(Settings(cors_allowed_origins=[WEB_ORIGIN]))
+    app = create_app(SETTINGS)
 
     def explode() -> None:
         raise RuntimeError("secret internals")
@@ -91,14 +93,14 @@ def test_unhandled_error_response_carries_cors_headers() -> None:
 
 
 def test_cors_allows_configured_web_origin(client: TestClient) -> None:
-    response = client.get("/health", headers={"Origin": WEB_ORIGIN})
+    response = client.get("/api/v1/health", headers={"Origin": WEB_ORIGIN})
 
     assert response.headers["access-control-allow-origin"] == WEB_ORIGIN
     assert response.headers["access-control-allow-credentials"] == "true"
 
 
 def test_cors_rejects_other_origins(client: TestClient) -> None:
-    response = client.get("/health", headers={"Origin": "https://evil.example"})
+    response = client.get("/api/v1/health", headers={"Origin": "https://evil.example"})
 
     assert "access-control-allow-origin" not in response.headers
 
@@ -107,7 +109,7 @@ def test_cors_rejects_other_origins(client: TestClient) -> None:
 def isolated_cwd(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     # Run from an empty directory so no real .env file is picked up.
     monkeypatch.chdir(tmp_path)
-    for name in ("ENVIRONMENT", "CORS_ALLOWED_ORIGINS", "DATABASE_URL"):
+    for name in ("CORS_ALLOWED_ORIGINS", "DATABASE_URL"):
         monkeypatch.delenv(name, raising=False)
     return tmp_path
 
@@ -115,40 +117,38 @@ def isolated_cwd(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 def test_settings_read_from_environment(
     isolated_cwd: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setenv("ENVIRONMENT", "prod")
     monkeypatch.setenv("CORS_ALLOWED_ORIGINS", "https://app.example.com, https://b.example.com")
-    monkeypatch.setenv("DATABASE_URL", "postgresql+psycopg://u:p@db:5432/eq")
+    monkeypatch.setenv("DATABASE_URL", DATABASE_URL)
 
     settings = Settings()
 
-    assert settings.environment == "prod"
     assert settings.cors_allowed_origins == ["https://app.example.com", "https://b.example.com"]
-    assert settings.database_url == "postgresql+psycopg://u:p@db:5432/eq"
+    assert settings.database_url == DATABASE_URL
 
 
 def test_settings_read_from_dotenv_file(isolated_cwd: Path) -> None:
     (isolated_cwd / ".env").write_text(
-        "CORS_ALLOWED_ORIGINS=https://app.example.com\nENVIRONMENT=dev\n", encoding="utf-8"
+        f"CORS_ALLOWED_ORIGINS=https://app.example.com\nDATABASE_URL={DATABASE_URL}\n",
+        encoding="utf-8",
     )
 
     settings = Settings()
 
-    assert settings.environment == "dev"
     assert settings.cors_allowed_origins == ["https://app.example.com"]
+    assert settings.database_url == DATABASE_URL
 
 
 @pytest.mark.parametrize(
     "environment_values",
     [
         {},
-        {"DATABASE_URL": "postgresql+psycopg://u:p@db:5432/eq"},
+        {"DATABASE_URL": DATABASE_URL},
         {"CORS_ALLOWED_ORIGINS": "https://app.example.com"},
     ],
 )
-def test_production_refuses_to_start_without_explicit_settings(
+def test_settings_refuse_to_load_without_database_url_and_web_origin(
     isolated_cwd: Path, monkeypatch: pytest.MonkeyPatch, environment_values: dict[str, str]
 ) -> None:
-    monkeypatch.setenv("ENVIRONMENT", "prod")
     for name, value in environment_values.items():
         monkeypatch.setenv(name, value)
 
@@ -156,18 +156,11 @@ def test_production_refuses_to_start_without_explicit_settings(
         Settings()
 
 
-def test_settings_default_to_local_web_origin(isolated_cwd: Path) -> None:
-    settings = Settings()
-
-    assert settings.environment == "local"
-    assert settings.cors_allowed_origins == [WEB_ORIGIN]
-
-
 def test_openapi_lists_the_section_6_surface(client: TestClient) -> None:
     paths = set(client.get("/openapi.json").json()["paths"])
 
     assert {
-        "/health",
+        "/api/v1/health",
         "/api/v1/days",
         "/api/v1/days/{day}",
         "/api/v1/days/{day}/attempts",
@@ -185,7 +178,7 @@ def test_openapi_lists_the_section_6_surface(client: TestClient) -> None:
 
 def test_committed_openapi_document_is_up_to_date(tmp_path: Path) -> None:
     generated = tmp_path / "openapi.json"
-    export_openapi(generated)
+    export_openapi(generated, SETTINGS)
 
     committed = json.loads(DEFAULT_OPENAPI_PATH.read_text(encoding="utf-8"))
 
@@ -193,8 +186,8 @@ def test_committed_openapi_document_is_up_to_date(tmp_path: Path) -> None:
 
 
 def test_app_factory_returns_a_fresh_app() -> None:
-    first = create_app(Settings())
-    second = create_app(Settings())
+    first = create_app(SETTINGS)
+    second = create_app(SETTINGS)
 
     assert isinstance(first, FastAPI)
     assert first is not second

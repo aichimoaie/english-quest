@@ -2,9 +2,9 @@
 
 from datetime import date
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
-from english_quest_api.api.common import ApiModel, not_implemented
+from english_quest_api.api.common import ApiModel
 
 router = APIRouter(tags=["progress"])
 
@@ -40,14 +40,14 @@ class VocabularyItem(ApiModel):
 
 @router.get("/progress", response_model=Progress)
 def get_progress() -> Progress:
-    not_implemented("Progress")
+    raise HTTPException(status_code=501, detail="Progress is not implemented yet.")
 
 
 @router.get("/progress/streak", response_model=StreakDetail)
 def get_streak() -> StreakDetail:
-    not_implemented("Streak")
+    raise HTTPException(status_code=501, detail="Streak is not implemented yet.")
 
 
 @router.get("/vocabulary", response_model=list[VocabularyItem])
 def list_vocabulary() -> list[VocabularyItem]:
-    not_implemented("Vocabulary")
+    raise HTTPException(status_code=501, detail="Vocabulary is not implemented yet.")
