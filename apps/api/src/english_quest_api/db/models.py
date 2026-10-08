@@ -74,7 +74,9 @@ class AuthSession(Base):
     )
 
     id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
-    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), index=True
+    )
     token_hash: Mapped[str] = mapped_column(Text, unique=True)
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=func.now())
     expires_at: Mapped[datetime] = mapped_column(TIMESTAMP)
@@ -120,8 +122,12 @@ class ExerciseRevision(Base):
     __tablename__ = "exercise_revisions"
     __table_args__ = (
         UniqueConstraint("id", "exercise_id", name="uq_exercise_revisions_id_exercise_id"),
-        UniqueConstraint("exercise_id", "revision_no", name="uq_exercise_revisions_exercise_revision_no"),
-        UniqueConstraint("exercise_id", "content_hash", name="uq_exercise_revisions_exercise_content_hash"),
+        UniqueConstraint(
+            "exercise_id", "revision_no", name="uq_exercise_revisions_exercise_revision_no"
+        ),
+        UniqueConstraint(
+            "exercise_id", "content_hash", name="uq_exercise_revisions_exercise_content_hash"
+        ),
         CheckConstraint("revision_no >= 1", name="revision_no_positive"),
         CheckConstraint("kind_version >= 1", name="kind_version_positive"),
         CheckConstraint("char_length(content_hash) = 64", name="content_hash_sha256_hex"),
@@ -177,8 +183,12 @@ class LearningSession(Base):
     __tablename__ = "learning_sessions"
     __table_args__ = (
         CheckConstraint("type IN ('day', 'daily_review', 'mixed_review')", name="type_known"),
-        CheckConstraint("(type = 'day') = (day_number IS NOT NULL)", name="day_number_for_day_runs"),
-        CheckConstraint("completed_at IS NULL OR completed_at >= started_at", name="completed_after_started"),
+        CheckConstraint(
+            "(type = 'day') = (day_number IS NOT NULL)", name="day_number_for_day_runs"
+        ),
+        CheckConstraint(
+            "completed_at IS NULL OR completed_at >= started_at", name="completed_after_started"
+        ),
         UniqueConstraint("id", "user_id", name="uq_learning_sessions_id_user_id"),
         Index("ix_learning_sessions_user_started", "user_id", "started_at"),
     )
@@ -227,7 +237,9 @@ class Attempt(Base):
         ),
         Index("ix_attempts_user_created", "user_id", "created_at"),
         CheckConstraint("is_scored = (points_available IS NOT NULL)", name="scored_matches_points"),
-        CheckConstraint("(points_awarded IS NULL) = (points_available IS NULL)", name="points_pair_null"),
+        CheckConstraint(
+            "(points_awarded IS NULL) = (points_available IS NULL)", name="points_pair_null"
+        ),
         CheckConstraint("points_available >= 0", name="points_available_non_negative"),
         CheckConstraint(
             "points_awarded >= 0 AND points_awarded <= points_available",
@@ -282,8 +294,12 @@ class DayProgress(Base):
 
     __tablename__ = "day_progress"
     __table_args__ = (
-        CheckConstraint("status IN ('locked', 'available', 'in_progress', 'completed')", name="status_known"),
-        CheckConstraint("status <> 'completed' OR completed_at IS NOT NULL", name="completed_has_timestamp"),
+        CheckConstraint(
+            "status IN ('locked', 'available', 'in_progress', 'completed')", name="status_known"
+        ),
+        CheckConstraint(
+            "status <> 'completed' OR completed_at IS NOT NULL", name="completed_has_timestamp"
+        ),
         CheckConstraint(
             "best_score_pct IS NULL OR best_score_pct BETWEEN 0 AND 100",
             name="best_score_range",
@@ -291,7 +307,9 @@ class DayProgress(Base):
         Index("ix_day_progress_user_status", "user_id", "status"),
     )
 
-    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
     day_number: Mapped[int] = mapped_column(
         ForeignKey("days.day_number", ondelete="RESTRICT"), primary_key=True
     )
@@ -309,7 +327,9 @@ class ActivityDay(Base):
 
     __tablename__ = "activity_days"
 
-    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
     local_date: Mapped[date] = mapped_column(Date, primary_key=True)
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=func.now())
 
@@ -324,7 +344,9 @@ class TopicMastery(Base):
         CheckConstraint("smoothed_accuracy BETWEEN 0 AND 1", name="smoothed_accuracy_range"),
     )
 
-    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
     topic: Mapped[str] = mapped_column(Text, primary_key=True)
     effective_n: Mapped[Decimal] = mapped_column(Numeric(10, 4))
     smoothed_accuracy: Mapped[Decimal] = mapped_column(Numeric(5, 4))
@@ -342,10 +364,14 @@ class UserVocabulary(Base):
         CheckConstraint("char_length(lemma) > 0", name="lemma_not_empty"),
         CheckConstraint("correct_day_count >= 0", name="correct_day_count_non_negative"),
         CheckConstraint("incorrect_count >= 0", name="incorrect_count_non_negative"),
-        CheckConstraint("learned_on IS NULL OR correct_day_count >= 2", name="learned_needs_two_days"),
+        CheckConstraint(
+            "learned_on IS NULL OR correct_day_count >= 2", name="learned_needs_two_days"
+        ),
     )
 
-    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
     lemma: Mapped[str] = mapped_column(Text, primary_key=True)
     first_seen_on: Mapped[date] = mapped_column(Date)
     last_correct_on: Mapped[date | None] = mapped_column(Date, nullable=True)

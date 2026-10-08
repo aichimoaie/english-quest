@@ -84,9 +84,7 @@ def first_scored_answers(attempts: Iterable[AttemptRecord]) -> dict[str, Attempt
     return first
 
 
-def derive_progress(
-    attempts: Iterable[AttemptRecord], *, today: date
-) -> ProgressSummary:
+def derive_progress(attempts: Iterable[AttemptRecord], *, today: date) -> ProgressSummary:
     counted = list(first_scored_answers(attempts).values())
 
     points_total = sum(attempt.points for attempt in counted)
@@ -100,9 +98,7 @@ def derive_progress(
         _topic_mastery(counted, today),
         key=lambda topic: (topic.smoothed_accuracy, topic.topic),
     )
-    return ProgressSummary(
-        accuracy=accuracy, scored_items=len(counted), topics=tuple(topics)
-    )
+    return ProgressSummary(accuracy=accuracy, scored_items=len(counted), topics=tuple(topics))
 
 
 def _topic_mastery(counted: list[AttemptRecord], today: date) -> list[TopicMastery]:
@@ -120,9 +116,7 @@ def _topic_mastery(counted: list[AttemptRecord], today: date) -> list[TopicMaste
         for topic_weight in attempt.topics:
             topic = topic_weight.topic
             weight = topic_weight.weight
-            decayed_correct[topic] = (
-                decayed_correct.get(topic, 0.0) + decay * weight * credit
-            )
+            decayed_correct[topic] = decayed_correct.get(topic, 0.0) + decay * weight * credit
             decayed_total[topic] = decayed_total.get(topic, 0.0) + decay * weight
             raw_correct[topic] = raw_correct.get(topic, 0.0) + weight * credit
             raw_total[topic] = raw_total.get(topic, 0.0) + weight
@@ -130,9 +124,7 @@ def _topic_mastery(counted: list[AttemptRecord], today: date) -> list[TopicMaste
     result: list[TopicMastery] = []
     for topic in sorted(decayed_total):
         n = decayed_total[topic]
-        smoothed = (decayed_correct[topic] + PRIOR_RIGHT) / (
-            n + PRIOR_RIGHT + PRIOR_WRONG
-        )
+        smoothed = (decayed_correct[topic] + PRIOR_RIGHT) / (n + PRIOR_RIGHT + PRIOR_WRONG)
         result.append(
             TopicMastery(
                 topic=topic,

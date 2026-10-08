@@ -3,13 +3,14 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from jsonschema import Draft202012Validator
+
 from english_quest_api.exercises.registry import KINDS
 from english_quest_api.exercises.schemas import (
     DEFAULT_SCHEMA_ROOT,
     SchemaStore,
     SchemaViolationError,
 )
-from jsonschema import Draft202012Validator
 
 ROOT = DEFAULT_SCHEMA_ROOT
 
@@ -98,9 +99,7 @@ def test_spelling_key_has_no_near_miss_tolerance() -> None:
 
 def test_fill_blank_sentence_needs_a_gap() -> None:
     with pytest.raises(SchemaViolationError):
-        SchemaStore().validate_content(
-            "fill_blank", 1, {"sentence": "No gap in this sentence."}
-        )
+        SchemaStore().validate_content("fill_blank", 1, {"sentence": "No gap in this sentence."})
 
 
 def test_sentence_ordering_needs_three_fragments() -> None:
@@ -120,9 +119,7 @@ def test_pronunciation_self_rating_is_an_enum() -> None:
 
 def test_response_is_checked_against_the_kind_block() -> None:
     with pytest.raises(SchemaViolationError) as error:
-        SchemaStore().validate_response(
-            "sentence_ordering", 1, {"ordered_fragment_ids": []}
-        )
+        SchemaStore().validate_response("sentence_ordering", 1, {"ordered_fragment_ids": []})
     assert error.value.messages
 
 

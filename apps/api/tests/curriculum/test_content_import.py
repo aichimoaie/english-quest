@@ -19,9 +19,7 @@ class FakeStore:
     def revision_exists(self, content_hash: str) -> bool:
         return content_hash in self.revisions
 
-    def save_revision(
-        self, day_number: int, content_hash: str, payload: dict[str, Any]
-    ) -> None:
+    def save_revision(self, day_number: int, content_hash: str, payload: dict[str, Any]) -> None:
         self.save_calls += 1
         self.revisions[content_hash] = (day_number, payload)
 
@@ -44,9 +42,7 @@ def test_first_import_writes_day_one(day_one_data: Data, write_day: Any) -> None
     assert store.save_calls == 1
 
 
-def test_second_import_of_same_content_writes_nothing(
-    day_one_data: Data, write_day: Any
-) -> None:
+def test_second_import_of_same_content_writes_nothing(day_one_data: Data, write_day: Any) -> None:
     loaded = _load(write_day(day_one_data))
     store = FakeStore()
     import_days([loaded], store)
@@ -78,9 +74,7 @@ def test_hash_ignores_key_order(day_one_data: Data, write_day: Any) -> None:
     assert original.content_hash == reordered_loaded.content_hash
 
 
-def test_hash_changes_with_learner_visible_content(
-    day_one_data: Data, write_day: Any
-) -> None:
+def test_hash_changes_with_learner_visible_content(day_one_data: Data, write_day: Any) -> None:
     before = _load(write_day(day_one_data)).content_hash
 
     day_one_data["exercises"][0]["choices"] = ["Am", "Is", "Are", "Be"]

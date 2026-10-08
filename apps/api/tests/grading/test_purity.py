@@ -13,6 +13,7 @@ from datetime import date
 from typing import Any
 
 import pytest
+
 from english_quest_api.grading.choice import evaluate_choice
 from english_quest_api.grading.mastery import AttemptRecord, derive_progress
 from english_quest_api.grading.matching import evaluate_matching
@@ -87,9 +88,7 @@ def no_clock_random_or_io(monkeypatch: pytest.MonkeyPatch) -> None:
         (socket, "socket"),
         (builtins, "open"),
     ):
-        monkeypatch.setattr(
-            module, attribute, _refuse(f"{module.__name__}.{attribute}")
-        )
+        monkeypatch.setattr(module, attribute, _refuse(f"{module.__name__}.{attribute}"))
 
 
 def test_scoring_and_derivation_run_without_clock_random_or_io(
@@ -112,10 +111,7 @@ def test_scoring_and_derivation_run_without_clock_random_or_io(
     recognition = evaluate_choice(
         option_ids=["a", "b"], correct_option_ids=["a"], selected_option_ids=["a"]
     )
-    assert (
-        evaluate_pronunciation(recognition=recognition, self_rating="skipped").credit
-        == 1.0
-    )
+    assert evaluate_pronunciation(recognition=recognition, self_rating="skipped").credit == 1.0
     summary = derive_progress(
         [
             AttemptRecord(

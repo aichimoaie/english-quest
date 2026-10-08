@@ -53,8 +53,18 @@ def upgrade() -> None:
         sa.Column("objective", sa.Text(), nullable=False),
         sa.Column("lesson_md", sa.Text(), nullable=False),
         sa.Column("review_md", sa.Text(), nullable=False),
-        sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
-        sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
+        sa.Column(
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
+        sa.Column(
+            "updated_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
         sa.CheckConstraint("day_number BETWEEN 1 AND 30", name=op.f("ck_days_day_number_range")),
         sa.PrimaryKeyConstraint("day_number", name=op.f("pk_days")),
     )
@@ -63,7 +73,12 @@ def upgrade() -> None:
         "exercises",
         sa.Column("id", sa.Text(), nullable=False),
         sa.Column("current_revision_id", sa.Uuid(), nullable=True),
-        sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
+        sa.Column(
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
         sa.CheckConstraint("id ~ '^[a-z0-9]+(-[a-z0-9]+)*$'", name=op.f("ck_exercises_id_is_slug")),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_exercises")),
     )
@@ -75,7 +90,12 @@ def upgrade() -> None:
         sa.Column("password_hash", sa.Text(), nullable=False),
         sa.Column("timezone", sa.Text(), nullable=False),
         sa.Column("single_learner", sa.Boolean(), server_default=sa.text("true"), nullable=False),
-        sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
+        sa.Column(
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
         sa.CheckConstraint("email = lower(email)", name=op.f("ck_users_email_lowercase")),
         sa.CheckConstraint("single_learner", name=op.f("ck_users_single_learner_only")),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_users")),
@@ -92,12 +112,22 @@ def upgrade() -> None:
         sa.Column("envelope", postgresql.JSONB(astext_type=sa.Text()), nullable=False),
         sa.Column("content", postgresql.JSONB(astext_type=sa.Text()), nullable=False),
         sa.Column("content_hash", sa.Text(), nullable=False),
-        sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
-        sa.CheckConstraint(
-            "char_length(content_hash) = 64", name=op.f("ck_exercise_revisions_content_hash_sha256_hex")
+        sa.Column(
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
         ),
-        sa.CheckConstraint("kind_version >= 1", name=op.f("ck_exercise_revisions_kind_version_positive")),
-        sa.CheckConstraint("revision_no >= 1", name=op.f("ck_exercise_revisions_revision_no_positive")),
+        sa.CheckConstraint(
+            "char_length(content_hash) = 64",
+            name=op.f("ck_exercise_revisions_content_hash_sha256_hex"),
+        ),
+        sa.CheckConstraint(
+            "kind_version >= 1", name=op.f("ck_exercise_revisions_kind_version_positive")
+        ),
+        sa.CheckConstraint(
+            "revision_no >= 1", name=op.f("ck_exercise_revisions_revision_no_positive")
+        ),
         sa.ForeignKeyConstraint(
             ["exercise_id"],
             ["exercises.id"],
@@ -108,7 +138,9 @@ def upgrade() -> None:
         sa.UniqueConstraint(
             "exercise_id", "content_hash", name="uq_exercise_revisions_exercise_content_hash"
         ),
-        sa.UniqueConstraint("exercise_id", "revision_no", name="uq_exercise_revisions_exercise_revision_no"),
+        sa.UniqueConstraint(
+            "exercise_id", "revision_no", name="uq_exercise_revisions_exercise_revision_no"
+        ),
         sa.UniqueConstraint("id", "exercise_id", name="uq_exercise_revisions_id_exercise_id"),
     )
     op.create_foreign_key(
@@ -128,7 +160,9 @@ def upgrade() -> None:
             name=op.f("fk_exercise_revision_answer_keys_exercise_revision_id_exercise_revisions"),
             ondelete="RESTRICT",
         ),
-        sa.PrimaryKeyConstraint("exercise_revision_id", name=op.f("pk_exercise_revision_answer_keys")),
+        sa.PrimaryKeyConstraint(
+            "exercise_revision_id", name=op.f("pk_exercise_revision_answer_keys")
+        ),
     )
     # Learner-facing queries never read answer keys. Only the server role may.
     op.execute(
@@ -153,10 +187,19 @@ def upgrade() -> None:
         sa.Column("id", sa.Uuid(), nullable=False),
         sa.Column("user_id", sa.Uuid(), nullable=False),
         sa.Column("token_hash", sa.Text(), nullable=False),
-        sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
+        sa.Column(
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
         sa.Column("expires_at", sa.DateTime(timezone=True), nullable=False),
-        sa.CheckConstraint("char_length(token_hash) = 64", name=op.f("ck_sessions_token_hash_sha256_hex")),
-        sa.CheckConstraint("expires_at > created_at", name=op.f("ck_sessions_expires_after_created")),
+        sa.CheckConstraint(
+            "char_length(token_hash) = 64", name=op.f("ck_sessions_token_hash_sha256_hex")
+        ),
+        sa.CheckConstraint(
+            "expires_at > created_at", name=op.f("ck_sessions_expires_after_created")
+        ),
         sa.ForeignKeyConstraint(
             ["user_id"], ["users.id"], name=op.f("fk_sessions_user_id_users"), ondelete="CASCADE"
         ),
@@ -186,7 +229,9 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("day_number", "exercise_id", name=op.f("pk_day_exercises")),
         sa.UniqueConstraint("day_number", "position", name="uq_day_exercises_day_position"),
     )
-    op.create_index(op.f("ix_day_exercises_exercise_id"), "day_exercises", ["exercise_id"], unique=False)
+    op.create_index(
+        op.f("ix_day_exercises_exercise_id"), "day_exercises", ["exercise_id"], unique=False
+    )
     op.create_table(
         "learning_sessions",
         sa.Column("id", sa.Uuid(), nullable=False),
@@ -194,14 +239,20 @@ def upgrade() -> None:
         sa.Column("type", sa.Text(), nullable=False),
         sa.Column("day_number", sa.SmallInteger(), nullable=True),
         sa.Column("plan", postgresql.JSONB(astext_type=sa.Text()), nullable=False),
-        sa.Column("started_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
+        sa.Column(
+            "started_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
         sa.Column("completed_at", sa.DateTime(timezone=True), nullable=True),
         sa.CheckConstraint(
             "(type = 'day') = (day_number IS NOT NULL)",
             name=op.f("ck_learning_sessions_day_number_for_day_runs"),
         ),
         sa.CheckConstraint(
-            "type IN ('day', 'daily_review', 'mixed_review')", name=op.f("ck_learning_sessions_type_known")
+            "type IN ('day', 'daily_review', 'mixed_review')",
+            name=op.f("ck_learning_sessions_type_known"),
         ),
         sa.CheckConstraint(
             "completed_at IS NULL OR completed_at >= started_at",
@@ -214,13 +265,19 @@ def upgrade() -> None:
             ondelete="RESTRICT",
         ),
         sa.ForeignKeyConstraint(
-            ["user_id"], ["users.id"], name=op.f("fk_learning_sessions_user_id_users"), ondelete="RESTRICT"
+            ["user_id"],
+            ["users.id"],
+            name=op.f("fk_learning_sessions_user_id_users"),
+            ondelete="RESTRICT",
         ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_learning_sessions")),
         sa.UniqueConstraint("id", "user_id", name="uq_learning_sessions_id_user_id"),
     )
     op.create_index(
-        "ix_learning_sessions_user_started", "learning_sessions", ["user_id", "started_at"], unique=False
+        "ix_learning_sessions_user_started",
+        "learning_sessions",
+        ["user_id", "started_at"],
+        unique=False,
     )
     op.create_table(
         "attempts",
@@ -236,14 +293,23 @@ def upgrade() -> None:
         sa.Column("feedback_code", sa.Text(), nullable=False),
         sa.Column("evaluator_version", sa.Text(), nullable=False),
         sa.Column("is_first_attempt", sa.Boolean(), nullable=False),
-        sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
-        sa.CheckConstraint(
-            "(points_awarded IS NULL) = (points_available IS NULL)", name=op.f("ck_attempts_points_pair_null")
+        sa.Column(
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
         ),
         sa.CheckConstraint(
-            "is_scored = (points_available IS NOT NULL)", name=op.f("ck_attempts_scored_matches_points")
+            "(points_awarded IS NULL) = (points_available IS NULL)",
+            name=op.f("ck_attempts_points_pair_null"),
         ),
-        sa.CheckConstraint("points_available >= 0", name=op.f("ck_attempts_points_available_non_negative")),
+        sa.CheckConstraint(
+            "is_scored = (points_available IS NOT NULL)",
+            name=op.f("ck_attempts_scored_matches_points"),
+        ),
+        sa.CheckConstraint(
+            "points_available >= 0", name=op.f("ck_attempts_points_available_non_negative")
+        ),
         sa.CheckConstraint(
             "points_awarded >= 0 AND points_awarded <= points_available",
             name=op.f("ck_attempts_points_awarded_within_available"),
@@ -270,7 +336,9 @@ def upgrade() -> None:
             ["user_id"], ["users.id"], name=op.f("fk_attempts_user_id_users"), ondelete="RESTRICT"
         ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_attempts")),
-        sa.UniqueConstraint("learning_session_id", "exercise_id", name="uq_attempts_session_exercise"),
+        sa.UniqueConstraint(
+            "learning_session_id", "exercise_id", name="uq_attempts_session_exercise"
+        ),
         sa.UniqueConstraint("id", "user_id", name="uq_attempts_id_user_id"),
     )
     op.create_index("ix_attempts_user_created", "attempts", ["user_id", "created_at"], unique=False)
@@ -286,9 +354,15 @@ def upgrade() -> None:
         sa.Column("attempt_id", sa.Uuid(), nullable=False),
         sa.Column("user_id", sa.Uuid(), nullable=False),
         sa.Column("rating", sa.Text(), nullable=False),
-        sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
+        sa.Column(
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
         sa.CheckConstraint(
-            "char_length(rating) BETWEEN 1 AND 32", name=op.f("ck_pronunciation_self_ratings_rating_length")
+            "char_length(rating) BETWEEN 1 AND 32",
+            name=op.f("ck_pronunciation_self_ratings_rating_length"),
         ),
         sa.ForeignKeyConstraint(
             ["attempt_id", "user_id"],
@@ -305,7 +379,10 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("attempt_id", name=op.f("pk_pronunciation_self_ratings")),
     )
     op.create_index(
-        "ix_pronunciation_self_ratings_user", "pronunciation_self_ratings", ["user_id"], unique=False
+        "ix_pronunciation_self_ratings_user",
+        "pronunciation_self_ratings",
+        ["user_id"],
+        unique=False,
     )
     op.create_table(
         "day_progress",
@@ -314,7 +391,12 @@ def upgrade() -> None:
         sa.Column("status", sa.Text(), nullable=False),
         sa.Column("best_score_pct", sa.Numeric(precision=5, scale=2), nullable=True),
         sa.Column("completed_at", sa.DateTime(timezone=True), nullable=True),
-        sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
+        sa.Column(
+            "updated_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
         sa.CheckConstraint(
             "status <> 'completed' OR completed_at IS NOT NULL",
             name=op.f("ck_day_progress_completed_has_timestamp"),
@@ -334,18 +416,31 @@ def upgrade() -> None:
             ondelete="RESTRICT",
         ),
         sa.ForeignKeyConstraint(
-            ["user_id"], ["users.id"], name=op.f("fk_day_progress_user_id_users"), ondelete="CASCADE"
+            ["user_id"],
+            ["users.id"],
+            name=op.f("fk_day_progress_user_id_users"),
+            ondelete="CASCADE",
         ),
         sa.PrimaryKeyConstraint("user_id", "day_number", name=op.f("pk_day_progress")),
     )
-    op.create_index("ix_day_progress_user_status", "day_progress", ["user_id", "status"], unique=False)
+    op.create_index(
+        "ix_day_progress_user_status", "day_progress", ["user_id", "status"], unique=False
+    )
     op.create_table(
         "activity_days",
         sa.Column("user_id", sa.Uuid(), nullable=False),
         sa.Column("local_date", sa.Date(), nullable=False),
-        sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
+        sa.Column(
+            "created_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
         sa.ForeignKeyConstraint(
-            ["user_id"], ["users.id"], name=op.f("fk_activity_days_user_id_users"), ondelete="CASCADE"
+            ["user_id"],
+            ["users.id"],
+            name=op.f("fk_activity_days_user_id_users"),
+            ondelete="CASCADE",
         ),
         sa.PrimaryKeyConstraint("user_id", "local_date", name=op.f("pk_activity_days")),
     )
@@ -355,14 +450,25 @@ def upgrade() -> None:
         sa.Column("topic", sa.Text(), nullable=False),
         sa.Column("effective_n", sa.Numeric(precision=10, scale=4), nullable=False),
         sa.Column("smoothed_accuracy", sa.Numeric(precision=5, scale=4), nullable=False),
-        sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
+        sa.Column(
+            "updated_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
         sa.CheckConstraint("char_length(topic) > 0", name=op.f("ck_topic_mastery_topic_not_empty")),
-        sa.CheckConstraint("effective_n >= 0", name=op.f("ck_topic_mastery_effective_n_non_negative")),
         sa.CheckConstraint(
-            "smoothed_accuracy BETWEEN 0 AND 1", name=op.f("ck_topic_mastery_smoothed_accuracy_range")
+            "effective_n >= 0", name=op.f("ck_topic_mastery_effective_n_non_negative")
+        ),
+        sa.CheckConstraint(
+            "smoothed_accuracy BETWEEN 0 AND 1",
+            name=op.f("ck_topic_mastery_smoothed_accuracy_range"),
         ),
         sa.ForeignKeyConstraint(
-            ["user_id"], ["users.id"], name=op.f("fk_topic_mastery_user_id_users"), ondelete="CASCADE"
+            ["user_id"],
+            ["users.id"],
+            name=op.f("fk_topic_mastery_user_id_users"),
+            ondelete="CASCADE",
         ),
         sa.PrimaryKeyConstraint("user_id", "topic", name=op.f("pk_topic_mastery")),
     )
@@ -372,11 +478,22 @@ def upgrade() -> None:
         sa.Column("lemma", sa.Text(), nullable=False),
         sa.Column("first_seen_on", sa.Date(), nullable=False),
         sa.Column("last_correct_on", sa.Date(), nullable=True),
-        sa.Column("correct_day_count", sa.SmallInteger(), server_default=sa.text("0"), nullable=False),
-        sa.Column("incorrect_count", sa.SmallInteger(), server_default=sa.text("0"), nullable=False),
+        sa.Column(
+            "correct_day_count", sa.SmallInteger(), server_default=sa.text("0"), nullable=False
+        ),
+        sa.Column(
+            "incorrect_count", sa.SmallInteger(), server_default=sa.text("0"), nullable=False
+        ),
         sa.Column("learned_on", sa.Date(), nullable=True),
-        sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
-        sa.CheckConstraint("char_length(lemma) > 0", name=op.f("ck_user_vocabulary_lemma_not_empty")),
+        sa.Column(
+            "updated_at",
+            sa.DateTime(timezone=True),
+            server_default=sa.text("now()"),
+            nullable=False,
+        ),
+        sa.CheckConstraint(
+            "char_length(lemma) > 0", name=op.f("ck_user_vocabulary_lemma_not_empty")
+        ),
         sa.CheckConstraint(
             "correct_day_count >= 0", name=op.f("ck_user_vocabulary_correct_day_count_non_negative")
         ),
@@ -388,7 +505,10 @@ def upgrade() -> None:
             name=op.f("ck_user_vocabulary_learned_needs_two_days"),
         ),
         sa.ForeignKeyConstraint(
-            ["user_id"], ["users.id"], name=op.f("fk_user_vocabulary_user_id_users"), ondelete="CASCADE"
+            ["user_id"],
+            ["users.id"],
+            name=op.f("fk_user_vocabulary_user_id_users"),
+            ondelete="CASCADE",
         ),
         sa.PrimaryKeyConstraint("user_id", "lemma", name=op.f("pk_user_vocabulary")),
     )
@@ -399,7 +519,8 @@ def upgrade() -> None:
         """
         CREATE FUNCTION forbid_mutation() RETURNS trigger AS $$
         BEGIN
-            RAISE EXCEPTION 'table % is append-only or immutable: % is not allowed', TG_TABLE_NAME, TG_OP;
+            RAISE EXCEPTION 'table % is append-only or immutable: % is not allowed',
+            TG_TABLE_NAME, TG_OP;
         END;
         $$ LANGUAGE plpgsql;
         """
@@ -429,7 +550,7 @@ def upgrade() -> None:
     for table, privileges in API_TABLE_PRIVILEGES.items():
         op.execute(f"GRANT {privileges} ON {table} TO english_quest_api")
     op.execute(
-        "GRANT SELECT (id, exercise_id, revision_no, kind, kind_version, envelope, content, created_at) "
+        "GRANT SELECT (id, exercise_id, revision_no, kind, kind_version, envelope, content, created_at) "  # noqa: E501
         "ON exercise_revisions TO english_quest_api"
     )
 
@@ -448,7 +569,9 @@ def downgrade() -> None:
     op.drop_index("ix_pronunciation_self_ratings_user", table_name="pronunciation_self_ratings")
     op.drop_table("pronunciation_self_ratings")
     op.drop_index(
-        "uq_attempts_user_first_answer", table_name="attempts", postgresql_where=sa.text("is_first_attempt")
+        "uq_attempts_user_first_answer",
+        table_name="attempts",
+        postgresql_where=sa.text("is_first_attempt"),
     )
     op.drop_index("ix_attempts_user_created", table_name="attempts")
     op.drop_table("attempts")

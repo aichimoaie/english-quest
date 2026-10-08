@@ -9,9 +9,10 @@ from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any, Final
 
-from english_quest_api.exercises.registry import get_kind
 from jsonschema import Draft202012Validator
 from jsonschema.protocols import Validator
+
+from english_quest_api.exercises.registry import get_kind
 
 # apps/api/src/english_quest_api/exercises/schemas.py -> repository root
 DEFAULT_SCHEMA_ROOT: Final = Path(__file__).resolve().parents[5] / "content" / "schema"
@@ -35,9 +36,7 @@ class SchemaStore:
         self._envelope: Validator | None = None
 
     def _read(self, relative: str) -> dict[str, Any]:
-        loaded: dict[str, Any] = json.loads(
-            (self._root / relative).read_text(encoding="utf-8")
-        )
+        loaded: dict[str, Any] = json.loads((self._root / relative).read_text(encoding="utf-8"))
         return loaded
 
     def _part(self, kind: str, kind_version: int, part: str) -> Validator:
@@ -54,9 +53,7 @@ class SchemaStore:
             self._envelope = Draft202012Validator(self._read(ENVELOPE_PATH))
         _raise_if_invalid(self._envelope, document)
 
-    def validate_content(
-        self, kind: str, kind_version: int, content: Mapping[str, Any]
-    ) -> None:
+    def validate_content(self, kind: str, kind_version: int, content: Mapping[str, Any]) -> None:
         _raise_if_invalid(self._part(kind, kind_version, "content"), content)
 
     def validate_answer_key(
@@ -64,9 +61,7 @@ class SchemaStore:
     ) -> None:
         _raise_if_invalid(self._part(kind, kind_version, "answer_key"), answer_key)
 
-    def validate_response(
-        self, kind: str, kind_version: int, response: Mapping[str, Any]
-    ) -> None:
+    def validate_response(self, kind: str, kind_version: int, response: Mapping[str, Any]) -> None:
         _raise_if_invalid(self._part(kind, kind_version, "response"), response)
 
     def validate_exercise(self, document: Mapping[str, Any]) -> None:
@@ -106,9 +101,7 @@ def _choice_problems(
     return problems
 
 
-def _choice_block(
-    content: Mapping[str, Any], answer_key: Mapping[str, Any]
-) -> list[str]:
+def _choice_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:
     return _choice_problems(
         [option["id"] for option in content["options"]],
         answer_key["correct_option_ids"],
@@ -116,9 +109,7 @@ def _choice_block(
     )
 
 
-def _pronunciation_block(
-    content: Mapping[str, Any], answer_key: Mapping[str, Any]
-) -> list[str]:
+def _pronunciation_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:
     option_ids = [option["id"] for option in content["recognition_options"]]
     problems = _unique_id_problems(option_ids, "content/recognition_options")
     if answer_key["correct_option_id"] not in option_ids:
@@ -126,9 +117,7 @@ def _pronunciation_block(
     return problems
 
 
-def _matching_block(
-    content: Mapping[str, Any], answer_key: Mapping[str, Any]
-) -> list[str]:
+def _matching_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:
     left_ids = [item["id"] for item in content["left"]]
     right_ids = [item["id"] for item in content["right"]]
     pairs: Mapping[str, str] = answer_key["pairs"]
@@ -144,9 +133,7 @@ def _matching_block(
     return problems
 
 
-def _ordering_block(
-    content: Mapping[str, Any], answer_key: Mapping[str, Any]
-) -> list[str]:
+def _ordering_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:
     fragment_ids = [fragment["id"] for fragment in content["fragments"]]
     problems = _unique_id_problems(fragment_ids, "content/fragments")
     if set(answer_key["correct_order"]) != set(fragment_ids):
@@ -169,9 +156,7 @@ _CROSS_FIELD_CHECKS: Final[
 
 def _raise_if_invalid(validator: Validator, instance: Any) -> None:
     messages: list[str] = []
-    for error in sorted(
-        validator.iter_errors(instance), key=lambda e: list(e.absolute_path)
-    ):
+    for error in sorted(validator.iter_errors(instance), key=lambda e: list(e.absolute_path)):
         location = "/".join(str(part) for part in error.absolute_path) or "<root>"
         messages.append(f"{location}: {error.message}")
     if messages:
