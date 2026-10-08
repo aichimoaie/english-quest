@@ -8,10 +8,17 @@ from english_quest_api.db import models
 from english_quest_api.db import session as session_module
 
 
+def test_database_url_is_required(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+
+    with pytest.raises(RuntimeError, match="DATABASE_URL is not set"):
+        session_module.database_url()
+
+
 def test_uncommitted_work_is_rolled_back_when_the_request_ends(
     engine: Engine, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setattr(session_module, "SessionLocal", sessionmaker(bind=engine))
+    monkeypatch.setattr(session_module, "get_session_factory", lambda: sessionmaker(bind=engine))
 
     dependency = session_module.get_db_session()
     session = next(dependency)

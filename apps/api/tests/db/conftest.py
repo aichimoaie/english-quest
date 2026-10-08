@@ -108,8 +108,12 @@ def seed(conn: Connection) -> dict[str, Any]:
             kind_version=1,
             envelope={"schema": "english-quest/exercise-envelope/v1"},
             content={"prompt": "Yesterday I ___ home."},
-            answer_key={"correct": "went"},
             content_hash=HASH,
+        )
+    )
+    conn.execute(
+        insert(models.ExerciseRevisionAnswerKey).values(
+            exercise_revision_id=revision_id, answer_key={"correct": "went"}
         )
     )
     conn.execute(

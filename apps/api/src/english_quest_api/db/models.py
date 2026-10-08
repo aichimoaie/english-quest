@@ -3,7 +3,10 @@
 Design rules (see docs/prd/english-quest-prd.md and the architecture reports):
 
 - ``exercise_revisions`` and ``attempts`` are immutable. Database triggers in
-  the first migration reject UPDATE and DELETE on both tables.
+  the first migration reject UPDATE and DELETE on both tables, and TRUNCATE on
+  ``attempts``.
+- Answer keys live in ``exercise_revision_answer_keys``, which only the server
+  role can read. Learner-facing queries never touch it.
 - ``attempts`` is the source of truth for performance. ``day_progress``,
   ``activity_days``, ``topic_mastery`` and ``user_vocabulary`` are derived and
   can be rebuilt from attempts.
@@ -126,11 +129,20 @@ class ExerciseRevision(Base):
     kind_version: Mapped[int] = mapped_column(SmallInteger)
     envelope: Mapped[dict[str, Any]] = mapped_column(JSONB)
     content: Mapped[dict[str, Any]] = mapped_column(JSONB)
-    # Never selected for learner-facing queries. Grants restrict it to server roles.
-    answer_key: Mapped[Any] = mapped_column(JSONB)
     # SHA-256 of the canonical envelope, content and answer key. Makes imports idempotent.
     content_hash: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=func.now())
+
+
+class ExerciseRevisionAnswerKey(Base):
+    """The answer key of one revision. Readable by the server role only."""
+
+    __tablename__ = "exercise_revision_answer_keys"
+
+    exercise_revision_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey("exercise_revisions.id", ondelete="RESTRICT"), primary_key=True
+    )
+    answer_key: Mapped[Any] = mapped_column(JSONB)
 
 
 class DayExercise(Base):
@@ -160,6 +172,7 @@ class LearningSession(Base):
         CheckConstraint("type IN ('day', 'daily_review', 'mixed_review')", name="type_known"),
         CheckConstraint("(type = 'day') = (day_number IS NOT NULL)", name="day_number_for_day_runs"),
         CheckConstraint("completed_at IS NULL OR completed_at >= started_at", name="completed_after_started"),
+        UniqueConstraint("id", "user_id", name="uq_learning_sessions_id_user_id"),
         Index("ix_learning_sessions_user_started", "user_id", "started_at"),
     )
 
@@ -176,7 +189,7 @@ class LearningSession(Base):
 
 
 class Attempt(Base):
-    """A graded answer. Append-only: triggers reject UPDATE and DELETE.
+    """A graded answer. Append-only: triggers reject UPDATE, DELETE and TRUNCATE.
 
     One row per run and exercise, so a run cannot be re-graded. A retry is a
     new learning session with its own rows.
@@ -185,6 +198,13 @@ class Attempt(Base):
     __tablename__ = "attempts"
     __table_args__ = (
         UniqueConstraint("learning_session_id", "exercise_id", name="uq_attempts_session_exercise"),
+        UniqueConstraint("id", "user_id", name="uq_attempts_id_user_id"),
+        ForeignKeyConstraint(
+            ["learning_session_id", "user_id"],
+            ["learning_sessions.id", "learning_sessions.user_id"],
+            name="attempt_matches_session_learner",
+            ondelete="RESTRICT",
+        ),
         ForeignKeyConstraint(
             ["exercise_revision_id", "exercise_id"],
             ["exercise_revisions.id", "exercise_revisions.exercise_id"],
@@ -210,9 +230,7 @@ class Attempt(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="RESTRICT"))
-    learning_session_id: Mapped[uuid.UUID] = mapped_column(
-        ForeignKey("learning_sessions.id", ondelete="RESTRICT")
-    )
+    learning_session_id: Mapped[uuid.UUID] = mapped_column(Uuid)
     exercise_id: Mapped[str] = mapped_column(ForeignKey("exercises.id", ondelete="RESTRICT"))
     exercise_revision_id: Mapped[uuid.UUID] = mapped_column(Uuid)
     response: Mapped[Any] = mapped_column(JSONB)
@@ -237,12 +255,16 @@ class PronunciationSelfRating(Base):
     __tablename__ = "pronunciation_self_ratings"
     __table_args__ = (
         CheckConstraint("char_length(rating) BETWEEN 1 AND 32", name="rating_length"),
+        ForeignKeyConstraint(
+            ["attempt_id", "user_id"],
+            ["attempts.id", "attempts.user_id"],
+            name="rating_matches_attempt_learner",
+            ondelete="RESTRICT",
+        ),
         Index("ix_pronunciation_self_ratings_user", "user_id"),
     )
 
-    attempt_id: Mapped[uuid.UUID] = mapped_column(
-        ForeignKey("attempts.id", ondelete="RESTRICT"), primary_key=True
-    )
+    attempt_id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True)
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete="RESTRICT"))
     rating: Mapped[str] = mapped_column(Text)
     created_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=func.now())
@@ -299,7 +321,6 @@ class TopicMastery(Base):
     topic: Mapped[str] = mapped_column(Text, primary_key=True)
     effective_n: Mapped[Decimal] = mapped_column(Numeric(10, 4))
     smoothed_accuracy: Mapped[Decimal] = mapped_column(Numeric(5, 4))
-    is_weak: Mapped[bool] = mapped_column(Boolean)
     updated_at: Mapped[datetime] = mapped_column(TIMESTAMP, server_default=func.now())
 
 

@@ -16,7 +16,7 @@ if config.config_file_name is not None:
 
 # An explicit URL set on the config (tests do this) wins over the environment.
 if not config.get_main_option("sqlalchemy.url"):
-    config.set_main_option("sqlalchemy.url", database_url())
+    config.set_main_option("sqlalchemy.url", database_url().replace("%", "%%"))
 
 target_metadata = Base.metadata
 

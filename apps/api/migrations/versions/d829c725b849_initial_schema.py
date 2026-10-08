@@ -66,7 +66,6 @@ def upgrade() -> None:
         sa.Column("kind_version", sa.SmallInteger(), nullable=False),
         sa.Column("envelope", postgresql.JSONB(astext_type=sa.Text()), nullable=False),
         sa.Column("content", postgresql.JSONB(astext_type=sa.Text()), nullable=False),
-        sa.Column("answer_key", postgresql.JSONB(astext_type=sa.Text()), nullable=False),
         sa.Column("content_hash", sa.Text(), nullable=False),
         sa.Column("created_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
         sa.CheckConstraint(
@@ -94,6 +93,32 @@ def upgrade() -> None:
         ["current_revision_id", "id"],
         ["id", "exercise_id"],
     )
+    op.create_table(
+        "exercise_revision_answer_keys",
+        sa.Column("exercise_revision_id", sa.Uuid(), nullable=False),
+        sa.Column("answer_key", postgresql.JSONB(astext_type=sa.Text()), nullable=False),
+        sa.ForeignKeyConstraint(
+            ["exercise_revision_id"],
+            ["exercise_revisions.id"],
+            name=op.f("fk_exercise_revision_answer_keys_exercise_revision_id_exercise_revisions"),
+            ondelete="RESTRICT",
+        ),
+        sa.PrimaryKeyConstraint("exercise_revision_id", name=op.f("pk_exercise_revision_answer_keys")),
+    )
+    # Learner-facing queries never read answer keys. Only the server role may.
+    op.execute(
+        """
+        DO $$
+        BEGIN
+            IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'english_quest_server') THEN
+                CREATE ROLE english_quest_server NOLOGIN;
+            END IF;
+        END
+        $$;
+        """
+    )
+    op.execute("REVOKE ALL ON exercise_revision_answer_keys FROM PUBLIC")
+    op.execute("GRANT SELECT, INSERT ON exercise_revision_answer_keys TO english_quest_server")
     op.create_table(
         "sessions",
         sa.Column("id", sa.Uuid(), nullable=False),
@@ -163,6 +188,7 @@ def upgrade() -> None:
             ["user_id"], ["users.id"], name=op.f("fk_learning_sessions_user_id_users"), ondelete="RESTRICT"
         ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_learning_sessions")),
+        sa.UniqueConstraint("id", "user_id", name="uq_learning_sessions_id_user_id"),
     )
     op.create_index(
         "ix_learning_sessions_user_started", "learning_sessions", ["user_id", "started_at"], unique=False
@@ -206,9 +232,9 @@ def upgrade() -> None:
             ondelete="RESTRICT",
         ),
         sa.ForeignKeyConstraint(
-            ["learning_session_id"],
-            ["learning_sessions.id"],
-            name=op.f("fk_attempts_learning_session_id_learning_sessions"),
+            ["learning_session_id", "user_id"],
+            ["learning_sessions.id", "learning_sessions.user_id"],
+            name="attempt_matches_session_learner",
             ondelete="RESTRICT",
         ),
         sa.ForeignKeyConstraint(
@@ -216,6 +242,7 @@ def upgrade() -> None:
         ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_attempts")),
         sa.UniqueConstraint("learning_session_id", "exercise_id", name="uq_attempts_session_exercise"),
+        sa.UniqueConstraint("id", "user_id", name="uq_attempts_id_user_id"),
     )
     op.create_index("ix_attempts_user_created", "attempts", ["user_id", "created_at"], unique=False)
     op.create_index(
@@ -235,9 +262,9 @@ def upgrade() -> None:
             "char_length(rating) BETWEEN 1 AND 32", name=op.f("ck_pronunciation_self_ratings_rating_length")
         ),
         sa.ForeignKeyConstraint(
-            ["attempt_id"],
-            ["attempts.id"],
-            name=op.f("fk_pronunciation_self_ratings_attempt_id_attempts"),
+            ["attempt_id", "user_id"],
+            ["attempts.id", "attempts.user_id"],
+            name="rating_matches_attempt_learner",
             ondelete="RESTRICT",
         ),
         sa.ForeignKeyConstraint(
@@ -299,7 +326,6 @@ def upgrade() -> None:
         sa.Column("topic", sa.Text(), nullable=False),
         sa.Column("effective_n", sa.Numeric(precision=10, scale=4), nullable=False),
         sa.Column("smoothed_accuracy", sa.Numeric(precision=5, scale=4), nullable=False),
-        sa.Column("is_weak", sa.Boolean(), nullable=False),
         sa.Column("updated_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=False),
         sa.CheckConstraint("char_length(topic) > 0", name=op.f("ck_topic_mastery_topic_not_empty")),
         sa.CheckConstraint("effective_n >= 0", name=op.f("ck_topic_mastery_effective_n_non_negative")),
@@ -342,7 +368,7 @@ def upgrade() -> None:
     # Attempts are append-only, and exercise revisions never change once written.
     op.execute(
         """
-        CREATE FUNCTION forbid_update_or_delete() RETURNS trigger AS $$
+        CREATE FUNCTION forbid_mutation() RETURNS trigger AS $$
         BEGIN
             RAISE EXCEPTION 'table % is append-only or immutable: % is not allowed', TG_TABLE_NAME, TG_OP;
         END;
@@ -353,22 +379,30 @@ def upgrade() -> None:
         """
         CREATE TRIGGER attempts_append_only
         BEFORE UPDATE OR DELETE ON attempts
-        FOR EACH ROW EXECUTE FUNCTION forbid_update_or_delete();
+        FOR EACH ROW EXECUTE FUNCTION forbid_mutation();
+        """
+    )
+    op.execute(
+        """
+        CREATE TRIGGER attempts_no_truncate
+        BEFORE TRUNCATE ON attempts
+        FOR EACH STATEMENT EXECUTE FUNCTION forbid_mutation();
         """
     )
     op.execute(
         """
         CREATE TRIGGER exercise_revisions_immutable
         BEFORE UPDATE OR DELETE ON exercise_revisions
-        FOR EACH ROW EXECUTE FUNCTION forbid_update_or_delete();
+        FOR EACH ROW EXECUTE FUNCTION forbid_mutation();
         """
     )
 
 
 def downgrade() -> None:
     op.execute("DROP TRIGGER IF EXISTS exercise_revisions_immutable ON exercise_revisions")
+    op.execute("DROP TRIGGER IF EXISTS attempts_no_truncate ON attempts")
     op.execute("DROP TRIGGER IF EXISTS attempts_append_only ON attempts")
-    op.execute("DROP FUNCTION IF EXISTS forbid_update_or_delete()")
+    op.execute("DROP FUNCTION IF EXISTS forbid_mutation()")
 
     op.drop_table("user_vocabulary")
     op.drop_table("topic_mastery")
@@ -390,6 +424,7 @@ def downgrade() -> None:
     op.drop_table("sessions")
     # Break the exercises <-> exercise_revisions cycle before dropping either table.
     op.drop_constraint("current_revision_belongs_to_exercise", "exercises", type_="foreignkey")
+    op.drop_table("exercise_revision_answer_keys")
     op.drop_table("exercise_revisions")
     op.drop_table("exercises")
     op.drop_table("users")

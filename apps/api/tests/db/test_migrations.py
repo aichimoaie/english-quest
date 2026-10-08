@@ -1,10 +1,12 @@
 """Migration round trip and model/migration parity, against a real PostgreSQL."""
 
 from collections.abc import Callable
+from pathlib import Path
 
+import pytest
 from alembic import command
 from alembic.config import Config
-from sqlalchemy import Engine, inspect
+from sqlalchemy import Engine, create_engine, inspect
 
 EXPECTED_TABLES = {
     "users",
@@ -12,6 +14,7 @@ EXPECTED_TABLES = {
     "days",
     "exercises",
     "exercise_revisions",
+    "exercise_revision_answer_keys",
     "day_exercises",
     "learning_sessions",
     "attempts",
@@ -42,6 +45,19 @@ def test_upgrade_downgrade_upgrade(
 
     command.upgrade(alembic_cfg, "head")
     assert table_names(engine) == EXPECTED_TABLES
+
+
+def test_migrations_run_from_a_database_url_with_percent_escapes(
+    database_url: str, monkeypatch: pytest.MonkeyPatch, reset_schema: Callable[[], None]
+) -> None:
+    reset_schema()
+    separator = "&" if "?" in database_url else "?"
+    monkeypatch.setenv("DATABASE_URL", f"{database_url}{separator}application_name=english%20quest")
+    config = Config(str(Path(__file__).resolve().parents[2] / "alembic.ini"))
+
+    command.upgrade(config, "head")
+
+    assert "exercise_revision_answer_keys" in table_names(create_engine(database_url))
 
 
 def test_models_match_migrations(

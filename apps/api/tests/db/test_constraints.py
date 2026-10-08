@@ -19,6 +19,29 @@ def assert_rejected(conn: Connection, action: Callable[[], object], match: str) 
         action()
 
 
+def insert_other_learner(conn: Connection) -> uuid.UUID:
+    other_user_id = uuid.uuid4()
+    conn.execute(
+        insert(models.User).values(
+            id=other_user_id,
+            email="other@example.com",
+            display_name="Other",
+            password_hash="argon2id-placeholder",
+            timezone="UTC",
+        )
+    )
+    return other_user_id
+
+
+def read_answer_key_as(conn: Connection, role: str, revision_id: uuid.UUID) -> Any:
+    with conn.begin_nested():
+        conn.execute(text(f"SET LOCAL ROLE {role}"))
+        return conn.execute(
+            text("SELECT answer_key FROM exercise_revision_answer_keys WHERE exercise_revision_id = :id"),
+            {"id": revision_id},
+        ).scalar_one()
+
+
 def test_day_number_must_be_between_1_and_30(conn: Connection) -> None:
     assert_rejected(
         conn,
@@ -105,12 +128,22 @@ def test_revision_content_is_unique_per_exercise(
                 kind_version=1,
                 envelope={},
                 content={},
-                answer_key={},
                 content_hash=HASH,
             )
         ),
         match="uq_exercise_revisions_exercise_content_hash",
     )
+
+
+def test_answer_keys_are_readable_only_by_the_server_role(conn: Connection, seed: dict[str, Any]) -> None:
+    conn.execute(text("CREATE ROLE learner_probe NOLOGIN"))
+    conn.execute(text("GRANT USAGE ON SCHEMA public TO learner_probe, english_quest_server"))
+    assert_rejected(
+        conn,
+        lambda: read_answer_key_as(conn, "learner_probe", seed["revision_id"]),
+        match="permission denied",
+    )
+    assert read_answer_key_as(conn, "english_quest_server", seed["revision_id"]) == {"correct": "went"}
 
 
 def test_revisions_are_immutable(
@@ -204,6 +237,30 @@ def test_attempts_are_append_only(
     )
 
 
+def test_attempts_cannot_be_truncated(
+    conn: Connection, seed: dict[str, Any], make_attempt: Callable[..., dict[str, Any]]
+) -> None:
+    conn.execute(insert(models.Attempt).values(**make_attempt(seed)))
+    assert_rejected(
+        conn,
+        lambda: conn.execute(text("TRUNCATE attempts, pronunciation_self_ratings")),
+        match="append-only",
+    )
+    remaining = conn.execute(text("SELECT count(*) FROM attempts")).scalar_one()
+    assert remaining == 1
+
+
+def test_attempt_must_belong_to_its_sessions_learner(
+    conn: Connection, seed: dict[str, Any], make_attempt: Callable[..., dict[str, Any]]
+) -> None:
+    other_user_id = insert_other_learner(conn)
+    assert_rejected(
+        conn,
+        lambda: conn.execute(insert(models.Attempt).values(**make_attempt(seed, user_id=other_user_id))),
+        match="attempt_matches_session_learner",
+    )
+
+
 def test_points_must_fit_the_available_points(
     conn: Connection, seed: dict[str, Any], make_attempt: Callable[..., dict[str, Any]]
 ) -> None:
@@ -284,4 +341,21 @@ def test_self_rating_is_recorded_per_attempt(
             )
         ),
         match="pk_pronunciation_self_ratings",
+    )
+
+
+def test_self_rating_must_belong_to_the_attempts_learner(
+    conn: Connection, seed: dict[str, Any], make_attempt: Callable[..., dict[str, Any]]
+) -> None:
+    attempt_id = uuid.uuid4()
+    conn.execute(insert(models.Attempt).values(**make_attempt(seed, id=attempt_id)))
+    other_user_id = insert_other_learner(conn)
+    assert_rejected(
+        conn,
+        lambda: conn.execute(
+            insert(models.PronunciationSelfRating).values(
+                attempt_id=attempt_id, user_id=other_user_id, rating="Got it"
+            )
+        ),
+        match="rating_matches_attempt_learner",
     )
