@@ -14,7 +14,8 @@ Every file is checked by the curriculum validator before it is imported.
 every entry in this directory. It reports each issue as
 `file: location: message` (the location is omitted when it is not known), and
 all issues are reported in one run. A misnamed file such as `day-02.yml` is
-reported, not skipped.
+reported, not skipped. A YAML mapping key written twice, and a merge key (`<<`),
+is reported as invalid YAML, so no key can silently override another.
 
 ## Import
 
@@ -84,18 +85,15 @@ spaces. Everything else must match (PRD section 5).
 
 ## Scoring
 
-These rules apply to every content file:
+The scoring rules are owned by PRD sections 5 and 6. Three content decisions
+follow from them:
 
-- **Spelling is all-or-nothing.** `spelling_correction` items give full points
-  for an accepted spelling and no points otherwise. Authors must not add
-  near-miss or partial-credit fields; the schema rejects unknown keys.
-- **Pronunciation recognition counts toward stored accuracy.** A
-  `pronunciation_practice` item is scored on its recognition choice, so it
-  carries `points` like any other item (at least 1).
-- **Self-rating is not scored.** A `pronunciation_self_rating` item is authored
-  without `points`, and the validator rejects any scoring field on it. The
-  learner's rating is recorded for progress only. Rating labels are not authored
-  yet; they are an open product question in the PRD.
+- Spelling items are all-or-nothing (no partial credit). Do not add
+  partial-credit fields.
+- Pronunciation recognition items count toward stored accuracy, so they carry
+  `points`.
+- `pronunciation_self_rating` items are unscored and carry no `points`. Rating
+  labels are an open question in PRD section 18.
 
 ## Content rules
 
