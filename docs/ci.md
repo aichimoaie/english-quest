@@ -38,9 +38,12 @@ Until these land, a PR that touches an area whose job depends on a pending item 
 
 ## Deploy
 
-`deploy.yml` has four jobs in this order: `plan-dev`, `apply-dev`, `plan-prod`, `apply-prod`. Each plan job runs `tofu init` and `tofu plan -out=tfplan`, then uploads `tfplan` as a workflow artifact. Each apply job downloads that artifact and runs `tofu apply tfplan`. `plan-prod` needs `apply-dev`, so a failed dev apply stops prod.
+`deploy.yml` has four jobs in this order: `plan-dev`, `apply-dev`, `plan-prod`, `apply-prod`. `plan-prod` needs `apply-dev`, so a failed dev apply stops prod.
 
-Every job runs in its environment (`dev` or `prod`), so each uses only that environment's Azure identity variables and federated credential. Required reviewers on an environment therefore approve its plan job as well as its apply job. The apply job is approved after the reviewer can read the plan. The artifact is kept for seven days.
+- **Plan jobs** (`plan-dev`, `plan-prod`) have no GitHub environment, so they do not wait for reviewers. They log in with a read-only identity from the repository variable `AZURE_PLAN_CLIENT_ID`, run `tofu init` and `tofu plan -out=tfplan`, write `tofu show -no-color tfplan` to the run's step summary, and upload `tfplan` as a workflow artifact. The plan job never uses the apply identity. The read-only identity may not be able to take the state lock. That is a workstream 7 decision to resolve, not something to widen here.
+- **Apply jobs** (`apply-dev`, `apply-prod`) run in the `dev` or `prod` environment, so required reviewers approve them. Reviewers read the plan summary on the run page before they approve. The apply job downloads the artifact and runs `tofu apply tfplan` with the environment's identity. The artifact is kept for seven days.
+
+The plan summary is visible to anyone who can read the run, and a plan can contain sensitive values.
 
 The jobs do nothing unless the repository variable `DEPLOY_ENABLED` is `"true"`. The jobs also require `refs/heads/main`.
 
@@ -48,22 +51,25 @@ The jobs do nothing unless the repository variable `DEPLOY_ENABLED` is `"true"`.
 
 Do this after workstream 7 is merged and its outputs exist.
 
-1. **Repository variable** (Settings → Secrets and variables → Actions → Variables):
+1. **Repository variables** (Settings → Secrets and variables → Actions → Variables):
    - `DEPLOY_ENABLED` = `true`. Leave it unset until the steps below are done.
+   - `AZURE_PLAN_CLIENT_ID`: the client ID of the read-only identity used by the plan jobs
+   - `AZURE_TENANT_ID`
+   - `AZURE_SUBSCRIPTION_ID`
 2. **Environments** `dev` and `prod` (Settings → Environments):
    - Deployment branches: `main` only.
    - `prod`: required reviewers. Recommended for `dev` too.
-   - Environment variables (not secrets), set on each environment with its own identity:
-     - `AZURE_CLIENT_ID`: the Entra application or managed identity client ID
-     - `AZURE_TENANT_ID`
-     - `AZURE_SUBSCRIPTION_ID`
-3. **Azure federated credentials** on that identity, one per environment, with the GitHub subject:
-   - `repo:aichimoaie/english-quest:environment:dev` for `plan-dev` and `apply-dev`
-   - `repo:aichimoaie/english-quest:environment:prod` for `plan-prod` and `apply-prod`
-   The identity needs a role on the target resource group.
+   - Environment variable (not secret), set on each environment with its own apply identity:
+     - `AZURE_CLIENT_ID`: the Entra application or managed identity client ID for that environment's apply jobs
+3. **Azure federated credentials**:
+   - On the read-only plan identity, one credential with the GitHub subject `repo:aichimoaie/english-quest:ref:refs/heads/main`. Grant it read access only.
+   - On each apply identity, one credential per environment:
+     - `repo:aichimoaie/english-quest:environment:dev` for `apply-dev`
+     - `repo:aichimoaie/english-quest:environment:prod` for `apply-prod`
+   The apply identities need a role on the target resource group.
 4. **Remote state**: `tofu init` in `infra/envs/<env>` needs the state backend. Workstream 7 defines it, and the workflow does not pass backend settings itself. Add them to the workflow only if workstream 7 chooses `-backend-config` flags.
 
-No deploy secrets are stored in the repository. OIDC means no client secret is needed. The azurerm provider reads the `ARM_*` variables set in each job from that job's environment.
+No deploy secrets are stored in the repository. OIDC means no client secret is needed. The azurerm provider reads the `ARM_*` variables set in each job from its identity variables.
 
 ### Not yet covered
 

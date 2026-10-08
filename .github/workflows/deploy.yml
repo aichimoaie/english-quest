@@ -23,27 +23,26 @@ env:
   ARM_USE_OIDC: "true"
 
 jobs:
-  # Each plan and apply job runs in its environment, so it uses only that
-  # environment's Azure identity variables. Required reviewers on the
-  # environment approve the job before it starts.
+  # Plan jobs have no environment and use a read-only identity, so they run
+  # without reviewer approval. The plan is printed to the run summary for review
+  # before the environment-gated apply job starts.
   plan-dev:
     name: Plan (dev)
     if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment: dev
     permissions:
       contents: read
       id-token: write
     env:
-      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_CLIENT_ID: ${{ vars.AZURE_PLAN_CLIENT_ID }}
       ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
     steps:
       - uses: actions/checkout@v7
-      - name: Azure login (OIDC)
+      - name: Azure login (OIDC, read-only)
         uses: azure/login@v3
         with:
-          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          client-id: ${{ vars.AZURE_PLAN_CLIENT_ID }}
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       - uses: opentofu/setup-opentofu@v2
@@ -55,6 +54,14 @@ jobs:
       - name: Plan
         working-directory: infra/envs/dev
         run: tofu plan -input=false -out=tfplan
+      - name: Plan summary
+        working-directory: infra/envs/dev
+        run: |
+          {
+            echo '```'
+            tofu show -no-color tfplan
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v7
         with:
           name: tfplan-dev
@@ -102,20 +109,19 @@ jobs:
     needs: apply-dev
     if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment: prod
     permissions:
       contents: read
       id-token: write
     env:
-      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_CLIENT_ID: ${{ vars.AZURE_PLAN_CLIENT_ID }}
       ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
     steps:
       - uses: actions/checkout@v7
-      - name: Azure login (OIDC)
+      - name: Azure login (OIDC, read-only)
         uses: azure/login@v3
         with:
-          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          client-id: ${{ vars.AZURE_PLAN_CLIENT_ID }}
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
       - uses: opentofu/setup-opentofu@v2
@@ -127,6 +133,14 @@ jobs:
       - name: Plan
         working-directory: infra/envs/prod
         run: tofu plan -input=false -out=tfplan
+      - name: Plan summary
+        working-directory: infra/envs/prod
+        run: |
+          {
+            echo '```'
+            tofu show -no-color tfplan
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v7
         with:
           name: tfplan-prod
