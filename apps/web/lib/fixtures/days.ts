@@ -15,7 +15,7 @@ export const DAY_TITLES: { title: string; objective: string }[] = [
   { title: "Present simple: I work", objective: "Use the base verb with I, you, we and they." },
   { title: "Present simple: he, she, it", objective: "Add -s to the verb with he, she and it." },
   { title: "Question words", objective: "Ask who, what, where, when and how." },
-  { title: "Possessives: my, your, his, her", objective: "Use my, your, his and her before a noun to show who owns something." },
+  { title: "Possessives: my, your, his", objective: "Show who owns something." },
   { title: "There is, there are", objective: "Say what exists in a place." },
   { title: "Can and can't", objective: "Talk about ability and rules." },
   { title: "Present continuous", objective: "Describe what is happening now." },
