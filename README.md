@@ -29,6 +29,17 @@ uv run uvicorn english_quest_api.main:create_app --factory --reload --port 8000
 
 Then open <http://localhost:8000/api/v1/health> (returns `{"status": "ok"}`) and <http://localhost:8000/docs>.
 
+## Run the web app locally
+
+Prerequisites: Node 22 or later and pnpm (the version in the root `package.json`).
+
+```bash
+pnpm install                         # from the repo root
+pnpm dev                             # http://localhost:3000
+```
+
+When `NEXT_PUBLIC_API_BASE_URL` is unset, the app uses a temporary fixture server in the browser, so it can be previewed without the API. Exercise attempts are not recorded there. Set `NEXT_PUBLIC_API_BASE_URL` to a running API to use the real one. `pnpm build` writes the static export to `apps/web/out`. The checks are `pnpm lint`, `pnpm typecheck`, and `pnpm test`; CI runs the same commands (see [docs/ci.md](docs/ci.md)).
+
 ## Check the API
 
 Run these from `apps/api`:
