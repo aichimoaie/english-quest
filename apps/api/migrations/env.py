@@ -1,4 +1,4 @@
-"""Alembic environment: runs migrations against DATABASE_URL, offline or online."""
+"""Alembic environment: runs migrations against MIGRATION_DATABASE_URL, offline or online."""
 
 from logging.config import fileConfig
 

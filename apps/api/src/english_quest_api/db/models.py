@@ -1,6 +1,6 @@
 """SQLAlchemy models for the MVP schema.
 
-Design rules (see docs/prd/english-quest-prd.md and the architecture reports):
+Design rules (see docs/prd/english-quest-prd.md for the product requirements):
 
 - ``exercise_revisions`` and ``attempts`` are immutable. Database triggers in
   the first migration reject UPDATE and DELETE on both tables, and TRUNCATE on
