@@ -13,7 +13,7 @@ Success for the MVP means the learner completes the 30 days on the app and can s
 ## 2. Target user
 
 - **Who:** one adult learner at A1 to A2 who wants steady, short daily practice.
-- **Accounts:** a single learner signs in with email and password. There is no public sign-up; the learner's account is created by the operator.
+- **Accounts:** a single learner signs in with email and password. There is no public sign-up. How the learner's account is created is **Open** (section 18).
 - **Language of instruction:** all explanations are in English. The learner is expected to read simple English.
 - **Device:** most sessions happen on a phone, so the app is mobile-first.
 
@@ -23,7 +23,7 @@ Success for the MVP means the learner completes the 30 days on the app and can s
 - **Order:** days unlock in order. Day N+1 unlocks only after Day N is complete.
 - **Completion:** a day counts as complete when one run of its lessons reaches 70% (see section 6).
 - **Missed days:** a missed day pauses the schedule. It does not break the streak, and the learner resumes at the next unlocked day.
-- **Retries:** the learner can retry any exercise, and can start a new run of the day, without limit. Retries give feedback; accuracy is still counted on first attempts (section 6).
+- **Retries:** the learner can retry any exercise, and can start a new run of the day, without limit. Retries give feedback and never change accuracy, which counts first attempts only (section 6).
 - **Content:** every day also includes a short review of earlier days. Whether each day has one focus area is **Open** (section 18).
 
 ## 4. Learning areas
@@ -40,7 +40,7 @@ Success for the MVP means the learner completes the 30 days on the app and can s
 
 ## 5. Exercise types
 
-Each type has one line of definition and one scoring rule. The rules are proposed defaults; section 6 gives the general principle.
+Each type has one line of definition and one scoring rule. The scoring rules are settled; section 6 gives the general principle.
 
 | # | Type | Definition | Scoring rule |
 |---|---|---|---|
@@ -63,7 +63,7 @@ Each type has one line of definition and one scoring rule. The rules are propose
 - **Points:** each scored item gives points as shown in section 5. Within a run, items are scored on the **first attempt only**.
 - **Run:** one pass through a day's lesson exercises. Each new run is scored separately.
 - **Accuracy:** accuracy = points earned on first attempts ÷ points available on first attempts, across all runs and all daily review answers, shown as a percentage. Retries never change accuracy.
-- **Day completion threshold: 70%.** A day is complete when one run reaches at least 70%. The run uses the day's lesson exercises; daily review does not count toward it.
+- **Day completion threshold: 70%.** A day is complete when one run reaches at least 70%. The run uses the day's lesson exercises; daily review and pronunciation practice do not count toward it.
 - **Skill mastery:** the 80% skill-mastery threshold and its measurement window are **Open** (section 18).
 - **Vocabulary learned:** a word counts as learned when it is answered correctly on two separate days (section 10).
 - **Feedback:** the learner sees the result of each item immediately, with a short English explanation.
@@ -74,7 +74,7 @@ The learner can always see:
 
 - **Completed days:** for example, "12 of 30 days complete".
 - **Exercise results:** per exercise and per day, with points and first-attempt accuracy.
-- **Accuracy:** overall, and per learning area.
+- **Accuracy:** overall.
 - **Weak topics:** topics below the skill threshold, with a link to practise them. The weak-topic rule is **Open**.
 - **Vocabulary learned:** the count of words learned, with a list of words still in progress.
 - **Pronunciation practice:** the number of recognition items completed and the self-ratings given.
@@ -83,7 +83,7 @@ The learner can always see:
 
 ## 8. Review system
 
-- **Daily review** picks items from earlier completed days, and includes vocabulary that is due for review. Whether it opens every session is **Open** (section 18).
+- **Daily review** is part of every day (section 3). It picks items from earlier completed days, and includes vocabulary that is due for review. Where it appears in each session is **Open** (section 18).
 - **Mixed review** is a larger set across all completed days. It is offered periodically; its cadence is **Open**.
 - **Vocabulary due for review:** which words are due, and how soon a word answered incorrectly comes back, is **Open** (section 18).
 - **Retention goal:** review keeps earlier days visible without making the session longer than the target session length (**Open**, section 18).
@@ -96,11 +96,11 @@ The exact spacing and the weighting toward weak topics are **Open**.
 - **Self-rating:** after each item, the learner rates their own pronunciation. The rating options and labels are **Open** (section 18). The rating is recorded for progress but is not scored.
 - **Speech scoring is excluded.** The app does not use the microphone and does not grade the learner's speech.
 - Audio plays on demand and can be replayed without limit.
-- Pronunciation practice counts toward progress (section 7) but not toward the day's 70% threshold.
+- Pronunciation practice counts toward progress (section 7) and toward accuracy on first attempts (section 6), but not toward the day's 70% threshold.
 
 ## 10. Vocabulary requirements
 
-- Each day introduces a small set of words. Each word has: the English word, part of speech, a short English definition, one new example sentence, and audio.
+- Each day introduces a small set of words. Each word has: the English word, a short English definition, one new example sentence, and audio. Whether words also carry a part of speech is **Open** (section 18).
 - Example (new wording): *"The shop opens early, so we can buy bread before work."*
 - A word is **learned** when the learner answers it correctly on two separate days. The date rule uses the learner's time zone (**Open**, section 18).
 - Vocabulary is practised through the matching, multiple-choice, fill-in, and listening types.
@@ -109,7 +109,7 @@ The exact spacing and the weighting toward weak topics are **Open**.
 ## 11. Grammar requirements
 
 - Grammar lessons cover the core A1 to A2 structures, such as present simple vs present continuous, articles, basic past forms, comparatives, and question forms. The final list is part of content drafting.
-- Each grammar point has one short English explanation (a few sentences), at least one worked example, and a set of exercises.
+- Each grammar point has one short English explanation (a few sentences) and a set of exercises. Whether each grammar point also has a worked example is **Open** (section 18).
 - Example (new wording): *"She has worked here since May."* is correct; *"She has worked here since last May."* is shown as a contrast only with an explanation, not as a rule.
 - Grammar correction and sentence transformation are the main exercise types for grammar.
 
@@ -128,7 +128,7 @@ The exact spacing and the weighting toward weak topics are **Open**.
 - Audio can be played, paused, and replayed without limit. Replays do not change the score.
 - Listening comprehension items use short clips. Clip length is **Open** (section 18).
 - The audio source and whether files are pre-generated and stored are **Open**.
-- Playback works on mobile browsers with a single large play button.
+- Playback works on mobile browsers. The play control design is **Open** (section 18).
 
 ## 14. UX principles
 
@@ -143,7 +143,7 @@ The exact spacing and the weighting toward weak topics are **Open**.
 
 The MVP includes:
 
-- Email and password sign-in for one learner (account created by the operator).
+- Email and password sign-in for one learner (account creation is **Open**).
 - The 30-day path with ordered unlocking, the 70% day threshold, and pause-on-missed-day behaviour.
 - All 13 exercise types in section 5, with unlimited retries, first-attempt accuracy, and day completion by a run at 70%.
 - Immediate feedback with English explanations.
@@ -192,7 +192,7 @@ These are not decided. Each needs an answer before the feature that depends on i
 4. **Time-zone source:** decide whether the learner's time zone comes from the browser, the account profile, or a setting, and how day boundaries are set.
 5. **Vocabulary counting after retries:** decide whether a word answered correctly only after a retry counts toward "learned".
 6. **Review spacing and weighting:** the intervals for due vocabulary, the cadence of mixed review, and how much weak topics are weighted in daily review.
-7. **Daily review rules:** decide whether daily review is shown at the start of every session, and which vocabulary counts as due.
+7. **Daily review placement and due vocabulary:** decide whether daily review is shown at the start of every session, and which vocabulary counts as due.
 8. **Session length:** decide the target length of a session (for example, 15 to 20 minutes).
 9. **Rating labels:** decide the wording and number of options for the pronunciation self-rating (for example, "Got it" and "Needs practice").
 10. **Audio source:** text-to-speech or recorded audio, and whether audio files are generated once and stored.
@@ -204,3 +204,8 @@ These are not decided. Each needs an answer before the feature that depends on i
 16. **Focus area per day:** whether each day has one focus area, or a mix of topics.
 17. **Listening clip length:** the maximum length of a listening clip (for example, about 20 seconds).
 18. **Mobile side margin:** the side margin on phone layouts (for example, 16 px).
+19. **Learner account creation:** how the operator creates learner accounts (for example, a setup script or an admin page).
+20. **Part of speech:** whether vocabulary entries carry a part-of-speech field.
+21. **Grammar worked examples:** whether each grammar point includes a worked example.
+22. **Per-area accuracy:** whether accuracy is also shown per learning area, in addition to overall.
+23. **Audio play control:** the design of the play control on mobile browsers (for example, a single large button).
