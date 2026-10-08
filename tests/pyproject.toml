@@ -1,0 +1,34 @@
+[project]
+name = "english-quest-tests"
+version = "0.0.0"
+description = "Shared pytest harnesses for the English Quest API and curriculum content"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi==0.143.0",
+    "httpx==0.28.1",
+    "pytest==9.1.1",
+    "pytest-cov==7.1.0",
+    "schemathesis==4.29.4",
+]
+
+[tool.uv]
+# This project only holds test tooling. The API is added with --with-editable apps/api when it exists.
+package = false
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["api", "content"]
+mypy_path = ". ../apps/api/src"
+
+[[tool.mypy.overrides]]
+# apps/api is resolved through mypy_path once it is on main; until then its imports are unknown.
+module = ["english_quest_api", "english_quest_api.*"]
+ignore_missing_imports = true
