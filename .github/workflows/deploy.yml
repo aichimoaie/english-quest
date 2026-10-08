@@ -23,10 +23,10 @@ env:
   ARM_USE_OIDC: "true"
 
 jobs:
-  # Plan jobs have no environment and use a read-only identity per environment
-  # that can read only that environment's state, so they run without reviewer
-  # approval. Plans run unlocked and the run summary lists only resource
-  # addresses and actions, so reviewers can check it before the apply job starts.
+  # Plan jobs have no environment and use a read-only identity per environment,
+  # so they run without reviewer approval. Plans run unlocked and the run summary
+  # lists only resource addresses and actions, so reviewers can check it before
+  # the apply job starts. The identity scope is documented in docs/ci.md.
   plan-dev:
     name: Plan (dev)
     if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
