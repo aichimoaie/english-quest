@@ -72,6 +72,9 @@ class SchemaStore:
     def validate_exercise(self, document: Mapping[str, Any]) -> None:
         """Validate the envelope, then the content and answer key of the kind block."""
         self.validate_envelope(document)
+        topic_names = [topic["topic"] for topic in document["topics"]]
+        if len(set(topic_names)) != len(topic_names):
+            raise SchemaViolationError(["topics: each topic may appear only once"])
         kind = str(document["kind"])
         kind_version = int(document["kind_version"])
         self.validate_content(kind, kind_version, document["content"])

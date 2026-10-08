@@ -49,7 +49,6 @@ class AttemptRecord:
     points: int
     credit: float
     topics: tuple[TopicWeight, ...] = ()
-    counts_toward_accuracy: bool = True
     is_practice: bool = False
 
 
@@ -75,9 +74,11 @@ class ProgressSummary:
 
 
 def first_scored_answers(attempts: Iterable[AttemptRecord]) -> dict[str, AttemptRecord]:
-    """Return the earliest attempt for each exercise."""
+    """Return the earliest non-practice attempt for each exercise."""
     first: dict[str, AttemptRecord] = {}
     for attempt in sorted(attempts, key=lambda record: record.sequence):
+        if attempt.is_practice:
+            continue
         first.setdefault(attempt.exercise_id, attempt)
     return first
 
@@ -87,8 +88,6 @@ def derive_progress(
 ) -> ProgressSummary:
     counted: list[tuple[AttemptRecord, float]] = []
     for attempt in first_scored_answers(attempts).values():
-        if attempt.is_practice or not attempt.counts_toward_accuracy:
-            continue
         counted.append((attempt, attempt.credit))
 
     points_total = sum(attempt.points for attempt, _ in counted)

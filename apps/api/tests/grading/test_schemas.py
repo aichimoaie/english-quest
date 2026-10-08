@@ -201,6 +201,17 @@ def test_answer_key_must_agree_with_content_ids(
         SchemaStore().validate_exercise(document)
 
 
+def test_duplicate_topic_names_are_rejected_at_authoring_time() -> None:
+    document = _valid_envelope(
+        topics=[
+            {"topic": "grammar.tense.past_simple", "weight": 1.0},
+            {"topic": "grammar.tense.past_simple", "weight": 0.5},
+        ]
+    )
+    with pytest.raises(SchemaViolationError):
+        SchemaStore().validate_exercise(document)
+
+
 def test_matching_and_ordering_agreeing_with_content_pass() -> None:
     store = SchemaStore()
     store.validate_exercise(

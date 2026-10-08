@@ -23,7 +23,6 @@ def attempt(
     days_ago: int = 0,
     topics: tuple[TopicWeight, ...] = SPELLING,
     practice: bool = False,
-    counts: bool = True,
 ) -> AttemptRecord:
     return AttemptRecord(
         sequence=sequence,
@@ -33,7 +32,6 @@ def attempt(
         credit=credit,
         topics=topics,
         is_practice=practice,
-        counts_toward_accuracy=counts,
     )
 
 
@@ -77,10 +75,13 @@ def test_non_positive_topic_weight_is_rejected(weight: float) -> None:
         TopicWeight("spelling.ie_ei", weight)
 
 
-def test_self_rated_answers_are_excluded_from_accuracy() -> None:
-    summary = derive_progress([attempt(1, "ex_a", 0.0, counts=False)], today=TODAY)
-    assert summary.accuracy is None
-    assert summary.topics == ()
+def test_a_practice_answer_does_not_use_up_the_first_answer() -> None:
+    summary = derive_progress(
+        [attempt(1, "ex_a", 0.0, practice=True), attempt(2, "ex_a", 1.0)],
+        today=TODAY,
+    )
+    assert summary.accuracy == 1.0
+    assert summary.scored_items == 1
 
 
 def test_three_wrong_answers_make_a_topic_weak() -> None:

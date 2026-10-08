@@ -43,5 +43,4 @@ def evaluate_pronunciation(
             "self_rating": rating.value,
         },
         family=Family.SELF_ASSESSED,
-        counts_toward_accuracy=recognition.counts_toward_accuracy,
     )

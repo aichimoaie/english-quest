@@ -38,11 +38,10 @@ def _row(
     code: str,
     *,
     family: Family,
-    counts: bool = True,
 ) -> tuple[
-    str, dict[str, Any], dict[str, Any], dict[str, Any], float | None, str, Family, bool
+    str, dict[str, Any], dict[str, Any], dict[str, Any], float | None, str, Family
 ]:
-    return kind, content, answer_key, response, credit, code, family, counts
+    return kind, content, answer_key, response, credit, code, family
 
 
 CASES = [
@@ -233,7 +232,7 @@ def test_each_kind_has_a_table_row() -> None:
 
 
 @pytest.mark.parametrize(
-    ("kind", "content", "answer_key", "response", "credit", "code", "family", "counts"),
+    ("kind", "content", "answer_key", "response", "credit", "code", "family"),
     CASES,
 )
 def test_kind_example_matches_its_schema_and_scores(
@@ -245,7 +244,6 @@ def test_kind_example_matches_its_schema_and_scores(
     credit: float | None,
     code: str,
     family: Family,
-    counts: bool,
 ) -> None:
     document = _envelope(kind, content, answer_key)
     store.validate_exercise(document)
@@ -260,7 +258,6 @@ def test_kind_example_matches_its_schema_and_scores(
     )
     assert result.family is family
     assert result.feedback_code == code
-    assert result.counts_toward_accuracy is counts
     if credit is None:
         assert result.credit is None
     else:

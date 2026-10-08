@@ -35,4 +35,3 @@ class EvaluationResult:
     normalized_response: Mapping[str, Any]
     family: Family
     feedback_params: Mapping[str, str] = field(default_factory=dict)
-    counts_toward_accuracy: bool = True
