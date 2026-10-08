@@ -22,7 +22,14 @@ test.describe('@helper accessibility helper', () => {
     page,
   }) => {
     await page.setContent(fixture('inaccessible.html'));
-    await expect(checkAccessibility(page)).rejects.toThrow(/image-alt|label|html-has-lang/);
+    const failure = await checkAccessibility(page).then(
+      () => '',
+      (error: Error) => error.message,
+    );
+    expect(failure).not.toBe('');
+    for (const rule of ['image-alt', 'label', 'html-has-lang']) {
+      expect(failure).toContain(`${rule}:`);
+    }
   });
 });
 

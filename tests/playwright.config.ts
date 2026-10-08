@@ -19,7 +19,7 @@ const baseURL = `http://127.0.0.1:${webPort}`;
 const webServer: PlaywrightTestConfig['webServer'] = [];
 if (webAppPresent) {
   webServer.push({
-    command: `pnpm --dir apps/web build && python3 -m http.server ${webPort} --bind 127.0.0.1 --directory apps/web/out`,
+    command: `pnpm --dir apps/web build && node tests/e2e/support/static-server.mjs ${webPort} apps/web/out`,
     cwd: repoRoot,
     url: `http://127.0.0.1:${webPort}`,
     reuseExistingServer: !process.env.CI,
