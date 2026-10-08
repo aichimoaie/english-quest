@@ -18,23 +18,34 @@ export async function expectNoHorizontalScroll(page: Page, width = PHONE_WIDTH_P
       0,
     );
     const contentWidth = Math.max(document.documentElement.scrollWidth, widestElementEdge);
+    const describe = (element: HTMLElement) => {
+      const id = element.id ? `#${element.id}` : '';
+      const className = typeof element.className === 'string' && element.className.trim()
+        ? `.${element.className.trim().split(/\s+/).join('.')}`
+        : '';
+      return `${element.tagName.toLowerCase()}${id}${className}`;
+    };
     const offenders = elements
       .filter((element) => element.getBoundingClientRect().right > viewportWidth + 1)
       .slice(0, 5)
-      .map((element) => {
-        const id = element.id ? `#${element.id}` : '';
-        const className = typeof element.className === 'string' && element.className.trim()
-          ? `.${element.className.trim().split(/\s+/).join('.')}`
-          : '';
-        return `${element.tagName.toLowerCase()}${id}${className}`;
-      });
-    return { viewportWidth, contentWidth, offenders };
+      .map(describe);
+    const containedOverflow = elements
+      .filter((element) => element.scrollWidth > element.clientWidth)
+      .slice(0, 5)
+      .map(describe);
+    return { viewportWidth, contentWidth, offenders, containedOverflow };
   });
 
-  const overflowing = isHorizontallyOverflowing(measurement.contentWidth, measurement.viewportWidth);
+  const pageOverflows = isHorizontallyOverflowing(measurement.contentWidth, measurement.viewportWidth);
+  const overflowing = pageOverflows || measurement.containedOverflow.length > 0;
   const detail = overflowing
-    ? `content edge ${measurement.contentWidth}px > viewport ${measurement.viewportWidth}px at ${width}px. ` +
-      `Elements past the edge: ${measurement.offenders.join(', ') || 'none found (check fixed or transformed elements)'}`
+    ? [
+        pageOverflows
+          ? `content edge ${measurement.contentWidth}px > viewport ${measurement.viewportWidth}px at ${width}px.`
+          : '',
+        `Elements past the edge: ${measurement.offenders.join(', ') || 'none'}.`,
+        `Elements with content wider than their box: ${measurement.containedOverflow.join(', ') || 'none'}.`,
+      ].filter(Boolean).join(' ')
     : '';
   expect(overflowing, detail).toBe(false);
 }
