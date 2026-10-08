@@ -18,7 +18,6 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CONTENT_DAYS = REPO_ROOT / "content" / "days"
 API_SRC = REPO_ROOT / "apps" / "api" / "src"
-VALIDATOR_MODULE = API_SRC / "english_quest_api" / "curriculum" / "validate.py"
 DEFAULT_COMMAND: tuple[str, ...] = (sys.executable, "-m", "english_quest_api.curriculum.validate")
 TIMEOUT_SECONDS = 120
 
@@ -49,13 +48,6 @@ def validator_environment() -> dict[str, str]:
     existing = os.environ.get("PYTHONPATH")
     paths = [str(API_SRC), existing] if existing else [str(API_SRC)]
     return {**os.environ, "PYTHONPATH": os.pathsep.join(paths)}
-
-
-def validator_missing_reason() -> str | None:
-    """Why the validator cannot run yet, or None when it can."""
-    if VALIDATOR_MODULE.exists():
-        return None
-    return "curriculum validator not on main yet; needs workstreams 2, 4 and 6"
 
 
 def run_validator(

@@ -11,7 +11,6 @@ import pytest
 from curriculum_validator import (
     CONTENT_DAYS,
     run_validator,
-    validator_missing_reason,
 )
 
 FIXTURES = Path(__file__).parent / "validator_fixtures"
@@ -50,15 +49,12 @@ def test_slow_validator_times_out_instead_of_hanging(tmp_path: Path) -> None:
         )
 
 
-# Real content: skipped until the curriculum and its validator are on main.
+# Real content: skipped until content/days is on main. Once it is, the validator must accept it.
 
 
 def test_curriculum_validator_accepts_every_day_file() -> None:
     if not CONTENT_DAYS.exists():
         pytest.skip("content/days is not on main yet (workstream 6, curriculum)")
-    missing = validator_missing_reason()
-    if missing:
-        pytest.skip(missing)
 
     run = run_validator(CONTENT_DAYS)
     assert run.ok, run.report()

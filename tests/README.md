@@ -49,7 +49,7 @@ Playwright uses its bundled Chromium.
 
 | Variable | Used by | Purpose |
 |---|---|---|
-| `EQ_TEST_DATABASE_URL` | Playwright | The dedicated database the started API uses. Required once `apps/api` is on main: the config fails without it, the API never gets the ambient `DATABASE_URL`, and the write-making specs refuse to run without it. |
+| `EQ_TEST_DATABASE_URL` | Playwright, pytest | The dedicated PostgreSQL test database. The API starts only with it, and never uses the ambient `DATABASE_URL`. The database-backed specs and the contract run fail without it. Helper specs run without it. |
 | `EQ_LEARNER_EMAIL`, `EQ_LEARNER_PASSWORD` | Playwright | The one learner account for authenticated specs. Never commit them. |
 
 ## What skips, and why
@@ -60,7 +60,7 @@ Skipped tests name their dependency in the skip reason.
 |---|---|
 | `@smoke` day flow, `@layout` learner pages | `apps/web` (workstream 1) and `apps/api` (workstream 2) on main; learner credentials for the authenticated pages |
 | `@layout` public page `/login` | `apps/web` and `apps/api` on main |
-| `test_openapi_contract.py` | `apps/api` on main with its dependencies installed. For the API tests, add `--with-editable apps/api` to the `uv run` command. |
+| `test_openapi_contract.py` | `apps/api` on main with its dependencies installed. Also needs `EQ_TEST_DATABASE_URL`, and migrates that database with `alembic upgrade head`. For the API tests, add `--with-editable apps/api` to the `uv run` command. |
 | `test_curriculum_validator_accepts_every_day_file` | `content/days` (workstream 6) and the curriculum validator |
 
 ## Assumptions to confirm with other workstreams
@@ -73,10 +73,10 @@ These names come from the architecture report and are not yet on main. Change th
 - Web app: static export in `apps/web/out`, with a `build` script in `apps/web/package.json`.
 - Sign-in page: `/login` with fields labelled `Email` and `Password`, and a `Sign in` button.
 - Day flow labels (from the prototype's UI text): `Your 30 days` heading, a `Day 1` link or button, `Check answer` and `Continue` buttons, and `Correct` or `Not quite` feedback. Choice answers are buttons whose pressed state is `aria-pressed`.
-- Contract run database: `test_openapi_contract.py` sets `DATABASE_URL` to a temporary SQLite file before importing the app, overriding any value in the environment. Change the variable name if `apps/api` reads a different one.
+- Contract run database: `test_openapi_contract.py` points `DATABASE_URL` at `EQ_TEST_DATABASE_URL`, runs `alembic upgrade head` on it, and only then imports the app. It never uses SQLite. Change the variable name if `apps/api` reads a different one.
 
 ## Not in this folder
 
-- `.gitignore` entries for `node_modules/` and `.pytest_cache/` (workstream 2 owns `.gitignore`). The root `.gitignore` here only lists the web build output, `apps/web/.next/` and `apps/web/out/`, which a firstmate decision asked for. Playwright traces and reports go to the OS temp directory, so they need no entry.
+- `.gitignore` entries for `node_modules/` and `.pytest_cache/` (workstream 2 owns `.gitignore`). The root `.gitignore` here only lists the web build output, `apps/web/.next/` and `apps/web/out/`, which a firstmate decision asked for. Playwright traces go to a private temp directory outside the worktree; the HTML report goes to `playwright-report/`, which the root `.gitignore` already lists.
 - The CI workflow that runs these commands (workstream 8).
 - The root `package.json` and `pnpm-workspace.yaml` (workstream 1 owns them). This folder keeps its own `package.json` and `uv.lock` so the test tooling does not touch the root manifest. No pnpm lock file is committed here.

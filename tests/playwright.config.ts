@@ -26,12 +26,7 @@ if (webAppPresent) {
     timeout: 240_000,
   });
 }
-if (apiPresent) {
-  if (!testDatabaseUrl) {
-    throw new Error(
-      'Set EQ_TEST_DATABASE_URL to a dedicated test database. The API starts on it, so it never uses the ambient DATABASE_URL.',
-    );
-  }
+if (apiPresent && testDatabaseUrl) {
   webServer.push({
     command: `uv run --project apps/api uvicorn english_quest_api.main:create_app --factory --host 127.0.0.1 --port ${apiPort}`,
     cwd: repoRoot,
@@ -59,9 +54,9 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 2 : undefined,
   reporter: process.env.CI
-    ? [['list'], ['html', { open: 'never', outputFolder: path.join(outputRoot, 'report') }]]
+    ? [['list'], ['html', { open: 'never', outputFolder: path.join(repoRoot, 'playwright-report') }]]
     : [['list']],
-  // Traces and screenshots of failures. They go outside the worktree, so a commit cannot pick them up.
+  // Traces and screenshots of failures are kept in a private directory outside the worktree.
   outputDir: path.join(outputRoot, 'test-results'),
   expect: { timeout: 10_000 },
   use: {
