@@ -54,7 +54,7 @@ jobs:
         run: tofu init -input=false
       - name: Plan
         working-directory: infra/envs/dev
-        run: tofu plan -input=false -lock=false -out=tfplan
+        run: tofu plan -input=false -lock=false -out=tfplan >/dev/null
       - name: Plan summary
         working-directory: infra/envs/dev
         shell: bash
@@ -134,7 +134,7 @@ jobs:
         run: tofu init -input=false
       - name: Plan
         working-directory: infra/envs/prod
-        run: tofu plan -input=false -lock=false -out=tfplan
+        run: tofu plan -input=false -lock=false -out=tfplan >/dev/null
       - name: Plan summary
         working-directory: infra/envs/prod
         shell: bash
