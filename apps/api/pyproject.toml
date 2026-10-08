@@ -12,6 +12,7 @@ dependencies = [
     "psycopg[binary]>=3.2",
     "argon2-cffi>=23.1",
     "pyyaml>=6.0",
+    "jsonschema>=4.23",
 ]
 
 [project.scripts]
@@ -27,6 +28,7 @@ packages = ["src/english_quest_api"]
 [dependency-groups]
 dev = [
     "httpx>=0.28.1",
+    "hypothesis>=6.100",
     "mypy>=2.4.0",
     "types-PyYAML>=6.0",
     "types-jsonschema>=4.0",
