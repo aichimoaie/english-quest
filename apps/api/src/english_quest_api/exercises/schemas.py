@@ -86,12 +86,18 @@ class SchemaStore:
                 raise SchemaViolationError(problems)
 
 
+def _option_id_problems(option_ids: list[str], where: str) -> list[str]:
+    if len(set(option_ids)) != len(option_ids):
+        return [f"{where}: option ids must be unique"]
+    return []
+
+
 def _choice_problems(
     option_ids: list[str],
     correct_ids: list[str],
     allow_multiple: bool,
 ) -> list[str]:
-    problems: list[str] = []
+    problems = _option_id_problems(option_ids, "content/options")
     unknown = sorted(set(correct_ids) - set(option_ids))
     if unknown:
         problems.append(f"answer_key/correct_option_ids: not option ids {unknown}")
@@ -112,9 +118,10 @@ def _pronunciation_block(
     content: Mapping[str, Any], answer_key: Mapping[str, Any]
 ) -> list[str]:
     option_ids = [option["id"] for option in content["recognition_options"]]
+    problems = _option_id_problems(option_ids, "content/recognition_options")
     if answer_key["correct_option_id"] not in option_ids:
-        return ["answer_key/correct_option_id: not a recognition option id"]
-    return []
+        problems.append("answer_key/correct_option_id: not a recognition option id")
+    return problems
 
 
 def _matching_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:

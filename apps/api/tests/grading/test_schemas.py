@@ -212,6 +212,38 @@ def test_duplicate_topic_names_are_rejected_at_authoring_time() -> None:
         SchemaStore().validate_exercise(document)
 
 
+def test_duplicate_option_ids_are_rejected_before_scoring() -> None:
+    choice = _valid_envelope(
+        content={
+            "allow_multiple": False,
+            "question": "Q?",
+            "options": [{"id": "a", "text": "x"}, {"id": "a", "text": "y"}],
+        },
+        answer_key={"correct_option_ids": ["a"]},
+    )
+    with pytest.raises(SchemaViolationError):
+        SchemaStore().validate_exercise(choice)
+    pronunciation = _valid_envelope(
+        kind="pronunciation_practice",
+        content={
+            "prompt_text": "ship or sheep",
+            "recognition_options": [
+                {"id": "a", "text": "ship"},
+                {"id": "a", "text": "sheep"},
+            ],
+        },
+        answer_key={"correct_option_id": "a"},
+    )
+    with pytest.raises(SchemaViolationError):
+        SchemaStore().validate_exercise(pronunciation)
+
+
+def test_envelope_schema_rejects_repeated_topic_entries() -> None:
+    topic = {"topic": "grammar.tense.past_simple", "weight": 1.0}
+    with pytest.raises(SchemaViolationError):
+        SchemaStore().validate_envelope(_valid_envelope(topics=[topic, dict(topic)]))
+
+
 def test_matching_and_ordering_agreeing_with_content_pass() -> None:
     store = SchemaStore()
     store.validate_exercise(
