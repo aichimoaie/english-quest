@@ -48,27 +48,35 @@ vocabulary:
   - word: brother
     definition: a boy or man who has the same parents as you
     example: My brother is taller than me.
+    audio_ref: d01-vocab-brother
   - word: sister
     definition: a girl or woman who has the same parents as you
     example: My sister studies medicine in Bristol.
+    audio_ref: d01-vocab-sister
   - word: neighbour
     definition: a person who lives near your home
     example: Our neighbour has a small blue car.
+    audio_ref: d01-vocab-neighbour
   - word: grandmother
     definition: the mother of your mother or father
     example: My grandmother bakes bread on Sundays.
+    audio_ref: d01-vocab-grandmother
   - word: friend
     definition: a person you like and spend time with
     example: My friend and I play tennis on Fridays.
+    audio_ref: d01-vocab-friend
   - word: teacher
     definition: a person whose job is to teach
     example: Our teacher is patient with everyone.
+    audio_ref: d01-vocab-teacher
   - word: student
     definition: a person who is learning at a school, college or university
     example: Each student has a notebook.
+    audio_ref: d01-vocab-student
   - word: doctor
     definition: a person who treats sick people
     example: The doctor checked my throat.
+    audio_ref: d01-vocab-doctor
 
 exercises:
   - id: d01-grammar-mc-01

@@ -26,6 +26,7 @@ EXERCISE_ID = r"^d(\d{2})-[a-z0-9]+(?:-[a-z0-9]+)*$"
 LESSON_ID = r"^d(\d{2})-lesson-[a-z0-9]+(?:-[a-z0-9]+)*$"
 TOPIC = r"^[a-z]+(\.[a-z_]+)+$"
 WORD = r"^[a-z]+(?: [a-z]+)*$"
+AUDIO_REF = r"^[a-z0-9]+(?:-[a-z0-9]+)*$"
 
 
 class LearningArea(StrEnum):
@@ -62,6 +63,7 @@ class VocabularyItem(_Strict):
     word: Annotated[str, StringConstraints(pattern=WORD)]
     definition: NonBlank
     example: NonBlank
+    audio_ref: Annotated[str, StringConstraints(pattern=AUDIO_REF)]
 
 
 class MatchPair(_Strict):

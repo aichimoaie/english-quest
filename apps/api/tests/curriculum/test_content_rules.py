@@ -49,6 +49,13 @@ def _duplicate_exercise_id(data: Data) -> None:
     data["exercises"][FILL_BLANK]["id"] = data["exercises"][MULTIPLE_CHOICE]["id"]
 
 
+def _vocabulary_del(index: int, key: str) -> Mutation:
+    def mutate(data: Data) -> None:
+        del data["vocabulary"][index][key]
+
+    return mutate
+
+
 def _set_day(day: int) -> Mutation:
     def mutate(data: Data) -> None:
         data["day"] = day
@@ -161,6 +168,11 @@ RULE_CASES = [
         _duplicate_exercise_id,
         "lesson and exercise ids must be unique",
         id="duplicate-exercise-id",
+    ),
+    pytest.param(
+        _vocabulary_del(0, "audio_ref"),
+        "Field required",
+        id="vocabulary-without-audio-reference",
     ),
     pytest.param(
         _set_day(31),
