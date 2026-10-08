@@ -50,4 +50,11 @@ test.describe('@helper no-horizontal-scroll helper', () => {
     await page.setContent(fixture('unbreakable-at-390.html'));
     await expect(expectNoHorizontalScroll(page, 390)).rejects.toThrow(/content edge \d+px > viewport 390px/);
   });
+
+  test('fails a page whose contained box clips wider content and names that box (negative control)', async ({
+    page,
+  }) => {
+    await page.setContent(fixture('contained-at-390.html'));
+    await expect(expectNoHorizontalScroll(page, 390)).rejects.toThrow(/wider than their box: div#contained-card/);
+  });
 });
