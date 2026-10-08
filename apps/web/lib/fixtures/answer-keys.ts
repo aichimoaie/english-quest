@@ -73,4 +73,52 @@ export const ANSWER_KEYS: Record<string, AnswerKey> = {
     explanation: "Sheep and ship sound alike in some accents. Listen for the long vowel in sheep.",
     feedbackKey: "pronunciation.recognition",
   },
+  ex_d2_choice_my: {
+    isCorrect: (s) => isOption(s, 0),
+    expected: "My",
+    explanation: "\"My\" is a possessive word, so it goes before the noun \"name\". \"Me\" and \"I\" are pronouns, not possessive words.",
+    feedbackKey: "possessive.determiner",
+  },
+  ex_d2_choice_her: {
+    isCorrect: (s) => isOption(s, 1),
+    expected: "Her dog is friendly.",
+    explanation: "\"Her\" comes before the noun \"dog\". \"Hers\" stands alone, as in \"The dog is hers.\"",
+    feedbackKey: "possessive.determiner",
+  },
+  ex_d2_fill: {
+    isCorrect: (s) => isText(s, ["his"]),
+    expected: "his",
+    explanation: "Tom is a man, so the owner word is \"his\". Use \"her\" when the owner is a woman or a girl.",
+    feedbackKey: "possessive.his_her",
+  },
+  ex_d2_match: {
+    isCorrect: (s) =>
+      "pairs" in s &&
+      s.pairs.backpack === "a bag that you wear on your back" &&
+      s.pairs.notebook === "a small book with empty pages for writing notes" &&
+      s.pairs.umbrella === "something you hold over your head to stay dry in the rain" &&
+      s.pairs.passport === "an official document that shows who you are when you travel",
+    expected:
+      "backpack: a bag that you wear on your back. notebook: a small book with empty pages for writing notes. umbrella: something you hold over your head to stay dry in the rain. passport: an official document that shows who you are when you travel.",
+    explanation: "Each word names a thing you carry or use. Read the meanings again if you are unsure.",
+    feedbackKey: "vocab.meaning",
+  },
+  ex_d2_spell: {
+    isCorrect: (s) => isText(s, ["I left my umbrella at the station."]),
+    expected: "I left my umbrella at the station.",
+    explanation: "\"Umbrella\" has two l's together in the middle. Say it in parts: um-brel-la.",
+    feedbackKey: "spelling.double_letters",
+  },
+  ex_d2_order: {
+    isCorrect: (s) => "order" in s && s.order.join(" ") === "Your bicycle is by the door.",
+    expected: "Your bicycle is by the door.",
+    explanation: "Start with the owner word \"Your\" and the noun \"bicycle\". Then add \"is\", the place \"by the door\", and the full stop at the end.",
+    feedbackKey: "sentence.word_order",
+  },
+  ex_d2_listen: {
+    isCorrect: (s) => isOption(s, 0),
+    expected: "Jen",
+    explanation: "The speaker says the jacket is not theirs and that it belongs to Jen. Listen for the word that comes after \"belongs to\".",
+    feedbackKey: "listening.detail",
+  },
 };

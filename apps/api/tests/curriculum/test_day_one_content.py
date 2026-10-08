@@ -22,7 +22,7 @@ def test_day_one_passes_validation() -> None:
     report = validate_content_dir(CONTENT_DAYS)
 
     assert report.issues == ()
-    assert [loaded.day.day for loaded in report.days] == [1]
+    assert [loaded.day.day for loaded in report.days] == [1, 2]
 
 
 def test_day_one_uses_the_seven_prototype_exercise_types_and_self_rating() -> None:
