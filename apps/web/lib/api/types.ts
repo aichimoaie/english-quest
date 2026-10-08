@@ -1,0 +1,160 @@
+/*
+ * Wire types for the /api/v1 contract (see the architecture report, "API").
+ * Hand-written stub: replace with the generated client once apps/api publishes
+ * its OpenAPI document. Keep names in sync with the server DTOs.
+ *
+ * Answer keys never appear in these types. The browser sends a response and
+ * renders the server's feedback; it never grades anything itself.
+ */
+
+/** The seven renderer types. The server maps every authoring kind onto one of these. */
+export type ExerciseKind =
+  | "multiple_choice"
+  | "fill_blank"
+  | "sentence_ordering"
+  | "vocabulary_matching"
+  | "spelling_correction"
+  | "listening_comprehension"
+  | "pronunciation_practice";
+
+export type DayStatus = "locked" | "current" | "done";
+
+export interface DaySummary {
+  dayNumber: number;
+  title: string;
+  objective: string;
+  status: DayStatus;
+  bestScorePct: number | null;
+}
+
+export interface VocabularyItem {
+  word: string;
+  definition: string;
+  example: string;
+}
+
+export interface GrammarPoint {
+  title: string;
+  explanation: string;
+  examples: string[];
+}
+
+export interface Lesson {
+  vocabulary: VocabularyItem[];
+  grammar: GrammarPoint[];
+}
+
+interface ExerciseBase {
+  id: string;
+  instructions: string;
+  points: number;
+}
+
+export type Exercise =
+  | (ExerciseBase & {
+      kind: "multiple_choice";
+      content: { prompt: string; options: string[] };
+    })
+  | (ExerciseBase & {
+      kind: "fill_blank";
+      content: { sentence: string; hint: string | null };
+    })
+  | (ExerciseBase & {
+      kind: "sentence_ordering";
+      content: { words: string[] };
+    })
+  | (ExerciseBase & {
+      kind: "vocabulary_matching";
+      content: { words: string[]; meanings: string[] };
+    })
+  | (ExerciseBase & {
+      kind: "spelling_correction";
+      content: { sentence: string };
+    })
+  | (ExerciseBase & {
+      kind: "listening_comprehension";
+      content: { audioUrl: string | null; prompt: string; options: string[] };
+    })
+  | (ExerciseBase & {
+      kind: "pronunciation_practice";
+      content: { audioUrl: string | null; options: string[] };
+    });
+
+/** What the learner submits. The shape depends on the exercise kind. */
+export type Submitted =
+  | { optionIndex: number }
+  | { text: string }
+  | { order: string[] }
+  | { pairs: Record<string, string> };
+
+export interface DayDetail {
+  dayNumber: number;
+  title: string;
+  objective: string;
+  status: DayStatus;
+  bestScorePct: number | null;
+  lesson: Lesson;
+  exercises: Exercise[];
+}
+
+export interface StartedAttempt {
+  attemptId: string;
+  exercises: Exercise[];
+}
+
+export interface AnswerInput {
+  exerciseId: string;
+  submitted: Submitted;
+}
+
+/** `expected` is only present after the answer is recorded. */
+export interface AnswerResult {
+  isCorrect: boolean;
+  expected?: string | null;
+  explanation: string;
+  feedbackKey: string;
+}
+
+export interface CompletedAttempt {
+  scorePct: number;
+  status: "passed" | "not_passed";
+  dayStatus: DayStatus;
+  nextDay: number | null;
+}
+
+export interface ReviewSet {
+  items: Exercise[];
+}
+
+export interface PronunciationRatingInput {
+  itemId: string;
+  method: "recognition";
+  selfRating: "got_it" | "needs_practice";
+}
+
+export interface Progress {
+  completedDays: number;
+  totalDays: number;
+  overallPct: number;
+  accuracyPct: number;
+  streak: { current: number; longest: number };
+  weakTopics: string[];
+  vocabularyLearned: number;
+  pronunciation: { recognitionItems: number; selfRatings: number };
+}
+
+export interface VocabularyEntry {
+  id: string;
+  word: string;
+  definition: string;
+  example: string;
+  dayNumber: number;
+  timesCorrect: number;
+  timesWrong: number;
+}
+
+export interface ApiProblem {
+  title: string;
+  status: number;
+  detail?: string;
+}

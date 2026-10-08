@@ -1,0 +1,15 @@
+{
+  "name": "english-quest",
+  "private": true,
+  "packageManager": "pnpm@11.5.2",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @english-quest/web dev",
+    "build": "pnpm --filter @english-quest/web build",
+    "typecheck": "pnpm --filter @english-quest/web typecheck",
+    "lint": "pnpm --filter @english-quest/web lint",
+    "test": "pnpm --filter @english-quest/web test"
+  }
+}

@@ -27,9 +27,9 @@ The workflow calls package scripts by name and does not repeat their tool invoca
 
 | Command | Defined in | Status |
 | --- | --- | --- |
-| `lint`, `typecheck`, `test` scripts in `apps/web/package.json` | Workstream 1 (frontend) | Pending. The `test` script must run once and exit (for example `vitest run`), not in watch mode. |
-| pnpm version | This workflow | Pinned in `pr-checks.yml` (`pnpm/action-setup` `version: 12.10.1`). Keep it in step with the root `package.json` when Workstream 1 lands. |
-| `pnpm-lock.yaml` | Workstream 1 | Pending. `--frozen-lockfile` fails until it is committed. |
+| `lint`, `typecheck`, `test` scripts in `apps/web/package.json` | Workstream 1 (frontend) | Landed. `test` is `vitest run`, which exits after one run. Keep it out of watch mode. |
+| pnpm version | This workflow | Pinned in `pr-checks.yml` (`pnpm/action-setup` `version: 12.10.1`). Keep it in step with the `packageManager` field in the root `package.json`. |
+| `pnpm-lock.yaml` | Workstream 1 | Landed. `--frozen-lockfile` needs it committed. |
 | `apps/api/pyproject.toml` with `ruff`, `mypy`, `pytest` in dev dependencies | Workstream 2 (backend) | Pending |
 | `apps/api/uv.lock` | Workstream 2 | Pending. `uv sync --locked` fails until it is committed. |
 | `infra/envs/dev/` and `infra/envs/prod/` with `.tf` files | Workstream 7 (Azure infrastructure) | Pending. The infra job fails if `infra/envs/` has no directories. |
