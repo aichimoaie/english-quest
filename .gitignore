@@ -24,3 +24,8 @@ out/
 .DS_Store
 .idea/
 .vscode/
+
+apps/web/.next/
+apps/web/out/
+test-results/
+playwright-report/
