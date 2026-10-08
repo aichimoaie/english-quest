@@ -7,6 +7,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+import curriculum_validator
 import pytest
 from curriculum_validator import (
     CONTENT_DAYS,
@@ -48,6 +49,23 @@ def test_slow_validator_times_out_instead_of_hanging(tmp_path: Path) -> None:
             command=(sys.executable, "-c", "import time; time.sleep(5)"),
             timeout=0.2,
         )
+
+
+def test_absent_api_package_is_reported_as_a_skip(monkeypatch: pytest.MonkeyPatch) -> None:
+    def import_absent_package(name: str) -> None:
+        raise ModuleNotFoundError("No module named 'english_quest_api'", name="english_quest_api")
+
+    monkeypatch.setattr(curriculum_validator.importlib, "import_module", import_absent_package)
+    assert validator_missing_reason() is not None
+
+
+def test_broken_dependency_of_the_api_fails_instead_of_skipping(monkeypatch: pytest.MonkeyPatch) -> None:
+    def import_with_missing_dependency(name: str) -> None:
+        raise ModuleNotFoundError("No module named 'fastapi'", name="fastapi")
+
+    monkeypatch.setattr(curriculum_validator.importlib, "import_module", import_with_missing_dependency)
+    with pytest.raises(ModuleNotFoundError):
+        validator_missing_reason()
 
 
 # Real content: skipped until the curriculum and its validator are on main.

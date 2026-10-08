@@ -72,10 +72,11 @@ These names come from the architecture report and are not yet on main. Change th
 - Curriculum validator: `english_quest_api.curriculum.validate`, run with the content directory as its argument.
 - Web app: static export in `apps/web/out`, with a `build` script in `apps/web/package.json`.
 - Sign-in page: `/login` with fields labelled `Email` and `Password`, and a `Sign in` button.
-- Day flow labels (from the prototype's UI text): `Your 30 days` heading, a `Day 1` link or button, `Check answer` and `Continue` buttons, and `Correct` or `Not quite` feedback.
+- Day flow labels (from the prototype's UI text): `Your 30 days` heading, a `Day 1` link or button, `Check answer` and `Continue` buttons, and `Correct` or `Not quite` feedback. Choice answers are buttons whose pressed state is `aria-pressed`.
+- Contract run database: `test_openapi_contract.py` sets `DATABASE_URL` to a temporary SQLite file before importing the app, overriding any value in the environment. Change the variable name if `apps/api` reads a different one.
 
 ## Not in this folder
 
 - `.gitignore` entries for `node_modules/`, `playwright-report/`, `test-results/`, `.pytest_cache/` (workstream 2 owns `.gitignore`).
 - The CI workflow that runs these commands (workstream 8).
-- The root `package.json` and `pnpm-workspace.yaml` (workstream 1 owns them). This folder keeps its own `package.json` and lock file so the test tooling does not touch the root manifest.
+- The root `package.json` and `pnpm-workspace.yaml` (workstream 1 owns them). This folder keeps its own `package.json` and `uv.lock` so the test tooling does not touch the root manifest. No pnpm lock file is committed here.

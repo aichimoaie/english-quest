@@ -16,6 +16,8 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 
+from api_package import api_package_is_absent
+
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CONTENT_DAYS = REPO_ROOT / "content" / "days"
 API_SRC = REPO_ROOT / "apps" / "api" / "src"
@@ -55,7 +57,9 @@ def validator_missing_reason() -> str | None:
     """Why the validator cannot run yet, or None when it can."""
     try:
         importlib.import_module("english_quest_api.curriculum.validate")
-    except ImportError as error:
+    except ModuleNotFoundError as error:
+        if not api_package_is_absent(error):
+            raise
         return f"curriculum validator not importable ({error}); needs workstreams 2, 4 and 6 on main"
     return None
 

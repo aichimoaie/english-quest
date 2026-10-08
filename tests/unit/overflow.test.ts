@@ -10,15 +10,10 @@ describe('isHorizontallyOverflowing', () => {
     expect(isHorizontallyOverflowing(620, 390)).toBe(true);
   });
 
-  it('ignores sub-pixel rounding within the default 1 px tolerance', () => {
+  it('ignores sub-pixel rounding within 1 px', () => {
     expect(isHorizontallyOverflowing(390.4, 390)).toBe(false);
     expect(isHorizontallyOverflowing(391, 390)).toBe(false);
     expect(isHorizontallyOverflowing(392, 390)).toBe(true);
-  });
-
-  it('accepts a custom tolerance', () => {
-    expect(isHorizontallyOverflowing(395, 390, 10)).toBe(false);
-    expect(isHorizontallyOverflowing(401, 390, 10)).toBe(true);
   });
 
   it('passes a page that fits the viewport exactly', () => {

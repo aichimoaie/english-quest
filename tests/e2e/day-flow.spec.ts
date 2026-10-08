@@ -37,6 +37,7 @@ test.describe('@smoke day flow', () => {
         .filter({ hasNotText: /^(Check answer|Skip for now|Continue|Felt easy|Felt hard)$/ })
         .first();
       await option.click();
+      await expect(main.getByRole('button', { pressed: true })).toHaveCount(1);
     }
     await page.getByRole('button', { name: 'Check answer' }).click();
 
