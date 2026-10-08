@@ -23,7 +23,10 @@ def _required_url(name: str) -> str:
 
 
 def database_url() -> str:
-    """The API's runtime connection, as the english_quest_api login role (member of english_quest_server)."""
+    """The API's runtime connection, as the english_quest_api login role.
+
+    It is a member of english_quest_server.
+    """
     return _required_url("DATABASE_URL")
 
 

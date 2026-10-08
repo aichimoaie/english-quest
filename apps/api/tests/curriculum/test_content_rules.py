@@ -93,9 +93,7 @@ RULE_CASES = [
         id="listening-empty-audio",
     ),
     pytest.param(
-        _set(
-            MATCHING, "pairs", [{"word": "brother", "meaning": "a man in your family"}]
-        ),
+        _set(MATCHING, "pairs", [{"word": "brother", "meaning": "a man in your family"}]),
         "List should have at least 2 items",
         id="matching-too-few-pairs",
     ),
@@ -191,9 +189,7 @@ def test_broken_day_is_rejected(
     assert expected in _messages(report.issues)
 
 
-def test_issue_points_at_the_exercise(
-    day_one_data: Data, write_day: Callable[..., Path]
-) -> None:
+def test_issue_points_at_the_exercise(day_one_data: Data, write_day: Callable[..., Path]) -> None:
     _set(MULTIPLE_CHOICE, "answer", "Be")(day_one_data)
     report = validate_content_dir(write_day(day_one_data).parent)
 
@@ -238,9 +234,7 @@ def test_invalid_yaml_is_reported_not_raised(content_dir: Path) -> None:
 
 
 def test_impossible_date_is_reported_not_raised(content_dir: Path) -> None:
-    (content_dir / "day-01.yaml").write_text(
-        "day: 1\ntitle: 2026-02-30\n", encoding="utf-8"
-    )
+    (content_dir / "day-01.yaml").write_text("day: 1\ntitle: 2026-02-30\n", encoding="utf-8")
     report = validate_content_dir(content_dir)
 
     assert not report.ok
@@ -271,9 +265,7 @@ def test_empty_directory_is_reported(content_dir: Path) -> None:
 
 
 def test_non_utf8_file_is_reported_not_raised(content_dir: Path) -> None:
-    (content_dir / "day-01.yaml").write_bytes(
-        "day: 1\ntitle: “Greetings”\n".encode("cp1252")
-    )
+    (content_dir / "day-01.yaml").write_bytes("day: 1\ntitle: “Greetings”\n".encode("cp1252"))
     report = validate_content_dir(content_dir)
 
     assert not report.ok

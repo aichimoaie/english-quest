@@ -4,6 +4,7 @@ the JSON Schemas and score as expected."""
 from typing import Any
 
 import pytest
+
 from english_quest_api.exercises.evaluation import evaluate_exercise
 from english_quest_api.exercises.registry import KINDS, get_kind
 from english_quest_api.exercises.schemas import SchemaStore
@@ -38,9 +39,7 @@ def _row(
     code: str,
     *,
     family: Family,
-) -> tuple[
-    str, dict[str, Any], dict[str, Any], dict[str, Any], float | None, str, Family
-]:
+) -> tuple[str, dict[str, Any], dict[str, Any], dict[str, Any], float | None, str, Family]:
     return kind, content, answer_key, response, credit, code, family
 
 
@@ -188,9 +187,7 @@ CASES = [
 ]
 
 
-def _envelope(
-    kind: str, content: dict[str, Any], answer_key: dict[str, Any]
-) -> dict[str, Any]:
+def _envelope(kind: str, content: dict[str, Any], answer_key: dict[str, Any]) -> dict[str, Any]:
     return {
         "id": f"ex_{kind}_01",
         "kind": kind,

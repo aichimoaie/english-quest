@@ -1,8 +1,9 @@
 import string
 
-from english_quest_api.grading.normalise import normalise_text
 from hypothesis import given
 from hypothesis import strategies as st
+
+from english_quest_api.grading.normalise import normalise_text
 
 WORDS = st.from_regex(r"[a-z]+( [a-z]+)*", fullmatch=True)
 
@@ -28,9 +29,7 @@ def test_inner_whitespace_is_kept() -> None:
 
 
 def test_curly_quotes_are_not_mapped_to_straight_quotes() -> None:
-    assert normalise_text("don\N{RIGHT SINGLE QUOTATION MARK}t") != normalise_text(
-        "don't"
-    )
+    assert normalise_text("don\N{RIGHT SINGLE QUOTATION MARK}t") != normalise_text("don't")
 
 
 @given(st.text(max_size=60))

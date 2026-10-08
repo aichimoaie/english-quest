@@ -7,12 +7,12 @@ from contextlib import contextmanager
 from typing import Any
 
 import pytest
+from learner_seed import ensure_learner
 from sqlalchemy import Connection, Engine, insert, inspect, text
 from sqlalchemy.exc import DBAPIError
 from sqlalchemy.orm import Session
 
 from english_quest_api.db import models
-from learner_seed import ensure_learner
 
 HASH = "0" * 64
 
@@ -24,7 +24,10 @@ def assert_rejected(conn: Connection, action: Callable[[], object], match: str) 
 
 
 def insert_other_learner(conn: Connection) -> uuid.UUID:
-    """A second learner, for cross-learner checks. Drops the single-learner rule for this test only."""
+    """A second learner, for cross-learner checks.
+
+    Drops the single-learner rule for this test only.
+    """
     conn.execute(text("ALTER TABLE users DROP CONSTRAINT uq_users_single_learner"))
     other_user_id = uuid.uuid4()
     conn.execute(
@@ -53,7 +56,10 @@ def as_role(conn: Connection, role: str) -> Iterator[None]:
 def read_answer_key_as(conn: Connection, role: str, revision_id: uuid.UUID) -> Any:
     with as_role(conn, role):
         return conn.execute(
-            text("SELECT answer_key FROM exercise_revision_answer_keys WHERE exercise_revision_id = :id"),
+            text(
+                "SELECT answer_key FROM exercise_revision_answer_keys "
+                "WHERE exercise_revision_id = :id"
+            ),
             {"id": revision_id},
         ).scalar_one()
 
@@ -61,7 +67,10 @@ def read_answer_key_as(conn: Connection, role: str, revision_id: uuid.UUID) -> A
 def write_answer_key_as_server_role(conn: Connection, revision_id: uuid.UUID) -> None:
     with as_role(conn, "english_quest_server"):
         conn.execute(
-            text("INSERT INTO exercise_revision_answer_keys (exercise_revision_id, answer_key) VALUES (:id, '{}')"),
+            text(
+                "INSERT INTO exercise_revision_answer_keys "
+                "(exercise_revision_id, answer_key) VALUES (:id, '{}')"
+            ),
             {"id": revision_id},
         )
 
@@ -70,7 +79,9 @@ def test_day_number_must_be_between_1_and_30(conn: Connection) -> None:
     assert_rejected(
         conn,
         lambda: conn.execute(
-            insert(models.Day).values(day_number=31, title="x", objective="x", lesson_md="x", review_md="x")
+            insert(models.Day).values(
+                day_number=31, title="x", objective="x", lesson_md="x", review_md="x"
+            )
         ),
         match="ck_days_day_number_range",
     )
@@ -164,7 +175,9 @@ def test_answer_keys_are_readable_only_through_the_server_role(
 ) -> None:
     conn.execute(text("CREATE ROLE learner_probe NOLOGIN"))
     conn.execute(
-        text("GRANT USAGE ON SCHEMA public TO learner_probe, english_quest_server, english_quest_api")
+        text(
+            "GRANT USAGE ON SCHEMA public TO learner_probe, english_quest_server, english_quest_api"
+        )
     )
     assert_rejected(
         conn,
@@ -256,24 +269,32 @@ def update_attempts_as_runtime_role(conn: Connection) -> None:
         conn.execute(text("UPDATE attempts SET feedback_code = 'changed'"))
 
 
-def read_revision_column_as_runtime_role(conn: Connection, column: str, revision_id: uuid.UUID) -> Any:
+def read_revision_column_as_runtime_role(
+    conn: Connection, column: str, revision_id: uuid.UUID
+) -> Any:
     with as_role(conn, "english_quest_api"):
         return conn.execute(
             text(f"SELECT {column} FROM exercise_revisions WHERE id = :id"), {"id": revision_id}
         ).scalar_one()
 
 
-def test_the_runtime_role_cannot_read_the_revision_content_hash(conn: Connection, seed: dict[str, Any]) -> None:
+def test_the_runtime_role_cannot_read_the_revision_content_hash(
+    conn: Connection, seed: dict[str, Any]
+) -> None:
     conn.execute(text("GRANT USAGE ON SCHEMA public TO english_quest_api"))
     assert_rejected(
         conn,
         lambda: read_revision_column_as_runtime_role(conn, "content_hash", seed["revision_id"]),
         match="permission denied",
     )
-    assert read_revision_column_as_runtime_role(conn, "kind", seed["revision_id"]) == "multiple_choice"
+    assert (
+        read_revision_column_as_runtime_role(conn, "kind", seed["revision_id"]) == "multiple_choice"
+    )
 
 
-def test_the_runtime_role_loads_revisions_through_the_orm(conn: Connection, seed: dict[str, Any]) -> None:
+def test_the_runtime_role_loads_revisions_through_the_orm(
+    conn: Connection, seed: dict[str, Any]
+) -> None:
     conn.execute(text("GRANT USAGE ON SCHEMA public TO english_quest_api"))
     with as_role(conn, "english_quest_api"):
         session = Session(bind=conn)
@@ -325,7 +346,9 @@ def test_a_run_cannot_grade_the_same_exercise_twice(
     conn.execute(insert(models.Attempt).values(**make_attempt(seed)))
     assert_rejected(
         conn,
-        lambda: conn.execute(insert(models.Attempt).values(**make_attempt(seed, is_first_attempt=False))),
+        lambda: conn.execute(
+            insert(models.Attempt).values(**make_attempt(seed, is_first_attempt=False))
+        ),
         match="uq_attempts_session_exercise",
     )
 
@@ -396,7 +419,9 @@ def test_attempt_must_belong_to_its_sessions_learner(
     other_user_id = insert_other_learner(conn)
     assert_rejected(
         conn,
-        lambda: conn.execute(insert(models.Attempt).values(**make_attempt(seed, user_id=other_user_id))),
+        lambda: conn.execute(
+            insert(models.Attempt).values(**make_attempt(seed, user_id=other_user_id))
+        ),
         match="attempt_matches_session_learner",
     )
 
@@ -407,7 +432,9 @@ def test_points_must_fit_the_available_points(
     assert_rejected(
         conn,
         lambda: conn.execute(
-            insert(models.Attempt).values(**make_attempt(seed, points_awarded=2, points_available=1))
+            insert(models.Attempt).values(
+                **make_attempt(seed, points_awarded=2, points_available=1)
+            )
         ),
         match="ck_attempts_points_awarded_within_available",
     )
@@ -465,7 +492,9 @@ def test_self_rating_is_recorded_per_attempt(
     attempt_id = uuid.uuid4()
     conn.execute(
         insert(models.Attempt).values(
-            **make_attempt(seed, id=attempt_id, is_scored=False, points_available=None, points_awarded=None)
+            **make_attempt(
+                seed, id=attempt_id, is_scored=False, points_available=None, points_awarded=None
+            )
         )
     )
     conn.execute(

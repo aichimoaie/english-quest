@@ -1,8 +1,9 @@
 import pytest
-from english_quest_api.grading.ordering import evaluate_ordering
-from english_quest_api.grading.results import InvalidResponseError
 from hypothesis import given
 from hypothesis import strategies as st
+
+from english_quest_api.grading.ordering import evaluate_ordering
+from english_quest_api.grading.results import InvalidResponseError
 
 KEY = ["f2", "f1", "f3"]
 
@@ -15,9 +16,7 @@ KEY = ["f2", "f1", "f3"]
         (["f3", "f1", "f2"], 0.0, "wrong"),
     ],
 )
-def test_sentence_ordering_worked_examples(
-    ordered: list[str], credit: float, code: str
-) -> None:
+def test_sentence_ordering_worked_examples(ordered: list[str], credit: float, code: str) -> None:
     result = evaluate_ordering(correct_order=KEY, ordered_fragment_ids=ordered)
     assert result.credit == pytest.approx(credit)
     assert result.feedback_code == code
@@ -53,6 +52,4 @@ def test_identity_scores_one_and_reverse_scores_zero(n: int) -> None:
     key = [f"f{i}" for i in range(1, n + 1)]
     assert evaluate_ordering(correct_order=key, ordered_fragment_ids=key).credit == 1.0
     reverse = list(reversed(key))
-    assert (
-        evaluate_ordering(correct_order=key, ordered_fragment_ids=reverse).credit == 0.0
-    )
+    assert evaluate_ordering(correct_order=key, ordered_fragment_ids=reverse).credit == 0.0

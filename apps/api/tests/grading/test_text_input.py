@@ -1,8 +1,9 @@
 import pytest
-from english_quest_api.grading.results import Family
-from english_quest_api.grading.text_input import evaluate_text
 from hypothesis import given
 from hypothesis import strategies as st
+
+from english_quest_api.grading.results import Family
+from english_quest_api.grading.text_input import evaluate_text
 
 WORD = st.text(alphabet="abcdefghijklmnopqrstuvwxyz", min_size=4, max_size=12)
 
@@ -41,9 +42,7 @@ def test_punctuation_inside_or_after_the_answer_must_match(response: str) -> Non
 
 
 def test_missing_final_full_stop_is_wrong() -> None:
-    result = evaluate_text(
-        response="She does not like tea", accepted=["She does not like tea."]
-    )
+    result = evaluate_text(response="She does not like tea", accepted=["She does not like tea."])
     assert result.credit == 0.0
 
 
@@ -58,9 +57,7 @@ def test_empty_response_never_matches() -> None:
 
 
 def test_unmatched_sentence_transformation_is_wrong_not_pending() -> None:
-    result = evaluate_text(
-        response="She doesn't like tea.", accepted=["She does not like tea."]
-    )
+    result = evaluate_text(response="She doesn't like tea.", accepted=["She does not like tea."])
     assert result.credit == 0.0
     assert result.feedback_code == "wrong"
 

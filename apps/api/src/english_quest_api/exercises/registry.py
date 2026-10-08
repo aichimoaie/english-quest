@@ -39,9 +39,7 @@ class KindSpec:
         return f"kinds/v{self.kind_version}/{self.kind}.json"
 
 
-def _choice(
-    content: Payload, answer_key: Payload, response: Payload
-) -> EvaluationResult:
+def _choice(content: Payload, answer_key: Payload, response: Payload) -> EvaluationResult:
     return evaluate_choice(
         option_ids=[option["id"] for option in content["options"]],
         correct_option_ids=cast(list[str], answer_key["correct_option_ids"]),
@@ -52,9 +50,7 @@ def _choice(
 
 
 def _text(response_field: str) -> Scorer:
-    def score(
-        content: Payload, answer_key: Payload, response: Payload
-    ) -> EvaluationResult:
+    def score(content: Payload, answer_key: Payload, response: Payload) -> EvaluationResult:
         return evaluate_text(
             response=cast(str, response[response_field]),
             accepted=cast(list[str], answer_key["accepted"]),
@@ -63,27 +59,21 @@ def _text(response_field: str) -> Scorer:
     return score
 
 
-def _matching(
-    content: Payload, answer_key: Payload, response: Payload
-) -> EvaluationResult:
+def _matching(content: Payload, answer_key: Payload, response: Payload) -> EvaluationResult:
     return evaluate_matching(
         answer_key=cast(Mapping[str, str], answer_key["pairs"]),
         response=cast(Mapping[str, str], response["pairs"]),
     )
 
 
-def _ordering(
-    content: Payload, answer_key: Payload, response: Payload
-) -> EvaluationResult:
+def _ordering(content: Payload, answer_key: Payload, response: Payload) -> EvaluationResult:
     return evaluate_ordering(
         correct_order=cast(list[str], answer_key["correct_order"]),
         ordered_fragment_ids=cast(list[str], response["ordered_fragment_ids"]),
     )
 
 
-def _pronunciation(
-    content: Payload, answer_key: Payload, response: Payload
-) -> EvaluationResult:
+def _pronunciation(content: Payload, answer_key: Payload, response: Payload) -> EvaluationResult:
     recognition = evaluate_choice(
         option_ids=[option["id"] for option in content["recognition_options"]],
         correct_option_ids=[cast(str, answer_key["correct_option_id"])],
@@ -109,9 +99,7 @@ _SPECS: Final = (
     KindSpec("pronunciation_practice", 1, Family.SELF_ASSESSED, _pronunciation),
 )
 
-KINDS: Final[Mapping[str, KindSpec]] = MappingProxyType(
-    {spec.kind: spec for spec in _SPECS}
-)
+KINDS: Final[Mapping[str, KindSpec]] = MappingProxyType({spec.kind: spec for spec in _SPECS})
 
 
 def get_kind(kind: str, kind_version: int) -> KindSpec:

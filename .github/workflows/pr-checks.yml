@@ -108,7 +108,7 @@ jobs:
           uv run --directory "$API_DIR" ruff check .
           uv run --directory "$API_DIR" ruff format --check .
       - name: Type check
-        run: uv run --directory "$API_DIR" mypy .
+        run: uv run --directory "$API_DIR" mypy src
       - name: Unit tests
         run: uv run --directory "$API_DIR" pytest
 

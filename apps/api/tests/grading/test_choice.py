@@ -1,4 +1,5 @@
 import pytest
+
 from english_quest_api.grading.choice import evaluate_choice
 from english_quest_api.grading.results import InvalidResponseError
 
@@ -67,9 +68,7 @@ def test_multi_select_feedback_uses_first_wrong_option_in_option_order() -> None
 )
 def test_invalid_selections_are_rejected(selected: list[str]) -> None:
     with pytest.raises(InvalidResponseError):
-        evaluate_choice(
-            option_ids=OPTIONS, correct_option_ids=["b"], selected_option_ids=selected
-        )
+        evaluate_choice(option_ids=OPTIONS, correct_option_ids=["b"], selected_option_ids=selected)
 
 
 def test_single_select_rejects_two_options() -> None:
@@ -81,6 +80,4 @@ def test_single_select_rejects_two_options() -> None:
 
 def test_content_with_an_unknown_correct_option_is_a_content_error() -> None:
     with pytest.raises(ValueError):
-        evaluate_choice(
-            option_ids=OPTIONS, correct_option_ids=["q"], selected_option_ids=["a"]
-        )
+        evaluate_choice(option_ids=OPTIONS, correct_option_ids=["q"], selected_option_ids=["a"])
