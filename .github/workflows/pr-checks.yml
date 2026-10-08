@@ -28,10 +28,11 @@ jobs:
       contents: read
       pull-requests: read
     outputs:
-      web: ${{ steps.filter.outputs.web }}
-      api: ${{ steps.filter.outputs.api }}
-      infra: ${{ steps.filter.outputs.infra }}
+      web: ${{ steps.areas.outputs.web }}
+      api: ${{ steps.areas.outputs.api }}
+      infra: ${{ steps.areas.outputs.infra }}
     steps:
+      - uses: actions/checkout@v7
       - id: filter
         uses: dorny/paths-filter@v4
         with:
@@ -51,6 +52,21 @@ jobs:
             infra:
               - 'infra/**'
               - '.github/workflows/**'
+      # An area job runs only when its paths changed and its directory exists on this branch.
+      - id: areas
+        env:
+          CHANGED_WEB: ${{ steps.filter.outputs.web }}
+          CHANGED_API: ${{ steps.filter.outputs.api }}
+          CHANGED_INFRA: ${{ steps.filter.outputs.infra }}
+        run: |
+          [[ "$CHANGED_WEB" == "true" && -d "$WEB_DIR" ]] && web=true || web=false
+          [[ "$CHANGED_API" == "true" && -d "$API_DIR" ]] && api=true || api=false
+          [[ "$CHANGED_INFRA" == "true" && -d "$TOFU_DIR" ]] && infra=true || infra=false
+          {
+            echo "web=$web"
+            echo "api=$api"
+            echo "infra=$infra"
+          } >> "$GITHUB_OUTPUT"
 
   web:
     name: Web
@@ -59,8 +75,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      # The pnpm version is read from the packageManager field of the root package.json.
       - uses: pnpm/action-setup@v6
+        with:
+          version: 12.10.1
       - uses: actions/setup-node@v7
         with:
           node-version: ${{ env.NODE_VERSION }}

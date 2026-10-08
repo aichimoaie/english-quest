@@ -9,7 +9,7 @@ Two GitHub Actions workflows live in `.github/workflows/`:
 
 ## PR checks
 
-Each area job runs only when its paths change. A `changes` job decides which areas changed, using `dorny/paths-filter`.
+Each area job runs only when its paths change and its directory exists on the branch. A `changes` job decides which areas changed, using `dorny/paths-filter`, and checks the directories. A job for an area that has not landed yet is skipped, not failed.
 
 | Job | Runs when these paths change | Commands |
 | --- | --- | --- |
@@ -28,7 +28,7 @@ The workflow calls package scripts by name and does not repeat their tool invoca
 | Command | Defined in | Status |
 | --- | --- | --- |
 | `lint`, `typecheck`, `test` scripts in `apps/web/package.json` | Workstream 1 (frontend) | Pending. The `test` script must run once and exit (for example `vitest run`), not in watch mode. |
-| `packageManager` field in root `package.json` | Workstream 1 | Pending. `pnpm/action-setup` reads the pnpm version from it. |
+| pnpm version | This workflow | Pinned in `pr-checks.yml` (`pnpm/action-setup` `version: 12.10.1`). Keep it in step with the root `package.json` when Workstream 1 lands. |
 | `pnpm-lock.yaml` | Workstream 1 | Pending. `--frozen-lockfile` fails until it is committed. |
 | `apps/api/pyproject.toml` with `ruff`, `mypy`, `pytest` in dev dependencies | Workstream 2 (backend) | Pending |
 | `apps/api/uv.lock` | Workstream 2 | Pending. `uv sync --locked` fails until it is committed. |
