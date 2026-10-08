@@ -1,0 +1,134 @@
+name: PR checks
+
+on:
+  pull_request:
+    branches: [main]
+
+# Read-only by default. Jobs that need more declare it themselves.
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-checks-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  # Area locations. The commands each job runs are listed in docs/ci.md.
+  WEB_DIR: apps/web
+  API_DIR: apps/api
+  TOFU_DIR: infra
+  NODE_VERSION: "24"
+  TOFU_VERSION: "1.13.1"
+
+jobs:
+  changes:
+    name: Detect changed areas
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      web: ${{ steps.filter.outputs.web }}
+      api: ${{ steps.filter.outputs.api }}
+      infra: ${{ steps.filter.outputs.infra }}
+    steps:
+      - id: filter
+        uses: dorny/paths-filter@v4
+        with:
+          filters: |
+            web:
+              - 'apps/web/**'
+              - 'package.json'
+              - 'pnpm-lock.yaml'
+              - 'pnpm-workspace.yaml'
+              - '.github/workflows/**'
+            api:
+              - 'apps/api/**'
+              - 'content/**'
+              - 'pyproject.toml'
+              - 'uv.lock'
+              - '.github/workflows/**'
+            infra:
+              - 'infra/**'
+              - '.github/workflows/**'
+
+  web:
+    name: Web
+    needs: changes
+    if: needs.changes.outputs.web == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      # The pnpm version is read from the packageManager field of the root package.json.
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Lint
+        run: pnpm --dir "$WEB_DIR" run lint
+      - name: Type check
+        run: pnpm --dir "$WEB_DIR" run typecheck
+      - name: Unit tests
+        run: pnpm --dir "$WEB_DIR" run test
+
+  api:
+    name: API
+    needs: changes
+    if: needs.changes.outputs.api == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
+      - name: Install
+        run: uv sync --locked --directory "$API_DIR"
+      - name: Lint
+        run: |
+          uv run --directory "$API_DIR" ruff check .
+          uv run --directory "$API_DIR" ruff format --check .
+      - name: Type check
+        run: uv run --directory "$API_DIR" mypy .
+      - name: Unit tests
+        run: uv run --directory "$API_DIR" pytest
+
+  infra:
+    name: Infra
+    needs: changes
+    if: needs.changes.outputs.infra == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: opentofu/setup-opentofu@v2
+        with:
+          tofu_version: ${{ env.TOFU_VERSION }}
+      - name: Format check
+        run: tofu fmt -check -recursive "$TOFU_DIR"
+      - name: Validate environments
+        run: |
+          shopt -s nullglob
+          envs=("$TOFU_DIR"/envs/*/)
+          if [ ${#envs[@]} -eq 0 ]; then
+            echo "No environments found under $TOFU_DIR/envs" >&2
+            exit 1
+          fi
+          for env in "${envs[@]}"; do
+            tofu -chdir="$env" init -backend=false -input=false
+            tofu -chdir="$env" validate
+          done
+
+  # Single required status for branch protection. Path-filtered jobs that do not
+  # run are reported as skipped, which this job accepts.
+  checks:
+    name: PR checks
+    needs: [changes, web, api, infra]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail if any job failed or was cancelled
+        env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: echo "$RESULTS" | jq -e '[.[].result] | all(. == "success" or . == "skipped")'
