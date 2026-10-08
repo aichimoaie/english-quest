@@ -1,7 +1,7 @@
 """self_assessed family: pronunciation_practice.
 
-v1 has no speech scoring. A self-rating is recorded for progress and practice
-time, but it does not count toward accuracy. The recognition choice inside a
+v1 has no speech scoring. A self-rating is recorded for progress, but it does
+not count toward accuracy (PRD section 9). The recognition choice inside a
 pronunciation item is scored by the choice family and is passed in already
 evaluated. Pure module: no I/O, no clock, no randomness.
 """

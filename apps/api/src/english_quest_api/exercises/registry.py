@@ -113,6 +113,7 @@ KINDS: Final[Mapping[str, KindSpec]] = MappingProxyType(
     {spec.kind: spec for spec in _SPECS}
 )
 
+
 def get_kind(kind: str, kind_version: int) -> KindSpec:
     spec = KINDS.get(kind)
     if spec is None or spec.kind_version != kind_version:

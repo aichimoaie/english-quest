@@ -3,7 +3,6 @@
 import builtins
 import json
 import os
-import pkgutil
 import random
 import socket
 import subprocess
@@ -88,7 +87,9 @@ def no_clock_random_or_io(monkeypatch: pytest.MonkeyPatch) -> None:
         (socket, "socket"),
         (builtins, "open"),
     ):
-        monkeypatch.setattr(module, attribute, _refuse(f"{module.__name__}.{attribute}"))
+        monkeypatch.setattr(
+            module, attribute, _refuse(f"{module.__name__}.{attribute}")
+        )
 
 
 def test_scoring_and_derivation_run_without_clock_random_or_io(
@@ -101,9 +102,7 @@ def test_scoring_and_derivation_run_without_clock_random_or_io(
         ).credit
         == 1.0
     )
-    assert (
-        evaluate_matching(answer_key={"a": "x"}, response={"a": "x"}).credit == 1.0
-    )
+    assert evaluate_matching(answer_key={"a": "x"}, response={"a": "x"}).credit == 1.0
     assert (
         evaluate_ordering(
             correct_order=["a", "b", "c"], ordered_fragment_ids=["a", "b", "c"]

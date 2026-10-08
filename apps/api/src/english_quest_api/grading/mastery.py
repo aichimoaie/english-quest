@@ -4,12 +4,13 @@ Attempts are the only source of truth. This module takes them as input and
 returns the derived view; nothing is stored here. Pure module: "today" is an
 argument, never read from the clock.
 
-Rules (report section 8, PRD section 6):
+Rules (PRD section 6):
 - Only the first-ever answer to each exercise counts, right or wrong.
 - Practice answers (daily and mixed review) never change accuracy or mastery.
 - Topic mastery decays each observation by a 21-day half-life, then applies a
   Beta(2, 2) prior. A topic is weak when its decayed weight is at least 3 and
-  its smoothed accuracy is below 0.5.
+  its smoothed accuracy is below 0.5. The weak-topic rule and spacing are Open
+  in PRD section 18, so these values are provisional.
 """
 
 from collections.abc import Iterable

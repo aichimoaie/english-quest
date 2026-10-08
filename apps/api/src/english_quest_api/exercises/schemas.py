@@ -106,7 +106,9 @@ def _choice_problems(
     return problems
 
 
-def _choice_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:
+def _choice_block(
+    content: Mapping[str, Any], answer_key: Mapping[str, Any]
+) -> list[str]:
     return _choice_problems(
         [option["id"] for option in content["options"]],
         answer_key["correct_option_ids"],
@@ -124,7 +126,9 @@ def _pronunciation_block(
     return problems
 
 
-def _matching_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:
+def _matching_block(
+    content: Mapping[str, Any], answer_key: Mapping[str, Any]
+) -> list[str]:
     left_ids = [item["id"] for item in content["left"]]
     right_ids = [item["id"] for item in content["right"]]
     pairs: Mapping[str, str] = answer_key["pairs"]
@@ -140,7 +144,9 @@ def _matching_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -
     return problems
 
 
-def _ordering_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:
+def _ordering_block(
+    content: Mapping[str, Any], answer_key: Mapping[str, Any]
+) -> list[str]:
     fragment_ids = [fragment["id"] for fragment in content["fragments"]]
     problems = _unique_id_problems(fragment_ids, "content/fragments")
     if set(answer_key["correct_order"]) != set(fragment_ids):
