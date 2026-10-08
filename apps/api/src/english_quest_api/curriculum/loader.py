@@ -21,6 +21,8 @@ class _UniqueKeyLoader(yaml.SafeLoader):
     """Safe YAML loader that rejects a mapping key written twice.
 
     PyYAML keeps the last value silently, which could change an answer key.
+    Merge keys (`<<`) are rejected too, because a merged value can be silently
+    overridden by an explicit key.
     """
 
     def construct_mapping(self, node: yaml.MappingNode, deep: bool = False) -> dict:

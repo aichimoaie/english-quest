@@ -84,7 +84,7 @@ spaces. Everything else must match (PRD section 5).
 
 ## Scoring
 
-Captain decisions that apply to content (recorded on the task):
+These rules apply to every content file:
 
 - **Spelling is all-or-nothing.** `spelling_correction` items give full points
   for an accepted spelling and no points otherwise. Authors must not add
@@ -131,5 +131,6 @@ well, and the Day 1 fixture should pass both checks.
 ## Adding a day
 
 1. Create `content/days/day-NN.yaml` with the next day number.
-2. Run the validator until it reports `ok`.
+2. Run `validate_content_dir` on `content/days` until its report is `ok`. There
+   is no command-line entry point yet.
 3. Open a pull request. A reviewer checks wording and originality before merge.
