@@ -7,7 +7,8 @@ Pure module: no I/O, no clock, no randomness.
 def normalise_text(text: str) -> str:
     """Return the canonical form used for every typed-answer comparison.
 
-    Only Unicode case-folding and stripping of surrounding whitespace apply.
-    Punctuation, inner spacing and quote characters must match exactly.
+    Only lower-casing and stripping of surrounding whitespace apply.
+    Punctuation, inner spacing, quote characters and letter forms must match
+    exactly.
     """
-    return text.casefold().strip()
+    return text.lower().strip()

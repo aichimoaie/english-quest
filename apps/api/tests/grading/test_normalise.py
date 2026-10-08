@@ -12,6 +12,11 @@ def test_case_and_surrounding_whitespace_are_ignored() -> None:
     assert normalise_text("\tWALKS\n") == "walks"
 
 
+def test_letter_forms_are_not_folded_together() -> None:
+    assert normalise_text("Stra\u00dfe") != normalise_text("strasse")
+    assert normalise_text("\ufb01le") != normalise_text("file")
+
+
 def test_punctuation_is_kept() -> None:
     assert normalise_text("Receive.") == "receive."
     assert normalise_text("Don't stop!") == "don't stop!"

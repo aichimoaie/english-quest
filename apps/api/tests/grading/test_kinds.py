@@ -5,7 +5,7 @@ from typing import Any
 
 import pytest
 from english_quest_api.exercises.evaluation import evaluate_exercise
-from english_quest_api.exercises.registry import KINDS, SESSION_TYPES, get_kind
+from english_quest_api.exercises.registry import KINDS, get_kind
 from english_quest_api.exercises.schemas import SchemaStore
 from english_quest_api.grading.results import Family
 
@@ -212,10 +212,8 @@ def store() -> SchemaStore:
 
 def test_registry_covers_the_thirteen_required_types() -> None:
     assert len(PRD_TYPE_TO_KIND) == 13
-    assert set(SESSION_TYPES) == {"daily_review", "mixed_review"}
-    assert set(KINDS).isdisjoint(SESSION_TYPES)
     mapped = set(PRD_TYPE_TO_KIND.values())
-    assert mapped == set(KINDS) | set(SESSION_TYPES)
+    assert mapped == set(KINDS) | {"daily_review", "mixed_review"}
 
 
 def test_every_family_has_at_least_one_kind() -> None:

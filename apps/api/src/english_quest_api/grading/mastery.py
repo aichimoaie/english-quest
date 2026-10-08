@@ -86,13 +86,11 @@ def first_scored_answers(attempts: Iterable[AttemptRecord]) -> dict[str, Attempt
 def derive_progress(
     attempts: Iterable[AttemptRecord], *, today: date
 ) -> ProgressSummary:
-    counted: list[tuple[AttemptRecord, float]] = []
-    for attempt in first_scored_answers(attempts).values():
-        counted.append((attempt, attempt.credit))
+    counted = list(first_scored_answers(attempts).values())
 
-    points_total = sum(attempt.points for attempt, _ in counted)
+    points_total = sum(attempt.points for attempt in counted)
     accuracy = (
-        sum(attempt.points * credit for attempt, credit in counted) / points_total
+        sum(attempt.points * attempt.credit for attempt in counted) / points_total
         if points_total
         else None
     )
@@ -106,15 +104,14 @@ def derive_progress(
     )
 
 
-def _topic_mastery(
-    counted: list[tuple[AttemptRecord, float]], today: date
-) -> list[TopicMastery]:
+def _topic_mastery(counted: list[AttemptRecord], today: date) -> list[TopicMastery]:
     decayed_correct: dict[str, float] = {}
     decayed_total: dict[str, float] = {}
     raw_correct: dict[str, float] = {}
     raw_total: dict[str, float] = {}
 
-    for attempt, credit in counted:
+    for attempt in counted:
+        credit = attempt.credit
         age_days = (today - attempt.answered_on).days
         if age_days < 0:
             raise ValueError("answered_on cannot be after today")
