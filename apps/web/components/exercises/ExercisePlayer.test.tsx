@@ -91,6 +91,40 @@ describe("ExercisePlayer", () => {
     expect(screen.getByRole("button", { name: "Got it" }).getAttribute("aria-pressed")).toBe("false");
   });
 
+  it("records one self-rating per item while a save is in flight and after it is saved", async () => {
+    const pronunciation: Exercise[] = [
+      {
+        id: "ex_say",
+        kind: "pronunciation_practice",
+        instructions: "Listen, then choose the word you hear.",
+        points: 1,
+        content: { audioUrl: null, options: ["ship", "sheep"] },
+      },
+    ];
+    const submit = vi.fn(async () => ({ isCorrect: true, explanation: "Yes.", feedbackKey: "ok" }));
+    let finishSave: () => void = () => undefined;
+    const rate = vi.fn(() => new Promise<void>((resolve) => {
+      finishSave = resolve;
+    }));
+    render(<ExercisePlayer exercises={pronunciation} submit={submit} rate={rate} onFinish={vi.fn()} finishLabel="Finish" />);
+
+    fireEvent.click(screen.getByRole("button", { name: "sheep" }));
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Got it" }));
+    fireEvent.click(screen.getByRole("button", { name: "Needs practice" }));
+    fireEvent.click(screen.getByRole("button", { name: "Got it" }));
+
+    expect(rate).toHaveBeenCalledTimes(1);
+    expect((screen.getByRole("button", { name: "Needs practice" }) as HTMLButtonElement).disabled).toBe(true);
+
+    finishSave();
+
+    await waitFor(() => expect(screen.getByRole("button", { name: "Got it" }).getAttribute("aria-pressed")).toBe("true"));
+    expect((screen.getByRole("button", { name: "Got it" }) as HTMLButtonElement).disabled).toBe(true);
+    fireEvent.click(screen.getByRole("button", { name: "Needs practice" }));
+    expect(rate).toHaveBeenCalledTimes(1);
+  });
+
   it("shows a plain message when the server cannot check an answer", async () => {
     const submit = vi.fn(async () => {
       throw new Error("offline");

@@ -13,10 +13,14 @@ import { OptionList } from "./OptionList";
 export function PronunciationPractice({ exercise, result, busy, onSubmit, onSelfRate }: ExerciseProps<ExerciseOf<"pronunciation_practice">>) {
   const [selected, setSelected] = useState<number | null>(null);
   const [rated, setRated] = useState<"got_it" | "needs_practice" | null>(null);
+  const [saving, setSaving] = useState(false);
   const locked = result !== null || busy;
 
   async function rate(rating: "got_it" | "needs_practice") {
-    if (await onSelfRate?.(rating)) setRated(rating);
+    setSaving(true);
+    const saved = await onSelfRate?.(rating);
+    setSaving(false);
+    if (saved) setRated(rating);
   }
 
   return (
@@ -46,10 +50,22 @@ export function PronunciationPractice({ exercise, result, busy, onSubmit, onSelf
         <div className="stack" style={{ marginTop: "var(--s-4)" }}>
           <p className="t-small">How did your pronunciation feel?</p>
           <div className="rate">
-            <button type="button" className="btn btn-secondary" aria-pressed={rated === "got_it"} onClick={() => rate("got_it")}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              aria-pressed={rated === "got_it"}
+              disabled={saving || rated !== null}
+              onClick={() => rate("got_it")}
+            >
               Got it
             </button>
-            <button type="button" className="btn btn-secondary" aria-pressed={rated === "needs_practice"} onClick={() => rate("needs_practice")}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              aria-pressed={rated === "needs_practice"}
+              disabled={saving || rated !== null}
+              onClick={() => rate("needs_practice")}
+            >
               Needs practice
             </button>
           </div>
