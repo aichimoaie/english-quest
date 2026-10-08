@@ -22,7 +22,7 @@ if (webAppPresent) {
     command: `pnpm --dir apps/web build && node tests/e2e/support/static-server.mjs ${webPort} apps/web/out`,
     cwd: repoRoot,
     url: `http://127.0.0.1:${webPort}`,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 240_000,
   });
 }
@@ -37,11 +37,10 @@ if (apiPresent && testDatabaseUrl) {
   });
 }
 
-const outputRoot = path.join(os.tmpdir(), 'english-quest-e2e');
 if (process.env.TEST_WORKER_INDEX === undefined) {
-  fs.rmSync(outputRoot, { recursive: true, force: true });
-  fs.mkdirSync(outputRoot, { mode: 0o700 });
+  process.env.EQ_E2E_RUN_OUTPUT = fs.mkdtempSync(path.join(os.tmpdir(), 'english-quest-e2e-'));
 }
+const outputRoot = process.env.EQ_E2E_RUN_OUTPUT ?? '';
 
 export default defineConfig({
   testDir: path.join(repoRoot, 'tests/e2e'),
