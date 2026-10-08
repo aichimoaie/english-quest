@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "english-quest/exercise-kind/pronunciation_practice/v1",
+  "title": "Pronunciation practice v1",
+  "x-kind": "pronunciation_practice",
+  "x-kind-version": 1,
+  "x-family": "self_assessed",
+  "$defs": {
+    "content": {
+      "type": "object",
+      "required": [
+        "prompt_text",
+        "recognition_options"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "prompt_text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "recognition_options": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "text"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{0,31}$"
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            }
+          }
+        }
+      }
+    },
+    "answer_key": {
+      "type": "object",
+      "required": [
+        "correct_option_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "correct_option_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,31}$"
+        },
+        "misconceptions": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,31}$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          }
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "required": [
+        "recognition_option_id",
+        "self_rating"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "recognition_option_id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{0,31}$"
+        },
+        "self_rating": {
+          "enum": [
+            "got_it",
+            "unsure",
+            "skipped"
+          ]
+        }
+      }
+    }
+  }
+}

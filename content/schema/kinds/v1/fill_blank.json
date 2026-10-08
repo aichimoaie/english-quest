@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "english-quest/exercise-kind/fill_blank/v1",
+  "title": "Fill in the blank v1",
+  "x-kind": "fill_blank",
+  "x-kind-version": 1,
+  "x-family": "text_input",
+  "$defs": {
+    "content": {
+      "type": "object",
+      "required": [
+        "sentence"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sentence": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 200,
+          "pattern": "_{3,}"
+        }
+      }
+    },
+    "answer_key": {
+      "type": "object",
+      "required": [
+        "accepted"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "accepted": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        }
+      }
+    },
+    "response": {
+      "type": "object",
+      "required": [
+        "text"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    }
+  }
+}
