@@ -4,7 +4,6 @@
   "title": "Grammar correction v1",
   "x-kind": "grammar_correction",
   "x-kind-version": 1,
-  "x-family": "text_input",
   "$defs": {
     "content": {
       "type": "object",

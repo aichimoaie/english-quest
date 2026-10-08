@@ -5,7 +5,7 @@ versioned schema files from content/schema. The grading package never imports it
 """
 
 import json
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any, Final
 
@@ -76,6 +76,74 @@ class SchemaStore:
         kind_version = int(document["kind_version"])
         self.validate_content(kind, kind_version, document["content"])
         self.validate_answer_key(kind, kind_version, document["answer_key"])
+        check = _CROSS_FIELD_CHECKS.get(kind)
+        if check is not None:
+            problems = check(document["content"], document["answer_key"])
+            if problems:
+                raise SchemaViolationError(problems)
+
+
+def _choice_problems(
+    option_ids: list[str],
+    correct_ids: list[str],
+    allow_multiple: bool,
+) -> list[str]:
+    problems: list[str] = []
+    unknown = sorted(set(correct_ids) - set(option_ids))
+    if unknown:
+        problems.append(f"answer_key/correct_option_ids: not option ids {unknown}")
+    if not allow_multiple and len(correct_ids) != 1:
+        problems.append("answer_key/correct_option_ids: single select needs one id")
+    return problems
+
+
+def _choice_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:
+    return _choice_problems(
+        [option["id"] for option in content["options"]],
+        answer_key["correct_option_ids"],
+        bool(content.get("allow_multiple", False)),
+    )
+
+
+def _pronunciation_block(
+    content: Mapping[str, Any], answer_key: Mapping[str, Any]
+) -> list[str]:
+    option_ids = [option["id"] for option in content["recognition_options"]]
+    if answer_key["correct_option_id"] not in option_ids:
+        return ["answer_key/correct_option_id: not a recognition option id"]
+    return []
+
+
+def _matching_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:
+    left_ids = {item["id"] for item in content["left"]}
+    right_ids = {item["id"] for item in content["right"]}
+    pairs: Mapping[str, str] = answer_key["pairs"]
+    problems: list[str] = []
+    if set(pairs) != left_ids:
+        problems.append("answer_key/pairs: keys must be exactly the left ids")
+    if not set(pairs.values()) <= right_ids:
+        problems.append("answer_key/pairs: values must be right ids")
+    return problems
+
+
+def _ordering_block(content: Mapping[str, Any], answer_key: Mapping[str, Any]) -> list[str]:
+    fragment_ids = {fragment["id"] for fragment in content["fragments"]}
+    if set(answer_key["correct_order"]) != fragment_ids:
+        return ["answer_key/correct_order: must list exactly the fragment ids"]
+    return []
+
+
+_CROSS_FIELD_CHECKS: Final[
+    Mapping[str, Callable[[Mapping[str, Any], Mapping[str, Any]], list[str]]]
+] = {
+    "multiple_choice": _choice_block,
+    "choose_word": _choice_block,
+    "listening_comprehension": _choice_block,
+    "pronunciation_practice": _pronunciation_block,
+    "word_matching": _matching_block,
+    "vocabulary_matching": _matching_block,
+    "sentence_ordering": _ordering_block,
+}
 
 
 def _raise_if_invalid(validator: Validator, instance: Any) -> None:

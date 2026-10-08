@@ -4,7 +4,6 @@
   "title": "Choose the correct word v1",
   "x-kind": "choose_word",
   "x-kind-version": 1,
-  "x-family": "choice",
   "$defs": {
     "content": {
       "type": "object",

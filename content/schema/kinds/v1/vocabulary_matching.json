@@ -4,7 +4,6 @@
   "title": "Vocabulary matching v1",
   "x-kind": "vocabulary_matching",
   "x-kind-version": 1,
-  "x-family": "matching",
   "$defs": {
     "content": {
       "type": "object",

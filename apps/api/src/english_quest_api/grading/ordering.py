@@ -1,9 +1,7 @@
 """ordering family: sentence_ordering.
 
-Credit is concordant pairs over total pairs. A pair (a, b) is concordant when a
-is placed before b in the response and a comes before b in the correct order.
-Fragments missing from the response make their pairs discordant.
-Pure module: no I/O, no clock, no randomness.
+Credit is all-or-nothing per sentence: 1 only when every fragment is in the
+correct order, otherwise 0. Pure module: no I/O, no clock, no randomness.
 """
 
 from collections.abc import Sequence
@@ -31,27 +29,10 @@ def evaluate_ordering(
     if unknown:
         raise InvalidResponseError(f"unknown fragment ids: {sorted(unknown)}")
 
-    position = {fragment: index for index, fragment in enumerate(response)}
-    total = len(key) * (len(key) - 1) // 2
-    concordant = 0
-    for i, earlier in enumerate(key):
-        for later in key[i + 1 :]:
-            if (
-                earlier in position
-                and later in position
-                and position[earlier] < position[later]
-            ):
-                concordant += 1
-
-    if concordant == total:
-        feedback_code = "correct"
-    elif concordant:
-        feedback_code = "partial"
-    else:
-        feedback_code = "wrong"
+    correct = response == key
     return EvaluationResult(
-        credit=concordant / total,
-        feedback_code=feedback_code,
+        credit=1.0 if correct else 0.0,
+        feedback_code="correct" if correct else "wrong",
         normalized_response={"ordered_fragment_ids": response},
         family=Family.ORDERING,
     )

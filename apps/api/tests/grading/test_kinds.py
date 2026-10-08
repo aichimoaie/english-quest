@@ -167,8 +167,8 @@ CASES = [
         },
         {"correct_order": ["f2", "f1", "f3"]},
         {"ordered_fragment_ids": ["f2", "f3", "f1"]},
-        2 / 3,
-        "partial",
+        0.0,
+        "wrong",
         family=Family.ORDERING,
     ),
     _row(

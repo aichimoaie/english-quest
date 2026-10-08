@@ -4,7 +4,6 @@
   "title": "Spelling correction v1",
   "x-kind": "spelling_correction",
   "x-kind-version": 1,
-  "x-family": "text_input",
   "$defs": {
     "content": {
       "type": "object",

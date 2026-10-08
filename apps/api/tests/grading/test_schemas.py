@@ -36,7 +36,6 @@ def test_schema_ids_match_their_paths() -> None:
     for spec in KINDS.values():
         document = json.loads((ROOT / spec.schema_path).read_text(encoding="utf-8"))
         assert document["$id"] == f"english-quest/exercise-kind/{spec.kind}/v1"
-        assert document["x-family"] == spec.family.value
 
 
 def _valid_envelope(**overrides: Any) -> dict[str, Any]:
@@ -125,3 +124,91 @@ def test_response_is_checked_against_the_kind_block() -> None:
             "sentence_ordering", 1, {"ordered_fragment_ids": []}
         )
     assert error.value.messages
+
+
+MATCHING_CONTENT = {
+    "left": [{"id": "a", "text": "hot"}, {"id": "b", "text": "big"}],
+    "right": [{"id": "x", "text": "warm"}, {"id": "y", "text": "large"}],
+}
+ORDERING_CONTENT = {
+    "fragments": [
+        {"id": "f1", "text": "is boiling"},
+        {"id": "f2", "text": "The kettle"},
+        {"id": "f3", "text": "right now."},
+    ]
+}
+
+
+@pytest.mark.parametrize(
+    ("kind", "content", "answer_key"),
+    [
+        (
+            "multiple_choice",
+            {
+                "allow_multiple": False,
+                "question": "Q?",
+                "options": [{"id": "a", "text": "x"}, {"id": "b", "text": "y"}],
+            },
+            {"correct_option_ids": ["z"]},
+        ),
+        (
+            "multiple_choice",
+            {
+                "allow_multiple": False,
+                "question": "Q?",
+                "options": [{"id": "a", "text": "x"}, {"id": "b", "text": "y"}],
+            },
+            {"correct_option_ids": ["a", "b"]},
+        ),
+        (
+            "word_matching",
+            MATCHING_CONTENT,
+            {"pairs": {"a": "x", "z": "y"}},
+        ),
+        (
+            "vocabulary_matching",
+            MATCHING_CONTENT,
+            {"pairs": {"a": "x", "b": "z"}},
+        ),
+        (
+            "sentence_ordering",
+            ORDERING_CONTENT,
+            {"correct_order": ["f1", "f2", "f9"]},
+        ),
+        (
+            "pronunciation_practice",
+            {
+                "prompt_text": "ship or sheep",
+                "recognition_options": [
+                    {"id": "a", "text": "ship"},
+                    {"id": "b", "text": "sheep"},
+                ],
+            },
+            {"correct_option_id": "c"},
+        ),
+    ],
+)
+def test_answer_key_must_agree_with_content_ids(
+    kind: str, content: dict[str, Any], answer_key: dict[str, Any]
+) -> None:
+    document = _valid_envelope(kind=kind, content=content, answer_key=answer_key)
+    with pytest.raises(SchemaViolationError):
+        SchemaStore().validate_exercise(document)
+
+
+def test_matching_and_ordering_agreeing_with_content_pass() -> None:
+    store = SchemaStore()
+    store.validate_exercise(
+        _valid_envelope(
+            kind="word_matching",
+            content=MATCHING_CONTENT,
+            answer_key={"pairs": {"a": "x", "b": "y"}},
+        )
+    )
+    store.validate_exercise(
+        _valid_envelope(
+            kind="sentence_ordering",
+            content=ORDERING_CONTENT,
+            answer_key={"correct_order": ["f2", "f1", "f3"]},
+        )
+    )

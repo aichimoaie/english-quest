@@ -4,7 +4,6 @@
   "title": "Multiple choice v1",
   "x-kind": "multiple_choice",
   "x-kind-version": 1,
-  "x-family": "choice",
   "$defs": {
     "content": {
       "type": "object",

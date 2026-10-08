@@ -4,7 +4,6 @@
   "title": "Listening comprehension v1",
   "x-kind": "listening_comprehension",
   "x-kind-version": 1,
-  "x-family": "choice",
   "$defs": {
     "content": {
       "type": "object",

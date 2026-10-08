@@ -4,7 +4,6 @@
   "title": "Pronunciation practice v1",
   "x-kind": "pronunciation_practice",
   "x-kind-version": 1,
-  "x-family": "self_assessed",
   "$defs": {
     "content": {
       "type": "object",

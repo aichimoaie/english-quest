@@ -4,7 +4,6 @@
   "title": "Fill in the blank v1",
   "x-kind": "fill_blank",
   "x-kind-version": 1,
-  "x-family": "text_input",
   "$defs": {
     "content": {
       "type": "object",

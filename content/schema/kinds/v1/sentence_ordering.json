@@ -4,7 +4,6 @@
   "title": "Sentence ordering v1",
   "x-kind": "sentence_ordering",
   "x-kind-version": 1,
-  "x-family": "ordering",
   "$defs": {
     "content": {
       "type": "object",

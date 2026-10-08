@@ -17,6 +17,7 @@ from dataclasses import dataclass
 from datetime import date
 from typing import Final
 
+# Provisional: the weak-topic values below await tuning on real learner data.
 HALF_LIFE_DAYS: Final = 21.0
 PRIOR_RIGHT: Final = 2.0
 PRIOR_WRONG: Final = 2.0
