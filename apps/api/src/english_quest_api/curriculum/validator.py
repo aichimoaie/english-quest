@@ -20,9 +20,9 @@ def validate_content_dir(directory: Path) -> ContentReport:
     """Load every entry in `directory` as a day file and collect all issues.
 
     Every entry is checked, so a misnamed file such as `day-02.yml` is reported
-    rather than skipped. Each day file is checked on its own. Ids are prefixed
-    with the day number, so they cannot collide across files. The day number is
-    tied to the file name, so two files cannot claim the same day.
+    rather than skipped. Each day file is checked on its own, so ids are not
+    checked for uniqueness across files. The day number is tied to the file
+    name, so two files cannot claim the same day.
     """
     paths = sorted(directory.glob("*"))
     if not paths:
