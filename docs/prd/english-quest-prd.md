@@ -19,11 +19,11 @@ Success for the MVP means the learner completes the 30 days on the app and can s
 
 ## 3. 30-day learning model
 
-- The course has 30 days. Each day has a fixed set of lessons and exercises, usually 15 to 20 minutes.
+- The course has 30 days. Each day has a fixed set of lessons and exercises. Session length is **Open** (section 18).
 - **Order:** days unlock in order. Day N+1 unlocks only after Day N is complete.
-- **Completion:** a day counts as complete at **70%** (see section 6).
+- **Completion:** a day counts as complete when one run of its lessons reaches 70% (see section 6).
 - **Missed days:** a missed day pauses the schedule. It does not break the streak, and the learner resumes at the next unlocked day.
-- **Retries:** the learner can retry any exercise without limit. Retries give feedback but do not change the recorded score.
+- **Retries:** the learner can retry any exercise, and can start a new run of the day, without limit. Retries give feedback; accuracy is still counted on first attempts (section 6).
 - **Content:** each day has one focus area, but every day also includes a short review of earlier days.
 
 ## 4. Learning areas
@@ -45,9 +45,9 @@ Each type has one line of definition and one scoring rule. The rules are propose
 | # | Type | Definition | Scoring rule |
 |---|---|---|---|
 | 1 | Multiple choice | Pick the one correct option from three or four written options. | 1 point if the first attempt is correct. |
-| 2 | Fill in the blank | Type the missing word or short phrase in a sentence. | 1 point if the first attempt matches an accepted answer (case and extra spaces ignored). |
+| 2 | Fill in the blank | Type the missing word or short phrase in a sentence. | 1 point if the first attempt matches an accepted answer (case and surrounding spaces ignored; everything else must match). |
 | 3 | Choose the correct word | Select the word that fits a sentence from a row of similar-looking words. | 1 point if the first attempt is correct. |
-| 4 | Spelling correction | Retype a word or sentence that contains one misspelling, with the error fixed. | 1 point if the first attempt matches the correct spelling exactly (case ignored). |
+| 4 | Spelling correction | Retype a word or sentence that contains one misspelling, with the error fixed. | 1 point if the first attempt matches the correct spelling (case and surrounding spaces ignored; everything else must match). |
 | 5 | Word matching | Pair each English word with its opposite or synonym. | 1 point per pair correct on the first attempt. |
 | 6 | Sentence ordering | Put shuffled words or chunks into the correct sentence order. | 1 point per sentence correct on the first attempt. |
 | 7 | Vocabulary matching | Pair each word with its short English definition. | 1 point per pair correct on the first attempt. |
@@ -60,14 +60,13 @@ Each type has one line of definition and one scoring rule. The rules are propose
 
 ## 6. Scoring
 
-- **Points:** each scored item gives points as shown in section 5. Items are scored on the **first attempt only**.
-- **Accuracy:** accuracy = points earned on first attempts ÷ points available on first attempts, shown as a percentage. Retries never change accuracy.
-- **Day completion threshold: 70%.** A day is complete when its first-attempt accuracy is at least 70%. The day's score uses its lesson exercises; daily review does not count toward it.
-- **Skill threshold: 80%.** A skill (for example, past simple, or spelling) is treated as mastered at 80% first-attempt accuracy. The 80% value is the working figure; the measurement window and the weak-topic rule are **Open** (section 18).
+- **Points:** each scored item gives points as shown in section 5. Within a run, items are scored on the **first attempt only**.
+- **Run:** one pass through a day's lesson exercises. Each new run is scored separately.
+- **Accuracy:** accuracy = points earned on first attempts ÷ points available on first attempts, across all runs, shown as a percentage. Retries never change accuracy.
+- **Day completion threshold: 70%.** A day is complete when one run reaches at least 70%. The run uses the day's lesson exercises; daily review does not count toward it.
+- **Skill mastery:** the 80% skill-mastery threshold and its measurement window are **Open** (section 18).
 - **Vocabulary learned:** a word counts as learned when it is answered correctly on two separate days (section 10).
 - **Feedback:** the learner sees the result of each item immediately, with a short English explanation.
-
-**Open:** what happens to a day below 70%. The rules above allow a retry, but a redo does not change the recorded first-attempt score, so the day would stay incomplete and block the next unlock. A redo rule is needed before launch.
 
 ## 7. Progress tracking
 
@@ -84,17 +83,17 @@ The learner can always see:
 
 ## 8. Review system
 
-- **Daily review** is shown at the start of each session. It picks items from earlier completed days, and it includes vocabulary that is due for review.
+- **Daily review** picks items from earlier completed days, and includes vocabulary that is due for review. Whether it opens every session is **Open** (section 18).
 - **Mixed review** is a larger set across all completed days. It is offered periodically; its cadence is **Open**.
-- **Vocabulary due for review:** a word the learner has answered correctly once, but not yet on two separate days, stays in the review pool. A word answered incorrectly is shown again soon.
-- **Retention goal:** review keeps earlier days visible without making the session longer than the planned 15 to 20 minutes.
+- **Vocabulary due for review:** which words are due, and how soon a word answered incorrectly comes back, is **Open** (section 18).
+- **Retention goal:** review keeps earlier days visible without making the session longer than the target session length (**Open**, section 18).
 
 The exact spacing and the weighting toward weak topics are **Open**.
 
 ## 9. Pronunciation requirements
 
 - **v1 is recognition only.** The learner hears a word or sentence and chooses the written option that matches it (for example, from two words that sound alike).
-- **Self-rating:** after each item, the learner rates their own pronunciation ("Got it" or "Needs practice"). The rating is recorded for progress but is not scored.
+- **Self-rating:** after each item, the learner rates their own pronunciation. The rating options and labels are **Open** (section 18). The rating is recorded for progress but is not scored.
 - **Speech scoring is excluded.** The app does not use the microphone and does not grade the learner's speech.
 - Audio plays on demand and can be replayed without limit.
 - Pronunciation practice counts toward progress (section 7) but not toward the day's 70% threshold.
@@ -119,7 +118,7 @@ The exact spacing and the weighting toward weak topics are **Open**.
 ## 12. Spelling requirements
 
 - Spelling words come from the vocabulary list, so the learner practises words they are learning.
-- Spelling correction and fill-in exercises accept a typed answer after trimming spaces and ignoring letter case.
+- Spelling correction and fill-in exercises accept a typed answer after ignoring letter case and surrounding spaces; everything else must match exactly.
 - Each spelling item shows the correct form after the answer, with a short English note when a rule applies (for example, doubling a consonant).
 - Accepted spelling variants (for example, British and American forms) are **Open**.
 
@@ -146,7 +145,7 @@ The MVP includes:
 
 - Email and password sign-in for one learner (account created by the operator).
 - The 30-day path with ordered unlocking, the 70% day threshold, and pause-on-missed-day behaviour.
-- All 13 exercise types in section 5, with first-attempt scoring and unlimited retries.
+- All 13 exercise types in section 5, with unlimited retries, first-attempt accuracy, and day completion by a run at 70%.
 - Immediate feedback with English explanations.
 - Daily review and mixed review.
 - Progress tracking as described in section 7.
@@ -158,7 +157,7 @@ The MVP includes:
 
 The following are **out of scope** for the MVP:
 
-- Placement quiz (deferred; see section 18).
+- Placement quiz.
 - Speech scoring and any use of the microphone.
 - Public sign-up or social login.
 - Multiple learners, family or teacher accounts.
@@ -189,15 +188,16 @@ These are not decided. Each needs an answer before the feature that depends on i
 
 1. **80% skill-mastery threshold:** confirm the value, and define the measurement window (for example, the last N attempts or all attempts).
 2. **Weak-topic rule:** define when a topic is "weak" (threshold, minimum attempts, and how recent the attempts must be).
-3. **Placement quiz deferral:** confirm that the placement quiz is deferred past the MVP, and what the learner starts with until then.
-4. **Grace days:** decide whether any missed days are forgiven before the schedule pauses.
-5. **Time-zone source:** decide whether the learner's time zone comes from the browser, the account profile, or a setting, and how day boundaries are set.
-6. **Failed day (below 70%):** decide how a redo is recorded and whether completion can be reached by a later redo (section 6).
-7. **Vocabulary counting after retries:** decide whether a word answered correctly only after a retry counts toward "learned".
-8. **Review spacing and weighting:** the intervals for due vocabulary, the cadence of mixed review, and how much weak topics are weighted in daily review.
-9. **Audio source:** text-to-speech or recorded audio, and whether audio files are generated once and stored.
-10. **Spelling variants:** whether British and American spellings are both accepted.
-11. **Session lifetime:** how long a sign-in lasts.
-12. **Content volume per day:** exact count of words, grammar points, and exercises per day.
-13. **Domain names:** the names for the web app and API hostnames, and the dev and prod variants.
-14. **Browser support:** the minimum supported mobile and desktop browser versions.
+3. **Grace days:** decide whether any missed days are forgiven before the schedule pauses.
+4. **Time-zone source:** decide whether the learner's time zone comes from the browser, the account profile, or a setting, and how day boundaries are set.
+5. **Vocabulary counting after retries:** decide whether a word answered correctly only after a retry counts toward "learned".
+6. **Review spacing and weighting:** the intervals for due vocabulary, the cadence of mixed review, and how much weak topics are weighted in daily review.
+7. **Daily review rules:** decide whether daily review is shown at the start of every session, and which vocabulary counts as due.
+8. **Session length:** decide the target length of a session (for example, 15 to 20 minutes).
+9. **Rating labels:** decide the wording and number of options for the pronunciation self-rating (for example, "Got it" and "Needs practice").
+10. **Audio source:** text-to-speech or recorded audio, and whether audio files are generated once and stored.
+11. **Spelling variants:** whether British and American spellings are both accepted.
+12. **Session lifetime:** how long a sign-in lasts.
+13. **Content volume per day:** exact count of words, grammar points, and exercises per day.
+14. **Domain names:** the names for the web app and API hostnames, and the dev and prod variants.
+15. **Browser support:** the minimum supported mobile and desktop browser versions.
