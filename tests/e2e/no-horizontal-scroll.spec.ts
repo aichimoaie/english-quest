@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { signIn } from './support/auth';
 import { expectNoHorizontalScroll } from './support/layout';
 import { appSkipReason, appUnderTest } from './support/readiness';
@@ -12,12 +12,17 @@ const learnerRoutes = ['/today', '/days/1', '/review', '/progress', '/vocabulary
 const email = process.env.EQ_LEARNER_EMAIL;
 const password = process.env.EQ_LEARNER_PASSWORD;
 
+async function openPage(page: Page, route: string) {
+  await page.goto(route);
+  await expect(page.getByRole('main')).toBeVisible();
+}
+
 test.describe(`@layout no horizontal scroll at ${PHONE_WIDTH_PX}px`, () => {
   test.skip(!appUnderTest, appSkipReason());
 
   for (const route of publicRoutes) {
     test(`public page ${route} does not scroll sideways`, async ({ page }) => {
-      await page.goto(route);
+      await openPage(page, route);
       await expectNoHorizontalScroll(page, PHONE_WIDTH_PX);
     });
   }
@@ -31,7 +36,7 @@ test.describe(`@layout no horizontal scroll at ${PHONE_WIDTH_PX}px`, () => {
     for (const route of learnerRoutes) {
       test(`learner page ${route} does not scroll sideways`, async ({ page }) => {
         await signIn(page, email ?? '', password ?? '');
-        await page.goto(route);
+        await openPage(page, route);
         await expectNoHorizontalScroll(page, PHONE_WIDTH_PX);
       });
     }

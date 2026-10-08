@@ -49,7 +49,6 @@ Playwright uses its bundled Chromium.
 
 | Variable | Used by | Purpose |
 |---|---|---|
-| `EQ_BASE_URL` | Playwright | Run against a running or deployed web app. No server is started. |
 | `EQ_TEST_DATABASE_URL` | Playwright | The dedicated database the started API and the smoke test use. The API never gets the ambient `DATABASE_URL`, and the smoke test refuses to run without this. |
 | `EQ_LEARNER_EMAIL`, `EQ_LEARNER_PASSWORD` | Playwright | The one learner account for authenticated specs. Never commit them. |
 
@@ -59,8 +58,8 @@ Skipped tests name their dependency in the skip reason.
 
 | Test | Waits for |
 |---|---|
-| `@smoke` day flow, `@layout` learner pages | `apps/web` (workstream 1) and `apps/api` (workstream 2) on main, or `EQ_BASE_URL`; learner credentials for the authenticated pages |
-| `@layout` public page `/login` | `apps/web` and `apps/api` on main, or `EQ_BASE_URL` |
+| `@smoke` day flow, `@layout` learner pages | `apps/web` (workstream 1) and `apps/api` (workstream 2) on main; learner credentials for the authenticated pages |
+| `@layout` public page `/login` | `apps/web` and `apps/api` on main |
 | `test_openapi_contract.py` | `apps/api` on main with its dependencies installed. For the API tests, add `--with-editable apps/api` to the `uv run` command. |
 | `test_curriculum_validator_accepts_every_day_file` | `content/days` (workstream 6) and the curriculum validator |
 
@@ -78,6 +77,6 @@ These names come from the architecture report and are not yet on main. Change th
 
 ## Not in this folder
 
-- `.gitignore` entries for `node_modules/`, `.pytest_cache/` (workstream 2 owns `.gitignore`). Playwright traces and reports go to the OS temp directory, so they need no entry.
+- `.gitignore` entries for `node_modules/` and `.pytest_cache/` (workstream 2 owns `.gitignore`). The root `.gitignore` here only lists the web build output, `apps/web/.next/` and `apps/web/out/`, which a firstmate decision asked for. Playwright traces and reports go to the OS temp directory, so they need no entry.
 - The CI workflow that runs these commands (workstream 8).
 - The root `package.json` and `pnpm-workspace.yaml` (workstream 1 owns them). This folder keeps its own `package.json` and `uv.lock` so the test tooling does not touch the root manifest. No pnpm lock file is committed here.

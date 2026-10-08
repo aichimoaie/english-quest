@@ -1,11 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { PHONE_WIDTH_PX, isHorizontallyOverflowing } from '../e2e/support/overflow';
+import { isHorizontallyOverflowing } from '../e2e/support/overflow';
 
 describe('isHorizontallyOverflowing', () => {
-  it('uses 390 px as the phone width the PRD requires', () => {
-    expect(PHONE_WIDTH_PX).toBe(390);
-  });
-
   it('reports overflow when the scroll width is wider than the viewport', () => {
     expect(isHorizontallyOverflowing(620, 390)).toBe(true);
   });

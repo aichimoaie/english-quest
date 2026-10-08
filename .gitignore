@@ -24,3 +24,7 @@ out/
 .DS_Store
 .idea/
 .vscode/
+
+# Playwright test output (traces and reports must never be committed)
+test-results/
+playwright-report/

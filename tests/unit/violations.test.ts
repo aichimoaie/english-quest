@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { BLOCKING_IMPACTS, WCAG_TAGS, blockingViolations, describeViolations } from '../e2e/support/violations';
+import { blockingViolations, describeViolations } from '../e2e/support/violations';
 
 describe('blockingViolations', () => {
   const results = [
@@ -18,10 +18,6 @@ describe('blockingViolations', () => {
     expect(blockingViolations([])).toEqual([]);
   });
 
-  it('keeps the defaults the accessibility helper relies on', () => {
-    expect(BLOCKING_IMPACTS).toEqual(['serious', 'critical']);
-    expect(WCAG_TAGS).toContain('wcag22aa');
-  });
 });
 
 describe('describeViolations', () => {

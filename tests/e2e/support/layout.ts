@@ -8,6 +8,7 @@ import { PHONE_WIDTH_PX, isHorizontallyOverflowing } from './overflow';
  */
 export async function expectNoHorizontalScroll(page: Page, width = PHONE_WIDTH_PX) {
   await page.setViewportSize({ width, height: 844 });
+  await page.waitForLoadState('networkidle');
 
   const measurement = await page.evaluate(() => {
     const viewportWidth = document.documentElement.clientWidth;

@@ -7,17 +7,16 @@ import { apiPresent, repoRoot, testDatabaseUrl, webAppPresent } from './e2e/supp
 // Pixel 7 (an emulated phone in Chromium, not a real device).
 //
 // Environment variables:
-//   EQ_BASE_URL          run against an already running or deployed web app; no server is started.
 //   EQ_LEARNER_EMAIL     and EQ_LEARNER_PASSWORD: the one learner account for authenticated specs.
 //   EQ_TEST_DATABASE_URL the dedicated database the started API writes to. Never the ambient DATABASE_URL.
 
 const webPort = 3000;
 const apiPort = 8000;
-const baseURL = process.env.EQ_BASE_URL ?? `http://127.0.0.1:${webPort}`;
+const baseURL = `http://127.0.0.1:${webPort}`;
 
 // The web app is a static export (PRD section 17), so it is built and then served as files.
 const webServer: PlaywrightTestConfig['webServer'] = [];
-if (!process.env.EQ_BASE_URL && webAppPresent) {
+if (webAppPresent) {
   webServer.push({
     command: `pnpm --dir apps/web build && python3 -m http.server ${webPort} --bind 127.0.0.1 --directory apps/web/out`,
     cwd: repoRoot,
@@ -34,7 +33,7 @@ const apiEnvironment = Object.fromEntries(
 if (testDatabaseUrl) {
   apiEnvironment.DATABASE_URL = testDatabaseUrl;
 }
-if (!process.env.EQ_BASE_URL && apiPresent) {
+if (apiPresent) {
   webServer.push({
     command: `uv run --project apps/api uvicorn english_quest_api.main:create_app --factory --host 127.0.0.1 --port ${apiPort}`,
     cwd: repoRoot,
