@@ -263,6 +263,23 @@ def test_merge_key_is_rejected_not_applied(content_dir: Path) -> None:
     assert "merge keys (<<) are not supported" in _messages(report.issues)
 
 
+def test_lone_surrogate_escape_is_reported_not_raised(
+    day_one_data: Data, write_day: Callable[..., Path]
+) -> None:
+    path = write_day(day_one_data)
+    text = path.read_text(encoding="utf-8")
+    broken = text.replace(
+        'title: Greetings and the verb "be"', 'title: "bad \\uD800 escape"', 1
+    )
+    assert broken != text
+    path.write_text(broken, encoding="utf-8")
+    report = validate_content_dir(path.parent)
+
+    assert not report.ok
+    assert report.days == ()
+    assert [issue.path for issue in report.issues] == ["day-01.yaml"]
+
+
 def test_top_level_must_be_a_mapping(content_dir: Path) -> None:
     (content_dir / "day-01.yaml").write_text("- one\n- two\n", encoding="utf-8")
     report = validate_content_dir(content_dir)
