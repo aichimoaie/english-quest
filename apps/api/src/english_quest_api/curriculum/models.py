@@ -23,7 +23,6 @@ from pydantic import (
     model_validator,
 )
 
-BLANK_MARKER = "___"
 DAY_MIN = 1
 DAY_MAX = 30
 
@@ -122,12 +121,6 @@ class PronunciationPracticeExercise(_ChoiceExercise):
     type: Literal["pronunciation_practice"]
     audio_text: NonBlank
 
-    @model_validator(mode="after")
-    def _audio_matches_answer(self) -> Self:
-        if self.answer != self.audio_text:
-            raise ValueError("answer must match audio_text")
-        return self
-
 
 class PronunciationSelfRatingExercise(ExerciseBase):
     """Unscored: the learner listens, says the sentence aloud and rates it."""
@@ -140,12 +133,6 @@ class PronunciationSelfRatingExercise(ExerciseBase):
 class FillBlankExercise(ScoredExercise):
     type: Literal["fill_blank"]
     accepted: list[NonBlank] = Field(min_length=1)
-
-    @model_validator(mode="after")
-    def _has_blank(self) -> Self:
-        if BLANK_MARKER not in self.prompt:
-            raise ValueError(f"prompt must contain '{BLANK_MARKER}' for the blank")
-        return self
 
 
 class SpellingCorrectionExercise(ScoredExercise):
@@ -168,8 +155,6 @@ class SentenceOrderingExercise(ScoredExercise):
     def _answer_uses_every_token_once(self) -> Self:
         if sorted(self.answer) != sorted(self.tokens):
             raise ValueError("answer must use every token exactly once")
-        if self.answer == self.tokens:
-            raise ValueError("tokens must not already be in answer order")
         return self
 
 

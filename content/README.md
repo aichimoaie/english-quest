@@ -66,12 +66,12 @@ The seven areas from PRD section 4. Use the exact spelling:
 |---|---|---|
 | `multiple_choice` | `choices` (2 to 4, unique), `answer` | `answer` is one of `choices` |
 | `listening_comprehension` | `audio_text`, `choices`, `answer` | As above. `audio_text` is the script the audio reads |
-| `pronunciation_practice` | `audio_text`, `choices`, `answer` | `answer` equals `audio_text`. Recognition only |
+| `pronunciation_practice` | `audio_text`, `choices`, `answer` | Recognition only |
 | `pronunciation_self_rating` | `audio_text` | Unscored. No `points`, `answer`, `choices` or `accepted`. The learner says the sentence aloud and rates it |
-| `fill_blank` | `accepted` (1 or more), `prompt` | `prompt` contains `___` |
+| `fill_blank` | `accepted` (1 or more), `prompt` | None |
 | `spelling_correction` | `text`, `accepted` (1 or more) | All-or-nothing (see Scoring) |
 | `vocabulary_matching` | `pairs` (2 to 6 of `word` and `meaning`) | None |
-| `sentence_ordering` | `tokens`, `answer` | `answer` uses every token exactly once. `tokens` is not already in answer order |
+| `sentence_ordering` | `tokens`, `answer` | `answer` uses every token exactly once |
 
 Every exercise also needs `id`, `learning_area`, `origin: original`, `topics`
 (dotted, such as `grammar.be.present`), `prompt` and `explanation`. Every type

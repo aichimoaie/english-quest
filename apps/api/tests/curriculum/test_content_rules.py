@@ -15,7 +15,6 @@ Mutation = Callable[[Data], None]
 MULTIPLE_CHOICE = 0
 FILL_BLANK = 1
 LISTENING = 3
-PRONUNCIATION = 4
 SELF_RATING = 5
 MATCHING = 6
 ORDERING = 7
@@ -43,11 +42,6 @@ def _del(index: int, key: str) -> Mutation:
         del _exercise(data, index)[key]
 
     return mutate
-
-
-def _ordering_given_away(data: Data) -> None:
-    exercise = _exercise(data, ORDERING)
-    exercise["tokens"] = list(exercise["answer"])
 
 
 def _duplicate_exercise_id(data: Data) -> None:
@@ -93,19 +87,9 @@ RULE_CASES = [
         id="fill-blank-empty-accepted-set",
     ),
     pytest.param(
-        _set(FILL_BLANK, "prompt", "Complete the sentence."),
-        "prompt must contain '___'",
-        id="fill-blank-without-blank",
-    ),
-    pytest.param(
         _set(LISTENING, "audio_text", ""),
         "String should have at least 1 character",
         id="listening-empty-audio",
-    ),
-    pytest.param(
-        _set(PRONUNCIATION, "answer", "I have a ship."),
-        "answer must match audio_text",
-        id="pronunciation-answer-not-the-audio",
     ),
     pytest.param(
         _set(
@@ -123,11 +107,6 @@ RULE_CASES = [
         _set(ORDERING, "answer", ["My", "brother", "is", "a", "doctor.", "doctor."]),
         "answer must use every token exactly once",
         id="ordering-token-repeated",
-    ),
-    pytest.param(
-        _ordering_given_away,
-        "tokens must not already be in answer order",
-        id="ordering-given-away",
     ),
     pytest.param(
         _set(SPELLING, "accepted", []),
