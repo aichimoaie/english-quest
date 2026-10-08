@@ -268,9 +268,7 @@ def test_lone_surrogate_escape_is_reported_not_raised(
 ) -> None:
     path = write_day(day_one_data)
     text = path.read_text(encoding="utf-8")
-    broken = text.replace(
-        'title: Greetings and the verb "be"', 'title: "bad \\uD800 escape"', 1
-    )
+    broken = text.replace('title: Greetings and the verb "be"', 'title: "bad \\uD800 escape"', 1)
     assert broken != text
     path.write_text(broken, encoding="utf-8")
     report = validate_content_dir(path.parent)
