@@ -105,10 +105,10 @@ CASES = [
             "sentence": "Please let me know when you recieve the parcel.",
             "misspelled_word": "recieve",
         },
-        {"accepted": ["receive"], "near_miss_max_edits": 1},
+        {"accepted": ["receive"]},
         {"word": "receve"},
-        0.5,
-        "near_miss",
+        0.0,
+        "wrong",
         family=Family.TEXT_INPUT,
     ),
     _row(

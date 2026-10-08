@@ -15,7 +15,7 @@ from english_quest_api.grading.matching import evaluate_matching
 from english_quest_api.grading.ordering import evaluate_ordering
 from english_quest_api.grading.results import EvaluationResult
 from english_quest_api.grading.self_assessed import evaluate_pronunciation
-from english_quest_api.grading.text_input import Profile, UnmatchedPolicy, evaluate_text
+from english_quest_api.grading.text_input import UnmatchedPolicy, evaluate_text
 
 Payload = Mapping[str, Any]
 
@@ -44,7 +44,6 @@ def _choice(
 def _text(
     response_field: str,
     *,
-    profile: Profile = Profile.EXACT,
     unmatched: UnmatchedPolicy = UnmatchedPolicy.WRONG,
 ) -> Callable[[Payload, Payload, Payload], EvaluationResult]:
     def run(
@@ -53,8 +52,6 @@ def _text(
         return evaluate_text(
             response=cast(str, response[response_field]),
             accepted=cast(list[str], answer_key["accepted"]),
-            profile=profile,
-            near_miss_max_edits=int(answer_key.get("near_miss_max_edits", 0)),
             unmatched=unmatched,
         )
 
@@ -100,7 +97,7 @@ _HANDLERS: Final[
     "choose_word": _choice,
     "listening_comprehension": _choice,
     "fill_blank": _text("text"),
-    "spelling_correction": _text("word", profile=Profile.SPELLING),
+    "spelling_correction": _text("word"),
     "grammar_correction": _text("text"),
     "sentence_transformation": _text("text", unmatched=UnmatchedPolicy.NEEDS_REVIEW),
     "word_matching": _matching,

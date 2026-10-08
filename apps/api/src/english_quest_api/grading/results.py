@@ -8,8 +8,6 @@ from dataclasses import dataclass, field
 from enum import StrEnum
 from typing import Any
 
-NEAR_MISS_CREDIT = 0.5
-
 
 class Family(StrEnum):
     """The evaluator that scores a kind. A new family needs a new response shape."""

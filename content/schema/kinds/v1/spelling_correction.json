@@ -43,11 +43,6 @@
             "minLength": 1,
             "maxLength": 100
           }
-        },
-        "near_miss_max_edits": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 1
         }
       }
     },

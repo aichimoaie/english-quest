@@ -91,11 +91,10 @@ def test_multiple_choice_needs_between_two_and_six_options() -> None:
         store.validate_content("multiple_choice", 1, one_option)
 
 
-def test_spelling_near_miss_is_capped_at_one_edit() -> None:
-    store = SchemaStore()
-    key = {"accepted": ["receive"], "near_miss_max_edits": 2}
+def test_spelling_key_has_no_near_miss_tolerance() -> None:
+    key = {"accepted": ["receive"], "near_miss_max_edits": 1}
     with pytest.raises(SchemaViolationError):
-        store.validate_answer_key("spelling_correction", 1, key)
+        SchemaStore().validate_answer_key("spelling_correction", 1, key)
 
 
 def test_fill_blank_sentence_needs_a_gap() -> None:

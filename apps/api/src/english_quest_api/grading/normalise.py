@@ -1,4 +1,4 @@
-"""Text normalisation and edit distance for the text_input family.
+"""Text normalisation for the text_input family.
 
 Pure module: no I/O, no clock, no randomness.
 """
@@ -30,27 +30,3 @@ def normalise_text(text: str) -> str:
     straight = folded.translate(_CURLY_TO_STRAIGHT)
     collapsed = " ".join(straight.split())
     return _TRAILING_SENTENCE_END.sub("", collapsed)
-
-
-def edit_distance(left: str, right: str) -> int:
-    """Levenshtein distance counting insertions, deletions and substitutions."""
-    if left == right:
-        return 0
-    if not left:
-        return len(right)
-    if not right:
-        return len(left)
-    previous = list(range(len(right) + 1))
-    for i, left_char in enumerate(left, start=1):
-        current = [i]
-        for j, right_char in enumerate(right, start=1):
-            cost = 0 if left_char == right_char else 1
-            current.append(
-                min(
-                    previous[j] + 1,
-                    current[j - 1] + 1,
-                    previous[j - 1] + cost,
-                )
-            )
-        previous = current
-    return previous[-1]
