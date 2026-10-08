@@ -49,11 +49,15 @@ def test_day_two_ids_use_the_day_prefix() -> None:
 
 
 def test_day_two_teaches_the_four_possessive_words() -> None:
-    text = (CONTENT_DAYS / "day-02.yaml").read_text(encoding="utf-8")
-    lesson_text = text.split("vocabulary:", 1)[0].lower()
+    example_words = {
+        word.strip(".,?!").lower()
+        for lesson in _day_two().lessons
+        for card in lesson.cards
+        for example in card.examples
+        for word in example.split()
+    }
 
-    for word in ("my", "your", "his", "her"):
-        assert f" {word} " in lesson_text, word
+    assert {"my", "your", "his", "her"} <= example_words
 
 
 def test_day_two_covers_the_learning_areas_it_teaches() -> None:

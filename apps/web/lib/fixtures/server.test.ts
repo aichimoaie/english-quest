@@ -90,6 +90,31 @@ describe("fixture server", () => {
     expect((await call<DayDetail>("GET", `${BASE}/days/2`)).status).toBe("locked");
   });
 
+  it("serves the Day 2 lesson and exercises once Day 2 unlocks", async () => {
+    const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
+    const dayOneAnswers: AnswerInput[] = [
+      { exerciseId: "ex_d1_choice", submitted: { optionIndex: 1 } },
+      { exerciseId: "ex_d1_fill", submitted: { text: "are" } },
+      { exerciseId: "ex_d1_order", submitted: { order: ["My", "name", "is", "Ana"] } },
+      { exerciseId: "ex_d1_match", submitted: { pairs: { teacher: "someone who teaches", student: "someone who learns", doctor: "someone who treats sick people" } } },
+      { exerciseId: "ex_d1_spell", submitted: { text: "I receive a letter every week." } },
+      { exerciseId: "ex_d1_listen", submitted: { optionIndex: 1 } },
+      { exerciseId: "ex_d1_say", submitted: { optionIndex: 0 } },
+    ];
+    for (const answer of dayOneAnswers) {
+      await call("POST", `${BASE}/attempts/${attemptId}/answers`, answer);
+    }
+    await call("POST", `${BASE}/attempts/${attemptId}/complete`);
+
+    const day2 = await call<DayDetail>("GET", `${BASE}/days/2`);
+    const attempt = await call<{ exercises: Exercise[] }>("POST", `${BASE}/days/2/attempts`);
+
+    expect(day2.status).toBe("current");
+    expect(day2.lesson.grammar.map((card) => card.title)).toEqual(["My and your", "His and her"]);
+    expect(day2.exercises.map((exercise) => exercise.id)).toEqual(attempt.exercises.map((exercise) => exercise.id));
+    expect(attempt.exercises).toHaveLength(7);
+  });
+
   it("rejects an exercise that is not part of the attempt", async () => {
     const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
 

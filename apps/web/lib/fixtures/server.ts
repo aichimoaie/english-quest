@@ -16,6 +16,7 @@ import type {
   DayStatus,
   DaySummary,
   Exercise,
+  Lesson,
   Progress,
   PronunciationRatingInput,
   StartedAttempt,
@@ -23,9 +24,11 @@ import type {
 } from "@/lib/api/types";
 import { ANSWER_KEYS } from "./answer-keys";
 import { PASS_MARK_PCT, TOTAL_DAYS } from "@/lib/course";
-import { DAY_ONE_EXERCISES, DAY_ONE_LESSON, DAY_TITLES } from "./days";
+import { DAY_ONE_EXERCISES, DAY_ONE_LESSON, DAY_TWO_EXERCISES, DAY_TWO_LESSON, DAY_TITLES } from "./days";
 
 const EMPTY_LESSON = { vocabulary: [], grammar: [] };
+const LESSONS_BY_DAY: Record<number, Lesson> = { 1: DAY_ONE_LESSON, 2: DAY_TWO_LESSON };
+const EXERCISES_BY_DAY: Record<number, Exercise[]> = { 1: DAY_ONE_EXERCISES, 2: DAY_TWO_EXERCISES };
 
 interface Run {
   day: number;
@@ -57,7 +60,7 @@ function statusOf(day: number): DayStatus {
 }
 
 function exercisesFor(day: number): Exercise[] {
-  return day === 1 ? DAY_ONE_EXERCISES : [];
+  return EXERCISES_BY_DAY[day] ?? [];
 }
 
 function summaryFor(day: number): DaySummary {
@@ -193,7 +196,7 @@ function dayDetail(day: number): DayDetail {
   const unlocked = summary.status !== "locked";
   return {
     ...summary,
-    lesson: unlocked && day === 1 ? DAY_ONE_LESSON : EMPTY_LESSON,
+    lesson: unlocked ? (LESSONS_BY_DAY[day] ?? EMPTY_LESSON) : EMPTY_LESSON,
     exercises: unlocked ? exercisesFor(day) : [],
   };
 }
