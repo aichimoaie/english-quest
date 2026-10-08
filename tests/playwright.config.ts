@@ -26,26 +26,30 @@ if (webAppPresent) {
     timeout: 240_000,
   });
 }
-const apiEnvironment = Object.fromEntries(
-  Object.entries(process.env).filter(
-    (entry): entry is [string, string] => entry[0] !== 'DATABASE_URL' && entry[1] !== undefined,
-  ),
-);
-if (testDatabaseUrl) {
-  apiEnvironment.DATABASE_URL = testDatabaseUrl;
-}
 if (apiPresent) {
+  if (!testDatabaseUrl) {
+    throw new Error(
+      'Set EQ_TEST_DATABASE_URL to a dedicated test database. The API starts on it, so it never uses the ambient DATABASE_URL.',
+    );
+  }
   webServer.push({
     command: `uv run --project apps/api uvicorn english_quest_api.main:create_app --factory --host 127.0.0.1 --port ${apiPort}`,
     cwd: repoRoot,
     url: `http://127.0.0.1:${apiPort}/api/v1/health`,
     reuseExistingServer: false,
     timeout: 120_000,
-    env: apiEnvironment,
+    env: { DATABASE_URL: testDatabaseUrl },
   });
 }
 
-const outputRoot = (process.env.EQ_E2E_OUTPUT_ROOT ??= fs.mkdtempSync(path.join(os.tmpdir(), 'english-quest-e2e-')));
+function prepareOutputRoot(): string {
+  const root = path.join(os.tmpdir(), 'english-quest-e2e');
+  fs.rmSync(root, { recursive: true, force: true });
+  fs.mkdirSync(root, { mode: 0o700 });
+  return root;
+}
+
+const outputRoot = (process.env.EQ_E2E_OUTPUT_ROOT ??= prepareOutputRoot());
 
 export default defineConfig({
   testDir: path.join(repoRoot, 'tests/e2e'),

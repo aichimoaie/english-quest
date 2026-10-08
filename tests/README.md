@@ -49,7 +49,7 @@ Playwright uses its bundled Chromium.
 
 | Variable | Used by | Purpose |
 |---|---|---|
-| `EQ_TEST_DATABASE_URL` | Playwright | The dedicated database the started API and the smoke test use. The API never gets the ambient `DATABASE_URL`, and the smoke test refuses to run without this. |
+| `EQ_TEST_DATABASE_URL` | Playwright | The dedicated database the started API uses. Required once `apps/api` is on main: the config fails without it, the API never gets the ambient `DATABASE_URL`, and the write-making specs refuse to run without it. |
 | `EQ_LEARNER_EMAIL`, `EQ_LEARNER_PASSWORD` | Playwright | The one learner account for authenticated specs. Never commit them. |
 
 ## What skips, and why
