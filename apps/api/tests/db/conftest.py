@@ -73,34 +73,34 @@ def conn(engine: Engine) -> Iterator[Connection]:
 HASH = "0" * 64
 
 
-@pytest.fixture
-def seed_learner(conn: Connection) -> Callable[[], uuid.UUID]:
-    """Returns a function that ensures the single learner exists and returns its id.
+def ensure_learner(conn: Connection) -> uuid.UUID:
+    """Ensures the single learner exists and returns its id.
 
     Safe to call repeatedly and concurrently: the insert skips the row when the
     learner already exists, and the id is read back from the table.
     """
-
-    def ensure_learner() -> uuid.UUID:
-        conn.execute(
-            postgresql_insert(models.User)
-            .values(
-                email="learner@example.com",
-                display_name="Learner",
-                password_hash="argon2id-placeholder",
-                timezone="Europe/Bucharest",
-            )
-            .on_conflict_do_nothing(index_elements=["single_learner"])
+    conn.execute(
+        postgresql_insert(models.User)
+        .values(
+            email="learner@example.com",
+            display_name="Learner",
+            password_hash="argon2id-placeholder",
+            timezone="Europe/Bucharest",
         )
-        return conn.execute(select(models.User.id)).scalar_one()
+        .on_conflict_do_nothing(index_elements=["single_learner"])
+    )
+    return conn.execute(select(models.User.id)).scalar_one()
 
+
+@pytest.fixture
+def seed_learner() -> Callable[[Connection], uuid.UUID]:
     return ensure_learner
 
 
 @pytest.fixture
-def seed(conn: Connection, seed_learner: Callable[[], uuid.UUID]) -> dict[str, Any]:
+def seed(conn: Connection, seed_learner: Callable[[Connection], uuid.UUID]) -> dict[str, Any]:
     """Insert one user, day 1, one exercise with a revision, and a day run."""
-    user_id = seed_learner()
+    user_id = seed_learner(conn)
     revision_id = uuid.uuid4()
     session_id = uuid.uuid4()
     exercise_id = "past-simple-choice"

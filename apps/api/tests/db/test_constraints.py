@@ -1,11 +1,13 @@
 """Database-level guarantees: constraints, indexes, and append-only triggers."""
 
+import threading
 import uuid
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
+from contextlib import contextmanager
 from typing import Any
 
 import pytest
-from sqlalchemy import Connection, insert, text
+from sqlalchemy import Connection, Engine, insert, text
 from sqlalchemy.exc import DBAPIError
 
 from english_quest_api.db import models
@@ -35,25 +37,31 @@ def insert_other_learner(conn: Connection) -> uuid.UUID:
     return other_user_id
 
 
-def read_answer_key_as(conn: Connection, role: str, revision_id: uuid.UUID) -> Any:
-    """Reads one answer key as ``role``. The role switch is rolled back before returning."""
+@contextmanager
+def as_role(conn: Connection, role: str) -> Iterator[None]:
+    """Runs the block as ``role``. Everything done inside is rolled back on exit."""
     savepoint = conn.begin_nested()
     try:
         conn.execute(text(f"SET LOCAL ROLE {role}"))
-        return conn.execute(
-            text("SELECT answer_key FROM exercise_revision_answer_keys WHERE exercise_revision_id = :id"),
-            {"id": revision_id},
-        ).scalar_one()
+        yield
     finally:
         savepoint.rollback()
 
 
+def read_answer_key_as(conn: Connection, role: str, revision_id: uuid.UUID) -> Any:
+    with as_role(conn, role):
+        return conn.execute(
+            text("SELECT answer_key FROM exercise_revision_answer_keys WHERE exercise_revision_id = :id"),
+            {"id": revision_id},
+        ).scalar_one()
+
+
 def write_answer_key_as_server_role(conn: Connection, revision_id: uuid.UUID) -> None:
-    conn.execute(text("SET LOCAL ROLE english_quest_server"))
-    conn.execute(
-        text("INSERT INTO exercise_revision_answer_keys (exercise_revision_id, answer_key) VALUES (:id, '{}')"),
-        {"id": revision_id},
-    )
+    with as_role(conn, "english_quest_server"):
+        conn.execute(
+            text("INSERT INTO exercise_revision_answer_keys (exercise_revision_id, answer_key) VALUES (:id, '{}')"),
+            {"id": revision_id},
+        )
 
 
 def test_day_number_must_be_between_1_and_30(conn: Connection) -> None:
@@ -188,10 +196,64 @@ def test_only_one_learner_can_exist(conn: Connection, seed: dict[str, Any]) -> N
     )
 
 
-def test_learner_seed_is_safe_to_repeat(conn: Connection, seed_learner: Callable[[], uuid.UUID]) -> None:
-    first = seed_learner()
-    assert seed_learner() == first
+def test_learner_seed_is_safe_to_repeat(conn: Connection, seed_learner: Callable[[Connection], uuid.UUID]) -> None:
+    first = seed_learner(conn)
+    assert seed_learner(conn) == first
     assert conn.execute(text("SELECT count(*) FROM users")).scalar_one() == 1
+
+
+def test_concurrent_learner_seeds_converge_on_one_learner(
+    engine: Engine, seed_learner: Callable[[Connection], uuid.UUID]
+) -> None:
+    holder = engine.connect()
+    waiter = engine.connect()
+    holder_transaction = holder.begin()
+    outcome: dict[str, Any] = {}
+
+    def seed_from_waiter() -> None:
+        try:
+            with waiter.begin():
+                outcome["learner_id"] = seed_learner(waiter)
+        except Exception as error:
+            outcome["error"] = error
+
+    try:
+        holder_learner = seed_learner(holder)
+        thread = threading.Thread(target=seed_from_waiter)
+        thread.start()
+        holder_transaction.commit()
+        thread.join(timeout=30)
+
+        assert not thread.is_alive()
+        assert "error" not in outcome
+        assert outcome["learner_id"] == holder_learner
+        with engine.connect() as check:
+            assert check.execute(text("SELECT count(*) FROM users")).scalar_one() == 1
+    finally:
+        if holder_transaction.is_active:
+            holder_transaction.rollback()
+        holder.close()
+        waiter.close()
+        with engine.begin() as cleanup:
+            cleanup.execute(text("DELETE FROM users"))
+
+
+def test_the_runtime_role_appends_attempts_but_cannot_change_them(
+    conn: Connection, seed: dict[str, Any], make_attempt: Callable[..., dict[str, Any]]
+) -> None:
+    conn.execute(text("GRANT USAGE ON SCHEMA public TO english_quest_api"))
+    with as_role(conn, "english_quest_api"):
+        conn.execute(insert(models.Attempt).values(**make_attempt(seed)))
+    assert_rejected(
+        conn,
+        lambda: update_attempts_as_runtime_role(conn),
+        match="permission denied",
+    )
+
+
+def update_attempts_as_runtime_role(conn: Connection) -> None:
+    with as_role(conn, "english_quest_api"):
+        conn.execute(text("UPDATE attempts SET feedback_code = 'changed'"))
 
 
 def test_revisions_are_immutable(

@@ -27,6 +27,24 @@ down_revision: str | None = None
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
 
+# Content is imported by the owner, so the API role only reads it. Attempts are
+# appended, never changed; the triggers below also reject UPDATE and DELETE.
+API_TABLE_PRIVILEGES: dict[str, str] = {
+    "days": "SELECT",
+    "exercises": "SELECT",
+    "exercise_revisions": "SELECT",
+    "day_exercises": "SELECT",
+    "users": "SELECT, INSERT, UPDATE",
+    "sessions": "SELECT, INSERT, DELETE",
+    "learning_sessions": "SELECT, INSERT, UPDATE",
+    "attempts": "SELECT, INSERT",
+    "pronunciation_self_ratings": "SELECT, INSERT",
+    "day_progress": "SELECT, INSERT, UPDATE, DELETE",
+    "activity_days": "SELECT, INSERT, UPDATE, DELETE",
+    "topic_mastery": "SELECT, INSERT, UPDATE, DELETE",
+    "user_vocabulary": "SELECT, INSERT, UPDATE, DELETE",
+}
+
 
 def upgrade() -> None:
     op.create_table(
@@ -408,6 +426,9 @@ def upgrade() -> None:
         FOR EACH ROW EXECUTE FUNCTION forbid_mutation();
         """
     )
+
+    for table, privileges in API_TABLE_PRIVILEGES.items():
+        op.execute(f"GRANT {privileges} ON {table} TO english_quest_api")
 
 
 def downgrade() -> None:
