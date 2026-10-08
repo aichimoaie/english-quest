@@ -57,6 +57,7 @@ jobs:
         run: tofu plan -input=false -lock=false -out=tfplan
       - name: Plan summary
         working-directory: infra/envs/dev
+        shell: bash
         run: |
           {
             echo '```'
@@ -136,6 +137,7 @@ jobs:
         run: tofu plan -input=false -lock=false -out=tfplan
       - name: Plan summary
         working-directory: infra/envs/prod
+        shell: bash
         run: |
           {
             echo '```'
