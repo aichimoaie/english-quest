@@ -12,7 +12,7 @@ Success for the MVP means the learner completes the 30 days on the app and can s
 
 ## 2. Target user
 
-- **Who:** one adult learner at A1 to A2 who wants steady, short daily practice.
+- **Who:** one learner at A1 to A2 who wants steady, short daily practice. Whether the target user is adults only is **Open** (section 18).
 - **Accounts:** a single learner signs in with email and password. There is no public sign-up. How the learner's account is created is **Open** (section 18).
 - **Language of instruction:** all explanations are in English. The learner is expected to read simple English.
 - **Device:** most sessions happen on a phone, so the app is mobile-first.
@@ -22,7 +22,7 @@ Success for the MVP means the learner completes the 30 days on the app and can s
 - The course has 30 days. Each day has a fixed set of lessons and exercises. Session length is **Open** (section 18).
 - **Order:** days unlock in order. Day N+1 unlocks only after Day N is complete.
 - **Completion:** a day counts as complete when one run of its lessons reaches 70% (see section 6).
-- **Missed days:** a missed day pauses the schedule. It does not break the streak, and the learner resumes at the next unlocked day.
+- **Missed days:** a missed calendar day pauses the schedule and resets the current streak. The learner resumes at the next unlocked day.
 - **Retries:** the learner can retry any exercise, and can start a new run of the day, without limit. Retries give feedback and never change accuracy (section 6).
 - **Content:** every day also includes a short review of earlier days. Whether each day has one focus area is **Open** (section 18).
 
@@ -55,14 +55,14 @@ Each type has one line of definition and one scoring rule. The scoring rules are
 | 9 | Listening comprehension | Listen to a short clip and answer a multiple-choice question. | 1 point if the first attempt is correct. Replays are free and do not affect the score. |
 | 10 | Pronunciation practice | Listen to a word or sentence, choose which written option matches it, then self-rate (section 9). | The recognition choice scores 1 point on the first attempt. The self-rating is not scored. |
 | 11 | Sentence transformation | Rewrite a sentence in a new form given a cue (for example, affirmative to negative). | 1 point if the first attempt matches an accepted answer. |
-| 12 | Daily review | A short set drawn from earlier completed days and from vocabulary due for review (section 8). | Each item is scored by its own type. Counts toward accuracy, not toward the day's 70% threshold. |
+| 12 | Daily review | A short set drawn from earlier completed days and from vocabulary due for review (section 8). | Each item is scored by its own type. Practice only: does not change accuracy or the day's 70% threshold. |
 | 13 | Mixed review | A larger set across all completed days, mixing types. Offered periodically. | Scored as daily review. Cadence is **Open**. |
 
 ## 6. Scoring
 
 - **Points:** each scored item gives points as shown in section 5. Within a run, items are scored on the **first attempt only**.
-- **Run:** one pass through a day's lesson exercises. Each new run is scored separately.
-- **Accuracy:** accuracy = points earned on each item's first-ever answer ÷ points available on those items, including daily review answers, shown as a percentage. A repeat of an item, in any run, never counts.
+- **Run:** one pass through a day's lesson exercises. Each new run is scored separately, and any run that reaches 70% completes the day.
+- **Accuracy:** accuracy = points earned on each item's first-ever answer ÷ points available on those items, shown as a percentage. A repeat of an item, in any run, never counts. Daily review answers are practice only and do not change accuracy.
 - **Day completion threshold: 70%.** A day is complete when one run reaches at least 70%. The run uses the day's lesson exercises; daily review and pronunciation practice do not count toward it.
 - **Skill mastery:** the 80% skill-mastery threshold and its measurement window are **Open** (section 18).
 - **Vocabulary learned:** a word counts as learned when it is answered correctly on two separate days (section 10).
@@ -78,12 +78,12 @@ The learner can always see:
 - **Weak topics:** topics below the skill threshold, with a link to practise them. The weak-topic rule is **Open**.
 - **Vocabulary learned:** the count of words learned, with a list of words still in progress.
 - **Pronunciation practice:** the number of recognition items completed and the self-ratings given.
-- **Streak:** the number of consecutive completed days. A missed day pauses the schedule and neither adds to nor resets the streak.
+- **Streak:** the number of consecutive completed days. A missed calendar day resets it to zero. The longest streak reached is kept and shown.
 - **Overall progress:** a single view of the 30-day path, showing completed, current, and locked days.
 
 ## 8. Review system
 
-- **Daily review** is part of every day (section 3). It picks items from earlier completed days, and includes vocabulary that is due for review. Where it appears in each session is **Open** (section 18).
+- **Daily review** is part of every day (section 3). It picks items from earlier completed days, and includes vocabulary that is due for review. Its answers are practice only and do not change accuracy (section 6). Where it appears in each session is **Open** (section 18).
 - **Mixed review** is a larger set across all completed days. It is offered periodically; its cadence is **Open**.
 - **Vocabulary due for review:** which words are due, and how soon a word answered incorrectly comes back, is **Open** (section 18).
 - **Retention goal:** review keeps earlier days visible without making the session longer than the target session length (**Open**, section 18).
@@ -156,7 +156,7 @@ The MVP includes:
 
 The following are **out of scope** for the MVP:
 
-- Placement quiz.
+- Placement quiz (see section 18).
 - Speech scoring and any use of the microphone.
 - Public sign-up or social login.
 - Multiple learners, family or teacher accounts.
@@ -209,3 +209,5 @@ These are not decided. Each needs an answer before the feature that depends on i
 22. **Per-area accuracy:** whether accuracy is also shown per learning area, in addition to overall.
 23. **Audio play control:** the design of the play control on mobile browsers (for example, a single large button).
 24. **Spelling feedback:** whether each spelling item shows the correct form after the answer, with a short English note when a rule applies (for example, doubling a consonant).
+25. **Placement quiz:** whether a placement quiz is added after the MVP, and what the learner starts with until then.
+26. **Target user age:** whether the app is for adults only or also for younger learners.
