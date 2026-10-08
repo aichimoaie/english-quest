@@ -2,30 +2,17 @@
 and sentence_transformation.
 
 A typed answer is correct when its normalised form equals a normalised accepted
-answer. Otherwise it is wrong, or needs review when the kind says so.
+answer. Otherwise it is wrong.
 Pure module: no I/O, no clock, no randomness.
 """
 
 from collections.abc import Sequence
-from enum import StrEnum
 
 from english_quest_api.grading.normalise import normalise_text
 from english_quest_api.grading.results import EvaluationResult, Family
 
 
-class UnmatchedPolicy(StrEnum):
-    """What happens to an answer that matches no accepted answer."""
-
-    WRONG = "wrong"
-    NEEDS_REVIEW = "needs_review"
-
-
-def evaluate_text(
-    *,
-    response: str,
-    accepted: Sequence[str],
-    unmatched: UnmatchedPolicy = UnmatchedPolicy.WRONG,
-) -> EvaluationResult:
+def evaluate_text(*, response: str, accepted: Sequence[str]) -> EvaluationResult:
     if not accepted:
         raise ValueError("accepted must contain at least one answer")
 
@@ -37,14 +24,6 @@ def evaluate_text(
         return EvaluationResult(
             credit=1.0,
             feedback_code="correct",
-            normalized_response=normalized_response,
-            family=Family.TEXT_INPUT,
-        )
-
-    if unmatched is UnmatchedPolicy.NEEDS_REVIEW:
-        return EvaluationResult(
-            credit=None,
-            feedback_code="needs_review",
             normalized_response=normalized_response,
             family=Family.TEXT_INPUT,
         )

@@ -27,16 +27,15 @@ class InvalidResponseError(ValueError):
 class EvaluationResult:
     """The outcome of scoring one response.
 
-    ``credit`` is in [0, 1], or ``None`` when the attempt cannot be scored yet
-    (``needs_review``). ``recorded`` is ``False`` only when no attempt should be
-    stored at all (a skipped self-rating).
+    ``credit`` is in [0, 1], or ``None`` for a bare skipped self-rating, which
+    is not scored. ``recorded`` is ``False`` only when no attempt should be
+    stored at all (a bare skipped self-rating).
     """
 
     credit: float | None
     feedback_code: str
     normalized_response: Mapping[str, Any]
     family: Family
-    family_version: int = 1
     feedback_params: Mapping[str, str] = field(default_factory=dict)
     counts_toward_accuracy: bool = True
     recorded: bool = True

@@ -6,7 +6,6 @@ pronunciation item is scored by the choice family and is passed in already
 evaluated. Pure module: no I/O, no clock, no randomness.
 """
 
-from dataclasses import replace
 from enum import StrEnum
 
 from english_quest_api.grading.results import (
@@ -58,12 +57,10 @@ def evaluate_pronunciation(
 ) -> EvaluationResult:
     """Combine a scored recognition choice with an unscored self-rating.
 
-    Credit and feedback come from the recognition choice. The self-rating is
-    stored in the normalised response. A skipped rating records nothing.
+    Credit and feedback come from the recognition choice, even when the
+    self-rating is skipped. The self-rating is stored in the normalised response.
     """
     rating = evaluate_self_rating(self_rating)
-    if not rating.recorded:
-        return replace(rating, family=Family.SELF_ASSESSED)
     return EvaluationResult(
         credit=recognition.credit,
         feedback_code=recognition.feedback_code,

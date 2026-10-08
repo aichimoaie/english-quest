@@ -5,9 +5,7 @@ returns the derived view; nothing is stored here. Pure module: "today" is an
 argument, never read from the clock.
 
 Rules (report section 8, PRD section 6):
-- Only the first-ever scored answer to each exercise counts. Attempts with
-  credit None (needs_review) are not scored yet and are skipped before the
-  first answer is chosen.
+- Only the first-ever answer to each exercise counts, right or wrong.
 - Practice answers (daily and mixed review) never change accuracy or mastery.
 - Topic mastery decays each observation by a 21-day half-life, then applies a
   Beta(2, 2) prior. A topic is weak when its decayed weight is at least 3 and
@@ -31,6 +29,10 @@ class TopicWeight:
     topic: str
     weight: float
 
+    def __post_init__(self) -> None:
+        if not self.weight > 0:
+            raise ValueError(f"topic weight must be positive: {self.topic}")
+
 
 @dataclass(frozen=True, slots=True)
 class AttemptRecord:
@@ -44,7 +46,7 @@ class AttemptRecord:
     exercise_id: str
     answered_on: date
     points: int
-    credit: float | None
+    credit: float
     topics: tuple[TopicWeight, ...] = ()
     counts_toward_accuracy: bool = True
     is_practice: bool = False
@@ -72,11 +74,9 @@ class ProgressSummary:
 
 
 def first_scored_answers(attempts: Iterable[AttemptRecord]) -> dict[str, AttemptRecord]:
-    """Return the earliest scored attempt for each exercise."""
+    """Return the earliest attempt for each exercise."""
     first: dict[str, AttemptRecord] = {}
     for attempt in sorted(attempts, key=lambda record: record.sequence):
-        if attempt.credit is None:
-            continue
         first.setdefault(attempt.exercise_id, attempt)
     return first
 
@@ -86,11 +86,7 @@ def derive_progress(
 ) -> ProgressSummary:
     counted: list[tuple[AttemptRecord, float]] = []
     for attempt in first_scored_answers(attempts).values():
-        if (
-            attempt.credit is None
-            or attempt.is_practice
-            or not attempt.counts_toward_accuracy
-        ):
+        if attempt.is_practice or not attempt.counts_toward_accuracy:
             continue
         counted.append((attempt, attempt.credit))
 

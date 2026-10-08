@@ -7,19 +7,23 @@ from hypothesis import strategies as st
 WORDS = st.from_regex(r"[a-z]+( [a-z]+)*", fullmatch=True)
 
 
-def test_case_whitespace_and_final_punctuation_are_ignored() -> None:
-    assert normalise_text("  Receive.  ") == "receive"
-    assert normalise_text("Don't stop!") == "don't stop"
-    assert normalise_text("a\t\nb") == "a b"
+def test_case_and_surrounding_whitespace_are_ignored() -> None:
+    assert normalise_text("  Receive  ") == "receive"
+    assert normalise_text("\tWALKS\n") == "walks"
 
 
-def test_only_sentence_end_punctuation_is_dropped() -> None:
-    assert normalise_text("e.g. this") == "e.g. this"
-    assert normalise_text("wow ! ?") == "wow"
+def test_punctuation_is_kept() -> None:
+    assert normalise_text("Receive.") == "receive."
+    assert normalise_text("Don't stop!") == "don't stop!"
 
 
-def test_typographic_quotes_become_ascii() -> None:
-    assert normalise_text("don\N{RIGHT SINGLE QUOTATION MARK}t") == normalise_text(
+def test_inner_whitespace_is_kept() -> None:
+    assert normalise_text("ice  cream") == "ice  cream"
+    assert normalise_text("a\t\nb") == "a\t\nb"
+
+
+def test_curly_quotes_are_not_mapped_to_straight_quotes() -> None:
+    assert normalise_text("don\N{RIGHT SINGLE QUOTATION MARK}t") != normalise_text(
         "don't"
     )
 
@@ -36,5 +40,5 @@ def test_case_and_padding_variants_are_equal(text: str) -> None:
 
 
 @given(WORDS)
-def test_adding_a_final_full_stop_changes_nothing(text: str) -> None:
-    assert normalise_text(text + ".") == normalise_text(text)
+def test_adding_a_final_full_stop_changes_the_answer(text: str) -> None:
+    assert normalise_text(text + ".") != normalise_text(text)

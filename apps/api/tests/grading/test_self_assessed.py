@@ -51,9 +51,15 @@ def test_pronunciation_with_wrong_recognition_still_records_the_rating() -> None
     assert result.recorded is True
 
 
-def test_pronunciation_skipped_rating_records_nothing() -> None:
+def test_pronunciation_skipped_rating_keeps_the_recognition_result() -> None:
     recognition = evaluate_choice(
         option_ids=["a", "b"], correct_option_ids=["a"], selected_option_ids=["a"]
     )
     result = evaluate_pronunciation(recognition=recognition, self_rating="skipped")
-    assert result.recorded is False
+    assert result.credit == 1.0
+    assert result.counts_toward_accuracy is True
+    assert result.recorded is True
+    assert result.normalized_response == {
+        "selected_option_ids": ["a"],
+        "self_rating": "skipped",
+    }

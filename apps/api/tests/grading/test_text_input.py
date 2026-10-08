@@ -1,6 +1,6 @@
 import pytest
 from english_quest_api.grading.results import Family
-from english_quest_api.grading.text_input import UnmatchedPolicy, evaluate_text
+from english_quest_api.grading.text_input import evaluate_text
 from hypothesis import given
 from hypothesis import strategies as st
 
@@ -34,8 +34,21 @@ def test_spelling_is_all_or_nothing(response: str) -> None:
     assert result.feedback_code == "wrong"
 
 
-def test_punctuation_inside_the_answer_must_match() -> None:
-    result = evaluate_text(response="dont", accepted=["don't"])
+@pytest.mark.parametrize("response", ["dont", "dont.", "don't."])
+def test_punctuation_inside_or_after_the_answer_must_match(response: str) -> None:
+    result = evaluate_text(response=response, accepted=["don't"])
+    assert result.credit == 0.0
+
+
+def test_missing_final_full_stop_is_wrong() -> None:
+    result = evaluate_text(
+        response="She does not like tea", accepted=["She does not like tea."]
+    )
+    assert result.credit == 0.0
+
+
+def test_inner_whitespace_must_match() -> None:
+    result = evaluate_text(response="ice  cream", accepted=["ice cream"])
     assert result.credit == 0.0
 
 
@@ -44,23 +57,12 @@ def test_empty_response_never_matches() -> None:
     assert result.credit == 0.0
 
 
-def test_sentence_transformation_unmatched_answer_needs_review() -> None:
+def test_unmatched_sentence_transformation_is_wrong_not_pending() -> None:
     result = evaluate_text(
-        response="She doesn't like tea.",
-        accepted=["She does not like tea."],
-        unmatched=UnmatchedPolicy.NEEDS_REVIEW,
+        response="She doesn't like tea.", accepted=["She does not like tea."]
     )
-    assert result.credit is None
-    assert result.feedback_code == "needs_review"
-
-
-def test_needs_review_never_hides_an_accepted_match() -> None:
-    result = evaluate_text(
-        response="she does not like tea",
-        accepted=["She does not like tea."],
-        unmatched=UnmatchedPolicy.NEEDS_REVIEW,
-    )
-    assert result.credit == 1.0
+    assert result.credit == 0.0
+    assert result.feedback_code == "wrong"
 
 
 def test_empty_accepted_set_is_a_content_error() -> None:

@@ -17,7 +17,7 @@ SPELLING = (TopicWeight("spelling.ie_ei", 1.0),)
 def attempt(
     sequence: int,
     exercise: str,
-    credit: float | None,
+    credit: float,
     *,
     points: int = 1,
     days_ago: int = 0,
@@ -62,12 +62,19 @@ def test_practice_answers_never_change_accuracy() -> None:
     )
 
 
-def test_needs_review_is_skipped_until_a_real_answer_exists() -> None:
+def test_a_wrong_first_answer_is_not_replaced_by_a_later_right_one() -> None:
     summary = derive_progress(
-        [attempt(1, "ex_a", None), attempt(2, "ex_a", 1.0)],
+        [attempt(1, "ex_a", 0.0), attempt(2, "ex_a", 1.0)],
         today=TODAY,
     )
-    assert summary.accuracy == 1.0
+    assert summary.accuracy == 0.0
+    assert summary.scored_items == 1
+
+
+@pytest.mark.parametrize("weight", [0.0, -1.0, float("nan")])
+def test_non_positive_topic_weight_is_rejected(weight: float) -> None:
+    with pytest.raises(ValueError, match="topic weight must be positive"):
+        TopicWeight("spelling.ie_ei", weight)
 
 
 def test_self_rated_answers_are_excluded_from_accuracy() -> None:
