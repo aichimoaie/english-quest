@@ -3,7 +3,7 @@
 The 30-day course is authored here as reviewed YAML. One file per day:
 
 ```
-content/days/day-01.yaml   # Day 1 (1 to 30)
+content/days/day-NN.yaml   # NN is the day number, 01 to 30
 ```
 
 Every file is checked by the curriculum validator before it is imported.
@@ -119,7 +119,7 @@ the following:
   in the table above. `vocabulary_matching` is the kind name the engine report
   gives for vocabulary matching.
 - Limits match: choices 2 to 4, points 1 to 10, topics 1 to 4 items.
-- The schema has a place for `kind_version` and `status`. Day 1 omits both,
+- The schema has a place for `kind_version` and `status`. The day files omit both,
   because the authoring format does not carry them yet.
 - The schema has a taxonomy file for `topics`. There is none yet, so topics are
   checked only for their dotted shape.
