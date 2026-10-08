@@ -2,7 +2,7 @@ from functools import lru_cache
 from typing import Annotated
 from urllib.parse import urlsplit
 
-from pydantic import Field, field_validator
+from pydantic import StringConstraints, field_validator
 from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 
@@ -17,7 +17,7 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    database_url: str = Field(min_length=1)
+    database_url: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
     # Comma-separated in the environment, e.g. CORS_ALLOWED_ORIGINS=https://app.example.com
     cors_allowed_origins: Annotated[list[str], NoDecode]
 
@@ -35,11 +35,14 @@ class Settings(BaseSettings):
             raise ValueError("at least one web origin is required")
         for origin in origins:
             parts = urlsplit(origin)
+            default_port = {"http": 80, "https": 443}.get(parts.scheme)
             if (
-                parts.scheme not in ("http", "https")
+                default_port is None
                 or not parts.hostname
                 or "@" in parts.netloc
+                or origin != origin.lower()
                 or origin != f"{parts.scheme}://{parts.netloc}"
+                or parts.port in (0, default_port)
             ):
                 raise ValueError(f"origin must be exactly scheme://host[:port]: {origin!r}")
         return origins

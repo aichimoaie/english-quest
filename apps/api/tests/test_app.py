@@ -160,6 +160,7 @@ def test_settings_refuse_to_load_without_database_url_and_web_origin(
     "environment_values",
     [
         {"DATABASE_URL": "", "CORS_ALLOWED_ORIGINS": "https://app.example.com"},
+        {"DATABASE_URL": "   ", "CORS_ALLOWED_ORIGINS": "https://app.example.com"},
         {"DATABASE_URL": DATABASE_URL, "CORS_ALLOWED_ORIGINS": ""},
         {"DATABASE_URL": DATABASE_URL, "CORS_ALLOWED_ORIGINS": " , "},
         {"DATABASE_URL": DATABASE_URL, "CORS_ALLOWED_ORIGINS": "*"},
@@ -185,9 +186,14 @@ def test_settings_refuse_empty_or_wildcard_values(
         "https://app.example.com?x=1",
         "https://app.example.com#top",
         "https://user@app.example.com",
+        "https://App.example.com",
+        "https://app.example.com:443",
+        "http://app.example.com:80",
+        "https://app.example.com:0",
+        "https://app.example.com:99999",
     ],
 )
-def test_settings_refuse_origins_that_are_not_scheme_host_port(
+def test_settings_refuse_origins_that_browsers_would_not_send(
     isolated_cwd: Path, monkeypatch: pytest.MonkeyPatch, origin: str
 ) -> None:
     monkeypatch.setenv("DATABASE_URL", DATABASE_URL)
@@ -197,13 +203,14 @@ def test_settings_refuse_origins_that_are_not_scheme_host_port(
         Settings()
 
 
-def test_settings_accept_origin_with_port(
-    isolated_cwd: Path, monkeypatch: pytest.MonkeyPatch
+@pytest.mark.parametrize("origin", ["https://app.example.com:8443", "http://localhost:3000"])
+def test_settings_accept_lowercase_origin_with_non_default_port(
+    isolated_cwd: Path, monkeypatch: pytest.MonkeyPatch, origin: str
 ) -> None:
     monkeypatch.setenv("DATABASE_URL", DATABASE_URL)
-    monkeypatch.setenv("CORS_ALLOWED_ORIGINS", "https://app.example.com:8443")
+    monkeypatch.setenv("CORS_ALLOWED_ORIGINS", origin)
 
-    assert Settings().cors_allowed_origins == ["https://app.example.com:8443"]
+    assert Settings().cors_allowed_origins == [origin]
 
 
 def test_openapi_lists_the_section_6_surface(client: TestClient) -> None:
