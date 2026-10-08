@@ -37,17 +37,15 @@ if (apiPresent && testDatabaseUrl) {
   });
 }
 
-function prepareOutputRoot(): string {
-  const root = path.join(os.tmpdir(), 'english-quest-e2e');
-  fs.rmSync(root, { recursive: true, force: true });
-  fs.mkdirSync(root, { mode: 0o700 });
-  return root;
+const outputRoot = path.join(os.tmpdir(), 'english-quest-e2e');
+if (process.env.TEST_WORKER_INDEX === undefined) {
+  fs.rmSync(outputRoot, { recursive: true, force: true });
+  fs.mkdirSync(outputRoot, { mode: 0o700 });
 }
-
-const outputRoot = (process.env.EQ_E2E_OUTPUT_ROOT ??= prepareOutputRoot());
 
 export default defineConfig({
   testDir: path.join(repoRoot, 'tests/e2e'),
+  globalSetup: path.join(repoRoot, 'tests/e2e/global-setup.ts'),
   testMatch: '**/*.spec.ts',
   fullyParallel: true,
   forbidOnly: Boolean(process.env.CI),
@@ -56,12 +54,13 @@ export default defineConfig({
   reporter: process.env.CI
     ? [['list'], ['html', { open: 'never', outputFolder: path.join(repoRoot, 'playwright-report') }]]
     : [['list']],
-  // Traces and screenshots of failures are kept in a private directory outside the worktree.
+  // Failure traces stay in a private directory outside the worktree. CI keeps them out of the HTML
+  // report, which is uploaded as an artifact, because traces record typed credentials and cookies.
   outputDir: path.join(outputRoot, 'test-results'),
   expect: { timeout: 10_000 },
   use: {
     baseURL,
-    trace: 'retain-on-failure',
+    trace: process.env.CI ? 'off' : 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
   projects: [

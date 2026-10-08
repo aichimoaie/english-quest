@@ -27,8 +27,15 @@ async function isFile(file) {
   }
 }
 
-async function resolveRequest(url) {
-  const pathname = decodeURIComponent(new URL(url, 'http://localhost').pathname);
+function decodePathname(url) {
+  try {
+    return decodeURIComponent(new URL(url, 'http://localhost').pathname);
+  } catch {
+    return null;
+  }
+}
+
+async function resolveRequest(pathname) {
   const file = path.join(root, path.normalize(pathname));
   if (file !== root && !file.startsWith(root + path.sep)) {
     return null;
@@ -42,7 +49,13 @@ async function resolveRequest(url) {
 }
 
 createServer(async (request, response) => {
-  const file = await resolveRequest(request.url ?? '/');
+  const pathname = decodePathname(request.url ?? '/');
+  if (pathname === null) {
+    response.writeHead(400, { 'content-type': 'text/plain; charset=utf-8' });
+    response.end('Bad request');
+    return;
+  }
+  const file = await resolveRequest(pathname);
   if (!file) {
     response.writeHead(404, { 'content-type': 'text/plain; charset=utf-8' });
     response.end('Not found');
