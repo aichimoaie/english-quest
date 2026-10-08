@@ -30,7 +30,7 @@ part of this change.
 day: 1                       # 1 to 30, must match the file name day-01.yaml
 title: Greetings and the verb "be"
 lessons:                     # 1 to 4 lessons, each made of lesson cards
-  - id: d01-lesson-be        # must start with d01-lesson-
+  - id: d01-lesson-be        # dNN-lesson-<name>, lowercase
     learning_area: Grammar
     title: ...
     cards:                   # 1 to 6 cards
@@ -42,7 +42,7 @@ vocabulary:                  # 1 to 12 words
   - word: brother
     definition: ...          # short English definition
     example: My brother ...  # example sentence
-exercises:                   # ids must start with d01-
+exercises:                   # ids: dNN-<name>, lowercase, unique within the day
   - id: d01-grammar-mc-01
     type: multiple_choice
     learning_area: Grammar
