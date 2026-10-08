@@ -1,0 +1,189 @@
+name: Deploy
+
+# Dormant until the repository variable DEPLOY_ENABLED is set to "true".
+# Enable it only after workstream 7 (infra/) is merged and the dev and prod
+# GitHub environments exist with the variables listed in docs/ci.md.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "infra/**"
+      - ".github/workflows/deploy.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-main
+  cancel-in-progress: false
+
+env:
+  TOFU_VERSION: "1.13.1"
+  ARM_USE_OIDC: "true"
+
+jobs:
+  # Plan jobs have no environment and use a read-only identity per environment,
+  # so they run without reviewer approval. Plans run unlocked and the run summary
+  # lists only resource addresses and actions, so reviewers can check it before
+  # the apply job starts. The identity scope is documented in docs/ci.md.
+  plan-dev:
+    name: Plan (dev)
+    if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      ARM_CLIENT_ID: ${{ vars.AZURE_DEV_PLAN_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Azure login (OIDC, read-only)
+        uses: azure/login@v3
+        with:
+          client-id: ${{ vars.AZURE_DEV_PLAN_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - uses: opentofu/setup-opentofu@v2
+        with:
+          tofu_version: ${{ env.TOFU_VERSION }}
+      - name: Init
+        working-directory: infra/envs/dev
+        run: tofu init -input=false
+      - name: Plan
+        working-directory: infra/envs/dev
+        run: tofu plan -input=false -lock=false -out=tfplan >/dev/null
+      - name: Plan summary
+        working-directory: infra/envs/dev
+        shell: bash
+        run: |
+          {
+            echo '```'
+            tofu show -json tfplan | jq -r '.resource_changes[]? | select(.change.actions != ["no-op"]) | "\(.change.actions | join(",")) \(.address)"'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: tfplan-dev
+          path: infra/envs/dev/tfplan
+          retention-days: 1
+
+  apply-dev:
+    name: Apply (dev)
+    needs: plan-dev
+    if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: dev
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: tfplan-dev
+          path: infra/envs/dev
+      - name: Azure login (OIDC)
+        uses: azure/login@v3
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - uses: opentofu/setup-opentofu@v2
+        with:
+          tofu_version: ${{ env.TOFU_VERSION }}
+      - name: Init
+        working-directory: infra/envs/dev
+        run: tofu init -input=false
+      - name: Apply
+        working-directory: infra/envs/dev
+        run: tofu apply -input=false tfplan
+
+  # Prod is planned only after dev is applied, so a failed dev run stops prod.
+  plan-prod:
+    name: Plan (prod)
+    needs: apply-dev
+    if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      ARM_CLIENT_ID: ${{ vars.AZURE_PROD_PLAN_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Azure login (OIDC, read-only)
+        uses: azure/login@v3
+        with:
+          client-id: ${{ vars.AZURE_PROD_PLAN_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - uses: opentofu/setup-opentofu@v2
+        with:
+          tofu_version: ${{ env.TOFU_VERSION }}
+      - name: Init
+        working-directory: infra/envs/prod
+        run: tofu init -input=false
+      - name: Plan
+        working-directory: infra/envs/prod
+        run: tofu plan -input=false -lock=false -out=tfplan >/dev/null
+      - name: Plan summary
+        working-directory: infra/envs/prod
+        shell: bash
+        run: |
+          {
+            echo '```'
+            tofu show -json tfplan | jq -r '.resource_changes[]? | select(.change.actions != ["no-op"]) | "\(.change.actions | join(",")) \(.address)"'
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: tfplan-prod
+          path: infra/envs/prod/tfplan
+          retention-days: 1
+
+  apply-prod:
+    name: Apply (prod)
+    needs: plan-prod
+    if: vars.DEPLOY_ENABLED == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: prod
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: tfplan-prod
+          path: infra/envs/prod
+      - name: Azure login (OIDC)
+        uses: azure/login@v3
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+          subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      - uses: opentofu/setup-opentofu@v2
+        with:
+          tofu_version: ${{ env.TOFU_VERSION }}
+      - name: Init
+        working-directory: infra/envs/prod
+        run: tofu init -input=false
+      - name: Apply
+        working-directory: infra/envs/prod
+        run: tofu apply -input=false tfplan
+
+  # Application deploys (static export to Static Web Apps, API image to Container
+  # Apps) are not defined yet. They wait for the workstream 7 outputs.
