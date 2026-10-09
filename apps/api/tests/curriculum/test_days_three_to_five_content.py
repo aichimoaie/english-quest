@@ -1,4 +1,7 @@
-"""Days 1 to 5 must use only the tag vocabulary in content/tags.yaml, and Days 3 to 5 must load with their titles."""
+"""Days 1 to 5 must use only the tag vocabulary in content/tags.yaml.
+
+Days 3 to 5 must also load with their titles.
+"""
 
 from pathlib import Path
 

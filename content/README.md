@@ -49,7 +49,7 @@ exercises:                   # ids: dNN-<name>, lowercase, unique within the day
     learning_area: Grammar
     origin: original
     topics: [grammar.be.present]
-    difficulty: 1           # optional, 1 to 3; values in content/tags.yaml
+    difficulty: 1           # required, 1 to 3; scale in content/tags.yaml
     points: 1
     prompt: ...
     ...                      # fields depend on type, see below
@@ -77,7 +77,8 @@ The seven areas from PRD section 4. Use the exact spelling:
 | `sentence_ordering` | `tokens`, `answer` | `answer` uses every token exactly once |
 
 Every exercise also needs `id`, `learning_area`, `origin: original`, `topics`
-(dotted, such as `grammar.be.present`), `prompt` and `explanation`. Every type
+(dotted, such as `grammar.be.present`), `difficulty` (1 to 3), `prompt` and
+`explanation`. Every type
 except `pronunciation_self_rating` also needs `points` (1 to 10). Unknown keys
 are rejected.
 
