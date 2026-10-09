@@ -29,7 +29,7 @@ scripts/infra.sh up dev           # print both plans, then apply after you type:
 scripts/infra.sh down prod        # print the destroy plans, then destroy after you type: prod
 ```
 
-`up` and `down` refuse to run unless:
+`plan`, `up` and `down` refuse to run unless:
 
 - the Azure CLI is logged in (`az login`), and
 - the selected subscription is `389d9a64-7cca-46b1-9de0-8214eae2597a` (`az account set --subscription 389d9a64-7cca-46b1-9de0-8214eae2597a`), and
@@ -111,6 +111,6 @@ No domain is decided. `single-project/variables.tf` has `custom_domain` with the
 
 ## Tools
 
-Local checks need Terraform 1.8 or newer (1.9.8 was used to write this), tflint (`scripts/infra.sh check` fails without it), and the Azure CLI for `up`, `down` and `plan`. `scripts/infra.sh check` needs no Azure access. Plans and applies use `azurerm` 4.81.x, `random` 3.9.x and `postgresql` 1.25.x, pinned in the lock file for linux_amd64 and darwin_arm64.
+Local checks need Terraform 1.8 or newer (1.9.8 was used to write this), tflint (`scripts/infra.sh check` fails without it), and the Azure CLI for `up`, `down` and `plan`. `scripts/infra.sh check` needs no Azure access. Plans and applies use `azurerm` 4.81.x, `random` 3.9.x and `postgresql` 1.27.x, pinned in the lock files (`cicd` also pins `azuread`).
 
 The pull-request infra job runs `scripts/infra.sh check` on this folder. It installs Terraform and tflint for that job.

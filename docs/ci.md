@@ -4,7 +4,7 @@ Two GitHub Actions workflows live in `.github/workflows/`:
 
 | Workflow | File | Runs on | Purpose |
 | --- | --- | --- | --- |
-| PR checks | `pr-checks.yml` | pull requests to `main` | Lint, type check, unit tests, and infra format and validate |
+| PR checks | `pr-checks.yml` | pull requests to `main` | Lint, type check, unit tests, and infra format, validate and lint |
 | Deploy | `deploy.yml` | push to `main` that touches `infra/**` or `deploy.yml` | Plan and apply OpenTofu for `dev`, then `prod` |
 
 ## PR checks
@@ -15,7 +15,7 @@ Each area job runs only when its paths change and its directory exists on the br
 | --- | --- | --- |
 | Web | `apps/web/**`, `package.json`, `pnpm-lock.yaml`, `pnpm-workspace.yaml` | `pnpm install --frozen-lockfile`, then `pnpm --dir apps/web run lint`, `run typecheck`, `run test` |
 | API | `apps/api/**`, `content/**`, `pyproject.toml`, `uv.lock` | `uv sync --locked --directory apps/api`, then `ruff check .`, `ruff format --check .`, `mypy .`, `pytest` (all run with `uv run --directory apps/api`) |
-| Infra | `infra/**` | `tofu fmt -check -recursive infra`, then `tofu init -backend=false` and `tofu validate` for each directory in `infra/envs/` |
+| Infra | `deployment/terraform/**`, `scripts/infra.sh` | `scripts/infra.sh check`: `terraform fmt -check`, then `terraform validate` for each root, then `tflint`. The job fails if `tflint` is missing. |
 
 Any path under `.github/workflows/**` runs all three area jobs.
 
@@ -32,7 +32,7 @@ The workflow calls package scripts by name and does not repeat their tool invoca
 | `pnpm-lock.yaml` | Workstream 1 | Landed. `--frozen-lockfile` needs it committed. |
 | `apps/api/pyproject.toml` with `ruff`, `mypy`, `pytest` in dev dependencies | Workstream 2 (backend) | Pending |
 | `apps/api/uv.lock` | Workstream 2 | Pending. `uv sync --locked` fails until it is committed. |
-| `infra/envs/dev/` and `infra/envs/prod/` with `.tf` files | Workstream 7 (Azure infrastructure) | Pending. The infra job fails if `infra/envs/` has no directories. |
+| `deployment/terraform/` with the `single-project` and `cicd` roots | Workstream 7 (Azure infrastructure) | Landed. The infra job is skipped if `deployment/terraform/` is missing. |
 
 Until these land, a PR that touches an area whose job depends on a pending item will fail that job. This is expected. The workflow itself is complete.
 
