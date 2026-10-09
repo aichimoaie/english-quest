@@ -44,6 +44,7 @@ export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel 
   const [finishing, setFinishing] = useState(false);
   const [ratingSaving, setRatingSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [expiryFailed, setExpiryFailed] = useState(false);
 
   // One clock per set, taken from its timed items. Its end time is set when the learner presses Start.
   const timedItem = exercises.find((exercise): exercise is ExerciseOf<"timed_recall"> => exercise.kind === "timed_recall");
@@ -86,7 +87,12 @@ export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel 
       const answer = await submit(exercise, submitted);
       setResults((current) => ({ ...current, [exercise.id]: answer }));
     } catch {
-      setError("We could not check that answer. Check your connection and try again.");
+      if (timeUp) {
+        setExpiryFailed(true);
+        setError("The answer could not be sent when time ran out.");
+      } else {
+        setError("We could not check that answer. Check your connection and try again.");
+      }
     } finally {
       setBusy(false);
     }
@@ -207,6 +213,12 @@ export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel 
       {result ? (
         <button type="button" className="btn btn-primary btn-block" onClick={handleContinue} disabled={ratingSaving}>
           {isLast ? "See my results" : "Continue"}
+        </button>
+      ) : null}
+
+      {expiryFailed && !result ? (
+        <button type="button" className="btn btn-primary btn-block" onClick={() => setEnded(true)}>
+          See my results
         </button>
       ) : null}
     </div>

@@ -249,6 +249,38 @@ describe("ExercisePlayer set timer and end screen", () => {
     }
   });
 
+  it("offers a way to the end screen when the answer cannot be sent at expiry", async () => {
+    vi.useFakeTimers();
+    try {
+      const submit = vi.fn(async () => {
+        throw new Error("offline");
+      });
+      render(<ExercisePlayer exercises={timedSet} submit={submit} onFinish={vi.fn()} finishLabel="See result" />);
+
+      fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
+      fireEvent.change(screen.getByRole("textbox"), { target: { value: "shed" } });
+      act(() => {
+        vi.advanceTimersByTime(300_000);
+      });
+      await act(async () => {
+        for (let i = 0; i < 5; i++) await Promise.resolve();
+      });
+
+      expect(submit).toHaveBeenCalledWith(timedSet[0], { text: "shed" });
+      expect(screen.getByRole("alert").textContent).toBe("The answer could not be sent when time ran out.");
+      expect(screen.queryByText(/try again/i)).toBeNull();
+      expect(screen.queryByText("Your result")).toBeNull();
+
+      fireEvent.click(screen.getByRole("button", { name: "See my results" }));
+
+      expect(screen.getByText("Your result")).toBeTruthy();
+      expect(screen.getByText("0 of 2 correct")).toBeTruthy();
+      expect(screen.getByText("2 not reached before the test ended.")).toBeTruthy();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("lists each answer key on the end screen and finishes from there", async () => {
     const submit = vi.fn(async () => ({ isCorrect: true, expected: null, explanation: "Yes.", feedbackKey: "ok" }));
     const onFinish = vi.fn(async () => undefined);
