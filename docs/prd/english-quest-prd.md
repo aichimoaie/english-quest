@@ -133,7 +133,7 @@ The exact spacing and the weighting toward weak topics are **Open**.
 
 - **Clean and friendly, not academic.** Short sentences, plain labels, no jargon. Explanations are in simple English.
 - **Mobile-first.** Layouts are designed for a phone first. Touch targets are at least 44 × 44 CSS pixels. The side margin is **Open** (section 18). There is no horizontal page scrolling.
-- **Clear, immediate feedback.** Each answer is marked correct or incorrect at once, with the right answer and a short explanation.
+- **Clear, immediate feedback.** Each answer is marked correct or incorrect at once, with the right answer and, on tests that show explanations, a short explanation (section 6).
 - **Low cognitive load.** One task per screen. The next step is always obvious.
 - **Motivation without manipulation.** Progress is shown plainly (days, accuracy, streak). No timers that pressure the learner, no loss-aversion tricks, no pop-up upsells.
 - **Obvious progress through the 30 days.** A visible path shows where the learner is, what is done, and what is next.
@@ -145,7 +145,7 @@ The MVP includes:
 - Email and password sign-in for one learner (account creation is **Open**).
 - The 30-day path with ordered unlocking, the 70% day threshold, and pause-on-missed-day behaviour.
 - All 13 exercise types in section 5, with unlimited retries, first-attempt accuracy, and day completion by a run at 70%.
-- Immediate feedback with English explanations.
+- Immediate feedback, with English explanations on the tests that show them.
 - Daily review and mixed review.
 - Progress tracking as described in section 7.
 - Recognition-only pronunciation practice with self-rating.
