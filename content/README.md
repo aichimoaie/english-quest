@@ -84,7 +84,9 @@ The learner meets a day's screens in order:
    day result.
 
 A test with no scored items (for example, all `self_check`) has no score. Its
-results screen says "Your answers are in" and notes each answer instead.
+results screen says "Your answers are in" and notes each answer instead. A day
+with no test screens has no score either; it is complete once the learner reaches
+its day-end screen (completion rules: [PRD section 6](../docs/prd/english-quest-prd.md)).
 
 ## Learning areas
 
