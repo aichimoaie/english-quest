@@ -35,7 +35,7 @@ const ANSWERS: Record<string, GeneratedAnswer> = Object.assign({}, DEV_ANSWERS, 
 interface Run {
   day: number;
   /** First answer of this run per exercise, used for the run score. */
-  runAnswers: Map<string, boolean>;
+  runAnswers: Map<string, AnswerResult>;
 }
 
 const state = {
@@ -124,10 +124,12 @@ function recordAnswer(attemptId: string, input: AnswerInput): AnswerResult {
   if (!exercise) {
     throw problem(422, "Exercise not in this attempt", `${input.exerciseId} is not part of day ${run.day}.`);
   }
-  const result = gradeItem(input.exerciseId, input);
-  if (!run.runAnswers.has(input.exerciseId)) {
-    run.runAnswers.set(input.exerciseId, result.isCorrect);
+  const firstResult = run.runAnswers.get(input.exerciseId);
+  if (firstResult) {
+    return firstResult;
   }
+  const result = gradeItem(input.exerciseId, input);
+  run.runAnswers.set(input.exerciseId, result);
   if (isScored(exercise) && !state.firstEverAnswers.has(input.exerciseId)) {
     state.firstEverAnswers.set(input.exerciseId, result.isCorrect);
     if (exercise.kind === "pronunciation_practice") {
@@ -142,7 +144,7 @@ function completeRun(attemptId: string): CompletedAttempt {
   if (!run) {
     throw problem(404, "Attempt not found", `There is no attempt ${attemptId}.`);
   }
-  const scorePct = scorePercent(exercisesFor(run.day), (exercise) => run.runAnswers.get(exercise.id) === true);
+  const scorePct = scorePercent(exercisesFor(run.day), (exercise) => run.runAnswers.get(exercise.id)?.isCorrect === true);
   const passed = scorePct >= PASS_MARK_PCT;
 
   if (passed) {

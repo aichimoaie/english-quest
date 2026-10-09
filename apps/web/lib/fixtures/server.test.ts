@@ -253,6 +253,30 @@ describe("fixture server", () => {
       expect(completed.scorePct).toBe(Math.round((2 / 3) * 100));
     });
 
+    it("keeps the first answer when the learner resubmits an item after a lost response", async () => {
+      const { attemptId, exercises } = await call<{ attemptId: string; exercises: Exercise[] }>("POST", `${BASE}/days/1/attempts`);
+      const retried = exercises.find((exercise) => exercise.kind !== "self_check")!;
+      const firstAnswer = await call<{ isCorrect: boolean }>("POST", `${BASE}/attempts/${attemptId}/answers`, {
+        exerciseId: retried.id,
+        submitted: wrongSubmission(retried.id),
+      });
+      const retryAnswer = await call<{ isCorrect: boolean }>("POST", `${BASE}/attempts/${attemptId}/answers`, {
+        exerciseId: retried.id,
+        submitted: correctSubmission(retried.id),
+      });
+      for (const exercise of exercises) {
+        if (exercise.id === retried.id) continue;
+        await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: exercise.id, submitted: correctSubmission(exercise.id) });
+      }
+      const completed = await call<{ scorePct: number }>("POST", `${BASE}/attempts/${attemptId}/complete`);
+      const scored = exercises.filter((exercise) => exercise.kind !== "self_check");
+      const totalPoints = scored.reduce((sum, exercise) => sum + exercise.points, 0);
+
+      expect(firstAnswer.isCorrect).toBe(false);
+      expect(retryAnswer.isCorrect).toBe(false);
+      expect(completed.scorePct).toBe(Math.round(((totalPoints - retried.points) / totalPoints) * 100));
+    });
+
     it("leaves self-check answers out of the progress accuracy", async () => {
       const { fixtureCall: devCall } = await loadWithDevFixtureDay();
       const { attemptId } = await devCall<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
