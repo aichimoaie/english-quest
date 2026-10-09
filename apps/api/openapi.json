@@ -906,11 +906,28 @@
         ],
         "title": "PronunciationAttemptOut"
       },
+      "ReviewItem": {
+        "properties": {
+          "exercise": {
+            "$ref": "#/components/schemas/ExercisePrompt"
+          },
+          "explain": {
+            "type": "boolean",
+            "title": "Explain"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exercise",
+          "explain"
+        ],
+        "title": "ReviewItem"
+      },
       "ReviewSet": {
         "properties": {
           "items": {
             "items": {
-              "$ref": "#/components/schemas/ExercisePrompt"
+              "$ref": "#/components/schemas/ReviewItem"
             },
             "type": "array",
             "title": "Items"

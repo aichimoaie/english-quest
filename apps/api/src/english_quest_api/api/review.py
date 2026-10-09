@@ -9,8 +9,13 @@ from english_quest_api.api.exercises import AnswerResult, AnswerSubmission, Exer
 router = APIRouter(prefix="/review", tags=["review"])
 
 
+class ReviewItem(ApiModel):
+    exercise: ExercisePrompt
+    explain: bool
+
+
 class ReviewSet(ApiModel):
-    items: list[ExercisePrompt] = Field(default_factory=list)
+    items: list[ReviewItem] = Field(default_factory=list)
 
 
 @router.get("/daily", response_model=ReviewSet)
