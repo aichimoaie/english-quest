@@ -127,6 +127,7 @@ screens:
     id: "d04-test-11"
     title: "Test 11: Are You Clear on Some of the Following Important Points of Correct English?"
     intro: "The italicized word in some of the following sentences is used correctly — in others, it violates an established rule of grammar. Do you know which is which? If you can make at least six correct choices, your English is above average."
+    explain: true
     items:
       - id: "d04-gram-t11-01"
         type: "multiple_choice"

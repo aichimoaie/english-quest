@@ -16,7 +16,7 @@ interface ExercisePlayerProps {
   /** Called when the learner finishes from the end screen. */
   onFinish: () => Promise<void>;
   finishLabel: string;
-  /** Show each item's explanation on the end screen. A test's results screen uses this. */
+  /** Show each item's explanation after answering (unless false) and on the end screen (when true). A test's results screen uses this. */
   explain?: boolean;
 }
 
@@ -141,7 +141,7 @@ export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel,
 
         {result ? (
           <Feedback tone={feedbackTone(exercise, result)} title={feedbackTitle(exercise, result)}>
-            {result.explanation}
+            {explain !== false ? result.explanation : null}
             {!result.isCorrect && result.expected && exercise.kind !== "self_check" ? ` The answer is: ${result.expected}` : null}
           </Feedback>
         ) : null}
