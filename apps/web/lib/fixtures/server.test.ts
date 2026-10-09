@@ -36,7 +36,7 @@ describe("fixture server", () => {
     const result = await call<{ isCorrect: boolean; expected?: string | null }>("POST", `${BASE}/attempts/${attemptId}/answers`, input);
 
     expect(result.isCorrect).toBe(false);
-    expect(result.expected).toBe("She is a teacher.");
+    expect(result.expected).toBe("LY-brer-ee");
   });
 
   it("keeps later days locked until the day before is complete", async () => {
@@ -50,13 +50,11 @@ describe("fixture server", () => {
   it("completes a day when one run reaches 70% and unlocks the next day", async () => {
     const { attemptId, exercises } = await call<{ attemptId: string; exercises: Exercise[] }>("POST", `${BASE}/days/1/attempts`);
     const answers: AnswerInput[] = [
-      { exerciseId: "ex_d1_choice", submitted: { optionIndex: 1 } },
-      { exerciseId: "ex_d1_fill", submitted: { text: "are" } },
-      { exerciseId: "ex_d1_order", submitted: { order: ["My", "name", "is", "Ana"] } },
-      { exerciseId: "ex_d1_match", submitted: { pairs: { teacher: "someone who teaches", student: "someone who learns", doctor: "someone who treats sick people" } } },
-      { exerciseId: "ex_d1_spell", submitted: { text: "I receive a letter every week." } },
-      { exerciseId: "ex_d1_listen", submitted: { optionIndex: 1 } },
-      { exerciseId: "ex_d1_say", submitted: { optionIndex: 0 } },
+      { exerciseId: "d01-pron-common-01", submitted: { optionIndex: 0 } },
+      { exerciseId: "d01-pron-common-02", submitted: { optionIndex: 1 } },
+      { exerciseId: "d01-pron-educated-02", submitted: { optionIndex: 1 } },
+      { exerciseId: "d01-pron-educated-03", submitted: { optionIndex: 1 } },
+      { exerciseId: "d01-pron-affected-03", submitted: { optionIndex: 1 } },
     ];
     expect(exercises.map((exercise) => exercise.id)).toEqual(answers.map((answer) => answer.exerciseId));
 
@@ -68,8 +66,8 @@ describe("fixture server", () => {
       `${BASE}/attempts/${attemptId}/complete`,
     );
 
-    // Day 1 has 9 points. Only the pronunciation item (1 point) is wrong, so 8/9 is 89%.
-    expect(completed.scorePct).toBe(89);
+    // Day 1 has 5 points. Only the first item is wrong, so 4/5 is 80%.
+    expect(completed.scorePct).toBe(80);
     expect(completed.status).toBe("passed");
     expect(completed.dayStatus).toBe("done");
     expect(completed.nextDay).toBe(2);
@@ -80,7 +78,7 @@ describe("fixture server", () => {
 
   it("scores a run below 70% as not passed and leaves the next day locked", async () => {
     const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
-    await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: "ex_d1_choice", submitted: { optionIndex: 0 } });
+    await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: "d01-pron-common-01", submitted: { optionIndex: 0 } });
 
     const completed = await call<{ scorePct: number; status: string; nextDay: number | null }>("POST", `${BASE}/attempts/${attemptId}/complete`);
 
@@ -93,13 +91,11 @@ describe("fixture server", () => {
   it("serves the Day 2 lesson and exercises once Day 2 unlocks", async () => {
     const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
     const dayOneAnswers: AnswerInput[] = [
-      { exerciseId: "ex_d1_choice", submitted: { optionIndex: 1 } },
-      { exerciseId: "ex_d1_fill", submitted: { text: "are" } },
-      { exerciseId: "ex_d1_order", submitted: { order: ["My", "name", "is", "Ana"] } },
-      { exerciseId: "ex_d1_match", submitted: { pairs: { teacher: "someone who teaches", student: "someone who learns", doctor: "someone who treats sick people" } } },
-      { exerciseId: "ex_d1_spell", submitted: { text: "I receive a letter every week." } },
-      { exerciseId: "ex_d1_listen", submitted: { optionIndex: 1 } },
-      { exerciseId: "ex_d1_say", submitted: { optionIndex: 0 } },
+      { exerciseId: "d01-pron-common-01", submitted: { optionIndex: 1 } },
+      { exerciseId: "d01-pron-common-02", submitted: { optionIndex: 1 } },
+      { exerciseId: "d01-pron-educated-02", submitted: { optionIndex: 1 } },
+      { exerciseId: "d01-pron-educated-03", submitted: { optionIndex: 1 } },
+      { exerciseId: "d01-pron-affected-03", submitted: { optionIndex: 1 } },
     ];
     for (const answer of dayOneAnswers) {
       await call("POST", `${BASE}/attempts/${attemptId}/answers`, answer);
@@ -110,16 +106,20 @@ describe("fixture server", () => {
     const attempt = await call<{ exercises: Exercise[] }>("POST", `${BASE}/days/2/attempts`);
 
     expect(day2.status).toBe("current");
-    expect(day2.lesson.grammar.map((card) => card.title)).toEqual(["My and your", "His and her"]);
+    expect(day2.lesson.grammar.map((card) => card.title)).toEqual([
+      "Match a word to its meaning",
+      "Similar or opposite",
+      "Judge a statement with a word",
+    ]);
     expect(day2.exercises.map((exercise) => exercise.id)).toEqual(attempt.exercises.map((exercise) => exercise.id));
-    expect(attempt.exercises).toHaveLength(7);
+    expect(attempt.exercises).toHaveLength(4);
   });
 
-  it("shows Day 2 with the possessives title and objective", async () => {
+  it("shows Day 2 with the vocabulary title and objective", async () => {
     const day2 = await call<DayDetail>("GET", `${BASE}/days/2`);
 
-    expect(day2.title).toBe("Possessives: my, your, his, her");
-    expect(day2.objective).toBe("Use my, your, his and her before a noun to show who owns something.");
+    expect(day2.title).toBe("Test Your Vocabulary");
+    expect(day2.objective).toBe("Match words to their meanings and spot similar and opposite words.");
   });
 
   it("rejects an exercise that is not part of the attempt", async () => {

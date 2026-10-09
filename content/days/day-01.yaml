@@ -1,217 +1,312 @@
-# Day 1: Greetings and the verb "be".
-# Authored from scratch for English Quest. Not taken from any published book.
+# Day 1: Test Your Pronunciation.
+# Structure follows Part I, Day 1 of the reference book (learning goals and
+# progression only). All wording, items, answers and explanations are original.
+# Pronunciation keys are written for this app. They are not copied from any book.
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 1
-title: Greetings and the verb "be"
+title: "Test Your Pronunciation"
 
 lessons:
-  - id: d01-lesson-be
-    learning_area: Grammar
-    title: The verb "be" in the present
+  - id: d01-lesson-stress
+    learning_area: Pronunciation
+    title: "Stress and the middle syllable"
     cards:
-      - title: Three forms of "be"
-        body: The verb "be" has three present forms, am, is and are. Use it to say who someone is, where they are, or how they feel.
+      - title: Stress makes a word easy to recognise
+        body: "Each word with more than one syllable has one syllable said with more force. A word can be understood with a wrong vowel, but a wrong stress often sounds strange."
         examples:
-          - "I am a cook."
-          - "She is my neighbour."
-          - "They are happy today."
-      - title: Choose the right form
-        body: Use "am" only with "I". Use "is" with he, she, it and one name or thing. Use "are" with you, we and they.
+          - "In pruh-nun-see-AY-shun the stress falls on the fourth syllable."
+          - "Say eh-SPRES-oh, not ex-PRESS-oh, for espresso."
+        watch_out: "Check the stressed syllable in dictionary respellings, which mark it with a capital."
+      - title: Weak syllables are short and quiet
+        body: "In many unstressed syllables the vowel becomes a short, quiet sound called schwa, written as ə in respellings. The middle syllable of library is often quiet."
         examples:
-          - "I am ready."
-          - "Tom is at school."
-          - "We are friends."
-        watch_out: Do not say "I are" or "She am".
-      - title: Make a sentence negative
-        body: To make a sentence negative with "be", put "not" after the form of "be".
-        examples:
-          - "He is not tired."
-          - "You are not late."
+          - "LY-brer-ee has three syllables when spoken carefully."
+        watch_out: "Do not drop a whole syllable just because it is quiet."
 
-  - id: d01-lesson-greetings
-    learning_area: Vocabulary
-    title: Saying hello
+  - id: d01-lesson-sounds
+    learning_area: Pronunciation
+    title: "Silent letters and common mistakes"
     cards:
-      - title: Greetings for any time of day
-        body: '"Hello" and "Hi" work at any time. Use "Good morning" before noon, "Good afternoon" from noon to evening, and "Good evening" after dark.'
+      - title: Some letters are silent
+        body: "Some letters are written but not spoken. The h in hour is silent, the w in sword is silent, and the gh in height is silent, leaving a long i sound."
         examples:
-          - "Hello, I am Sam."
-          - "Good morning, how are you?"
-        watch_out: Only "Good morning", "Good afternoon" and "Good evening" use "Good". "Hello" does not.
-      - title: Answer "How are you?"
-        body: A short answer is enough. "I am fine, thank you." and "I am tired today." are both natural.
+          - "The hour passed quickly."
+          - "She drew a sword in the play."
+        watch_out: "Say the word you know, not the spelling you see."
+      - title: Preferred pronunciations of common words
+        body: "Say ask with a k sound before the s. Burglar has two syllables, not three, and mischievous has three syllables with the middle one quiet."
         examples:
-          - "I am fine, thank you."
-          - "I am tired today."
+          - "Please ask the teacher a question."
+          - "The burglar was caught on camera."
+        watch_out: "Do not add an extra syllable to mischievous."
 
 vocabulary:
-  - word: brother
-    definition: a boy or man who has the same parents as you
-    example: My brother is taller than me.
-    audio_ref: d01-vocab-brother
-  - word: sister
-    definition: a girl or woman who has the same parents as you
-    example: My sister studies medicine in Bristol.
-    audio_ref: d01-vocab-sister
-  - word: neighbour
-    definition: a person who lives near your home
-    example: Our neighbour has a small blue car.
-    audio_ref: d01-vocab-neighbour
-  - word: grandmother
-    definition: the mother of your mother or father
-    example: My grandmother bakes bread on Sundays.
-    audio_ref: d01-vocab-grandmother
-  - word: friend
-    definition: a person you like and spend time with
-    example: My friend and I play tennis on Fridays.
-    audio_ref: d01-vocab-friend
-  - word: teacher
-    definition: a person whose job is to teach
-    example: Our teacher is patient with everyone.
-    audio_ref: d01-vocab-teacher
-  - word: student
-    definition: a person who is learning at a school, college or university
-    example: Each student has a notebook.
-    audio_ref: d01-vocab-student
-  - word: doctor
-    definition: a person who treats sick people
-    example: The doctor checked my throat.
-    audio_ref: d01-vocab-doctor
+  - word: library
+    definition: a room or building where books are kept for people to read or borrow
+    example: I study at the library on Tuesdays.
+    audio_ref: d01-vocab-library
+  - word: espresso
+    definition: strong coffee made by forcing hot water through finely ground beans
+    example: He ordered a small espresso after dinner.
+    audio_ref: d01-vocab-espresso
+  - word: forehead
+    definition: the front part of the head above the eyes
+    example: She wiped the sweat from her forehead.
+    audio_ref: d01-vocab-forehead
+  - word: height
+    definition: how tall a person or thing is
+    example: What is the height of that tower?
+    audio_ref: d01-vocab-height
+  - word: burglar
+    definition: a person who enters a building illegally to steal
+    example: The police arrested the burglar at the door.
+    audio_ref: d01-vocab-burglar
+  - word: quinoa
+    definition: a grain-like seed that is often eaten as a healthy side dish
+    example: We had quinoa with roasted vegetables.
+    audio_ref: d01-vocab-quinoa
 
 exercises:
-  - id: d01-grammar-mc-01
+  # Common but glaring errors (book section: Test 1, pronunciation_choice).
+  - id: d01-pron-common-01
     type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics:
-      - grammar.be.present
-    points: 1
-    prompt: "Choose the correct word: ___ you ready for the lesson?"
-    choices:
-      - Am
-      - Is
-      - Are
-    answer: Are
-    explanation: Use "are" with "you". Use "am" only with "I", and "is" with he, she or it.
-
-  - id: d01-grammar-fill-01
-    type: fill_blank
-    learning_area: Grammar
-    origin: original
-    topics:
-      - grammar.be.present
-    points: 1
-    prompt: "Fill in the blank: My cousin ___ twelve years old."
-    accepted:
-      - is
-    explanation: "\"My cousin\" is one person, so the form is \"is\"."
-
-  - id: d01-grammar-mc-02
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics:
-      - grammar.be.negative
-    points: 1
-    prompt: Which sentence is correct?
-    choices:
-      - He not is tired.
-      - He is not tired.
-      - He is no tired.
-    answer: He is not tired.
-    explanation: With "be", put "not" after the verb, as in "is not". Never put "not" before the verb.
-
-  - id: d01-listening-mc-01
-    type: listening_comprehension
-    learning_area: Listening
-    origin: original
-    topics:
-      - listening.detail
-    points: 1
-    prompt: "Listen, then choose the answer: Where is Maria from?"
-    audio_text: "Hello, my name is Maria. I am from Spain, and I am a nurse."
-    choices:
-      - Italy
-      - Spain
-      - Portugal
-    answer: Spain
-    explanation: Maria says "I am from Spain." Listen for the words that come after "I am from".
-
-  - id: d01-pronunciation-01
-    type: pronunciation_practice
     learning_area: Pronunciation
     origin: original
-    topics:
-      - pronunciation.vowel_length
+    topics: [pronunciation.common_errors]
+    difficulty: 1
     points: 1
-    prompt: "Listen, then choose the sentence you hear."
-    audio_text: "I have a sheep."
-    choices:
-      - I have a ship.
-      - I have a sheep.
-    answer: I have a sheep.
-    explanation: "\"Sheep\" has a long vowel, as in \"see\". \"Ship\" has a short vowel, as in \"sit\"."
+    prompt: "Which is the preferred pronunciation of library?"
+    choices: ["LY-bree", "LY-brer-ee"]
+    answer: "LY-brer-ee"
+    explanation: "The careful pronunciation keeps the middle syllable, with a quiet vowel."
 
-  - id: d01-pronunciation-self-01
-    type: pronunciation_self_rating
+  - id: d01-pron-common-02
+    type: multiple_choice
     learning_area: Pronunciation
     origin: original
-    topics:
-      - pronunciation.vowel_length
-    prompt: "Listen, say the sentence aloud, then rate how well you said the short and long vowels."
-    audio_text: "Please sit in the seat."
-    explanation: "\"Sit\" has a short vowel, as in \"sip\". \"Seat\" has a long vowel, as in \"see\". Listen again, then rate your own answer."
-
-  - id: d01-vocabulary-match-01
-    type: vocabulary_matching
-    learning_area: Vocabulary
-    origin: original
-    topics:
-      - vocabulary.family_and_people
-    points: 4
-    prompt: Match each word with its meaning.
-    pairs:
-      - word: brother
-        meaning: a boy or man who has the same parents as you
-      - word: neighbour
-        meaning: a person who lives near your home
-      - word: grandmother
-        meaning: the mother of your mother or father
-      - word: friend
-        meaning: a person you like and spend time with
-    explanation: Each word names a person in your life. Read the meanings again if you are unsure.
-
-  - id: d01-sentence-order-01
-    type: sentence_ordering
-    learning_area: Sentence construction
-    origin: original
-    topics:
-      - sentence.word_order.basic_clause
+    topics: [pronunciation.common_errors]
+    difficulty: 1
     points: 1
-    prompt: Put the words in the correct order to make one sentence.
-    tokens:
-      - a
-      - is
-      - doctor.
-      - brother
-      - My
-    answer:
-      - My
-      - brother
-      - is
-      - a
-      - doctor.
-    explanation: Start with the subject, "My brother". Then add the verb "is", and finish with "a doctor."
+    prompt: "Which is the preferred pronunciation of mischievous?"
+    choices: ["MIS-chee-vee-us", "MIS-chuh-vus"]
+    answer: "MIS-chuh-vus"
+    explanation: "Mischievous has three syllables. The middle one is quiet."
 
-  - id: d01-spelling-01
-    type: spelling_correction
-    learning_area: Spelling
+  - id: d01-pron-common-03
+    type: multiple_choice
+    learning_area: Pronunciation
     origin: original
-    topics:
-      - spelling.double_letters
+    topics: [pronunciation.common_errors]
+    difficulty: 2
     points: 1
-    prompt: One word is misspelled. Retype the whole sentence with the word fixed.
-    text: We drink cofee in the morning.
-    accepted:
-      - We drink coffee in the morning.
-    explanation: "\"Coffee\" has two f's and two e's. Say it in two parts: cof-fee."
+    prompt: "Which is the preferred pronunciation of supposedly?"
+    choices: ["suh-POHS-ed-lee", "suh-POHZ-id-lee"]
+    answer: "suh-POHZ-id-lee"
+    explanation: "The s in the middle of the word is voiced, like a z, and the ending is -id-lee."
+
+  - id: d01-pron-common-04
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.common_errors]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of espresso?"
+    choices: ["ex-PRESS-oh", "eh-SPRES-oh"]
+    answer: "eh-SPRES-oh"
+    explanation: "The stress falls on the second syllable, and the first vowel is quiet."
+
+  - id: d01-pron-common-05
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.common_errors]
+    difficulty: 1
+    points: 1
+    prompt: "Which is the preferred pronunciation of Wednesday?"
+    choices: ["WED-nes-day", "WENZ-dee"]
+    answer: "WENZ-dee"
+    explanation: "Most speakers drop the middle syllable and say two syllables."
+
+  # Preferred pronunciation for educated speakers (book section: Test 2).
+  - id: d01-pron-educated-01
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.educated_standard]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of height?"
+    choices: ["HITE", "HYTE"]
+    answer: "HYTE"
+    explanation: "The vowel in height is the long i, as in high. The g is silent."
+
+  - id: d01-pron-educated-02
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.educated_standard]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of burglar?"
+    choices: ["BUR-gu-lar", "BUR-glur"]
+    answer: "BUR-glur"
+    explanation: "Burglar has two syllables, and the final syllable is a quiet schwa."
+
+  - id: d01-pron-educated-03
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.educated_standard]
+    difficulty: 1
+    points: 1
+    prompt: "Which is the preferred pronunciation of ask?"
+    choices: ["AKS", "ASK"]
+    answer: "ASK"
+    explanation: "The standard word has a k sound before the s. The form AKS is not standard."
+
+  - id: d01-pron-educated-04
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.educated_standard]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of picture?"
+    choices: ["PIK-tyoor", "PIK-chur"]
+    answer: "PIK-chur"
+    explanation: "Picture has two syllables, and the ending is the sound chur."
+
+  - id: d01-pron-educated-05
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.educated_standard]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of mischievous?"
+    choices: ["MIS-chee-vus", "MIS-chuh-vus"]
+    answer: "MIS-chuh-vus"
+    explanation: "The middle syllable is quiet, so the word has three syllables."
+
+  # Unknown words: check you know the correct pronunciation (book section: Test 3).
+  - id: d01-pron-unknown-01
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.unknown_words]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of gauge?"
+    choices: ["GAW-uh-jee", "GAYJ"]
+    answer: "GAYJ"
+    explanation: "Gauge is one syllable with a long a and a j sound."
+
+  - id: d01-pron-unknown-02
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.unknown_words]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of quinoa?"
+    choices: ["KWIN-oh-uh", "KEEN-wah"]
+    answer: "KEEN-wah"
+    explanation: "Quinoa is pronounced keen-wah in most English dictionaries."
+
+  - id: d01-pron-unknown-03
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.unknown_words]
+    difficulty: 3
+    points: 1
+    prompt: "Which is the preferred pronunciation of sumptuous?"
+    choices: ["SUM-too-us", "SUMP-choo-us"]
+    answer: "SUMP-choo-us"
+    explanation: "The p is spoken, and the stressed syllable is the first one."
+
+  - id: d01-pron-unknown-04
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.unknown_words]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of chasm?"
+    choices: ["CHAS-um", "KAZ-um"]
+    answer: "KAZ-um"
+    explanation: "The ch is spoken as a k sound in this word."
+
+  - id: d01-pron-unknown-05
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.unknown_words]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of sword?"
+    choices: ["SWORD", "SORD"]
+    answer: "SORD"
+    explanation: "The w is silent in sword."
+
+  # Affected pronunciation (book section: Test 4, pronunciation_choice).
+  - id: d01-pron-affected-01
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.affected]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of been?"
+    choices: ["BEEN", "BIN"]
+    answer: "BIN"
+    explanation: "Been is short in ordinary speech, with the vowel of bin."
+
+  - id: d01-pron-affected-02
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.affected]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of forehead?"
+    choices: ["FOR-hed", "FOR-id"]
+    answer: "FOR-id"
+    explanation: "The word is said with two syllables and no separate h sound."
+
+  - id: d01-pron-affected-03
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.affected]
+    difficulty: 1
+    points: 1
+    prompt: "Which is the preferred pronunciation of width?"
+    choices: ["WITH", "WIDTH"]
+    answer: "WIDTH"
+    explanation: "Width keeps the d and the th, and the vowel is short."
+
+  - id: d01-pron-affected-04
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.affected]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of clothes?"
+    choices: ["KLOHTHZ", "KLOHZ"]
+    answer: "KLOHZ"
+    explanation: "The th is not spoken in clothes, so the word ends with z."
+
+  - id: d01-pron-affected-05
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.affected]
+    difficulty: 2
+    points: 1
+    prompt: "Which is the preferred pronunciation of hour?"
+    choices: ["HOUR", "OW-er"]
+    answer: "OW-er"
+    explanation: "The h is silent in hour, so it sounds like our."

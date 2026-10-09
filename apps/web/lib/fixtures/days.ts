@@ -3,18 +3,19 @@
  * GET /api/v1/days/{day}. Real curriculum lives in content/days (workstream 6).
  *
  * All wording here is original, written for English Quest. Days 1 and 2 have
- * exercises; the other days are placeholders until their content is reviewed.
+ * exercises (a subset of content/days/day-01.yaml and day-02.yaml, with the same
+ * ids and wording); the other days are placeholders until their content is reviewed.
  */
 import type { DaySummary, Exercise, Lesson } from "@/lib/api/types";
 
 export { TOTAL_DAYS } from "@/lib/course";
 
 export const DAY_TITLES: { title: string; objective: string }[] = [
-  { title: "Be: am, is, are", objective: "Choose am, is or are with names, pronouns and places." },
-  { title: "Possessives: my, your, his, her", objective: "Use my, your, his and her before a noun to show who owns something." },
-  { title: "Present simple: I work", objective: "Use the base verb with I, you, we and they." },
-  { title: "Present simple: he, she, it", objective: "Add -s to the verb with he, she and it." },
-  { title: "Question words", objective: "Ask who, what, where, when and how." },
+  { title: "Test Your Pronunciation", objective: "Choose the preferred pronunciation of common, educated and unfamiliar words." },
+  { title: "Test Your Vocabulary", objective: "Match words to their meanings and spot similar and opposite words." },
+  { title: "Test Your Spelling", objective: "Spell common words correctly and find the misspelled one." },
+  { title: "Test Your Grammar", objective: "Choose correct grammar, pronouns and verb forms." },
+  { title: "Just for Fun (I)", objective: "Play word games: opposites that start with R and words named after people." },
   { title: "Possessives: my, your, his", objective: "Show who owns something." },
   { title: "There is, there are", objective: "Say what exists in a place." },
   { title: "Can and can't", objective: "Talk about ability and rules." },
@@ -53,187 +54,166 @@ export const DAY_SUMMARIES: DaySummary[] = DAY_TITLES.map((entry, index) => ({
 export const DAY_ONE_LESSON: Lesson = {
   vocabulary: [
     {
-      word: "teacher",
-      definition: "A person whose job is to help others learn.",
-      example: "Our teacher explains each lesson slowly.",
+      word: "library",
+      definition: "A room or building where books are kept for people to read or borrow.",
+      example: "I study at the library on Tuesdays.",
     },
     {
-      word: "student",
-      definition: "A person who is learning something.",
-      example: "The student writes a short story every week.",
+      word: "espresso",
+      definition: "Strong coffee made by forcing hot water through finely ground beans.",
+      example: "He ordered a small espresso after dinner.",
     },
     {
-      word: "doctor",
-      definition: "A person who treats sick people.",
-      example: "The doctor is kind and very patient.",
+      word: "forehead",
+      definition: "The front part of the head above the eyes.",
+      example: "She wiped the sweat from her forehead.",
     },
   ],
   grammar: [
     {
-      title: "Be: am, is, are",
-      explanation: "Use am with I. Use is with he, she, it and one name. Use are with you, we and they.",
-      examples: ["I am tired.", "She is a teacher.", "They are from Spain."],
+      title: "Stress makes a word easy to recognise",
+      explanation:
+        "Each word with more than one syllable has one syllable said with more force. A word can be understood with a wrong vowel, but a wrong stress often sounds strange.",
+      examples: [
+        "In pruh-nun-see-AY-shun the stress falls on the fourth syllable.",
+        "Say eh-SPRES-oh, not ex-PRESS-oh, for espresso.",
+      ],
+    },
+    {
+      title: "Weak syllables are short and quiet",
+      explanation:
+        "In many unstressed syllables the vowel becomes a short, quiet sound called schwa, written as ə in respellings. The middle syllable of library is often quiet.",
+      examples: ["LY-brer-ee has three syllables when spoken carefully."],
+    },
+    {
+      title: "Some letters are silent",
+      explanation:
+        "Some letters are written but not spoken. The h in hour is silent, the w in sword is silent, and the gh in height is silent, leaving a long i sound.",
+      examples: ["The hour passed quickly.", "She drew a sword in the play."],
+    },
+    {
+      title: "Preferred pronunciations of common words",
+      explanation:
+        "Say ask with a k sound before the s. Burglar has two syllables, not three, and mischievous has three syllables with the middle one quiet.",
+      examples: ["Please ask the teacher a question.", "The burglar was caught on camera."],
     },
   ],
 };
 
 export const DAY_ONE_EXERCISES: Exercise[] = [
   {
-    id: "ex_d1_choice",
+    id: "d01-pron-common-01",
     kind: "multiple_choice",
-    instructions: "Pick the correct sentence.",
+    instructions: "Pick the preferred pronunciation.",
     points: 1,
-    content: {
-      prompt: "Which sentence is correct?",
-      options: ["She are a teacher.", "She is a teacher.", "She be a teacher."],
-    },
+    content: { prompt: "Which is the preferred pronunciation of library?", options: ["LY-bree", "LY-brer-ee"] },
   },
   {
-    id: "ex_d1_fill",
-    kind: "fill_blank",
-    instructions: "Type the missing word.",
+    id: "d01-pron-common-02",
+    kind: "multiple_choice",
+    instructions: "Pick the preferred pronunciation.",
     points: 1,
-    content: { sentence: "They ____ from Spain.", hint: "Type one word." },
+    content: { prompt: "Which is the preferred pronunciation of mischievous?", options: ["MIS-chee-vee-us", "MIS-chuh-vus"] },
   },
   {
-    id: "ex_d1_order",
-    kind: "sentence_ordering",
-    instructions: "Tap the words in the right order.",
+    id: "d01-pron-educated-02",
+    kind: "multiple_choice",
+    instructions: "Pick the preferred pronunciation.",
     points: 1,
-    content: { words: ["is", "Ana", "name", "My"] },
+    content: { prompt: "Which is the preferred pronunciation of burglar?", options: ["BUR-gu-lar", "BUR-glur"] },
   },
   {
-    id: "ex_d1_match",
-    kind: "vocabulary_matching",
-    instructions: "Match each word to its meaning.",
-    points: 3,
-    content: {
-      words: ["teacher", "student", "doctor"],
-      meanings: ["someone who learns", "someone who treats sick people", "someone who teaches"],
-    },
+    id: "d01-pron-educated-03",
+    kind: "multiple_choice",
+    instructions: "Pick the preferred pronunciation.",
+    points: 1,
+    content: { prompt: "Which is the preferred pronunciation of ask?", options: ["AKS", "ASK"] },
   },
   {
-    id: "ex_d1_spell",
-    kind: "spelling_correction",
-    instructions: "One word is misspelled. Type the sentence with the word fixed.",
+    id: "d01-pron-affected-03",
+    kind: "multiple_choice",
+    instructions: "Pick the preferred pronunciation.",
     points: 1,
-    content: { sentence: "I recieve a letter every week." },
-  },
-  {
-    id: "ex_d1_listen",
-    kind: "listening_comprehension",
-    instructions: "Listen to the clip, then answer the question.",
-    points: 1,
-    content: {
-      audioUrl: null,
-      prompt: "What time does the shop open?",
-      options: ["At seven", "At eight", "At nine"],
-    },
-  },
-  {
-    id: "ex_d1_say",
-    kind: "pronunciation_practice",
-    instructions: "Listen, then choose the word you hear. Then rate your own pronunciation.",
-    points: 1,
-    content: { audioUrl: null, options: ["ship", "sheep"] },
+    content: { prompt: "Which is the preferred pronunciation of width?", options: ["WITH", "WIDTH"] },
   },
 ];
 
 export const DAY_TWO_LESSON: Lesson = {
   vocabulary: [
     {
-      word: "backpack",
-      definition: "A bag that you wear on your back.",
-      example: "My backpack has three pockets.",
+      word: "wary",
+      definition: "Cautious, because you expect something bad might happen.",
+      example: "Stay wary of offers that sound too good to be true.",
     },
     {
-      word: "umbrella",
-      definition: "Something you hold over your head to stay dry in the rain.",
-      example: "Take your umbrella, because it might rain.",
+      word: "frugal",
+      definition: "Careful with money and not wasteful.",
+      example: "Her frugal habits helped her save for a flat.",
     },
     {
-      word: "passport",
-      definition: "An official document that shows who you are when you travel.",
-      example: "His passport expires next year.",
+      word: "lucid",
+      definition: "Clear and easy to understand.",
+      example: "The teacher gave a lucid explanation of the rule.",
     },
   ],
   grammar: [
     {
-      title: "My and your",
-      explanation: "Put a possessive word before the noun it describes. Use my for I and your for you.",
-      examples: ["My bag is red.", "Is this your umbrella?"],
+      title: "Match a word to its meaning",
+      explanation:
+        "A good vocabulary means you know what a word means, not only how it looks. Read the word, think of a situation where you would use it, then choose the meaning that fits.",
+      examples: ["A lucid explanation is clear, so you can follow it easily."],
     },
     {
-      title: "His and her",
-      explanation: "Use his for a man or boy, and her for a woman or girl. Look at the owner, not the object.",
-      examples: ["He loves his new bicycle.", "She forgot her passport."],
+      title: "Similar or opposite",
+      explanation:
+        "Many words come in pairs of similar and opposite meanings. Frugal means careful with money, so its opposite is extravagant, and its similar word is thrifty.",
+      examples: ["A frugal shopper compares prices before buying.", "An extravagant gift costs far more than planned."],
+    },
+    {
+      title: "Judge a statement with a word",
+      explanation:
+        "Some sentences use a word correctly and some use it wrongly. Read the whole sentence, then decide whether the word's meaning makes sense in it.",
+      examples: ["An austere room has few decorations, so it is plain."],
     },
   ],
 };
 
 export const DAY_TWO_EXERCISES: Exercise[] = [
   {
-    id: "ex_d2_choice_my",
-    kind: "multiple_choice",
-    instructions: "Pick the word that completes the sentence.",
-    points: 1,
-    content: { prompt: "___ name is Lena.", options: ["My", "Me", "I"] },
-  },
-  {
-    id: "ex_d2_choice_her",
-    kind: "multiple_choice",
-    instructions: "Pick the correct sentence.",
-    points: 1,
-    content: {
-      prompt: "Which sentence is correct?",
-      options: ["She dog is friendly.", "Her dog is friendly.", "Hers dog is friendly."],
-    },
-  },
-  {
-    id: "ex_d2_fill",
-    kind: "fill_blank",
-    instructions: "Type the missing word.",
-    points: 1,
-    content: { sentence: "Tom lost ____ keys on the bus.", hint: "Type one word." },
-  },
-  {
-    id: "ex_d2_match",
+    id: "d02-match-01",
     kind: "vocabulary_matching",
     instructions: "Match each word to its meaning.",
-    points: 4,
+    points: 1,
     content: {
-      words: ["backpack", "notebook", "umbrella", "passport"],
+      words: ["wary", "frugal", "lucid", "tenacious", "ephemeral"],
       meanings: [
-        "an official document that shows who you are when you travel",
-        "a bag that you wear on your back",
-        "a small book with empty pages for writing notes",
-        "something you hold over your head to stay dry in the rain",
+        "lasting only briefly",
+        "refusing to give up",
+        "careful with money",
+        "clear and easy to follow",
+        "cautious about possible danger",
       ],
     },
   },
   {
-    id: "ex_d2_spell",
-    kind: "spelling_correction",
-    instructions: "One word is misspelled. Type the sentence with the word fixed.",
+    id: "d02-sim-opp-01",
+    kind: "multiple_choice",
+    instructions: "Pick the word with the opposite meaning.",
     points: 1,
-    content: { sentence: "I left my umbrela at the station." },
+    content: { prompt: "Which word is the opposite of frugal?", options: ["extravagant", "thrifty", "careful"] },
   },
   {
-    id: "ex_d2_order",
-    kind: "sentence_ordering",
-    instructions: "Tap the words in the right order.",
+    id: "d02-sim-opp-07",
+    kind: "multiple_choice",
+    instructions: "Pick the word with the opposite meaning.",
     points: 1,
-    content: { words: ["is", "door.", "by", "bicycle", "Your", "the"] },
+    content: { prompt: "Which word is the opposite of meticulous?", options: ["careless", "careful", "precise"] },
   },
   {
-    id: "ex_d2_listen",
-    kind: "listening_comprehension",
-    instructions: "Listen to the clip, then answer the question.",
+    id: "d02-judge-01",
+    kind: "multiple_choice",
+    instructions: "Decide whether the statement is true.",
     points: 1,
-    content: {
-      audioUrl: null,
-      prompt: "Whose jacket is it?",
-      options: ["Jen", "The speaker", "Tom"],
-    },
+    content: { prompt: "Is this statement true? A frugal person spends money carelessly.", options: ["True", "False"] },
   },
 ];

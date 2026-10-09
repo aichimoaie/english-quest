@@ -1,7 +1,9 @@
 """Shared fixtures for curriculum tests.
 
-Broken fixtures are made from the real Day 1 file: each test loads it, breaks
-one thing, and writes the result to a temporary content directory.
+Broken fixtures are made from the prototype Day 1 file in fixtures/: each test
+loads it, breaks one thing, and writes the result to a temporary content
+directory. The file is kept as a test fixture so the rule tests keep covering
+every exercise kind, which the book's Day 1 does not use.
 """
 
 from collections.abc import Callable
@@ -14,7 +16,7 @@ import yaml
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 CONTENT_DAYS = REPO_ROOT / "content" / "days"
-DAY_ONE_FILE = CONTENT_DAYS / "day-01.yaml"
+DAY_ONE_FILE = Path(__file__).resolve().parent / "fixtures" / "prototype_day_01.yaml"
 
 WriteDay = Callable[..., Path]
 
