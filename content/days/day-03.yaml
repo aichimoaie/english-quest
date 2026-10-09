@@ -39,6 +39,7 @@ screens:
     learning_area: "Spelling"
     title: "Test 8: These 10 Words Baffle Many People — Do You Know How to Spell Them?"
     intro: "Which is correct:"
+    explain: true
     items:
       - id: "d03-spell-t8-01"
         type: "multiple_choice"
@@ -155,6 +156,7 @@ screens:
     learning_area: "Spelling"
     title: "Test 9: Do You Recognize Incorrect Spelling?"
     intro: "Find the single misspelled word in each line, cross it out, and rewrite it correctly."
+    explain: true
     items:
       - id: "d03-spell-t9-01"
         type: "spelling_correction"

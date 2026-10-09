@@ -61,12 +61,12 @@ const day: DayDetail = {
       title: "Day intro",
       cards: [{ title: "Intro card", explanation: "Read this first.", watchOut: null, examples: [] }],
     },
-    { kind: "test", id: "d01-test-1", title: "Test 1: Be", intro: "Choose the right form.", exercises: [first, second] },
-    { kind: "test", id: "d01-test-2", title: "Test 2: Are", intro: "Choose again.", exercises: [third] },
+    { kind: "test", id: "d01-test-1", title: "Test 1: Be", intro: "Choose the right form.", exercises: [first, second], explain: false },
+    { kind: "test", id: "d01-test-2", title: "Test 2: Are", intro: "Choose again.", exercises: [third], explain: false },
   ],
 };
 
-const attempt: StartedAttempt = { attemptId: "att_1", exercises: [first, second, third] };
+const attempt: StartedAttempt = { attemptId: "att_1" };
 
 function renderPlayView() {
   const client = new QueryClient({ defaultOptions: { queries: { retry: false } } });
@@ -148,6 +148,7 @@ describe("PlayView screen order", () => {
 
     // Test 1's results screen shows its own score: one of two right is 50%.
     expect(await screen.findByRole("heading", { name: "50% correct" })).toBeTruthy();
+    expect(screen.queryByText("Explanation for ex_second.")).toBeNull();
     fireEvent.click(screen.getByRole("button", { name: "Next" }));
 
     // Test 2's intro comes next, then its single item and its own score.
@@ -191,7 +192,7 @@ describe("PlayView unscored test", () => {
       ...day,
       screens: [
         day.screens[0],
-        { kind: "test", id: "d01-test-10", title: "Test 10: Check yourself", intro: "Be honest.", exercises: [selfCheck] },
+        { kind: "test", id: "d01-test-10", title: "Test 10: Check yourself", intro: "Be honest.", exercises: [selfCheck], explain: true },
       ],
     });
     renderPlayView();

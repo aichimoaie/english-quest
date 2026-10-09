@@ -43,6 +43,7 @@ screens:
     learning_area: "Grammar"
     title: "Test 10: Is Your English Free of Glaring Errors?"
     intro: "Be honest with yourself. Do some of the following patterns occur with any frequency in your own speech? If you can check the NO box in most instances, consider yourself safe. On the other hand, wherever you must admit that you are addicted to a particular error, a little thought and concentration, plus an awareness of the principle involved, can quickly and permanently eliminate the incorrect pattern."
+    explain: true
     items:
       - id: "d04-gram-t10-01"
         type: "self_check"

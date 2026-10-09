@@ -546,19 +546,11 @@
           "attemptId": {
             "type": "string",
             "title": "Attemptid"
-          },
-          "exercises": {
-            "items": {
-              "$ref": "#/components/schemas/ExercisePrompt"
-            },
-            "type": "array",
-            "title": "Exercises"
           }
         },
         "type": "object",
         "required": [
-          "attemptId",
-          "exercises"
+          "attemptId"
         ],
         "title": "AttemptStarted"
       },
@@ -1005,6 +997,10 @@
             },
             "type": "array",
             "title": "Exercises"
+          },
+          "explain": {
+            "type": "boolean",
+            "title": "Explain"
           }
         },
         "type": "object",
@@ -1013,7 +1009,8 @@
           "id",
           "title",
           "intro",
-          "exercises"
+          "exercises",
+          "explain"
         ],
         "title": "TestScreen",
         "description": "One test: its intro, then its items, then a results screen with that test's score."

@@ -52,6 +52,7 @@ class TestScreen(ApiModel):
     title: str
     intro: str
     exercises: list[ExercisePrompt]
+    explain: bool
 
 
 DayScreen = Annotated[TextScreen | TestScreen, Field(discriminator="kind")]
@@ -69,7 +70,6 @@ class DayDetail(ApiModel):
 
 class AttemptStarted(ApiModel):
     attempt_id: str
-    exercises: list[ExercisePrompt]
 
 
 class AttemptCompleted(ApiModel):

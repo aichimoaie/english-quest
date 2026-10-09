@@ -53,6 +53,7 @@ screens:                     # 1 to 12 screens, in the order the learner meets t
     learning_area: Grammar
     title: ...
     intro: ...               # the test's instructions, shown before its Start button
+    explain: true            # optional; shows each item's explanation on the results screen
     items:                   # 1 or more exercises
       - id: d01-grammar-mc-01  # dNN-<name>, lowercase, unique within the day
         type: multiple_choice

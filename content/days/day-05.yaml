@@ -39,6 +39,7 @@ screens:
     learning_area: "Vocabulary"
     title: "I. Test Your Fluency"
     intro: "How quickly can you call words to mind? Here is a reliable test of your vocabulary responsiveness. In five minutes or less, write next to each of the following words a word which starts with *R* and is essentially *opposite* in meaning to, or in contrast with, the given word. *Examples: walk—run; imaginary—real; square—round.*"
+    explain: true
     items:
       - id: "d05-flu-01"
         type: "fill_blank"
@@ -278,6 +279,7 @@ screens:
       Can you think of 10 words ending in *-ANK*? Add one or two letters only, to fit each definition.
 
       Now your problem is to think of a word *opposed* in meaning to the definition offered. The initial letter is supplied.
+    explain: true
     items:
       - id: "d05-think-01"
         type: "fill_blank"

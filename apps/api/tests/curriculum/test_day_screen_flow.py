@@ -51,6 +51,9 @@ APPROVED_FLOW: dict[int, list[tuple[str, str]]] = {
 }
 
 
+EXPLAINED_TESTS = {"d03-test-8", "d03-test-9", "d04-test-10", "d05-test-fluency", "d05-test-think-of-words"}
+
+
 def _days() -> dict[int, Day]:
     report = validate_content_dir(CONTENT_DAYS)
     assert report.issues == ()
@@ -74,6 +77,15 @@ def test_every_test_has_an_intro_line_and_items(number: int) -> None:
         if isinstance(screen, models.TestScreen):
             assert screen.intro.strip(), screen.id
             assert screen.items, screen.id
+
+
+@pytest.mark.parametrize("number", sorted(APPROVED_FLOW))
+def test_only_the_approved_tests_show_explanations_on_their_results_screen(number: int) -> None:
+    day = _days()[number]
+
+    for screen in day.screens:
+        if isinstance(screen, models.TestScreen):
+            assert screen.explain == (screen.id in EXPLAINED_TESTS), screen.id
 
 
 def test_day_three_has_no_closing_text_after_its_last_test() -> None:

@@ -192,6 +192,7 @@ class TestScreen(_Strict):
     title: NonBlank
     intro: NonBlank
     items: list[Exercise] = Field(min_length=1)
+    explain: bool = False
 
 
 Screen = Annotated[TextScreen | TestScreen, Field(discriminator="kind")]

@@ -128,7 +128,7 @@ const days = dayFiles.map((name) => {
   const answers: Record<string, ReturnType<typeof convertExercise>["answer"]> = {};
   const exercises: unknown[] = [];
 
-  const screens = (source.screens as { kind: string; id: string; title: string; cards?: SourceCard[]; intro?: string; items?: SourceExercise[] }[]).map(
+  const screens = (source.screens as { kind: string; id: string; title: string; cards?: SourceCard[]; intro?: string; items?: SourceExercise[]; explain?: boolean }[]).map(
     (screen) => {
       if (screen.kind === "text") {
         return { kind: "text", id: screen.id, title: screen.title, cards: (screen.cards ?? []).map(convertCard) };
@@ -138,7 +138,14 @@ const days = dayFiles.map((name) => {
         answers[item.exercise.id] = item.answer;
         exercises.push(item.exercise);
       }
-      return { kind: "test", id: screen.id, title: screen.title, intro: screen.intro, exercises: converted.map((item) => item.exercise) };
+      return {
+        kind: "test",
+        id: screen.id,
+        title: screen.title,
+        intro: screen.intro,
+        exercises: converted.map((item) => item.exercise),
+        explain: screen.explain === true,
+      };
     },
   );
 

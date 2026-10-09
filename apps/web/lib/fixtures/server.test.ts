@@ -47,8 +47,13 @@ describe("fixture server", () => {
     ({ fixtureCall: call } = await loadServer());
   });
 
+  async function dayExercises(day: number): Promise<Exercise[]> {
+    return dayItems((await call<DayDetail>("GET", `${BASE}/days/${day}`)).screens);
+  }
+
   async function completeDay(day: number) {
-    const { attemptId, exercises } = await call<{ attemptId: string; exercises: Exercise[] }>("POST", `${BASE}/days/${day}/attempts`);
+    const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/${day}/attempts`);
+    const exercises = await dayExercises(day);
     for (const exercise of exercises) {
       await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: exercise.id, submitted: correctSubmission(exercise.id) });
     }
@@ -69,7 +74,8 @@ describe("fixture server", () => {
   });
 
   it("only reveals the expected answer after the learner answers", async () => {
-    const { attemptId, exercises } = await call<{ attemptId: string; exercises: Exercise[] }>("POST", `${BASE}/days/1/attempts`);
+    const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
+    const exercises = await dayExercises(1);
     const input: AnswerInput = { exerciseId: exercises[0].id, submitted: { optionIndex: 1 } };
 
     const result = await call<{ isCorrect: boolean; expected?: string | null }>("POST", `${BASE}/attempts/${attemptId}/answers`, input);
@@ -87,7 +93,8 @@ describe("fixture server", () => {
   });
 
   it("completes a day when one run reaches 70% and unlocks the next day", async () => {
-    const { attemptId, exercises } = await call<{ attemptId: string; exercises: Exercise[] }>("POST", `${BASE}/days/1/attempts`);
+    const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
+    const exercises = await dayExercises(1);
     const totalPoints = exercises.reduce((sum, exercise) => sum + exercise.points, 0);
     const [first, ...rest] = exercises;
 
@@ -124,19 +131,20 @@ describe("fixture server", () => {
   });
 
   it("serves the Day 2 screens and exercises once Day 2 unlocks", async () => {
-    const { attemptId, exercises } = await call<{ attemptId: string; exercises: Exercise[] }>("POST", `${BASE}/days/1/attempts`);
+    const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
+    const exercises = await dayExercises(1);
     for (const exercise of exercises) {
       await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: exercise.id, submitted: correctSubmission(exercise.id) });
     }
     await call("POST", `${BASE}/attempts/${attemptId}/complete`);
 
     const day2 = await call<DayDetail>("GET", `${BASE}/days/2`);
-    const attempt = await call<{ exercises: Exercise[] }>("POST", `${BASE}/days/2/attempts`);
+    const attempt = await call<{ attemptId: string }>("POST", `${BASE}/days/2/attempts`);
 
+    expect(attempt.attemptId).toMatch(/^att_/);
     expect(day2.status).toBe("current");
     expect(textCards(day2.screens).map((card) => card.title)).toEqual(textCards(CONTENT_BY_DAY[2].screens).map((card) => card.title));
-    expect(dayItems(day2.screens).map((exercise) => exercise.id)).toEqual(attempt.exercises.map((exercise) => exercise.id));
-    expect(attempt.exercises).toHaveLength(CONTENT_BY_DAY[2].exercises.length);
+    expect(dayItems(day2.screens).map((exercise) => exercise.id)).toEqual(CONTENT_BY_DAY[2].exercises.map((exercise) => exercise.id));
   });
 
   it("serves Days 1 to 5 with their screens in the approved order", async () => {
@@ -203,8 +211,8 @@ describe("fixture server", () => {
     for (const day of [1, 2, 3, 4]) {
       await completeDay(day);
     }
-    const attempt = await call<{ exercises: Exercise[] }>("POST", `${BASE}/days/5/attempts`);
-    const item = attempt.exercises.find((exercise) => exercise.id === "d05-flu-01");
+    await call("POST", `${BASE}/days/5/attempts`);
+    const item = (await dayExercises(5)).find((exercise) => exercise.id === "d05-flu-01");
 
     expect(item).toMatchObject({
       instructions: "Type your answer.",
@@ -296,7 +304,8 @@ describe("fixture server", () => {
     });
 
     it("keeps the first answer when the learner resubmits an item after a lost response", async () => {
-      const { attemptId, exercises } = await call<{ attemptId: string; exercises: Exercise[] }>("POST", `${BASE}/days/1/attempts`);
+      const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
+    const exercises = await dayExercises(1);
       const retried = exercises.find((exercise) => exercise.kind !== "self_check")!;
       const firstAnswer = await call<{ isCorrect: boolean }>("POST", `${BASE}/attempts/${attemptId}/answers`, {
         exerciseId: retried.id,

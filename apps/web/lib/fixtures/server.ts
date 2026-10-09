@@ -104,13 +104,12 @@ function startRun(day: number): StartedAttempt {
   if (status === "locked") {
     throw problem(409, "Day is locked", `Finish day ${day - 1} to unlock day ${day}.`);
   }
-  const exercises = exercisesFor(day);
-  if (exercises.length === 0) {
+  if (exercisesFor(day).length === 0) {
     throw problem(422, "No exercises yet", `Day ${day} has no published exercises.`);
   }
   const attemptId = `att_${state.nextRunId++}`;
   state.runs.set(attemptId, { day, runAnswers: new Map() });
-  return { attemptId, exercises };
+  return { attemptId };
 }
 
 function recordAnswer(attemptId: string, input: AnswerInput): AnswerResult {

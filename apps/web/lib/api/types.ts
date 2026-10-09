@@ -59,6 +59,7 @@ export interface TestScreen {
   title: string;
   intro: string;
   exercises: Exercise[];
+  explain: boolean;
 }
 
 /** The screens of one day, in the order the learner meets them. */
@@ -136,7 +137,6 @@ export interface DayDetail {
 
 export interface StartedAttempt {
   attemptId: string;
-  exercises: Exercise[];
 }
 
 export interface AnswerInput {
