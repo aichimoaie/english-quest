@@ -100,7 +100,7 @@ The seven areas from PRD section 4. Use the exact spelling:
 | `listening_comprehension` | `audio_text`, `choices`, `answer` | As above. `audio_text` is the script the audio reads |
 | `pronunciation_practice` | `audio_text`, `choices`, `answer` | Recognition only |
 | `pronunciation_self_rating` | `audio_text` | Unscored. No `points`, `answer`, `choices` or `accepted`. The learner says the sentence aloud and rates it |
-| `self_check` | (no fields beyond the common ones) | Unscored. No `points`, `answer`, `choices` or `accepted`. The learner answers yes or no about their own speech or writing |
+| `self_check` | (no fields beyond the common ones) | Unscored text item, used only by an unscored self-check test such as Day 4 Test 10. No `points`, `answer`, `choices` or `accepted`. The learner answers yes or no about their own speech or writing, and the answer is a note, not a verdict |
 | `fill_blank` | `accepted` (1 or more), `prompt` | None |
 | `spelling_correction` | `text`, `accepted` (1 or more) | All-or-nothing (see Scoring) |
 | `vocabulary_matching` | `pairs` (2 to 10 of `word` and `meaning`) | None |
