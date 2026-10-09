@@ -6,7 +6,8 @@
  * It mirrors the server rules that matter to the UI: days unlock in order, a run
  * completes a day at 70%, scoring uses each item's first answer in a run, and
  * the server returns `expected` only after an answer is recorded. Self-check
- * items are shown but not scored.
+ * items are shown but not scored. A day with no test screens has no score and
+ * completes when its run is finished.
  */
 import { ApiError } from "@/lib/api/errors";
 import type {
@@ -110,8 +111,8 @@ function startRun(day: number): StartedAttempt {
   if (status === "locked") {
     throw problem(409, "Day is locked", `Finish day ${day - 1} to unlock day ${day}.`);
   }
-  if (exercisesFor(day).length === 0) {
-    throw problem(422, "No exercises yet", `Day ${day} has no published exercises.`);
+  if (!CONTENT_BY_DAY[day]) {
+    throw problem(422, "No screens yet", `Day ${day} has no published screens.`);
   }
   const attemptId = `att_${state.nextRunId++}`;
   state.runs.set(attemptId, { day, runAnswers: new Map() });
@@ -147,7 +148,8 @@ function completeRun(attemptId: string): CompletedAttempt {
   if (!run) {
     throw problem(404, "Attempt not found", `There is no attempt ${attemptId}.`);
   }
-  const scorePct = scorePercent(exercisesFor(run.day), (exercise) => run.runAnswers.get(exercise.id)?.isCorrect === true);
+  const exercises = exercisesFor(run.day);
+  const scorePct = exercises.length === 0 ? 100 : scorePercent(exercises, (exercise) => run.runAnswers.get(exercise.id)?.isCorrect === true);
   const passed = scorePct >= PASS_MARK_PCT;
 
   if (passed) {

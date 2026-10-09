@@ -118,6 +118,22 @@ describe("fixture server", () => {
     expect(day2.status).toBe("current");
   });
 
+  it("completes a text-only day when its run is finished and unlocks the next day", async () => {
+    await completeDay(1);
+    await completeDay(2);
+    await completeDay(3);
+    await completeDay(4);
+    await completeDay(5);
+    await completeDay(6);
+    const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/7/attempts`);
+    const completed = await call<{ scorePct: number; status: string; nextDay: number | null }>("POST", `${BASE}/attempts/${attemptId}/complete`);
+    const day8 = await call<DaySummary>("GET", `${BASE}/days/8`);
+
+    expect(completed.status).toBe("passed");
+    expect(completed.nextDay).toBe(8);
+    expect(day8.status).toBe("current");
+  });
+
   it("scores a run below 70% as not passed and leaves the next day locked", async () => {
     const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
     await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: "d01-pron-t1-01", submitted: { optionIndex: 1 } });
