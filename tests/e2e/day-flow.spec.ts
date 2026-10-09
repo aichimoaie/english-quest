@@ -26,9 +26,10 @@ test.describe('@smoke day flow', () => {
     await expect(page.getByRole('heading', { name: /Day 1\b/ }).first()).toBeVisible();
     await checkAccessibility(page);
 
-    // The day opens on its intro text, then the first test's intro. Items come after both Start buttons.
+    // The day opens on its first intro text (Start), then its second intro text (Next), then Test 1's intro (Start). Items come after.
     await page.getByRole('link', { name: 'Start practice' }).click();
     await page.getByRole('button', { name: 'Start' }).click();
+    await page.getByRole('button', { name: 'Next' }).click();
     await page.getByRole('button', { name: 'Start' }).click();
 
     // Answer the first exercise. Choice exercises use option buttons; text exercises use a labelled
