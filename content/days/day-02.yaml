@@ -59,8 +59,8 @@ vocabulary:
     audio_ref: d02-vocab-cajole
 
 exercises:
-  # Test 5, items 1-5. Answers: 1-j, 2-c, 3-g, 4-a, 5-d
-  - id: d02-vocab-t5a-01
+  # Test 5, items 1-10. Answers: 1-j, 2-c, 3-g, 4-a, 5-d, 6-i, 7-b, 8-f, 9-h, 10-e
+  - id: d02-vocab-t5-01
     type: vocabulary_matching
     learning_area: Vocabulary
     origin: original
@@ -79,18 +79,6 @@ exercises:
         meaning: "cleanse"
       - word: rehabilitate
         meaning: "bring back to former excellence"
-    explanation: "Answers: 1-j, 2-c, 3-g, 4-a, 5-d. The book lists ten meanings for Test 5; this exercise uses the correct pairs for items 1-5."
-
-  # Test 5, items 6-10. Answers: 6-i, 7-b, 8-f, 9-h, 10-e
-  - id: d02-vocab-t5b-01
-    type: vocabulary_matching
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_meanings]
-    difficulty: 1
-    points: 1
-    prompt: "Test 5: match each word with its meaning."
-    pairs:
       - word: latent
         meaning: "hidden"
       - word: gaudy
@@ -101,7 +89,7 @@ exercises:
         meaning: "coax"
       - word: impede
         meaning: "hinder"
-    explanation: "Answers: 6-i, 7-b, 8-f, 9-h, 10-e. The book lists ten meanings for Test 5; this exercise uses the correct pairs for items 6-10."
+    explanation: "Answers: 1-j, 2-c, 3-g, 4-a, 5-d, 6-i, 7-b, 8-f, 9-h, 10-e."
 
   # Test 6: similar or opposite. Answers: 1-OPPOSITE, 2-similar, 3-opposite, 4-similar, 5-similar,
   # 6-similar, 7-opposite, 8-opposite, 9-opposite, 10-SIMILAR

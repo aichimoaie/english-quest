@@ -141,7 +141,7 @@ class SpellingCorrectionExercise(ScoredExercise):
 
 class VocabularyMatchingExercise(ScoredExercise):
     type: Literal["vocabulary_matching"]
-    pairs: list[MatchPair] = Field(min_length=2, max_length=6)
+    pairs: list[MatchPair] = Field(min_length=2, max_length=10)
 
 
 class SentenceOrderingExercise(ScoredExercise):
