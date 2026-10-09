@@ -62,10 +62,11 @@ function convertExercise(file: string, source: SourceExercise) {
     const accepted = source.accepted ?? [];
     if (accepted.length === 0) fail(file, `${source.id}: no accepted answer`);
     const isFill = source.type === "fill_blank";
+    const hasBlank = /_{3,}/.test(source.prompt);
     return {
       exercise: {
         ...base,
-        instructions: isFill ? base.instructions : source.prompt,
+        instructions: isFill ? (hasBlank ? base.instructions : "Type your answer.") : source.prompt,
         kind: isFill ? "fill_blank" : "spelling_correction",
         content: isFill ? { sentence: source.prompt, hint: null } : { sentence: source.text ?? "" },
       },

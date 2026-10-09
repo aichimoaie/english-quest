@@ -220,7 +220,7 @@ exercises:
     difficulty: 2
     points: 1
     prompt: "Write one word that starts with R and means the opposite of dismiss."
-    accepted: ["retain", "recall"]
+    accepted: ["retain", "recall", "reinstate", "rehire"]
     explanation: "To retain means to keep someone, the reverse of letting them go."
 
   # Add one or two letters before -ank (book section: think of words, definition given).

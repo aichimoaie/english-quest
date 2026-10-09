@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { AnswerInput, DayDetail, Exercise, Submitted } from "@/lib/api/types";
+import type { AnswerInput, DayDetail, Exercise, Submitted, VocabularyEntry } from "@/lib/api/types";
 import { CONTENT_BY_DAY } from "./days";
 
 /** Each test gets a fresh fixture server, because the fixture keeps state in memory. */
@@ -40,6 +40,14 @@ describe("fixture server", () => {
   beforeEach(async () => {
     ({ fixtureCall: call } = await loadServer());
   });
+
+  async function completeDay(day: number) {
+    const { attemptId, exercises } = await call<{ attemptId: string; exercises: Exercise[] }>("POST", `${BASE}/days/${day}/attempts`);
+    for (const exercise of exercises) {
+      await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: exercise.id, submitted: correctSubmission(exercise.id) });
+    }
+    await call("POST", `${BASE}/attempts/${attemptId}/complete`);
+  }
 
   it("never returns answer keys in the day payload", async () => {
     const day = await call<DayDetail>("GET", `${BASE}/days/1`);
@@ -138,5 +146,25 @@ describe("fixture server", () => {
     await expect(
       call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: "ex_unknown", submitted: { text: "x" } }),
     ).rejects.toMatchObject({ status: 422 });
+  });
+
+  it("lists vocabulary only for unlocked days", async () => {
+    const vocabulary = await call<VocabularyEntry[]>("GET", `${BASE}/vocabulary`);
+
+    expect(vocabulary.length).toBeGreaterThan(0);
+    expect(new Set(vocabulary.map((entry) => entry.dayNumber))).toEqual(new Set([1]));
+  });
+
+  it("tells the learner to type an answer when a fill-blank prompt has no blank", async () => {
+    for (const day of [1, 2, 3, 4]) {
+      await completeDay(day);
+    }
+    const attempt = await call<{ exercises: Exercise[] }>("POST", `${BASE}/days/5/attempts`);
+    const item = attempt.exercises.find((exercise) => exercise.id === "d05-fluency-01");
+
+    expect(item).toMatchObject({
+      instructions: "Type your answer.",
+      content: { sentence: "Write one word that starts with R and means the opposite of accept." },
+    });
   });
 });

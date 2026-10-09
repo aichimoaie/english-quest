@@ -1,6 +1,6 @@
 # Tag vocabulary for curriculum exercises. Every tag value used in content/days
 # must come from this file. Checked by
-# apps/api/tests/curriculum/test_days_three_to_five_content.py.
+# apps/api/tests/curriculum/test_tagged_day_content.py.
 #
 # How each tag is carried:
 #   skill       -> learning_area on the exercise (one of the seven PRD areas)

@@ -126,7 +126,7 @@ the following:
 - The schema has a taxonomy file for `topics`. `content/tags.yaml` is the tag
   vocabulary (skills, difficulty scale, topics, exercise types). The validator
   checks only the dotted shape of `topics`; the tests in
-  `apps/api/tests/curriculum/test_days_three_to_five_content.py` check the other
+  `apps/api/tests/curriculum/test_tagged_day_content.py` check the other
   tags against `tags.yaml`.
 
 Once the schemas exist, the validator should validate each file against them as

@@ -80,14 +80,15 @@ def test_day_five_fluency_items_accept_each_fitting_opposite() -> None:
     days = _days()
     exercises = {exercise.id: exercise for exercise in days[5].exercises}
     fitting = {
-        "d05-fluency-02": "regress",
-        "d05-fluency-05": "rugged",
-        "d05-fluency-11": "resplendent",
-        "d05-fluency-12": "recall",
+        "d05-fluency-02": ["regress"],
+        "d05-fluency-05": ["rugged"],
+        "d05-fluency-11": ["resplendent"],
+        "d05-fluency-12": ["recall", "reinstate", "rehire"],
     }
 
-    for exercise_id, answer in fitting.items():
+    for exercise_id, answers in fitting.items():
         exercise = exercises[exercise_id]
-        result = evaluate_text(response=answer, accepted=exercise.accepted)
+        for answer in answers:
+            result = evaluate_text(response=answer, accepted=exercise.accepted)
 
-        assert result.credit == 1.0, exercise_id
+            assert result.credit == 1.0, (exercise_id, answer)

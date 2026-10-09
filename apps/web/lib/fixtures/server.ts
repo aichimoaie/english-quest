@@ -25,7 +25,7 @@ import type {
 import { isCorrect } from "./answer-keys";
 import type { GeneratedAnswer } from "./generated/curriculum";
 import { PASS_MARK_PCT, TOTAL_DAYS } from "@/lib/course";
-import { CONTENT_BY_DAY, DAY_TITLES } from "./days";
+import { CONTENT_BY_DAY, DAY_OUTLINE } from "./days";
 
 const EMPTY_LESSON: Lesson = { vocabulary: [], grammar: [] };
 const ANSWERS: Record<string, GeneratedAnswer> = Object.assign({}, ...Object.values(CONTENT_BY_DAY).map((day) => day.answers));
@@ -63,8 +63,12 @@ function exercisesFor(day: number): Exercise[] {
   return CONTENT_BY_DAY[day]?.exercises ?? [];
 }
 
+function isUnlocked(day: number): boolean {
+  return statusOf(day) !== "locked";
+}
+
 function summaryFor(day: number): DaySummary {
-  const entry = DAY_TITLES[day - 1];
+  const entry = DAY_OUTLINE[day - 1];
   return {
     dayNumber: day,
     title: entry.title,
@@ -180,7 +184,9 @@ function progress(): Progress {
 }
 
 function vocabulary(): VocabularyEntry[] {
-  return Object.values(CONTENT_BY_DAY).flatMap((day) =>
+  return Object.values(CONTENT_BY_DAY)
+    .filter((day) => isUnlocked(day.dayNumber))
+    .flatMap((day) =>
     day.lesson.vocabulary.map((item) => ({
       id: `vocab_d${day.dayNumber}_${item.word}`,
       word: item.word,
@@ -194,10 +200,9 @@ function vocabulary(): VocabularyEntry[] {
 }
 
 function dayDetail(day: number): DayDetail {
-  const summary = summaryFor(day);
-  const unlocked = summary.status !== "locked";
+  const unlocked = isUnlocked(day);
   return {
-    ...summary,
+    ...summaryFor(day),
     lesson: unlocked ? (CONTENT_BY_DAY[day]?.lesson ?? EMPTY_LESSON) : EMPTY_LESSON,
     exercises: unlocked ? exercisesFor(day) : [],
   };
