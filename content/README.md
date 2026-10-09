@@ -63,8 +63,8 @@ Rules for the layout:
 
 - `kind` is `text` or `test`. Every screen has an `id`, and the screen ids and
   exercise ids must be unique within the day together.
-- The first screen is a text screen (the day intro). The last screen is a test:
-  the day ends after its last test, so a day has no closing text.
+- The first screen is a text screen (the day intro). A day may end on a test or
+  on a text screen: the day ends after its last screen.
 - `vocabulary` is reference material. The lesson page lists it. The practice
   flow does not show it.
 - A test's `intro` is required. A test with items is never empty.
@@ -79,7 +79,7 @@ The learner meets a day's screens in order:
    answer key for each item. A Next button leads on. With `explain: true`, each
    item's explanation shows after the learner answers it and again on the results
    screen. Without it, neither shows one.
-3. After the last test: the day-end screen. Its button saves the run and opens the
+3. After the last screen: the day-end screen. Its button saves the run and opens the
    day result.
 
 A test with no scored items (for example, all `self_check`) has no score. Its
@@ -132,7 +132,7 @@ follow from them:
 - **Original wording only.** Write every word, example and explanation for this
   app. Do not copy from any published book, including the book named in the
   project brief. Do not copy the prototype's text either.
-  - **Exception: Days 1 to 5 and Days 13 to 14.** These are the reference book's text, copied
+  - **Exception: Days 1 to 5 and Days 11 to 14.** These are the reference book's text, copied
     verbatim with the owner's written approval. Each file's header says so. Do not
     use them as a model for new days.
 - **English-only explanations.** Explanations use simple English (PRD section 2).
@@ -167,7 +167,7 @@ well, and `content/days/day-01.yaml` should pass both checks.
 ## Adding a day
 
 1. Create `content/days/day-NN.yaml` with the next day number, and lay it out as
-   screens: a text screen first, then tests, ending with a test.
+   screens: a text screen first, then tests and text screens in the book's order.
 2. Tag every exercise with values from `content/tags.yaml`.
 3. Run `validate_content_dir` on `content/days` until its report is `ok`. There
    is no command-line entry point yet.

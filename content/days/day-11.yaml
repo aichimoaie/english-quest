@@ -1,0 +1,650 @@
+# Day 11: The Royal Road to Learning New Words.
+# Source: reference book, Eleventh Day (pp. 74-88).
+# Transcribed from pages/page74.md through page88.md, in the book's order.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref, the test intro lines, the Say the Words items' explanations, and the prompt labels) were
+# added for this app. origin is "original" only because the schema requires that value.
+# The book's pronunciation tables on pp. 77 and 82 are shown as lines in each test's intro. They are not
+# scored items, because the web app has no screen for the pronunciation self-rating kind.
+# The book's "Words with the target root" list on p. 88 is shown in the closing text screen.
+# Explanations are the book's own where it gives them. Where it gives only the key, the explanation
+# is "Key: ..." and the test does not show explanations (explain is false).
+# The day ends on a text screen, as the book does (the owner's decision).
+# Status: draft until a human reviewer approves it (PRD section 11).
+day: 11
+title: "The Royal Road to Learning New Words"
+
+vocabulary:
+  - word: "biped"
+    definition: "a creature with two feet"
+    example: "Humans are bipeds, and so are birds."
+    audio_ref: "d11-vocab-biped"
+  - word: "quadruped"
+    definition: "a creature with four feet"
+    example: "A horse is a quadruped."
+    audio_ref: "d11-vocab-quadruped"
+  - word: "impede"
+    definition: "to hinder the progress of, get in the way of"
+    example: "Heavy snow can impede the trains."
+    audio_ref: "d11-vocab-impede"
+  - word: "impediment"
+    definition: "a hindrance or obstruction"
+    example: "A stammer can be an impediment to fluent speech."
+    audio_ref: "d11-vocab-impediment"
+  - word: "expedite"
+    definition: "to speed or facilitate the progress of"
+    example: "The new road was built to expedite traffic."
+    audio_ref: "d11-vocab-expedite"
+  - word: "expeditious"
+    definition: "rapid, prompt, without delay"
+    example: "The package arrived by an expeditious route."
+    audio_ref: "d11-vocab-expeditious"
+  - word: "podiatrist"
+    definition: "one who treats foot ailments"
+    example: "The podiatrist examined the runner's sore heel."
+    audio_ref: "d11-vocab-podiatrist"
+  - word: "chiropodist"
+    definition: "an older term for podiatrist"
+    example: "My grandmother visited a chiropodist every month."
+    audio_ref: "d11-vocab-chiropodist"
+  - word: "podium"
+    definition: "a raised platform for a speaker or orchestra conductor"
+    example: "The speaker walked up to the podium."
+    audio_ref: "d11-vocab-podium"
+  - word: "tripod"
+    definition: "any support with three legs, as for a camera"
+    example: "She set the camera on a tripod."
+    audio_ref: "d11-vocab-tripod"
+  - word: "pediatrics"
+    definition: "the medical specialty of children's diseases"
+    example: "The clinic offers pediatrics for children up to age twelve."
+    audio_ref: "d11-vocab-pediatrics"
+  - word: "pedagogue"
+    definition: "a teacher, usually one who is stuffy, excessively precise, or dogmatic"
+    example: "The old pedagogue corrected every small mistake in our essays."
+    audio_ref: "d11-vocab-pedagogue"
+
+screens:
+  - kind: "text"
+    id: "d11-screen-introduction"
+    title: "The Royal Road to Learning New Words"
+    cards:
+      - title: "Eleventh Day"
+        body: |-
+          *If you work from Latin and Greek roots you can add new words to your vocabulary in wholesale quantities!*
+
+          One of the quickest, surest, and most permanent methods of increasing your vocabulary is to study groups of words containing a common root.
+
+          For example, Latin *pedis* means *foot*, and as a root is spelled *ped-* in such words as *pedestrian* (someone who goes on foot, or, as the joke goes, a motorist who has finally found a parking place); *pedal* (a lever controlled by the foot); and *pedestal* (the foot or base of a column or statue). Knowing that the English syllable *ped-* has some relationship to *foot*, you can easily understand, and even more easily remember, the following important words:
+
+          **biped** A creature with two *feet*. Man is a *biped*; birds are also *bipeds*.
+          ▶ So the root *bi-* must mean *two*, as also in *bicycle*, a two-wheeled vehicle.
+
+          **quadruped** A creature with four *feet*. Dogs, cats, lions, tigers, and most other mammals are *quadrupeds*.
+  - kind: "text"
+    id: "d11-screen-another-way-of-saying-foot"
+    title: "Another way of saying 'foot'"
+    cards:
+      - title: "Another way of saying 'foot'"
+        body: |-
+          ▶ So the root *quadr-* must mean *four*, as also in *quadrilateral*, a geometric figure with four sides.
+
+          **impede** To hinder the progress of, get in the way of.
+
+          **impediment** A hindrance or obstruction, something that gets in the way of progress. A speech *impediment*, such as a stammer or stutter, gets in the way of fluency, almost as if one spoke with one's foot in one's mouth!
+          ▶ Thus, to *impede* is to tangle up someone's feet so that progress is difficult or impossible.
+
+          **expedite** The opposite of *impede*, this verb means to speed or facilitate the progress of: the road was widened to *expedite* traffic.
+          ▶ To *expedite* is, therefore, to free the feet for easy and rapid progress.
+
+          **expeditious** Rapid, prompt, without delay: the *expeditious* movements of goods and mail by airplane.
+
+          *Biped, quadruped, impede,* and *expedite* are all built on the root *ped-*, from Latin *pedis*, foot. The Greeks also had a word for foot: *podis*, which occurs in English words as the root *pod-*. Consider, for example:
+
+          **podiatrist** One who treats foot ailments, such as corns, calluses, fallen arches. The specialty is *podiatry*.
+          ▶ Here we meet another new root, *iatr-*, medical treatment. *Podiatrists* are specialists in the medical treatment of feet, just as *psychiatrists* specialize in the medical treatment of the *psyche*, or mind.
+
+          **chiropodist** This is an older term for *podiatrist*, the latter being the official designation. Most foot doctors put both titles on their shingles, and the two words have exactly the same meaning. The specialty is *chiropody*.
+          ▶ *Chiropodist* combines *pod-*, foot, with the Greek *chiro-*, hand; in earlier days, this therapist treated hands as well as feet.
+
+          **podium** A raised platform for a speaker or orchestra conductor.
+          ▶ Thus, a *podium* is a base, or foot, on which to stand.
+
+          **tripod** Any support with three legs (or feet), as for a camera.
+          ▶ So *tri-* means *three*, as in *triangle* (a geometric figure with three angles), just as *bi-* means two and *quadr-* means four.
+  - kind: "test"
+    id: "d11-test-first-set"
+    title: "Test Your Learning: first set"
+    intro: |-
+      Notice how simple it is to understand, and how effectively (and expeditiously!) you can remember, the words we have discussed when you see clearly how each one is built on the root *ped-* or *pod-*, when you sense the idea of "footness" in all of them. Now, to make these words a useful part of your vocabulary, to really nail them down as permanent acquisitions, try the exercises that follow.
+
+      The first, and the most fruitful, step you can take in adding a word to your vocabulary is to understand, by knowing its root, why it means what it does. The next step is to become used to it, to get on relaxed and friendly terms with it by hearing it in your own voice. So say each word aloud, not once but several times, following carefully the phonetic spelling. In this way you not only make friends with a new word, but you also feel so at ease with it that it will pop up in your thinking and conversation without any conscious effort on your part.
+
+      [The symbol ə indicates the very slight vowel sound heard in the first syllable of *commit* (kə-MIT') or the last syllable of *Linda* (LIN'-də). The accent mark (') shows stress, capitalized syllables receiving a stronger stress than those in lower case.]
+
+      Say each word aloud, with its pronunciation:
+      biped (BY'-ped)
+      quadruped (KWAHD'-roo-ped)
+      impede (im-PEED')
+      impediment (im-PED'-ə-mənt)
+      expedite (EKS'-pə-dite)
+      expeditious (eks'-pə-DISH'-əs)
+      podiatrist (pə-DY'-ə-trist)
+      chiropodist (kə-ROP'-ə-dist)
+      podium (PO'-dee-əm)
+      tripod (TRY'-pod)
+    items:
+      - id: "d11-think-01"
+        type: "vocabulary_matching"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Think with the words. You understand these words, you're comfortable saying them, so now you're ready to start thinking with them. (And bear in mind that every word you learn or become more thoroughly acquainted with is an added tool for thinking.) Definitions are in Column I below, words in Column II. Write the identifying letter of each word to the left of its meaning."
+        pairs:
+          - word: "podiatrist"
+            meaning: "official designation for a foot doctor"
+          - word: "chiropodist"
+            meaning: "older term for a foot doctor"
+          - word: "biped"
+            meaning: "two-footed creature"
+          - word: "podium"
+            meaning: "speaker's stand"
+          - word: "quadruped"
+            meaning: "four-footed creature"
+          - word: "expedite"
+            meaning: "to make easier or quicker"
+          - word: "tripod"
+            meaning: "three-legged stand"
+          - word: "impede"
+            meaning: "to get in the way of"
+          - word: "expeditious"
+            meaning: "without delay"
+          - word: "impediment"
+            meaning: "obstruction"
+        explanation: "Key: 1-g, 2-h, 3-a, 4-i, 5-b, 6-e, 7-j, 8-c, 9-f, 10-d."
+      - id: "d11-use-01"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Use the words. You understand the words, you've said them, you've thought about them. Now can you use them when you need them? Write in the blank the word we've studied that meaningfully completes each sentence. Item 1: A camera is often mounted on a ____."
+        accepted: ["tripod"]
+        explanation: "Key: tripod."
+      - id: "d11-use-02"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 2: Unlike most other mammals, man is a ____."
+        accepted: ["biped"]
+        explanation: "Key: biped."
+      - id: "d11-use-03"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 3: But a wolf, cow, or horse is a ____."
+        accepted: ["quadruped"]
+        explanation: "Key: quadruped."
+      - id: "d11-use-04"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 4: A foot doctor is called either a ____ or ____. Type both words, separated by 'or'."
+        accepted: ["chiropodist or podiatrist", "podiatrist or chiropodist"]
+        explanation: "Key: chiropodist or podiatrist."
+      - id: "d11-use-05"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 5: Narrow roads and frequent stoplights usually ____ the rapid flow of traffic."
+        accepted: ["impede"]
+        explanation: "Key: impede."
+      - id: "d11-use-06"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 6: And so most states are building wide, limited-access highways to ____ traffic."
+        accepted: ["expedite"]
+        explanation: "Key: expedite."
+      - id: "d11-use-07"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 7: Military roads are built to accommodate the ____ movement of troops and vehicles."
+        accepted: ["expeditious"]
+        explanation: "Key: expeditious."
+      - id: "d11-use-08"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 8: A speaker generally delivers his address from a ____."
+        accepted: ["podium"]
+        explanation: "Key: podium."
+      - id: "d11-use-09"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 9: His unpleasant personality acts, unfortunately, as a great ____ to his advancement in the company."
+        accepted: ["impediment"]
+        explanation: "Key: impediment."
+      - id: "d11-roots-01"
+        type: "vocabulary_matching"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_origins"]
+        difficulty: 3
+        points: 1
+        prompt: "The roots you have learned have brought you to a quick understanding of ten valuable words. As you will realize shortly, these same roots can unlock for you the meaning of scores of additional new words you may meet in your reading or hear in conversation. Remember the roots: are you sure you have these roots straight? Then correctly match the two columns."
+        pairs:
+          - word: "ped-"
+            meaning: "foot"
+          - word: "bi-"
+            meaning: "two"
+          - word: "quadr-"
+            meaning: "four"
+          - word: "pod-"
+            meaning: "foot"
+          - word: "iatr-"
+            meaning: "medical treatment"
+          - word: "psych-"
+            meaning: "mind"
+          - word: "chiro-"
+            meaning: "hand"
+          - word: "tri-"
+            meaning: "three"
+        explanation: "Key: 1-c, 2-b, 3-f, 4-c, 5-d, 6-g, 7-e, 8-a."
+  - kind: "text"
+    id: "d11-screen-another-kind-of-ped"
+    title: "Another kind of 'ped-'"
+    cards:
+      - title: "Another kind of 'ped-'"
+        body: |-
+          There is no more effective means of learning new words quickly, permanently, and in wholesale quantities than by seeing how they occur in related families. By examining the *ped-* and *pod-* families, you have, in a few minutes, made a strong and lasting contact with ten valuable words and, in addition, have learned six useful new roots. Now let us look at another *ped-* family, one that comes to us not from Latin *pedis* but from Greek *paidos*.
+
+          Greek *paidos* means *child*. In English words built on *paidos*, the root is again spelled *ped-*, though this syllable has no relation, despite its identical appearance, to Latin *ped-*, foot. For example:
+
+          **pediatrics** The medical specialty of children's diseases. The doctor is a *pediatrician*.
+          ▶ Once again, our friend *iatr-*, medical treatment.
+
+          **pedagogy** The science, art, or principles of teaching.
+          ▶ This word combines *paidos*, child, with the Greek noun *agogos*, leader, from the verb *agein*, to lead — hence . . . *children*.
+
+          **pedagogue** A teacher, usually one who is stuffy, excessively precise, or dogmatic.
+          ▶ The word is not a bit complimentary and indicates our irritation with teachers who flaunt their learning in correcting our errors.
+
+          **orthopedics** The medical specialty dealing with bones and joints. Broken legs, curvature of the spine, club foot, and other skeletal injuries or deformities are the province of the *orthopedist* or *orthopedic surgeon*.
+          ▶ This word combines *paidos*, child, and the root *ortho-*, straight or correct, the idea being that a child's bones are more pliable and hence more easily straightened, corrected, or mended than those of an adult, though of course an orthopedist does not by any means limit his practice to children.
+  - kind: "text"
+    id: "d11-screen-new-roots"
+    title: "New roots lead to new words"
+    cards:
+      - title: "New roots lead to new words"
+        body: |-
+          Building your vocabulary through an exploration of word roots is not only amazingly simple, rapid, and effective, but also remarkably productive. An excursion into one family of words automatically turns up new families that promise endless and exciting discoveries, as you have already seen.
+
+          Starting with Latin *pedis*, you were soon involved with Greek *podis* and *paidos*. You learned, or became reacquainted with, a score of vital, useful words and discovered new roots that unlocked still more words to add to your vocabulary.
+
+          Suppose, therefore, we continue the process of letting roots lead to new words, which in turn lead to new roots, which in turn . . . etc., by looking once again at *bi-*.
+
+          **1. *bi-* means *two*.**
+
+          **bigamy** *Two* marriages. The bigamist takes a second wife or husband while a previous union is still in effect. The adjective is *bigamous*.
+          ▶ So *gam-* must mean *marriage*. Let us see what interesting words this new root leads us to.
+
+          **2. *gam-* means *marriage*.**
+
+          **monogamy** The system of only one marriage at a time. The adjective is *monogamous*.
+          ▶ So *mon-* must mean *one*, as in *monocle*, a lens for one eye, and *monarch*, the one supreme ruler of a nation. Knowing the meaning of *mon-*, can you figure out *monologue*, *monotheism*, *monosyllable*?
+
+          **polygamy** The custom permitting a man many wives (or marriages), once practiced by the Mormons in Utah. The adjective is *polygamous*.
+          ▶ So *poly-* must mean *many*, as in *polygon*, a geometric figure of many sides. Can you, then, figure out *polysyllable*, *polyglot* (*glot-* means tongue or language), *polytheism* (*theos* means god)?
+
+          **misogamy** The hatred of marriage. The adjective is *misogamous*; the hater is a *misogamist*.
+          ▶ So *mis-* (from Greek *misein*) must mean *hatred*.
+
+          **3. *mis-* (Greek *misein*) means *hatred*.**
+
+          **misanthropy** The hatred of all mankind. The person who hates everyone is a *misanthrope*. The adjective is *misanthropic*.
+          ▶ So *anthrop-* must mean *mankind*, as in *anthropology*, the science of mankind's development, and *philanthropy*, the love of mankind (*phil-* means love).
+
+          **misogyny** The hatred of women. A *misogynist* hates all females, usually for dark reasons that only a psychiatrist can unravel. The adjective is *misogynous*.
+          ▶ So *gyn-* must mean *woman*, as in *gynecology*, the medical study of ailments peculiar to women.
+  - kind: "test"
+    id: "d11-test-second-set"
+    title: "Test Your Learning: second set"
+    intro: |-
+      Let us pause now and consolidate our recent discoveries.
+
+      Pronounce each word aloud several times:
+      pediatrics (pee-dee-AT'-riks)
+      pedagogy (PED'-ə-gō'-jee)
+      pedagogue (PED'-ə-gog)
+      orthopedics (awr'-thə-PEE'-diks)
+      bigamy (BIG'-ə-mee)
+      monogamy (mə-NOG'-ə-mee)
+      polygamy (pə-LIG'-ə-mee)
+      misogamy (mə-SOG'-ə-mee)
+      misanthropy (mis-SAN'-thrə-pee)
+      misogyny (mə-SOJ'-ə-nee)
+    items:
+      - id: "d11-think-02"
+        type: "vocabulary_matching"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Think with the words. Match the columns: Column I holds the meanings, Column II the words."
+        pairs:
+          - word: "misogyny"
+            meaning: "hatred of women"
+          - word: "monogamy"
+            meaning: "one marriage at a time"
+          - word: "pedagogue"
+            meaning: "a 'schoolmarmish' teacher"
+          - word: "pediatrics"
+            meaning: "specialty of children's diseases"
+          - word: "polygamy"
+            meaning: "plurality of wives"
+          - word: "pedagogy"
+            meaning: "art of teaching"
+          - word: "bigamy"
+            meaning: "crime of additional marriage without divorce, annulment, etc."
+          - word: "misanthropy"
+            meaning: "hatred of all mankind"
+          - word: "orthopedics"
+            meaning: "medical treatment of skeletal injuries or deformities"
+          - word: "misogamy"
+            meaning: "hatred of marriage"
+        explanation: "Key: 1-j, 2-f, 3-c, 4-a, 5-g, 6-b, 7-e, 8-i, 9-d, 10-h."
+      - id: "d11-use-10"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Use the words. Fill in the blanks to make meaningful sentences. Forms of the words other than those in the pronunciation list may sometimes be required, as pediatrician, orthopedist, etc. Item 1: A ____ shuns females. Love for them is beyond his capacity."
+        accepted: ["misogynist"]
+        explanation: "Key: misogynist."
+      - id: "d11-use-11"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 2: The specialist who sets bone fractures is known as an ____."
+        accepted: ["orthopedist", "orthopedic surgeon"]
+        explanation: "Key: orthopedist (or orthopedic surgeon)."
+      - id: "d11-use-12"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 3: Mothers usually take their new infants to a ____ for a medical check-up."
+        accepted: ["pediatrician"]
+        explanation: "Key: pediatrician."
+      - id: "d11-use-13"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 4: One husband, one wife. This is the system known as ____."
+        accepted: ["monogamy"]
+        explanation: "Key: monogamy."
+      - id: "d11-use-14"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 5: If a sailor has a wife in every port, he is a ____."
+        accepted: ["bigamist"]
+        explanation: "Key: bigamist."
+      - id: "d11-use-15"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 6: Those preparing to teach take college courses in ____."
+        accepted: ["pedagogy"]
+        explanation: "Key: pedagogy."
+      - id: "d11-use-16"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 7: The hatred of a ____ is directed against the entire human race."
+        accepted: ["misanthrope"]
+        explanation: "Key: misanthrope."
+      - id: "d11-use-17"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 8: ____ is no longer sanctioned in this country, but at one time was practiced by the Mormons."
+        accepted: ["polygamy"]
+        explanation: "Key: polygamy."
+      - id: "d11-use-18"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 9: There are those who direct their hatred against institutions instead of people. A ____, for example, hates marriage."
+        accepted: ["misogamist"]
+        explanation: "Key: misogamist."
+      - id: "d11-use-19"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_use"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 10: A stuffy, straitlaced teacher is often referred to, derogatively, as a ____."
+        accepted: ["pedagogue"]
+        explanation: "Key: pedagogue."
+      - id: "d11-roots-02"
+        type: "vocabulary_matching"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_origins"]
+        difficulty: 3
+        points: 1
+        prompt: "Remember the roots. Match roots and meanings. Part A."
+        pairs:
+          - word: "paidos"
+            meaning: "child"
+          - word: "agogos"
+            meaning: "to lead"
+          - word: "ortho-"
+            meaning: "straight, correct"
+          - word: "gam-"
+            meaning: "marriage"
+          - word: "mon-"
+            meaning: "one"
+          - word: "poly-"
+            meaning: "many"
+        explanation: "Key: 1-f, 2-j, 3-i, 4-g, 5-a, 6-l."
+      - id: "d11-roots-03"
+        type: "vocabulary_matching"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_origins"]
+        difficulty: 3
+        points: 1
+        prompt: "Remember the roots. Match roots and meanings. Part B."
+        pairs:
+          - word: "mis-"
+            meaning: "hatred"
+          - word: "anthrop-"
+            meaning: "mankind"
+          - word: "phil-"
+            meaning: "love"
+          - word: "gyn-"
+            meaning: "woman"
+          - word: "glot-"
+            meaning: "tongue, language"
+          - word: "theos"
+            meaning: "god"
+        explanation: "Key: 7-k, 8-c, 9-e, 10-d, 11-h, 12-b."
+  - kind: "text"
+    id: "d11-screen-few-roots"
+    title: "A few roots unlock the secrets of hundreds of words"
+    cards:
+      - title: "A few roots unlock the secrets of hundreds of words"
+        body: |-
+          So far we have made contact with 20 extremely productive Latin and Greek roots and intensively studied 20 English words and some of their derivative forms. In our quick excursions into roots, however, we noticed in passing another 20 or so words, many of them perhaps quite new to you — and yet we have hardly begun to tap the rich resources of the roots we've uncovered.
+
+          You can take the most complex words, and any number of them, and if you can recognize the roots on which they're built you will have no difficulty understanding them, remembering them, and keeping them unconfused in your mind. By becoming familiar with the common roots we've discussed, you have taken a giant step forward in building a larger and more meaningful vocabulary, *for you are now able to figure out hundreds of words that you may never have seen or heard of before.*
+
+          So at this point let us take another quick look at some of the roots we've been working with and see how easy it is to discover 27 additional words, even though we'll hardly do much more than scratch the surface of the possibilities.
+
+          Doesn't recognizing the root in the following words make them immediately understandable and almost absurdly simple to remember?
+
+          **1. *ped-* means *foot***
+
+          **centipede** A wormlike creature that seems to have a hundred feet, which is, of course, an exaggeration.
+
+          **velocipede** A child's tricycle propelled by speedy feet.
+
+          **2. *bi-* means *two***
+
+          **bisect** To cut into two equal parts.
+
+          **bilingual** Able to speak two languages.
+
+          **biennial** Every two years.
+
+          **bilateral** Having, or involving, two sides.
+
+          **3. *tri-* means *three***
+
+          **triplets** Three children at a single birth.
+
+          **trisect** To cut into three equal parts.
+
+          **trilingual** Able to speak three languages.
+
+          **triennial** Every three years.
+
+          **4. *quadr-* means *four***
+
+          **quadruplets** Four children at a single birth.
+
+          **quadrennial** Every four years.
+
+          **quadrisyllable** A word of four syllables.
+
+          **5. *ortho-* means *straight, correct***
+
+          **orthodontia** The branch of dentistry dealing with straightening the teeth, correcting the bite, etc.
+
+          **orthography** Correct writing, hence the system of spelling a language.
+
+          **6. *agogos* means *leader***
+
+          **demagogue** One who pretends to be a leader of the people but in actuality foments discontent among the masses in order to gain power.
+
+          **synagogue** Jewish temple in which people are led or brought together to worship God.
+
+          **7. *anthrop-* means *mankind***
+
+          **anthropoid** Similar to man in form or appearance, as the anthropoid apes.
+
+          **8. *theos* means *god***
+
+          **theology** The study of God or religion.
+
+          **monotheism** Belief in one God.
+
+          **atheism** Complete disbelief in the existence of God.
+
+          **9. *phil-* means *love***
+
+          **Philadelphia** The city of brotherly love.
+
+          **philology** The love of words, hence the science of language.
+
+          **philter** A love potion.
+
+          **philander** To make love trifingly and insincerely.
+
+          **bibliophile** One who loves books; also, a collector of books.
+
+          **philatelist** A stamp collector; one who loves stamps.
+
+          Some of these words are commonly mispronounced. To give you greater assurance in using them, practice aloud the pronunciations given below.
+
+          velocipede: və-LOS'-ə-peed
+          orthodontia: awr'-thə-DON'-shə
+          orthography: awr-THOG'-rə-fee
+          demagogue: DEM'-ə-gog
+          theology: thee-OL'-ə-jee
+          monotheism: MON'-ə-thee-iz-əm
+          atheism: AY'-thee-iz-əm
+          philology: fə-LOL'-ə-jee
+          philander: fə-LAN'-dər
+          bibliophile: BIB'-lee-ə-file
+          philatelist: fə-LAT'-ə-list
+  - kind: "text"
+    id: "d11-screen-tie-it-up"
+    title: "Let's tie it all up"
+    cards:
+      - title: "Let's tie it all up"
+        body: |-
+          In the short time it took you to cover the material in this chapter you have either learned for the first time, or become reacquainted with on a deeper level, approximately 67 expressive and highly useful English words — more than the average adult learns in two years. More important, you have come to realize that words, like people, grow in families, and that the parent in these families is often a Greek or Latin root.
+
+          When you have control of a root you are in command of scores of words, you can figure out the meanings of words you may never have seen before, you understand words more fully, you know why a word means what it does.
+
+          And from now on you will probably note a curious phenomenon. The words you have studied today will begin to appear over and over again in your reading — not because they have suddenly become popular, but because you have an understanding of them that will make them doubly conspicuous, and considerably more meaningful, every time you meet them.
+
+          *Very soon, and this you will shortly discover for yourself, you will begin to use these new words — and without hesitation or self-consciousness.*
+
+          So now, to wrap it all up in a neat little package, are you ready to try a simple test on the word roots we've studied? Here are 20 of our words chosen at random from the 67 we've worked with. In each, a single root is italicized. Can you write the English meaning of each root in the blank provided?
+
+          Words with the target root italicized (root bolded here for clarity): 1. ex**ped**itious, 2. **ped**agogy, 3. **mon**ogamy, 4. poly**glot**, 5. mis**ogyn**y, 6. **ped**iatrics, 7. **pod**iatry, 8. **bi**lingual, 9. **tri**ennial, 10. **chiro**podist, 11. dem**agog**ue, 12. mis**anthrop**y, 13. poly**theos** [poly*theism*], 14. **phil**anthropy, 15. **ortho**pedics, 16. **theos**logy [the**olog**y], 17. **quadr**uped, 18. **psych**iatry, 19. poly**gam**y, 20. **gyn**ecology
+
+          KEY: 1-foot, 2-child, 3-one, 4-tongue, language, 5-hatred, 6-medical treatment, 7-foot, 8-two, 9-three, 10-hand, 11-to lead, 12-mankind, 13-many, 14-love, 15-straight, correct, 16-god, 17-four, 18-mind, 19-marriage, 20-woman.

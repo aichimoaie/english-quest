@@ -212,11 +212,9 @@ class Day(_Strict):
         ]
 
     @model_validator(mode="after")
-    def _flow_starts_and_ends_with_a_test(self) -> Self:
+    def _flow_starts_with_text(self) -> Self:
         if not isinstance(self.screens[0], TextScreen):
             raise ValueError("the first screen must be a text screen (the day intro)")
-        if not isinstance(self.screens[-1], TestScreen):
-            raise ValueError("the last screen must be a test (the day ends after it)")
         return self
 
     @model_validator(mode="after")

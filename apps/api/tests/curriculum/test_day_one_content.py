@@ -18,7 +18,7 @@ def test_day_one_passes_validation() -> None:
     report = validate_content_dir(CONTENT_DAYS)
 
     assert report.issues == ()
-    assert [loaded.day.day for loaded in report.days] == [1, 2, 3, 4, 5, 13, 14]
+    assert [loaded.day.day for loaded in report.days] == [1, 2, 3, 4, 5, 11, 12, 13, 14]
 
 
 def test_day_one_loads_with_its_title() -> None:
