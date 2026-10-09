@@ -21,7 +21,7 @@ Success for the MVP means the learner completes the 30 days on the app and can s
 
 - The course has 30 days. Each day has a fixed set of screens: intro text, then tests with their exercises. Session length is **Open** (section 18).
 - **Order:** days unlock in order. Day N+1 unlocks only after Day N is complete.
-- **Completion:** a day counts as complete when one run of its lessons reaches 70% (see section 6).
+- **Completion:** a day counts as complete when one run of its tests reaches 70% (see section 6).
 - **Missed days:** a missed calendar day pauses the schedule and resets the current streak. The learner resumes at the next unlocked day.
 - **Retries:** the learner can retry any exercise, and can start a new run of the day, without limit. Retries give feedback and never change accuracy (section 6).
 - **Content:** every day also includes a short review of earlier days. Whether each day has one focus area is **Open** (section 18).
@@ -66,7 +66,7 @@ Each type has one line of definition and one scoring rule. The scoring rules are
 - **Day completion threshold: 70%.** A day is complete when one run reaches at least 70%. The run uses the day's test items; daily review and pronunciation practice do not count toward it.
 - **Skill mastery:** the 80% skill-mastery threshold and its measurement window are **Open** (section 18).
 - **Vocabulary learned:** a word counts as learned when it is answered correctly on two separate days (section 10).
-- **Feedback:** the learner sees the result of each item immediately, with a short English explanation.
+- **Feedback:** the learner sees the result of each item immediately. On tests that show explanations, the feedback includes a short English explanation (see [content/README.md](../../content/README.md#screen-flow)).
 
 ## 7. Progress tracking
 

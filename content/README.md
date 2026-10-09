@@ -51,7 +51,7 @@ screens:                     # in the order the learner meets them
     id: d01-test-1          # dNN-test-<name>, lowercase
     title: ...
     intro: ...               # the test's instructions, shown before its Start button
-    explain: true            # optional; shows each item's explanation on the results screen
+    explain: true            # optional; shows each item's explanation after its answer and on the results screen
     items:                   # 1 or more exercises
       - id: d01-grammar-mc-01  # dNN-<name>, lowercase, unique within the day
         type: multiple_choice
@@ -76,8 +76,9 @@ The learner meets a day's screens in order:
 1. A text screen. The first one has a Start button, and each later one a Next button.
 2. For each test: the test's intro with a Start button, then its items, one per
    screen. Then the test's results screen, which shows that test's score and the
-   answer key for each item. With `explain: true` it also shows each item's
-   explanation. A Next button leads on.
+   answer key for each item. A Next button leads on. With `explain: true`, each
+   item's explanation shows after the learner answers it and again on the results
+   screen. Without it, neither shows one.
 3. After the last test: the day-end screen. Its button saves the run and opens the
    day result.
 
