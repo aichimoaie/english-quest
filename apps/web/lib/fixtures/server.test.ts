@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { AnswerInput, DayDetail, Exercise } from "@/lib/api/types";
+import type { AnswerInput, DayDetail, Exercise, Submitted } from "@/lib/api/types";
+import { CONTENT_BY_DAY } from "./days";
 
 /** Each test gets a fresh fixture server, because the fixture keeps state in memory. */
 async function loadServer() {
@@ -8,6 +9,30 @@ async function loadServer() {
 }
 
 const BASE = "/api/v1";
+
+function answerFor(exerciseId: string) {
+  const answer = Object.values(CONTENT_BY_DAY)
+    .map((day) => day.answers[exerciseId])
+    .find((item) => item !== undefined);
+  if (!answer) throw new Error(`no content for ${exerciseId}`);
+  return answer;
+}
+
+/** The answer the content file marks as correct, in the shape the learner submits. */
+function correctSubmission(exerciseId: string): Submitted {
+  const { check } = answerFor(exerciseId);
+  if ("option" in check) return { optionIndex: check.option };
+  if ("accepted" in check) return { text: check.accepted[0] };
+  return { pairs: check.pairs };
+}
+
+/** An answer that is wrong for every exercise kind. */
+function wrongSubmission(exerciseId: string): Submitted {
+  const { check } = answerFor(exerciseId);
+  if ("option" in check) return { optionIndex: check.option === 0 ? 1 : 0 };
+  if ("accepted" in check) return { text: "not an answer" };
+  return { pairs: {} };
+}
 
 describe("fixture server", () => {
   let call: Awaited<ReturnType<typeof loadServer>>["fixtureCall"];
@@ -49,25 +74,21 @@ describe("fixture server", () => {
 
   it("completes a day when one run reaches 70% and unlocks the next day", async () => {
     const { attemptId, exercises } = await call<{ attemptId: string; exercises: Exercise[] }>("POST", `${BASE}/days/1/attempts`);
-    const answers: AnswerInput[] = [
-      { exerciseId: "d01-pron-common-01", submitted: { optionIndex: 0 } },
-      { exerciseId: "d01-pron-common-02", submitted: { optionIndex: 1 } },
-      { exerciseId: "d01-pron-educated-02", submitted: { optionIndex: 1 } },
-      { exerciseId: "d01-pron-educated-03", submitted: { optionIndex: 1 } },
-      { exerciseId: "d01-pron-affected-03", submitted: { optionIndex: 1 } },
-    ];
-    expect(exercises.map((exercise) => exercise.id)).toEqual(answers.map((answer) => answer.exerciseId));
+    const totalPoints = exercises.reduce((sum, exercise) => sum + exercise.points, 0);
+    const [first, ...rest] = exercises;
 
-    for (const answer of answers) {
-      await call("POST", `${BASE}/attempts/${attemptId}/answers`, answer);
+    // Only the first item is wrong, so the run scores everything except its points.
+    await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: first.id, submitted: wrongSubmission(first.id) });
+    for (const exercise of rest) {
+      await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: exercise.id, submitted: correctSubmission(exercise.id) });
     }
     const completed = await call<{ scorePct: number; status: string; dayStatus: string; nextDay: number | null }>(
       "POST",
       `${BASE}/attempts/${attemptId}/complete`,
     );
 
-    // Day 1 has 5 points. Only the first item is wrong, so 4/5 is 80%.
-    expect(completed.scorePct).toBe(80);
+    expect(completed.scorePct).toBe(Math.round(((totalPoints - first.points) / totalPoints) * 100));
+    expect(completed.scorePct).toBeGreaterThanOrEqual(70);
     expect(completed.status).toBe("passed");
     expect(completed.dayStatus).toBe("done");
     expect(completed.nextDay).toBe(2);
@@ -89,16 +110,9 @@ describe("fixture server", () => {
   });
 
   it("serves the Day 2 lesson and exercises once Day 2 unlocks", async () => {
-    const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
-    const dayOneAnswers: AnswerInput[] = [
-      { exerciseId: "d01-pron-common-01", submitted: { optionIndex: 1 } },
-      { exerciseId: "d01-pron-common-02", submitted: { optionIndex: 1 } },
-      { exerciseId: "d01-pron-educated-02", submitted: { optionIndex: 1 } },
-      { exerciseId: "d01-pron-educated-03", submitted: { optionIndex: 1 } },
-      { exerciseId: "d01-pron-affected-03", submitted: { optionIndex: 1 } },
-    ];
-    for (const answer of dayOneAnswers) {
-      await call("POST", `${BASE}/attempts/${attemptId}/answers`, answer);
+    const { attemptId, exercises } = await call<{ attemptId: string; exercises: Exercise[] }>("POST", `${BASE}/days/1/attempts`);
+    for (const exercise of exercises) {
+      await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: exercise.id, submitted: correctSubmission(exercise.id) });
     }
     await call("POST", `${BASE}/attempts/${attemptId}/complete`);
 
@@ -106,13 +120,9 @@ describe("fixture server", () => {
     const attempt = await call<{ exercises: Exercise[] }>("POST", `${BASE}/days/2/attempts`);
 
     expect(day2.status).toBe("current");
-    expect(day2.lesson.grammar.map((card) => card.title)).toEqual([
-      "Match a word to its meaning",
-      "Similar or opposite",
-      "Judge a statement with a word",
-    ]);
+    expect(day2.lesson.grammar.map((card) => card.title)).toEqual(CONTENT_BY_DAY[2].lesson.grammar.map((card) => card.title));
     expect(day2.exercises.map((exercise) => exercise.id)).toEqual(attempt.exercises.map((exercise) => exercise.id));
-    expect(attempt.exercises).toHaveLength(4);
+    expect(attempt.exercises).toHaveLength(CONTENT_BY_DAY[2].exercises.length);
   });
 
   it("shows Day 2 with the vocabulary title and objective", async () => {
