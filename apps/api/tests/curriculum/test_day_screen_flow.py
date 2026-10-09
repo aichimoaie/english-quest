@@ -1,6 +1,4 @@
-"""Days 1 to 5 and 11 to 14 must run in the approved screen order.
-
-Each test's intro and items must be in place.
+"""Checked days must run in the approved screen order, with each test's intro and items in place.
 
 The expected screens below are the owner's confirmed model: a text screen for each day intro or
 reading text, and a test screen for each test. A test screen's results screen is implied, so the
