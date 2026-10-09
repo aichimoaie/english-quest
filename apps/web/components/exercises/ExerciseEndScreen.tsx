@@ -1,4 +1,5 @@
 import type { AnswerResult, Exercise } from "@/lib/api/types";
+import { isScored, scorePercent } from "@/lib/scoring";
 
 interface ExerciseEndScreenProps {
   exercises: Exercise[];
@@ -42,9 +43,10 @@ function answerKey(exercise: Exercise, result: AnswerResult): string {
  * finishes from here, which saves the run.
  */
 export function ExerciseEndScreen({ exercises, results, finishLabel, finishing, onFinish }: ExerciseEndScreenProps) {
-  const scored = exercises.filter((exercise) => exercise.kind !== "self_check");
-  const correct = scored.filter((exercise) => results[exercise.id]?.isCorrect).length;
-  const headline = scored.length > 0 ? `${correct} of ${scored.length} correct` : "Your answers are in";
+  const scored = exercises.filter(isScored);
+  const headline = scored.length > 0
+    ? `${scorePercent(exercises, (exercise) => results[exercise.id]?.isCorrect === true)}% correct`
+    : "Your answers are in";
 
   return (
     <div className="stack">
