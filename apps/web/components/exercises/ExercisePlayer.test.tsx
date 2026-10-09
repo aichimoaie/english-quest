@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import type { AnswerResult, Exercise } from "@/lib/api/types";
 import { ExercisePlayer } from "./ExercisePlayer";
@@ -76,7 +76,11 @@ describe("ExercisePlayer", () => {
 
     fireEvent.change(screen.getByPlaceholderText("Type here"), { target: { value: "are" } });
     fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
-    fireEvent.click(await screen.findByRole("button", { name: "See result" }));
+    fireEvent.click(await screen.findByRole("button", { name: "See my results" }));
+
+    expect(screen.getByText("Your result")).toBeTruthy();
+    expect(onFinish).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: "See result" }));
 
     await waitFor(() => expect(onFinish).toHaveBeenCalledTimes(1));
   });
@@ -163,11 +167,12 @@ describe("ExercisePlayer", () => {
     fireEvent.click(await screen.findByRole("button", { name: "Got it" }));
     await waitFor(() => expect(rate).toHaveBeenCalledTimes(1));
 
-    expect((screen.getByRole("button", { name: "See result" }) as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByRole("button", { name: "See my results" }) as HTMLButtonElement).disabled).toBe(true);
 
     finishSave();
 
-    await waitFor(() => expect((screen.getByRole("button", { name: "See result" }) as HTMLButtonElement).disabled).toBe(false));
+    await waitFor(() => expect((screen.getByRole("button", { name: "See my results" }) as HTMLButtonElement).disabled).toBe(false));
+    fireEvent.click(screen.getByRole("button", { name: "See my results" }));
     fireEvent.click(screen.getByRole("button", { name: "See result" }));
     await waitFor(() => expect(onFinish).toHaveBeenCalledTimes(1));
   });
@@ -183,5 +188,82 @@ describe("ExercisePlayer", () => {
 
     expect(await screen.findByRole("alert")).toBeTruthy();
     expect(screen.getByText(/could not check that answer/)).toBeTruthy();
+  });
+});
+
+describe("ExercisePlayer set timer and end screen", () => {
+  const timedSet: Exercise[] = [
+    {
+      id: "ex_t1",
+      kind: "timed_recall",
+      instructions: "Recall the word.",
+      points: 1,
+      content: { sentence: "A ____ is a small house.", hint: null, timeLimitSeconds: 300 },
+    },
+    {
+      id: "ex_t2",
+      kind: "timed_recall",
+      instructions: "Recall the word.",
+      points: 1,
+      content: { sentence: "A ____ is a large house.", hint: null, timeLimitSeconds: 300 },
+    },
+  ];
+
+  it("starts one clock for the whole set and keeps it running into the next item", async () => {
+    const submit = vi.fn(async () => ({ isCorrect: true, explanation: "Yes.", feedbackKey: "ok" }));
+    render(<ExercisePlayer exercises={timedSet} submit={submit} onFinish={vi.fn()} finishLabel="See result" />);
+
+    expect(screen.getByText("5:00")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
+    fireEvent.change(screen.getByRole("textbox"), { target: { value: "cottage" } });
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Continue" }));
+
+    expect(screen.getByText("Question 2 of 2")).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "Start timer" })).toBeNull();
+    expect(screen.getByText("Running")).toBeTruthy();
+  });
+
+  it("sends the typed answer and then shows the end screen once the clock runs out", async () => {
+    vi.useFakeTimers();
+    try {
+      const submit = vi.fn(async () => ({ isCorrect: false, expected: "cottage", explanation: "Close.", feedbackKey: "x" }));
+      const onFinish = vi.fn(async () => undefined);
+      render(<ExercisePlayer exercises={timedSet} submit={submit} onFinish={onFinish} finishLabel="See result" />);
+
+      fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
+      fireEvent.change(screen.getByRole("textbox"), { target: { value: "shed" } });
+      act(() => {
+        vi.advanceTimersByTime(300_000);
+      });
+      await act(async () => {
+        await Promise.resolve();
+      });
+
+      expect(submit).toHaveBeenCalledWith(timedSet[0], { text: "shed" });
+      expect(screen.getByText("0 of 2 correct")).toBeTruthy();
+      expect(screen.getByText("1 not reached before the test ended.")).toBeTruthy();
+      expect(screen.getByText("cottage")).toBeTruthy();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("lists each answer key on the end screen and finishes from there", async () => {
+    const submit = vi.fn(async () => ({ isCorrect: true, expected: null, explanation: "Yes.", feedbackKey: "ok" }));
+    const onFinish = vi.fn(async () => undefined);
+    const pair: Exercise[] = [
+      { id: "ex_mc", kind: "multiple_choice", instructions: "Pick.", points: 1, content: { prompt: "Which?", options: ["am", "is"] } },
+    ];
+    render(<ExercisePlayer exercises={pair} submit={submit} onFinish={onFinish} finishLabel="Save run" />);
+
+    fireEvent.click(screen.getByRole("button", { name: "am" }));
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+    fireEvent.click(await screen.findByRole("button", { name: "See my results" }));
+
+    expect(screen.getByText("1 of 1 correct")).toBeTruthy();
+    expect(screen.getByText("Every question was checked.")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Save run" }));
+    await waitFor(() => expect(onFinish).toHaveBeenCalledTimes(1));
   });
 });

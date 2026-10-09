@@ -4,54 +4,29 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { cx } from "@/lib/cx";
 import type { ExerciseOf, ExerciseProps } from "./types";
 
-/** Formats seconds as m:ss, the same clock the timed test shows. */
-function formatClock(seconds: number): string {
-  const minutes = Math.floor(seconds / 60);
-  const rest = seconds % 60;
-  return `${minutes}:${rest < 10 ? "0" : ""}${rest}`;
-}
-
 /**
- * A fill-in-the-blank item with its own countdown. The learner starts the clock,
- * types the missing word, and the answer is sent when the clock reaches zero
- * even if the learner has not checked it.
+ * A fill-in-the-blank item in a timed set. The player owns the clock for the
+ * whole set. When it runs out, whatever the learner has typed is sent, even
+ * without a check.
  */
-export function TimedRecall({ exercise, result, busy, onSubmit }: ExerciseProps<ExerciseOf<"timed_recall">>) {
-  const { sentence, hint, timeLimitSeconds } = exercise.content;
+export function TimedRecall({ exercise, result, busy, onSubmit, timer }: ExerciseProps<ExerciseOf<"timed_recall">>) {
+  const { sentence, hint } = exercise.content;
   const [text, setText] = useState("");
-  // The clock's end time, set when the learner starts it. Null until then.
-  const [deadline, setDeadline] = useState<number | null>(null);
-  const [secondsLeft, setSecondsLeft] = useState(timeLimitSeconds);
-  const [timedOut, setTimedOut] = useState(false);
-  const canType = deadline !== null && !timedOut && result === null && !busy;
+  const expired = timer?.expired ?? false;
+  const canType = timer?.running === true && !expired && result === null && !busy;
 
-  // The expiry timer reads the latest text and handler without restarting when they change.
+  // The expiry send reads the latest text without restarting when the text changes.
   const textRef = useRef(text);
-  const submitRef = useRef(onSubmit);
+  const expirySent = useRef(false);
   useEffect(() => {
     textRef.current = text;
-    submitRef.current = onSubmit;
-  }, [text, onSubmit]);
+  }, [text]);
 
   useEffect(() => {
-    if (deadline === null || timedOut || result !== null) return;
-    const tick = window.setInterval(() => {
-      setSecondsLeft(Math.max(0, Math.ceil((deadline - Date.now()) / 1000)));
-    }, 250);
-    const expire = window.setTimeout(() => {
-      setSecondsLeft(0);
-      setTimedOut(true);
-      submitRef.current({ text: textRef.current });
-    }, Math.max(0, deadline - Date.now()));
-    return () => {
-      window.clearInterval(tick);
-      window.clearTimeout(expire);
-    };
-  }, [deadline, timedOut, result]);
-
-  function startClock() {
-    setDeadline(Date.now() + timeLimitSeconds * 1000);
-  }
+    if (!expired || result !== null || expirySent.current) return;
+    expirySent.current = true;
+    onSubmit({ text: textRef.current });
+  }, [expired, result, onSubmit]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -61,20 +36,6 @@ export function TimedRecall({ exercise, result, busy, onSubmit }: ExerciseProps<
 
   return (
     <form onSubmit={handleSubmit} className="stack">
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "var(--s-3)", alignItems: "center", justifyContent: "space-between" }}>
-        <span className="chip">
-          Time left <strong style={{ fontVariantNumeric: "tabular-nums" }}>{formatClock(secondsLeft)}</strong>
-        </span>
-        {timedOut ? (
-          <span className="chip bad">Time is up</span>
-        ) : deadline !== null ? (
-          <span className="chip sun">Running</span>
-        ) : (
-          <button type="button" className="btn btn-secondary" onClick={startClock}>
-            Start timer
-          </button>
-        )}
-      </div>
       <p className="ex-prompt">{sentence}</p>
       {hint ? <p className="ex-hint">{hint}</p> : null}
       <label className="sr-only" htmlFor={`answer-${exercise.id}`}>
@@ -91,7 +52,7 @@ export function TimedRecall({ exercise, result, busy, onSubmit }: ExerciseProps<
         spellCheck={false}
         disabled={!canType}
       />
-      {result === null && !timedOut ? (
+      {result === null && !expired ? (
         <button type="submit" className="btn btn-primary btn-block" disabled={!canType || !text.trim()}>
           {busy ? "Checking…" : "Check answer"}
         </button>

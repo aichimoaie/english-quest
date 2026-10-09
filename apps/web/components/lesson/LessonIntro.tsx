@@ -40,8 +40,8 @@ export function LessonIntro({ part, day, panels = [], ctaLabel, onContinue }: Le
             <p className="t-body">{day.intro}</p>
           </article>
         ) : null}
-        {panels.map((panel) => (
-          <LessonPanelView key={`${panel.kind}-${panel.title}`} panel={panel} />
+        {panels.map((panel, position) => (
+          <LessonPanelView key={position} panel={panel} />
         ))}
       </section>
       <button type="button" className="btn btn-primary btn-block" onClick={onContinue}>

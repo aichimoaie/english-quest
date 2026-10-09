@@ -1,5 +1,5 @@
-import { act, fireEvent, render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
 import type { AnswerResult, Exercise, Submitted } from "@/lib/api/types";
 import { ExerciseRenderer } from "./registry";
 import type { ExerciseProps } from "./types";
@@ -45,10 +45,6 @@ function renderExercise(exercise: Exercise, props: Partial<ExerciseProps> = {}) 
   );
   return { ...view, onSubmit };
 }
-
-afterEach(() => {
-  vi.useRealTimers();
-});
 
 describe("FindMisspelled", () => {
   it("sends the chosen word and the typed correction together", () => {
@@ -101,53 +97,66 @@ describe("RightWrongTable", () => {
 });
 
 describe("TimedRecall", () => {
-  afterEach(() => {
-    vi.useRealTimers();
-  });
+  const running = { running: true, expired: false, secondsLeft: 300 };
 
-  it("keeps the input closed until the learner starts the clock", () => {
-    renderExercise(timedRecall);
+  it("keeps the input closed until the set's clock is running", () => {
+    renderExercise(timedRecall, { timer: { running: false, expired: false, secondsLeft: 300 } });
 
     expect((screen.getByRole("textbox") as HTMLInputElement).disabled).toBe(true);
-    expect(screen.getByText("5:00")).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
-    expect((screen.getByRole("textbox") as HTMLInputElement).disabled).toBe(false);
-    expect(screen.getByText("Running")).toBeTruthy();
   });
 
-  it("sends the typed answer when the clock runs out, even without a check", () => {
-    vi.useFakeTimers();
-    const { onSubmit } = renderExercise(timedRecall);
+  it("opens the input and sends a checked answer while the clock runs", () => {
+    const { onSubmit } = renderExercise(timedRecall, { timer: running });
 
-    fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
     fireEvent.change(screen.getByRole("textbox"), { target: { value: "cottage" } });
-    act(() => {
-      vi.advanceTimersByTime(299_000);
-    });
-    expect(onSubmit).not.toHaveBeenCalled();
-    expect(screen.getByText("0:01")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
 
-    act(() => {
-      vi.advanceTimersByTime(1_000);
-    });
+    expect(onSubmit).toHaveBeenCalledWith({ text: "cottage" });
+  });
+
+  it("sends the typed answer when the set's clock runs out, without a check", () => {
+    const onSubmit = vi.fn<(submitted: Submitted) => void>();
+    const { rerender } = render(
+      <ExerciseRenderer exercise={timedRecall} result={null} busy={false} onSubmit={onSubmit} timer={running} />,
+    );
+    fireEvent.change(screen.getByRole("textbox"), { target: { value: "cottage" } });
+    expect(onSubmit).not.toHaveBeenCalled();
+
+    rerender(
+      <ExerciseRenderer
+        exercise={timedRecall}
+        result={null}
+        busy={false}
+        onSubmit={onSubmit}
+        timer={{ running: true, expired: true, secondsLeft: 0 }}
+      />,
+    );
+
     expect(onSubmit).toHaveBeenCalledTimes(1);
     expect(onSubmit).toHaveBeenCalledWith({ text: "cottage" });
-    expect(screen.getByText("Time is up")).toBeTruthy();
     expect(screen.queryByRole("button", { name: "Check answer" })).toBeNull();
   });
 
-  it("does not submit a second time when the server answers after time is up", () => {
-    vi.useFakeTimers();
-    const { onSubmit, rerender } = renderExercise(timedRecall);
-
-    fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
-    act(() => {
-      vi.advanceTimersByTime(300_000);
-    });
-    rerender(<ExerciseRenderer exercise={timedRecall} result={answered} busy={false} onSubmit={onSubmit} />);
-    act(() => {
-      vi.advanceTimersByTime(5_000);
-    });
+  it("does not send a second time once the server has answered", () => {
+    const onSubmit = vi.fn<(submitted: Submitted) => void>();
+    const { rerender } = render(
+      <ExerciseRenderer
+        exercise={timedRecall}
+        result={null}
+        busy={false}
+        onSubmit={onSubmit}
+        timer={{ running: true, expired: true, secondsLeft: 0 }}
+      />,
+    );
+    rerender(
+      <ExerciseRenderer
+        exercise={timedRecall}
+        result={answered}
+        busy={false}
+        onSubmit={onSubmit}
+        timer={{ running: true, expired: true, secondsLeft: 0 }}
+      />,
+    );
 
     expect(onSubmit).toHaveBeenCalledTimes(1);
   });
