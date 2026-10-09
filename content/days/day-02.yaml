@@ -11,9 +11,23 @@
 day: 2
 title: "Test Your Vocabulary"
 
-lessons:
-  - id: d02-lesson-introduction
-    learning_area: Vocabulary
+vocabulary:
+  - word: "imminent"
+    definition: "likely to happen in the near future"
+    example: "The storm was imminent, so we closed the windows."
+    audio_ref: "d02-vocab-imminent"
+  - word: "latent"
+    definition: "hidden; not yet visible or active"
+    example: "The disease stayed latent in his body for years."
+    audio_ref: "d02-vocab-latent"
+  - word: "cajole"
+    definition: "coax"
+    example: "She tried to cajole the reluctant cat into its carrier."
+    audio_ref: "d02-vocab-cajole"
+
+screens:
+  - kind: "text"
+    id: "d02-screen-introduction"
     title: "Test Your Vocabulary"
     cards:
       - title: "Second Day: Test Your Vocabulary"
@@ -25,293 +39,274 @@ lessons:
           It was discovered some years ago that one particular ability was common to all successful business executives. At the Human Engineering Laboratory, then affiliated with the Stevens Institute of Technology in New Jersey, aptitude tests were administered to thousands of adults from every walk of life. Without exception, the top names showed the greatest skill in just one field—*vocabulary.* And, again without exception, everyone who had an extensive vocabulary also held a high position in his chosen field.
 
           Surprisingly, formal education turned out to have less relationship to the vocabulary score than might reasonably be expected. One man, a major executive of the telephone company, made a better showing than any of the college professors who had taken the tests. *And this man had left school at the age of 14!*
-
-  - id: d02-lesson-vocabulary-tests
-    learning_area: Vocabulary
+  - kind: "text"
+    id: "d02-screen-three-tests"
     title: "The three vocabulary tests"
     cards:
       - title: "Second Day"
-        body: |-
-          The three tests that follow will show you whether your vocabulary is average, good, or superior.
-      - title: "Test 5: Do You Have an Average Vocabulary?"
-        body: |-
-          If so, you will have no difficulty matching the two columns below. Seventy-five percent of the adults tested knew all these words.
-      - title: "Test 6: Do You Have a Good Vocabulary?"
-        body: |-
-          Decide whether words and meanings are similar or opposite, and check the correct box. Only 49 percent of the adults tested knew these words. You have a good vocabulary if you can get at least eight right.
-      - title: "Test 7: Do You Have a Superior Vocabulary?"
-        body: |-
-          Determine which of the following statements are true, which false, and check the proper box. Only 22 percent of the adults tested knew these words, so yours is a superior vocabulary if you can react correctly to eight or more.
-
-vocabulary:
-  - word: imminent
-    definition: "likely to happen in the near future"
-    example: "The storm was imminent, so we closed the windows."
-    audio_ref: d02-vocab-imminent
-  - word: latent
-    definition: "hidden; not yet visible or active"
-    example: "The disease stayed latent in his body for years."
-    audio_ref: d02-vocab-latent
-  - word: cajole
-    definition: "coax"
-    example: "She tried to cajole the reluctant cat into its carrier."
-    audio_ref: d02-vocab-cajole
-
-exercises:
-  # Test 5, items 1-10. Answers: 1-j, 2-c, 3-g, 4-a, 5-d, 6-i, 7-b, 8-f, 9-h, 10-e
-  - id: d02-vocab-t5-01
-    type: vocabulary_matching
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_meanings]
-    difficulty: 1
-    points: 1
-    prompt: "Test 5: match each word with its meaning."
-    pairs:
-      - word: imminent
-        meaning: "likely to happen in the near future"
-      - word: fluster
-        meaning: "confuse"
-      - word: rigid
-        meaning: "stiff"
-      - word: purge
-        meaning: "cleanse"
-      - word: rehabilitate
-        meaning: "bring back to former excellence"
-      - word: latent
-        meaning: "hidden"
-      - word: gaudy
-        meaning: "flashy"
-      - word: feign
-        meaning: "pretend"
-      - word: cajole
-        meaning: "coax"
-      - word: impede
-        meaning: "hinder"
-    explanation: "Answers: 1-j, 2-c, 3-g, 4-a, 5-d, 6-i, 7-b, 8-f, 9-h, 10-e."
-
-  # Test 6: similar or opposite. Answers: 1-OPPOSITE, 2-similar, 3-opposite, 4-similar, 5-similar,
-  # 6-similar, 7-opposite, 8-opposite, 9-opposite, 10-SIMILAR
-  - id: d02-vocab-t6-01
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test 6, item 1: myriad means small in number. Is this similar or opposite?"
-    choices: ["SIMILAR", "OPPOSITE"]
-    answer: "OPPOSITE"
-    explanation: "Answer: OPPOSITE."
-  - id: d02-vocab-t6-02
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.synonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test 6, item 2: panacea means cure-all. Is this similar or opposite?"
-    choices: ["SIMILAR", "OPPOSITE"]
-    answer: "SIMILAR"
-    explanation: "Answer: similar."
-  - id: d02-vocab-t6-03
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test 6, item 3: opulent means poverty-stricken. Is this similar or opposite?"
-    choices: ["SIMILAR", "OPPOSITE"]
-    answer: "OPPOSITE"
-    explanation: "Answer: opposite."
-  - id: d02-vocab-t6-04
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.synonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test 6, item 4: eschew means avoid. Is this similar or opposite?"
-    choices: ["SIMILAR", "OPPOSITE"]
-    answer: "SIMILAR"
-    explanation: "Answer: similar."
-  - id: d02-vocab-t6-05
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.synonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test 6, item 5: nefarious means wicked. Is this similar or opposite?"
-    choices: ["SIMILAR", "OPPOSITE"]
-    answer: "SIMILAR"
-    explanation: "Answer: similar."
-  - id: d02-vocab-t6-06
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.synonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test 6, item 6: incarcerate means imprison. Is this similar or opposite?"
-    choices: ["SIMILAR", "OPPOSITE"]
-    answer: "SIMILAR"
-    explanation: "Answer: similar."
-  - id: d02-vocab-t6-07
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test 6, item 7: ameliorate means make worse. Is this similar or opposite?"
-    choices: ["SIMILAR", "OPPOSITE"]
-    answer: "OPPOSITE"
-    explanation: "Answer: opposite."
-  - id: d02-vocab-t6-08
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test 6, item 8: candor means hypocrisy. Is this similar or opposite?"
-    choices: ["SIMILAR", "OPPOSITE"]
-    answer: "OPPOSITE"
-    explanation: "Answer: opposite."
-  - id: d02-vocab-t6-09
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test 6, item 9: taciturn means talkative. Is this similar or opposite?"
-    choices: ["SIMILAR", "OPPOSITE"]
-    answer: "OPPOSITE"
-    explanation: "Answer: opposite."
-  - id: d02-vocab-t6-10
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.synonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test 6, item 10: verbose means wordy. Is this similar or opposite?"
-    choices: ["SIMILAR", "OPPOSITE"]
-    answer: "SIMILAR"
-    explanation: "Answer: similar."
-
-  # Test 7: true or false. Answers: 1-FALSE, 2-false, 3-true, 4-true, 5-false, 6-TRUE, 7-false, 8-false,
-  # 9-true, 10-true
-  - id: d02-vocab-t7-01
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_meanings]
-    difficulty: 3
-    points: 1
-    prompt: "Test 7, item 1: Obsequiousness is a sign of pride. True or false?"
-    choices: ["TRUE", "FALSE"]
-    answer: "FALSE"
-    explanation: "Answer: FALSE."
-  - id: d02-vocab-t7-02
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_meanings]
-    difficulty: 3
-    points: 1
-    prompt: "Test 7, item 2: Parsimonious people are extravagant. True or false?"
-    choices: ["TRUE", "FALSE"]
-    answer: "FALSE"
-    explanation: "Answer: false."
-  - id: d02-vocab-t7-03
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_meanings]
-    difficulty: 3
-    points: 1
-    prompt: "Test 7, item 3: Peace in the world is certainly an exigency of the moment. True or false?"
-    choices: ["TRUE", "FALSE"]
-    answer: "TRUE"
-    explanation: "Answer: true."
-  - id: d02-vocab-t7-04
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_meanings]
-    difficulty: 3
-    points: 1
-    prompt: "Test 7, item 4: The wolf is a predatory animal. True or false?"
-    choices: ["TRUE", "FALSE"]
-    answer: "TRUE"
-    explanation: "Answer: true."
-  - id: d02-vocab-t7-05
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_meanings]
-    difficulty: 3
-    points: 1
-    prompt: "Test 7, item 5: An aquiline nose is straight. True or false?"
-    choices: ["TRUE", "FALSE"]
-    answer: "FALSE"
-    explanation: "Answer: false."
-  - id: d02-vocab-t7-06
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_meanings]
-    difficulty: 3
-    points: 1
-    prompt: "Test 7, item 6: Vice is anathema to moral people. True or false?"
-    choices: ["TRUE", "FALSE"]
-    answer: "TRUE"
-    explanation: "Answer: TRUE."
-  - id: d02-vocab-t7-07
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_meanings]
-    difficulty: 3
-    points: 1
-    prompt: "Test 7, item 7: It is easy to explain things to an obtuse person. True or false?"
-    choices: ["TRUE", "FALSE"]
-    answer: "FALSE"
-    explanation: "Answer: false."
-  - id: d02-vocab-t7-08
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_meanings]
-    difficulty: 3
-    points: 1
-    prompt: "Test 7, item 8: Someone with catholic views is narrow-minded. True or false?"
-    choices: ["TRUE", "FALSE"]
-    answer: "FALSE"
-    explanation: "Answer: false."
-  - id: d02-vocab-t7-09
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_meanings]
-    difficulty: 3
-    points: 1
-    prompt: "Test 7, item 9: A large bank account obviates financial fears. True or false?"
-    choices: ["TRUE", "FALSE"]
-    answer: "TRUE"
-    explanation: "Answer: true."
-  - id: d02-vocab-t7-10
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_meanings]
-    difficulty: 3
-    points: 1
-    prompt: "Test 7, item 10: Erudite people are well educated. True or false?"
-    choices: ["TRUE", "FALSE"]
-    answer: "TRUE"
-    explanation: "Answer: true."
+        body: "The three tests that follow will show you whether your vocabulary is average, good, or superior."
+  - kind: "test"
+    id: "d02-test-5"
+    title: "Test 5: Do You Have an Average Vocabulary?"
+    intro: "If so, you will have no difficulty matching the two columns below. Seventy-five percent of the adults tested knew all these words."
+    items:
+      - id: "d02-vocab-t5-01"
+        type: "vocabulary_matching"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 5: match each word with its meaning."
+        pairs:
+          - word: "imminent"
+            meaning: "likely to happen in the near future"
+          - word: "fluster"
+            meaning: "confuse"
+          - word: "rigid"
+            meaning: "stiff"
+          - word: "purge"
+            meaning: "cleanse"
+          - word: "rehabilitate"
+            meaning: "bring back to former excellence"
+          - word: "latent"
+            meaning: "hidden"
+          - word: "gaudy"
+            meaning: "flashy"
+          - word: "feign"
+            meaning: "pretend"
+          - word: "cajole"
+            meaning: "coax"
+          - word: "impede"
+            meaning: "hinder"
+        explanation: "Answers: 1-j, 2-c, 3-g, 4-a, 5-d, 6-i, 7-b, 8-f, 9-h, 10-e."
+  - kind: "test"
+    id: "d02-test-6"
+    title: "Test 6: Do You Have a Good Vocabulary?"
+    intro: "Decide whether words and meanings are similar or opposite, and check the correct box. Only 49 percent of the adults tested knew these words. You have a good vocabulary if you can get at least eight right."
+    items:
+      - id: "d02-vocab-t6-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 6, item 1: myriad means small in number. Is this similar or opposite?"
+        choices: ["SIMILAR", "OPPOSITE"]
+        answer: "OPPOSITE"
+        explanation: "Answer: OPPOSITE."
+      - id: "d02-vocab-t6-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 6, item 2: panacea means cure-all. Is this similar or opposite?"
+        choices: ["SIMILAR", "OPPOSITE"]
+        answer: "SIMILAR"
+        explanation: "Answer: similar."
+      - id: "d02-vocab-t6-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 6, item 3: opulent means poverty-stricken. Is this similar or opposite?"
+        choices: ["SIMILAR", "OPPOSITE"]
+        answer: "OPPOSITE"
+        explanation: "Answer: opposite."
+      - id: "d02-vocab-t6-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 6, item 4: eschew means avoid. Is this similar or opposite?"
+        choices: ["SIMILAR", "OPPOSITE"]
+        answer: "SIMILAR"
+        explanation: "Answer: similar."
+      - id: "d02-vocab-t6-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 6, item 5: nefarious means wicked. Is this similar or opposite?"
+        choices: ["SIMILAR", "OPPOSITE"]
+        answer: "SIMILAR"
+        explanation: "Answer: similar."
+      - id: "d02-vocab-t6-06"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 6, item 6: incarcerate means imprison. Is this similar or opposite?"
+        choices: ["SIMILAR", "OPPOSITE"]
+        answer: "SIMILAR"
+        explanation: "Answer: similar."
+      - id: "d02-vocab-t6-07"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 6, item 7: ameliorate means make worse. Is this similar or opposite?"
+        choices: ["SIMILAR", "OPPOSITE"]
+        answer: "OPPOSITE"
+        explanation: "Answer: opposite."
+      - id: "d02-vocab-t6-08"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 6, item 8: candor means hypocrisy. Is this similar or opposite?"
+        choices: ["SIMILAR", "OPPOSITE"]
+        answer: "OPPOSITE"
+        explanation: "Answer: opposite."
+      - id: "d02-vocab-t6-09"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 6, item 9: taciturn means talkative. Is this similar or opposite?"
+        choices: ["SIMILAR", "OPPOSITE"]
+        answer: "OPPOSITE"
+        explanation: "Answer: opposite."
+      - id: "d02-vocab-t6-10"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 6, item 10: verbose means wordy. Is this similar or opposite?"
+        choices: ["SIMILAR", "OPPOSITE"]
+        answer: "SIMILAR"
+        explanation: "Answer: similar."
+  - kind: "test"
+    id: "d02-test-7"
+    title: "Test 7: Do You Have a Superior Vocabulary?"
+    intro: "Determine which of the following statements are true, which false, and check the proper box. Only 22 percent of the adults tested knew these words, so yours is a superior vocabulary if you can react correctly to eight or more."
+    items:
+      - id: "d02-vocab-t7-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 7, item 1: Obsequiousness is a sign of pride. True or false?"
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "Answer: FALSE."
+      - id: "d02-vocab-t7-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 7, item 2: Parsimonious people are extravagant. True or false?"
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "Answer: false."
+      - id: "d02-vocab-t7-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 7, item 3: Peace in the world is certainly an exigency of the moment. True or false?"
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Answer: true."
+      - id: "d02-vocab-t7-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 7, item 4: The wolf is a predatory animal. True or false?"
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Answer: true."
+      - id: "d02-vocab-t7-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 7, item 5: An aquiline nose is straight. True or false?"
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "Answer: false."
+      - id: "d02-vocab-t7-06"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 7, item 6: Vice is anathema to moral people. True or false?"
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Answer: TRUE."
+      - id: "d02-vocab-t7-07"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 7, item 7: It is easy to explain things to an obtuse person. True or false?"
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "Answer: false."
+      - id: "d02-vocab-t7-08"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 7, item 8: Someone with catholic views is narrow-minded. True or false?"
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "Answer: false."
+      - id: "d02-vocab-t7-09"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 7, item 9: A large bank account obviates financial fears. True or false?"
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Answer: true."
+      - id: "d02-vocab-t7-10"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 7, item 10: Erudite people are well educated. True or false?"
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Answer: true."

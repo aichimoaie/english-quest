@@ -1,6 +1,6 @@
 /*
  * TEMPORARY course outline for the frontend skeleton. Remove when apps/api serves
- * GET /api/v1/days/{day}. Lessons and exercises come from content/days through
+ * GET /api/v1/days/{day}. Screens and exercises come from content/days through
  * lib/fixtures/generated, so there is no second copy of the content here. Days
  * without a content file are placeholders until their content is reviewed.
  */

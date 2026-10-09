@@ -8,6 +8,8 @@ interface ExerciseEndScreenProps {
   finishLabel: string;
   finishing: boolean;
   onFinish: () => void;
+  /** Whether an item shows its explanation under its answer key. */
+  explain?: (exercise: Exercise) => boolean;
 }
 
 /** The short text a learner sees for each item on the result screen. */
@@ -42,7 +44,7 @@ function answerKey(exercise: Exercise, result: AnswerResult): string {
  * The end of a set: the score and the answer key for each item. The learner
  * finishes from here, which saves the run.
  */
-export function ExerciseEndScreen({ exercises, results, finishLabel, finishing, onFinish }: ExerciseEndScreenProps) {
+export function ExerciseEndScreen({ exercises, results, finishLabel, finishing, onFinish, explain }: ExerciseEndScreenProps) {
   const scored = exercises.filter(isScored);
   const headline = scored.length > 0
     ? `${scorePercent(exercises, (exercise) => results[exercise.id]?.isCorrect === true)}% correct`
@@ -67,6 +69,12 @@ export function ExerciseEndScreen({ exercises, results, finishLabel, finishing, 
               {exerciseLabel(exercise)}
               <br />
               <span className="t-small">{answerKey(exercise, results[exercise.id])}</span>
+              {explain?.(exercise) && results[exercise.id]?.explanation ? (
+                <>
+                  <br />
+                  <span className="t-small">{results[exercise.id].explanation}</span>
+                </>
+              ) : null}
             </li>
           ))}
         </ol>

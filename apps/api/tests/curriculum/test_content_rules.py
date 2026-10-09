@@ -20,11 +20,24 @@ SELF_RATING = 5
 MATCHING = 6
 ORDERING = 7
 SPELLING = 8
+SELF_CHECK = 9
+
+
+def _items(data: Data) -> list[Data]:
+    """Every item of every test screen, in order. Index 0 is the first item of the first test."""
+    return [
+        item for screen in data["screens"] if screen["kind"] == "test" for item in screen["items"]
+    ]
 
 
 def _exercise(data: Data, index: int) -> Data:
-    exercise: Data = data["exercises"][index]
+    exercise: Data = _items(data)[index]
     return exercise
+
+
+def _screen(data: Data, index: int) -> Data:
+    screen: Data = data["screens"][index]
+    return screen
 
 
 def _messages(issues: tuple[ContentIssue, ...]) -> str:
@@ -45,8 +58,30 @@ def _del(index: int, key: str) -> Mutation:
     return mutate
 
 
+def _screen_set(index: int, key: str, value: Any) -> Mutation:
+    def mutate(data: Data) -> None:
+        _screen(data, index)[key] = value
+
+    return mutate
+
+
+def _screen_del(index: int, key: str) -> Mutation:
+    def mutate(data: Data) -> None:
+        del _screen(data, index)[key]
+
+    return mutate
+
+
 def _duplicate_exercise_id(data: Data) -> None:
-    data["exercises"][FILL_BLANK]["id"] = data["exercises"][MULTIPLE_CHOICE]["id"]
+    _items(data)[FILL_BLANK]["id"] = _items(data)[MULTIPLE_CHOICE]["id"]
+
+
+def _swap_first_two_screens(data: Data) -> None:
+    data["screens"][0], data["screens"][1] = data["screens"][1], data["screens"][0]
+
+
+def _drop_final_test(data: Data) -> None:
+    data["screens"] = data["screens"][:-1]
 
 
 def _vocabulary_del(index: int, key: str) -> Mutation:
@@ -134,6 +169,46 @@ RULE_CASES = [
         id="self-rating-carries-no-points",
     ),
     pytest.param(
+        _set(SELF_CHECK, "points", 1),
+        "Extra inputs are not permitted",
+        id="self-check-carries-no-points",
+    ),
+    pytest.param(
+        _set(SELF_CHECK, "answer", "Yes"),
+        "Extra inputs are not permitted",
+        id="self-check-has-no-answer",
+    ),
+    pytest.param(
+        _screen_set(1, "intro", ""),
+        "String should have at least 1 character",
+        id="test-with-empty-intro",
+    ),
+    pytest.param(
+        _screen_del(1, "intro"),
+        "Field required",
+        id="test-without-intro",
+    ),
+    pytest.param(
+        _screen_set(1, "items", []),
+        "List should have at least 1 item",
+        id="test-without-items",
+    ),
+    pytest.param(
+        _screen_set(0, "cards", []),
+        "List should have at least 1 item",
+        id="text-screen-without-cards",
+    ),
+    pytest.param(
+        _swap_first_two_screens,
+        "the first screen must be a text screen",
+        id="day-does-not-open-with-text",
+    ),
+    pytest.param(
+        _drop_final_test,
+        "the last screen must be a test",
+        id="day-does-not-end-with-a-test",
+    ),
+    pytest.param(
         _set(SELF_RATING, "answer", "I have a sheep."),
         "Extra inputs are not permitted",
         id="self-rating-has-no-answer",
@@ -180,7 +255,7 @@ RULE_CASES = [
     ),
     pytest.param(
         _duplicate_exercise_id,
-        "lesson and exercise ids must be unique",
+        "screen and exercise ids must be unique",
         id="duplicate-exercise-id",
     ),
     pytest.param(
@@ -221,7 +296,7 @@ def test_issue_points_at_the_exercise(day_one_data: Data, write_day: Callable[..
 
     assert len(report.issues) == 1
     assert report.issues[0].path == "day-01.yaml"
-    assert report.issues[0].location.startswith("exercises.0")
+    assert report.issues[0].location.startswith("screens.1.test.items.0")
 
 
 def test_every_problem_in_one_run_is_reported(

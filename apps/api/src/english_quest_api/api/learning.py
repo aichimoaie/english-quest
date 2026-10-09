@@ -22,18 +22,54 @@ class DaySummary(ApiModel):
     best_score_pct: int | None = None
 
 
+class DayVocabulary(ApiModel):
+    word: str
+    definition: str
+    example: str
+
+
+class LessonCard(ApiModel):
+    title: str
+    explanation: str
+    watch_out: str | None = None
+    examples: list[str] = Field(default_factory=list)
+
+
+class TextScreen(ApiModel):
+    """A day intro or reading text. The learner reads it, then presses Start or Next."""
+
+    kind: Literal["text"]
+    id: str
+    title: str
+    cards: list[LessonCard]
+
+
+class TestScreen(ApiModel):
+    """One test: its intro, then its items, then a results screen with that test's score."""
+
+    kind: Literal["test"]
+    id: str
+    title: str
+    intro: str
+    exercises: list[ExercisePrompt]
+    explain: bool
+
+
+DayScreen = Annotated[TextScreen | TestScreen, Field(discriminator="kind")]
+
+
 class DayDetail(ApiModel):
     day_number: int
     title: str
     objective: str
     status: DayStatus
-    lesson: str
-    exercises: list[ExercisePrompt]
+    vocabulary: list[DayVocabulary]
+    # The screens in the order the learner meets them. The day ends after the last test.
+    screens: list[DayScreen]
 
 
 class AttemptStarted(ApiModel):
     attempt_id: str
-    exercises: list[ExercisePrompt]
 
 
 class AttemptCompleted(ApiModel):

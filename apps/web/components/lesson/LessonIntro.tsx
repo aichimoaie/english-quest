@@ -10,16 +10,16 @@ export type LessonPanel =
 export interface LessonIntroProps {
   /** Optional part heading, shown above the day, such as a foreword. */
   part?: { label: string; title: string; text: string };
-  /** The day heading and its introduction. */
-  day?: { label: string; title: string; intro: string };
+  /** The heading of the screen and its introduction, if it has one. */
+  day?: { label: string; title: string; intro?: string };
   panels?: LessonPanel[];
   ctaLabel: string;
   onContinue: () => void;
 }
 
 /**
- * A lesson screen shown before a block of exercises. It is read-only: the
- * learner reads the part, the day and its panels, then continues.
+ * A read-only screen of the day flow: a text screen, or a test's intro before its
+ * items. The learner reads the heading, the text and the panels, then continues.
  */
 export function LessonIntro({ part, day, panels = [], ctaLabel, onContinue }: LessonIntroProps) {
   return (
@@ -37,7 +37,7 @@ export function LessonIntro({ part, day, panels = [], ctaLabel, onContinue }: Le
           <article className="card stack" style={{ gap: "var(--s-3)" }}>
             <p className="t-label">{day.label}</p>
             <h2 className="t-head">{day.title}</h2>
-            <p className="t-body">{day.intro}</p>
+            {day.intro ? <p className="t-body">{day.intro}</p> : null}
           </article>
         ) : null}
         {panels.map((panel, position) => (

@@ -1,10 +1,12 @@
 """Authoring model for curriculum day files (content/days/day-NN.yaml).
 
-Each exercise follows the exercise envelope v1 in the exercise engine design
+A day is an ordered list of screens. A text screen is a day intro or reading text.
+A test screen holds its intro, its items, and the results screen that follows the
+items. Each exercise follows the exercise envelope v1 in the exercise engine design
 (section 4). Scored kinds are multiple_choice, fill_blank, vocabulary_matching,
 spelling_correction, sentence_ordering, listening_comprehension and
-pronunciation_practice. The pronunciation_self_rating kind is unscored and
-carries no points.
+pronunciation_practice. The pronunciation_self_rating and self_check kinds are
+unscored and carry no points.
 """
 
 from enum import StrEnum
@@ -23,7 +25,8 @@ DAY_MAX = 30
 
 NonBlank = Annotated[str, StringConstraints(min_length=1, pattern=r"\S")]
 EXERCISE_ID = r"^d(\d{2})-[a-z0-9]+(?:-[a-z0-9]+)*$"
-LESSON_ID = r"^d(\d{2})-lesson-[a-z0-9]+(?:-[a-z0-9]+)*$"
+SCREEN_ID = r"^d(\d{2})-screen-[a-z0-9]+(?:-[a-z0-9]+)*$"
+TEST_ID = r"^d(\d{2})-test-[a-z0-9]+(?:-[a-z0-9]+)*$"
 TOPIC = r"^[a-z]+(\.[a-z_]+)+$"
 WORD = r"^[a-z]+(?: [a-z]+)*$"
 AUDIO_REF = r"^[a-z0-9]+(?:-[a-z0-9]+)*$"
@@ -50,13 +53,6 @@ class LessonCard(_Strict):
     body: NonBlank
     examples: list[NonBlank] = Field(default_factory=list, max_length=3)
     watch_out: NonBlank | None = None
-
-
-class Lesson(_Strict):
-    id: Annotated[str, StringConstraints(pattern=LESSON_ID)]
-    learning_area: LearningArea
-    title: NonBlank
-    cards: list[LessonCard] = Field(min_length=1, max_length=6)
 
 
 class VocabularyItem(_Strict):
@@ -120,6 +116,12 @@ class PronunciationPracticeExercise(_ChoiceExercise):
     audio_text: NonBlank
 
 
+class SelfCheckExercise(ExerciseBase):
+    """Unscored: the learner answers yes or no about their own speech, and no answer is graded."""
+
+    type: Literal["self_check"]
+
+
 class PronunciationSelfRatingExercise(ExerciseBase):
     """Unscored: the learner listens, says the sentence aloud and rates it."""
 
@@ -161,6 +163,7 @@ Exercise = Annotated[
     | ListeningComprehensionExercise
     | PronunciationPracticeExercise
     | PronunciationSelfRatingExercise
+    | SelfCheckExercise
     | FillBlankExercise
     | SpellingCorrectionExercise
     | VocabularyMatchingExercise
@@ -169,17 +172,57 @@ Exercise = Annotated[
 ]
 
 
+class TextScreen(_Strict):
+    """A day intro or reading text. The learner reads it and presses Start or Next."""
+
+    kind: Literal["text"]
+    id: Annotated[str, StringConstraints(pattern=SCREEN_ID)]
+    title: NonBlank
+    cards: list[LessonCard] = Field(min_length=1, max_length=6)
+
+
+class TestScreen(_Strict):
+    """One test: its intro screen, then its items, then its results screen with the score."""
+
+    kind: Literal["test"]
+    id: Annotated[str, StringConstraints(pattern=TEST_ID)]
+    title: NonBlank
+    intro: NonBlank
+    items: list[Exercise] = Field(min_length=1)
+    explain: bool = False
+
+
+Screen = Annotated[TextScreen | TestScreen, Field(discriminator="kind")]
+
+
 class Day(_Strict):
     day: int = Field(ge=DAY_MIN, le=DAY_MAX)
     title: NonBlank
-    lessons: list[Lesson] = Field(min_length=1, max_length=4)
     vocabulary: list[VocabularyItem] = Field(min_length=1, max_length=12)
-    exercises: list[Exercise] = Field(min_length=1)
+    screens: list[Screen] = Field(min_length=1)
+
+    @property
+    def exercises(self) -> list[Exercise]:
+        """Every item of every test, in the order the learner meets them."""
+        return [
+            item
+            for screen in self.screens
+            if isinstance(screen, TestScreen)
+            for item in screen.items
+        ]
+
+    @model_validator(mode="after")
+    def _flow_starts_and_ends_with_a_test(self) -> Self:
+        if not isinstance(self.screens[0], TextScreen):
+            raise ValueError("the first screen must be a text screen (the day intro)")
+        if not isinstance(self.screens[-1], TestScreen):
+            raise ValueError("the last screen must be a test (the day ends after it)")
+        return self
 
     @model_validator(mode="after")
     def _ids_are_unique(self) -> Self:
-        lesson_ids = [lesson.id for lesson in self.lessons]
+        screen_ids = [screen.id for screen in self.screens]
         exercise_ids = [exercise.id for exercise in self.exercises]
-        if len(set(lesson_ids + exercise_ids)) != len(lesson_ids) + len(exercise_ids):
-            raise ValueError("lesson and exercise ids must be unique")
+        if len(set(screen_ids + exercise_ids)) != len(screen_ids) + len(exercise_ids):
+            raise ValueError("screen and exercise ids must be unique")
         return self
