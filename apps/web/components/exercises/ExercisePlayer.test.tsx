@@ -227,7 +227,7 @@ describe("ExercisePlayer recall set and end screen", () => {
     fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
     fireEvent.click(await screen.findByRole("button", { name: "See my results" }));
 
-    expect(screen.getByText("2 of 2 correct")).toBeTruthy();
+    expect(screen.getByText("100% correct")).toBeTruthy();
     expect(screen.getByText("Every question was checked.")).toBeTruthy();
     expect(onFinish).not.toHaveBeenCalled();
   });
@@ -244,7 +244,7 @@ describe("ExercisePlayer recall set and end screen", () => {
     fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
     fireEvent.click(await screen.findByRole("button", { name: "See my results" }));
 
-    expect(screen.getByText("1 of 1 correct")).toBeTruthy();
+    expect(screen.getByText("100% correct")).toBeTruthy();
     expect(screen.getByText("Every question was checked.")).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Save run" }));
     await waitFor(() => expect(onFinish).toHaveBeenCalledTimes(1));

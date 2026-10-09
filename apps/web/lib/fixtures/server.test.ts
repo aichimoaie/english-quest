@@ -252,5 +252,16 @@ describe("fixture server", () => {
 
       expect(completed.scorePct).toBe(Math.round((2 / 3) * 100));
     });
+
+    it("leaves self-check answers out of the progress accuracy", async () => {
+      const { fixtureCall: devCall } = await loadWithDevFixtureDay();
+      const { attemptId } = await devCall<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
+      await devCall("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: "ex_dev_find", submitted: { optionIndex: 0 } });
+      await devCall("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: "ex_dev_self", submitted: { optionIndex: 1 } });
+
+      const progress = await devCall<{ accuracyPct: number }>("GET", `${BASE}/progress`);
+
+      expect(progress.accuracyPct).toBe(100);
+    });
   });
 });

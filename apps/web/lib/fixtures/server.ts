@@ -26,6 +26,7 @@ import type {
 import { DEV_ANSWERS, isCorrect } from "./answer-keys";
 import type { GeneratedAnswer } from "./generated/curriculum";
 import { PASS_MARK_PCT, TOTAL_DAYS } from "@/lib/course";
+import { isScored, scorePercent } from "@/lib/scoring";
 import { CONTENT_BY_DAY, DAY_OUTLINE, DEV_FIXTURE_EXERCISES } from "./days";
 
 const EMPTY_LESSON: Lesson = { vocabulary: [], grammar: [] };
@@ -119,17 +120,17 @@ function recordAnswer(attemptId: string, input: AnswerInput): AnswerResult {
   if (!run) {
     throw problem(404, "Attempt not found", `There is no attempt ${attemptId}.`);
   }
-  if (!exercisesFor(run.day).some((exercise) => exercise.id === input.exerciseId)) {
+  const exercise = exercisesFor(run.day).find((item) => item.id === input.exerciseId);
+  if (!exercise) {
     throw problem(422, "Exercise not in this attempt", `${input.exerciseId} is not part of day ${run.day}.`);
   }
   const result = gradeItem(input.exerciseId, input);
   if (!run.runAnswers.has(input.exerciseId)) {
     run.runAnswers.set(input.exerciseId, result.isCorrect);
   }
-  if (!state.firstEverAnswers.has(input.exerciseId)) {
+  if (isScored(exercise) && !state.firstEverAnswers.has(input.exerciseId)) {
     state.firstEverAnswers.set(input.exerciseId, result.isCorrect);
-    const exercise = exercisesFor(run.day).find((item) => item.id === input.exerciseId);
-    if (exercise?.kind === "pronunciation_practice") {
+    if (exercise.kind === "pronunciation_practice") {
       state.pronunciationRecognitionItems += 1;
     }
   }
@@ -141,14 +142,7 @@ function completeRun(attemptId: string): CompletedAttempt {
   if (!run) {
     throw problem(404, "Attempt not found", `There is no attempt ${attemptId}.`);
   }
-  // Self-check items are shown but not scored, the same rule the end-of-set headline uses.
-  const scored = exercisesFor(run.day).filter((exercise) => exercise.kind !== "self_check");
-  const totalPoints = scored.reduce((sum, exercise) => sum + exercise.points, 0);
-  const earnedPoints = scored.reduce(
-    (sum, exercise) => sum + (run.runAnswers.get(exercise.id) ? exercise.points : 0),
-    0,
-  );
-  const scorePct = totalPoints === 0 ? 0 : Math.round((earnedPoints / totalPoints) * 100);
+  const scorePct = scorePercent(exercisesFor(run.day), (exercise) => run.runAnswers.get(exercise.id) === true);
   const passed = scorePct >= PASS_MARK_PCT;
 
   if (passed) {
