@@ -5,8 +5,8 @@ import { lessonPanels } from "./lessonPanels";
 const lesson: Lesson = {
   vocabulary: [{ word: "candid", definition: "Sample definition.", example: "Sample example." }],
   grammar: [
-    { title: "Point one", explanation: "Sample explanation one.", examples: ["Example A.", "Example B."] },
-    { title: "Point two", explanation: "Sample explanation two.", examples: [] },
+    { title: "Point one", explanation: "Sample explanation one.", watchOut: null, examples: ["Example A.", "Example B."] },
+    { title: "Point two", explanation: "Sample explanation two.", watchOut: null, examples: [] },
   ],
 };
 
