@@ -19,3 +19,27 @@ resource "azurerm_role_assignment" "deploy_postgres_server" {
   role_definition_name = "Contributor"
   principal_id         = azuread_service_principal.deploy.object_id
 }
+
+# Start the migration job and read its executions, nothing else. Built-in roles
+# are broader than this, so the role is custom and assignable to that job only.
+resource "azurerm_role_definition" "start_migration_job" {
+  name        = "eq-${var.environment}-start-migration-job"
+  scope       = module.shared.migration_job_id
+  description = "Start the English Quest migration job and read its executions."
+
+  permissions {
+    actions = [
+      "Microsoft.App/jobs/start/action",
+      "Microsoft.App/jobs/read",
+      "Microsoft.App/jobs/execution/read",
+    ]
+  }
+
+  assignable_scopes = [module.shared.migration_job_id]
+}
+
+resource "azurerm_role_assignment" "deploy_start_migration_job" {
+  scope              = module.shared.migration_job_id
+  role_definition_id = azurerm_role_definition.start_migration_job.role_definition_resource_id
+  principal_id       = azuread_service_principal.deploy.object_id
+}

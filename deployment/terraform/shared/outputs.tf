@@ -23,6 +23,16 @@ output "container_app_id" {
   value       = local.container_app_id
 }
 
+output "migration_job_name" {
+  description = "Migration Container Apps job name."
+  value       = local.migration_job_name
+}
+
+output "migration_job_id" {
+  description = "Migration Container Apps job ID, built from its name."
+  value       = local.migration_job_id
+}
+
 output "static_web_app_name" {
   description = "Static Web App name."
   value       = local.static_web_app_name

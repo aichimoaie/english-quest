@@ -81,7 +81,7 @@ resource "azurerm_container_app" "api" {
 # and waits for it to finish before it updates the API image. The job serves no
 # traffic and is never started by Terraform.
 resource "azurerm_container_app_job" "migrate" {
-  name                         = "job-eq-${var.environment}-migrate"
+  name                         = module.shared.migration_job_name
   location                     = var.location
   resource_group_name          = azurerm_resource_group.this.name
   container_app_environment_id = azurerm_container_app_environment.this.id

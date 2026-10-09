@@ -87,6 +87,7 @@ Also set `operator_ip_address` in `single-project/vars/<env>.tfvars` to your pub
 | Monthly budget, 40 USD, resource-group scope | `budget.tf` | Prod only (D2). 80% of actual and 100% forecast. |
 | Entra app `eq-github-deploy-<env>` and federated credential | `cicd/github.tf` | No client secret. Trusts only the matching GitHub environment. |
 | Contributor for the deploy identity | `cicd/iam.tf` | On the API app, the Static Web App and the PostgreSQL server only. Not on the resource group. |
+| Start-only role for the deploy identity | `cicd/iam.tf` | Custom role on the migration job only: start the job and read its executions. |
 
 Container images stay on GHCR. The GHCR package for the API must be public, because the app pulls it without credentials.
 
