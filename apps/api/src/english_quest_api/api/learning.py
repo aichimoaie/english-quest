@@ -73,7 +73,7 @@ class AttemptStarted(ApiModel):
 
 
 class AttemptCompleted(ApiModel):
-    score_pct: int = Field(ge=0, le=100)
+    score_pct: int | None = Field(ge=0, le=100)
     status: Literal["passed", "not_passed"]
     day_status: DayStatus
     next_day: int | None = None
