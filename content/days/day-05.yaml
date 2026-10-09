@@ -1,398 +1,636 @@
 # Day 5: Just for Fun (I).
-# Structure follows Part I, Day 5 of the reference book (learning goals and
-# progression only). All wording, items, answers and explanations are original.
+# Source: reference book, Fifth Day (pp. 29-34).
+# Transcribed from pages/page31.md through page34.md, in the book's order.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref) were added for this app. origin is "original" only because the schema requires that value.
+# Test I (fluency) has 20 items. Its items 1-16 are on page 31 and items 17-20 are on page 32.
+# Accepted answers are the book's key. Where the key lists alternatives, each one is accepted.
+# Parts II (The Name Behind the Word) and III (Did You Know That) are reading text and are kept as lesson cards.
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 5
 title: "Just for Fun (I)"
 
 lessons:
-  - id: d05-lesson-antonyms
+  - id: d05-lesson-fluency
     learning_area: Vocabulary
-    title: "Opposites that start with R"
+    title: "Test Your Fluency"
     cards:
-      - title: What an antonym is
-        body: "An antonym is a word with the opposite meaning of another word. To find one, you must know the meaning of the first word well."
-        examples:
-          - "Hot and cold are antonyms."
-          - "Rise and fall are antonyms."
-      - title: Start from the meaning
-        body: "Think about what the given word means before you think about spelling. Then look for the reverse meaning that starts with the required letter."
-        examples:
-          - "The opposite of reward is punish, and the opposite of punish is reward."
-        watch_out: "A word can have more than one opposite. Accept any answer that fits the meaning and the letter."
+      - title: "Fifth Day: Just for Fun (I)"
+        body: |-
+          **Subsection:** I. TEST YOUR FLUENCY
 
-  - id: d05-lesson-eponyms
-    learning_area: Vocabulary
-    title: "Words named after people"
-    cards:
-      - title: Sandwich
-        body: "A popular story says that the fourth Earl of Sandwich asked for meat between two slices of bread, so he could eat without leaving the card table. The food took its name from his title."
-        examples:
-          - "He packed a sandwich for the trip."
-      - title: Leotard
-        body: "Jules Leotard was a French acrobat in the 1800s. He wore a close-fitting, one-piece costume, and the garment is named after him."
-        examples:
-          - "She wore a leotard to dance class."
-      - title: Cardigan
-        body: "The knitted jacket is named after James Brudenell, the seventh Earl of Cardigan, a British army officer in the 1850s. The name passed from the earl to the garment."
-        examples:
-          - "He buttoned his cardigan against the cold."
+          How quickly can you call words to mind? Here is a reliable test of your vocabulary responsiveness. In five minutes or less, write next to each of the following words a word which starts with *R* and is essentially *opposite* in meaning to, or in contrast with, the given word. *Examples: walk—run; imaginary—real; square—round.*
 
-  - id: d05-lesson-word-histories
+  - id: d05-lesson-name-behind-word
     learning_area: Vocabulary
-    title: "Word histories and trivia"
+    title: "II. The Name Behind the Word"
     cards:
-      - title: Italic type
-        body: "Italic type is slanted. It is named after Italy, because a Venetian printer, Aldus Manutius, introduced it around the year 1500."
-        examples:
-          - "Book titles are often printed in italic."
-      - title: Whiskey
-        body: "The word whiskey comes from an Irish phrase that means water of life."
-        examples:
-          - "He ordered a whiskey with ice."
-      - title: British and American words
-        body: "In Britain, a streetcar is called a tram, and a movie theatre is called a cinema. Learn the local word when you travel, so you are understood."
-        examples:
-          - "The tram stops near the park."
+      - title: "The Name Behind the Word"
+        body: |-
+          **BOYCOTT:** Captain Charles C. Boycott had a run-in with some Irish farmers who refused to pay the exorbitant rents demanded by his company. The sons of Eire boycotted Boycott's home and refused to let anyone work for him.
+
+          **GAT:** Richard Jordan Gatling invented the first machine gun in 1861.
+
+          **MARCEL WAVE:** Marcel was a famous French hairdresser who made a fortune out of his new idea in coiffures.
+
+          **SILHOUETTE:** Etienne de Silhouette was finance minister of France just before the Revolution. He insisted that the nobles lead simpler lives, thus saving money, which, of course, they could donate to the government. The silhouette (as it was later called) was invented at about this time and was obviously a very simple sort of portraiture. The connection of ideas appealed to the Parisian mind, and the minister's name was soon used to describe the new art form.
+
+  - id: d05-lesson-did-you-know
+    learning_area: Vocabulary
+    title: "III. Did You Know That"
+    cards:
+      - title: "Did You Know That"
+        body: |-
+          Italics are so called because this kind of type was first used by the Italian, Aldus Manutius, famous printer of Venice.
+
+          *Drat it* is not so mild a curse as it may seem. It is a contraction of *May God rot it*.
+
+          Calling an attractive girl a *peach*, far from being modern slang, goes back at least to 1896.
+
+          In England a *streetcar* is called a *tram*; a *cookie jar* is known as a *biscuit barrel*; *molasses* is known as *treacle*; and the *movies* are called the *cinema*.
+
+          *Whiskey* is from the Irish *uisgebeatha* meaning *water of life*.
+
+  - id: d05-lesson-think-of-words
+    learning_area: Vocabulary
+    title: "IV. Think of Words"
+    cards:
+      - title: "Think of Words"
+        body: |-
+          Can you think of 10 words ending in *-ANK*? Add one or two letters only, to fit each definition.
+
+          Now your problem is to think of a word *opposed* in meaning to the definition offered. The initial letter is supplied.
 
 vocabulary:
-  - word: synonym
-    definition: a word with nearly the same meaning as another word
-    example: Big and large are synonyms.
-    audio_ref: d05-vocab-synonym
-  - word: antonym
-    definition: a word with the opposite meaning of another word
-    example: Light is an antonym of heavy.
-    audio_ref: d05-vocab-antonym
-  - word: eponym
-    definition: a word that comes from the name of a real person
-    example: Sandwich is an eponym.
-    audio_ref: d05-vocab-eponym
-  - word: italic
-    definition: a slanted style of printed letters
-    example: The quotation is printed in italic.
-    audio_ref: d05-vocab-italic
-  - word: cardigan
-    definition: a knitted jacket that opens at the front
-    example: She wore a warm cardigan on the bus.
-    audio_ref: d05-vocab-cardigan
-  - word: sandwich
-    definition: food made of fillings between two slices of bread
-    example: I packed a cheese sandwich for lunch.
-    audio_ref: d05-vocab-sandwich
-  - word: leotard
-    definition: a close-fitting, one-piece garment worn for dance or sport
-    example: The dancer wore a black leotard.
-    audio_ref: d05-vocab-leotard
-  - word: whiskey
-    definition: a strong alcoholic drink made from grain
-    example: He poured a small glass of whiskey.
-    audio_ref: d05-vocab-whiskey
+  - word: boycott
+    definition: "to refuse to deal with, work for, or buy from a person or company as a protest (named after Captain Charles C. Boycott)"
+    example: "Many customers decided to boycott the store until prices came down."
+    audio_ref: d05-vocab-boycott
+  - word: silhouette
+    definition: "a simple portrait showing only the outline of a person, in one solid colour (named after Etienne de Silhouette)"
+    example: "The children cut a silhouette of the castle from black paper."
+    audio_ref: d05-vocab-silhouette
+  - word: treacle
+    definition: "the British name for molasses"
+    example: "Stir a spoonful of treacle into the oatmeal for sweetness."
+    audio_ref: d05-vocab-treacle
 
 exercises:
-  # Opposite meaning that starts with R (book section: fluency test, open-ended).
-  - id: d05-fluency-01
+  # Test I, fluency. Items 1-16 are on page 31; items 17-20 are on page 32.
+  - id: d05-flu-01
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.fluency]
+    topics: [vocabulary.fluency]
     difficulty: 1
     points: 1
-    prompt: "Write one word that starts with R and means the opposite of accept."
-    accepted: ["reject", "refuse"]
-    explanation: "Reject and refuse both reverse accept. Both start with R."
-
-  - id: d05-fluency-02
+    prompt: "Test I, item 1: slow. Write a word that starts with R and is opposite in meaning."
+    accepted: ["rapid"]
+    explanation: "Key: 1-rapid."
+  - id: d05-flu-02
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.fluency]
+    topics: [vocabulary.fluency]
     difficulty: 1
     points: 1
-    prompt: "Write one word that starts with R and means the opposite of advance."
-    accepted: ["retreat", "recede", "regress"]
-    explanation: "To retreat is to move back, the reverse of moving forward."
-
-  - id: d05-fluency-03
+    prompt: "Test I, item 2: common. Write a word that starts with R and is opposite in meaning."
+    accepted: ["rare"]
+    explanation: "Key: 2-rare."
+  - id: d05-flu-03
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.fluency]
+    topics: [vocabulary.fluency]
     difficulty: 1
     points: 1
-    prompt: "Write one word that starts with R and means the opposite of lower."
-    accepted: ["raise", "rise"]
-    explanation: "To raise is to move something up, the reverse of lowering it."
-
-  - id: d05-fluency-04
+    prompt: "Test I, item 3: cooked. Write a word that starts with R and is opposite in meaning."
+    accepted: ["raw"]
+    explanation: "Key: 3-raw."
+  - id: d05-flu-04
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.fluency]
+    topics: [vocabulary.fluency]
     difficulty: 1
     points: 1
-    prompt: "Write one word that starts with R and means the opposite of poor."
-    accepted: ["rich"]
-    explanation: "Rich is the opposite of poor."
-
-  - id: d05-fluency-05
+    prompt: "Test I, item 4: unprepared. Write a word that starts with R and is opposite in meaning."
+    accepted: ["ready"]
+    explanation: "Key: 4-ready."
+  - id: d05-flu-05
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.fluency]
+    topics: [vocabulary.fluency]
+    difficulty: 1
+    points: 1
+    prompt: "Test I, item 5: front. Write a word that starts with R and is opposite in meaning."
+    accepted: ["rear"]
+    explanation: "Key: 5-rear."
+  - id: d05-flu-06
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.fluency]
+    difficulty: 1
+    points: 1
+    prompt: "Test I, item 6: forget. Write a word that starts with R and is opposite in meaning."
+    accepted: ["recollect", "remember", "recall"]
+    explanation: "Key: 6-recollect, remember, or recall."
+  - id: d05-flu-07
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.fluency]
     difficulty: 2
     points: 1
-    prompt: "Write one word that starts with R and means the opposite of smooth."
-    accepted: ["rough", "rugged"]
-    explanation: "A smooth surface is the reverse of a rough one."
-
-  - id: d05-fluency-06
+    prompt: "Test I, item 7: send. Write a word that starts with R and is opposite in meaning."
+    accepted: ["receive", "retain", "rescind"]
+    explanation: "Key: 7-receive, retain, or rescind."
+  - id: d05-flu-08
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.fluency]
+    topics: [vocabulary.fluency]
     difficulty: 2
     points: 1
-    prompt: "Write one word that starts with R and means the opposite of flexible."
-    accepted: ["rigid"]
-    explanation: "Rigid means stiff and unable to bend, the reverse of flexible."
-
-  - id: d05-fluency-07
+    prompt: "Test I, item 8: increase. Write a word that starts with R and is opposite in meaning."
+    accepted: ["reduce", "retard"]
+    explanation: "Key: 8-reduce or retard."
+  - id: d05-flu-09
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.fluency]
+    topics: [vocabulary.fluency]
     difficulty: 1
     points: 1
-    prompt: "Write one word that starts with R and means the opposite of fall."
-    accepted: ["rise"]
-    explanation: "Rise means to go up, the reverse of fall."
-
-  - id: d05-fluency-08
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms, vocabulary.fluency]
-    difficulty: 1
-    points: 1
-    prompt: "Write one word that starts with R and means the opposite of wrong."
+    prompt: "Test I, item 9: left. Write a word that starts with R and is opposite in meaning."
     accepted: ["right"]
-    explanation: "Right is the opposite of wrong, and it starts with R."
-
-  - id: d05-fluency-09
+    explanation: "Key: 9-right."
+  - id: d05-flu-10
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.fluency]
+    topics: [vocabulary.fluency]
     difficulty: 1
     points: 1
-    prompt: "Write one word that starts with R and means the opposite of punish."
-    accepted: ["reward"]
-    explanation: "A reward is the reverse of a punishment."
-
-  - id: d05-fluency-10
+    prompt: "Test I, item 10: green. Write a word that starts with R and is opposite in meaning."
+    accepted: ["ripe"]
+    explanation: "Key: 10-ripe."
+  - id: d05-flu-11
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.fluency]
+    topics: [vocabulary.fluency]
+    difficulty: 1
+    points: 1
+    prompt: "Test I, item 11: polite. Write a word that starts with R and is opposite in meaning."
+    accepted: ["rude"]
+    explanation: "Key: 11-rude."
+  - id: d05-flu-12
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.fluency]
     difficulty: 2
     points: 1
-    prompt: "Write one word that starts with R and means the opposite of urban."
+    prompt: "Test I, item 12: transient. Write a word that starts with R and is opposite in meaning."
+    accepted: ["resident"]
+    explanation: "Key: 12-resident."
+  - id: d05-flu-13
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.fluency]
+    difficulty: 2
+    points: 1
+    prompt: "Test I, item 13: wholesale. Write a word that starts with R and is opposite in meaning."
+    accepted: ["retail"]
+    explanation: "Key: 13-retail."
+  - id: d05-flu-14
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.fluency]
+    difficulty: 2
+    points: 1
+    prompt: "Test I, item 14: submit. Write a word that starts with R and is opposite in meaning."
+    accepted: ["resist", "rebel"]
+    explanation: "Key: 14-resist or rebel."
+  - id: d05-flu-15
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.fluency]
+    difficulty: 2
+    points: 1
+    prompt: "Test I, item 15: dull. Write a word that starts with R and is opposite in meaning."
+    accepted: ["radiant"]
+    explanation: "Key: 15-radiant."
+  - id: d05-flu-16
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.fluency]
+    difficulty: 3
+    points: 1
+    prompt: "Test I, item 16: aggressive. Write a word that starts with R and is opposite in meaning."
+    accepted: ["recessive", "reticent", "retiring", "reluctant"]
+    explanation: "Key: 16-recessive, reticent, retiring, or reluctant."
+  - id: d05-flu-17
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.fluency]
+    difficulty: 2
+    points: 1
+    prompt: "Test I, item 17: careful. Write a word that starts with R and is opposite in meaning."
+    accepted: ["reckless"]
+    explanation: "Key: 17-reckless."
+  - id: d05-flu-18
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.fluency]
+    difficulty: 2
+    points: 1
+    prompt: "Test I, item 18: work. Write a word that starts with R and is opposite in meaning."
+    accepted: ["rest", "relax", "relaxation", "recreation"]
+    explanation: "Key: 18-rest, relax(ation), or recreation."
+  - id: d05-flu-19
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.fluency]
+    difficulty: 2
+    points: 1
+    prompt: "Test I, item 19: urban. Write a word that starts with R and is opposite in meaning."
     accepted: ["rural", "rustic"]
-    explanation: "Rural and rustic describe the countryside, the reverse of city life."
-
-  - id: d05-fluency-11
+    explanation: "Key: 19-rural or rustic."
+  - id: d05-flu-20
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.fluency]
-    difficulty: 3
-    points: 1
-    prompt: "Write one word that starts with R and means the opposite of dim."
-    accepted: ["radiant", "resplendent"]
-    explanation: "Radiant describes light that shines brightly, the reverse of dim."
-
-  - id: d05-fluency-12
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms, vocabulary.fluency]
+    topics: [vocabulary.fluency]
     difficulty: 2
     points: 1
-    prompt: "Write one word that starts with R and means the opposite of dismiss."
-    accepted: ["retain", "recall", "reinstate", "rehire"]
-    explanation: "To retain means to keep someone, the reverse of letting them go."
+    prompt: "Test I, item 20: conform. Write a word that starts with R and is opposite in meaning."
+    accepted: ["resist", "rebel"]
+    explanation: "Key: 20-resist or rebel."
 
-  # Add one or two letters before -ank (book section: think of words, definition given).
-  - id: d05-ank-01
+  # Test IV, part 1: words ending in -ANK, items 1-10. Key: 1-blank, 2-dank, 3-lank, 4-clank, 5-prank,
+  # 6-flank, 7-crank, 8-shank, 9-frank, 10-plank
+  - id: d05-think-01
     type: fill_blank
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.word_building]
     difficulty: 2
     points: 1
-    prompt: "Add one or two letters before -ank to make a word meaning: a long, flat piece of wood."
-    accepted: ["plank"]
-    explanation: "Plank is p-l-ank: a long, flat board used in building."
-
-  - id: d05-ank-02
+    prompt: "Test IV, item 1: ___ank. Free from writing; empty. Add one or two letters."
+    accepted: ["blank"]
+    explanation: "Key: 1-blank."
+  - id: d05-think-02
     type: fill_blank
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.word_building]
     difficulty: 2
     points: 1
-    prompt: "Add one or two letters before -ank to make a word meaning: a playful trick meant to fool someone."
-    accepted: ["prank"]
-    explanation: "Prank is p-r-ank."
-
-  - id: d05-ank-03
+    prompt: "Test IV, item 2: ___ank. Disagreeably moist. Add one or two letters."
+    accepted: ["dank"]
+    explanation: "Key: 2-dank."
+  - id: d05-think-03
     type: fill_blank
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.word_building]
     difficulty: 2
     points: 1
-    prompt: "Add one or two letters before -ank to make a word meaning: a large container for liquid or gas."
-    accepted: ["tank"]
-    explanation: "Tank is t-ank: a large container."
-
-  - id: d05-ank-04
+    prompt: "Test IV, item 3: ___ank. Slender. Add one or two letters."
+    accepted: ["lank"]
+    explanation: "Key: 3-lank."
+  - id: d05-think-04
     type: fill_blank
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.word_building]
     difficulty: 2
     points: 1
-    prompt: "Add one or two letters before -ank to make a word meaning: honest and direct in speech."
-    accepted: ["frank"]
-    explanation: "Frank is f-r-ank, meaning open and direct."
-
-  - id: d05-ank-05
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_building]
-    difficulty: 3
-    points: 1
-    prompt: "Add one or two letters before -ank to make a word meaning: a handle that you turn to start a machine."
-    accepted: ["crank"]
-    explanation: "Crank is c-r-ank, the handle used to turn an engine or a mechanism."
-
-  - id: d05-ank-06
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_building]
-    difficulty: 3
-    points: 1
-    prompt: "Add one or two letters before -ank to make a word meaning: a loud, sharp sound of metal hitting metal."
+    prompt: "Test IV, item 4: ___ank. Noise. Add one or two letters."
     accepted: ["clank"]
-    explanation: "Clank is c-l-ank, the sound of metal striking metal."
-
-  # Opposite meaning, given the first letter (book section: think of words, opposite).
-  - id: d05-opp-01
+    explanation: "Key: 4-clank."
+  - id: d05-think-05
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.word_building]
+    topics: [vocabulary.word_building]
     difficulty: 2
     points: 1
-    prompt: "Write a word that starts with M and means the opposite of ancient."
-    accepted: ["modern"]
-    explanation: "Modern is the reverse of ancient."
-
-  - id: d05-opp-02
+    prompt: "Test IV, item 5: ___ank. Trick. Add one or two letters."
+    accepted: ["prank"]
+    explanation: "Key: 5-prank."
+  - id: d05-think-06
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.word_building]
+    topics: [vocabulary.word_building]
     difficulty: 2
     points: 1
-    prompt: "Write a word that starts with D and means the opposite of ascend."
-    accepted: ["descend"]
-    explanation: "Descend means to go down, the reverse of ascend."
-
-  - id: d05-opp-03
+    prompt: "Test IV, item 6: ___ank. Side of an animal. Add one or two letters."
+    accepted: ["flank"]
+    explanation: "Key: 6-flank."
+  - id: d05-think-07
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.word_building]
+    topics: [vocabulary.word_building]
     difficulty: 2
     points: 1
-    prompt: "Write a word that starts with T and means the opposite of cruel."
-    accepted: ["tender"]
-    explanation: "Tender means gentle and kind, the reverse of cruel."
-
-  - id: d05-opp-04
+    prompt: "Test IV, item 7: ___ank. An arm for winding. Add one or two letters."
+    accepted: ["crank"]
+    explanation: "Key: 7-crank."
+  - id: d05-think-08
     type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.antonyms, vocabulary.word_building]
+    topics: [vocabulary.word_building]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 8: ___ank. Lower part of the leg. Add one or two letters."
+    accepted: ["shank"]
+    explanation: "Key: 8-shank."
+  - id: d05-think-09
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_building]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 9: ___ank. Candid. Add one or two letters."
+    accepted: ["frank"]
+    explanation: "Key: 9-frank."
+  - id: d05-think-10
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_building]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 10: ___ank. Board. Add one or two letters."
+    accepted: ["plank"]
+    explanation: "Key: 10-plank."
+
+  # Test IV, part 2: opposite meanings, initial letter supplied, items 11-35.
+  - id: d05-think-11
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 11: a___. Opposed in meaning to: passive."
+    accepted: ["active", "alive", "alert"]
+    explanation: "Key: 11-active, alive, or alert."
+  - id: d05-think-12
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 12: b___. Opposed in meaning to: dull."
+    accepted: ["bright"]
+    explanation: "Key: 12-bright."
+  - id: d05-think-13
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 13: r___. Opposed in meaning to: throw."
+    accepted: ["catch"]
+    explanation: "Key: 13-catch."
+  - id: d05-think-14
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 14: d___. Opposed in meaning to: stay."
+    accepted: ["depart"]
+    explanation: "Key: 14-depart."
+  - id: d05-think-15
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 15: e___. Opposed in meaning to: leave."
+    accepted: ["enter"]
+    explanation: "Key: 15-enter."
+  - id: d05-think-16
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 16: f___. Opposed in meaning to: smile."
+    accepted: ["frown"]
+    explanation: "Key: 16-frown."
+  - id: d05-think-17
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 17: g___. Opposed in meaning to: sad."
+    accepted: ["gay", "glad"]
+    explanation: "Key: 17-gay or glad."
+  - id: d05-think-18
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 18: h___. Opposed in meaning to: proud."
+    accepted: ["humble"]
+    explanation: "Key: 18-humble."
+  - id: d05-think-19
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
     difficulty: 3
     points: 1
-    prompt: "Write a word that starts with H and means the opposite of hostile."
-    accepted: ["hospitable"]
-    explanation: "Hospitable means welcoming to guests, the reverse of hostile."
-
-  # The name behind the word (book section: The Name Behind the Word).
-  - id: d05-name-01
-    type: multiple_choice
+    prompt: "Test IV, item 19: i___. Opposed in meaning to: community."
+    accepted: ["individual"]
+    explanation: "Key: 19-individual."
+  - id: d05-think-20
+    type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.eponyms]
-    difficulty: 1
-    points: 1
-    prompt: "Which word is said to come from the title of an English earl?"
-    choices: ["sandwich", "whiskey", "italic"]
-    answer: "sandwich"
-    explanation: "A popular story links the sandwich to the fourth Earl of Sandwich."
-
-  - id: d05-name-02
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.eponyms]
-    difficulty: 1
-    points: 1
-    prompt: "Which garment is named after a French acrobat?"
-    choices: ["cardigan", "leotard", "sandwich"]
-    answer: "leotard"
-    explanation: "Jules Leotard, a French acrobat, gave his name to the one-piece costume."
-
-  - id: d05-name-03
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.eponyms]
+    topics: [vocabulary.antonyms]
     difficulty: 2
     points: 1
-    prompt: "Which garment is named after a British army officer and earl?"
-    choices: ["leotard", "cardigan", "whiskey"]
-    answer: "cardigan"
-    explanation: "The knitted jacket takes its name from James Brudenell, the seventh Earl of Cardigan."
-
-  # Did you know (trivia, checked by one question each).
-  - id: d05-trivia-01
-    type: multiple_choice
+    prompt: "Test IV, item 20: j___. Opposed in meaning to: senile."
+    accepted: ["juvenile"]
+    explanation: "Key: 20-juvenile."
+  - id: d05-think-21
+    type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.word_origins]
+    topics: [vocabulary.antonyms]
     difficulty: 2
     points: 1
-    prompt: "The word whiskey comes from an Irish phrase. What does that phrase mean?"
-    choices: ["water of life", "golden barrel", "river of fire"]
-    answer: "water of life"
-    explanation: "The Irish phrase means water of life."
-
-  - id: d05-trivia-02
-    type: multiple_choice
+    prompt: "Test IV, item 21: k___. Opposed in meaning to: be ignorant."
+    accepted: ["know"]
+    explanation: "Key: 21-know."
+  - id: d05-think-22
+    type: fill_blank
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.british_american]
+    topics: [vocabulary.antonyms]
+    difficulty: 3
+    points: 1
+    prompt: "Test IV, item 22: l___. Opposed in meaning to: stiff."
+    accepted: ["lithe", "lax"]
+    explanation: "Key: 22-lithe or lax."
+  - id: d05-think-23
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 3
+    points: 1
+    prompt: "Test IV, item 23: m___. Opposed in meaning to: phobia."
+    accepted: ["mania"]
+    explanation: "Key: 23-mania."
+  - id: d05-think-24
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 3
+    points: 1
+    prompt: "Test IV, item 24: n___. Opposed in meaning to: sophisticated."
+    accepted: ["naive"]
+    explanation: "Key: 24-naive."
+  - id: d05-think-25
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
     difficulty: 2
     points: 1
-    prompt: "In Britain, what is a streetcar called?"
-    choices: ["tram", "cable car", "metro"]
-    answer: "tram"
-    explanation: "British English uses tram for a streetcar."
+    prompt: "Test IV, item 25: o___. Opposed in meaning to: closed."
+    accepted: ["open", "opened"]
+    explanation: "Key: 25-open(ed)."
+  - id: d05-think-26
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 26: p___. Opposed in meaning to: meek."
+    accepted: ["proud"]
+    explanation: "Key: 26-proud."
+  - id: d05-think-27
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 3
+    points: 1
+    prompt: "Test IV, item 27: q___. Opposed in meaning to: ordinary."
+    accepted: ["quaint", "queer"]
+    explanation: "Key: 27-quaint or queer."
+  - id: d05-think-28
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 28: r___. Opposed in meaning to: common."
+    accepted: ["rare"]
+    explanation: "Key: 28-rare."
+  - id: d05-think-29
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 29: s___. Opposed in meaning to: complex."
+    accepted: ["simple"]
+    explanation: "Key: 29-simple."
+  - id: d05-think-30
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 30: t___. Opposed in meaning to: wild."
+    accepted: ["tame"]
+    explanation: "Key: 30-tame."
+  - id: d05-think-31
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 3
+    points: 1
+    prompt: "Test IV, item 31: u___. Opposed in meaning to: unique."
+    accepted: ["universal"]
+    explanation: "Key: 31-universal."
+  - id: d05-think-32
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test IV, item 32: v___. Opposed in meaning to: valuable."
+    accepted: ["valueless"]
+    explanation: "Key: 32-valueless."
+  - id: d05-think-33
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 3
+    points: 1
+    prompt: "Test IV, item 33: w___. Opposed in meaning to: ruddy."
+    accepted: ["wan", "white"]
+    explanation: "Key: 33-wan or white."
+  - id: d05-think-34
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 3
+    points: 1
+    prompt: "Test IV, item 34: y___. Opposed in meaning to: white of an egg."
+    accepted: ["yolk", "yellow"]
+    explanation: "Key: 34-yolk or yellow."
+  - id: d05-think-35
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 3
+    points: 1
+    prompt: "Test IV, item 35: z___. Opposed in meaning to: lowest point."
+    accepted: ["zenith"]
+    explanation: "Key: 35-zenith."

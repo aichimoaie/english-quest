@@ -105,6 +105,15 @@ RULE_CASES = [
         id="matching-too-few-pairs",
     ),
     pytest.param(
+        _set(
+            MATCHING,
+            "pairs",
+            [{"word": f"word{index}", "meaning": f"meaning {index}"} for index in range(11)],
+        ),
+        "List should have at most 10 items",
+        id="matching-too-many-pairs",
+    ),
+    pytest.param(
         _set(ORDERING, "answer", ["My", "brother", "is", "a"]),
         "answer must use every token exactly once",
         id="ordering-token-dropped",

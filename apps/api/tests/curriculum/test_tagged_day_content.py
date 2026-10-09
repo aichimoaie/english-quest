@@ -8,7 +8,7 @@ from pathlib import Path
 import yaml
 
 from english_quest_api.curriculum import validate_content_dir
-from english_quest_api.curriculum.models import Day
+from english_quest_api.curriculum.models import Day, FillBlankExercise
 from english_quest_api.grading.text_input import evaluate_text
 
 CONTENT = Path(__file__).resolve().parents[4] / "content"
@@ -80,14 +80,15 @@ def test_day_five_fluency_items_accept_each_fitting_opposite() -> None:
     days = _days()
     exercises = {exercise.id: exercise for exercise in days[5].exercises}
     fitting = {
-        "d05-fluency-02": ["regress"],
-        "d05-fluency-05": ["rugged"],
-        "d05-fluency-11": ["resplendent"],
-        "d05-fluency-12": ["recall", "reinstate", "rehire"],
+        "d05-flu-06": ["recall", "remember", "recollect"],
+        "d05-flu-14": ["resist", "rebel"],
+        "d05-flu-16": ["reticent", "reluctant"],
+        "d05-flu-18": ["relax", "recreation"],
     }
 
     for exercise_id, answers in fitting.items():
         exercise = exercises[exercise_id]
+        assert isinstance(exercise, FillBlankExercise), exercise_id
         for answer in answers:
             result = evaluate_text(response=answer, accepted=exercise.accepted)
 

@@ -73,7 +73,7 @@ The seven areas from PRD section 4. Use the exact spelling:
 | `pronunciation_self_rating` | `audio_text` | Unscored. No `points`, `answer`, `choices` or `accepted`. The learner says the sentence aloud and rates it |
 | `fill_blank` | `accepted` (1 or more), `prompt` | None |
 | `spelling_correction` | `text`, `accepted` (1 or more) | All-or-nothing (see Scoring) |
-| `vocabulary_matching` | `pairs` (2 to 6 of `word` and `meaning`) | None |
+| `vocabulary_matching` | `pairs` (2 to 10 of `word` and `meaning`) | None |
 | `sentence_ordering` | `tokens`, `answer` | `answer` uses every token exactly once |
 
 Every exercise also needs `id`, `learning_area`, `origin: original`, `topics`
