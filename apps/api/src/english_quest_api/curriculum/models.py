@@ -78,6 +78,7 @@ class ExerciseBase(_Strict):
     topics: list[Annotated[str, StringConstraints(pattern=TOPIC)]] = Field(
         min_length=1, max_length=4
     )
+    difficulty: int = Field(ge=1, le=3)
     prompt: NonBlank
     explanation: NonBlank
 

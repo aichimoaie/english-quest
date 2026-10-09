@@ -1,0 +1,151 @@
+/*
+ * Builds the fixture server's curriculum data from content/days, so the frontend
+ * has one source of truth. Output is generated and git-ignored. Run through the
+ * pretest, pretypecheck, prelint, predev and prebuild scripts in package.json.
+ *
+ * Dev and test only: the fixture server is removed when apps/api serves the days.
+ */
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import { parse } from "yaml";
+
+const contentDir = fileURLToPath(new URL("../../../content/days/", import.meta.url));
+const outFile = fileURLToPath(new URL("../lib/fixtures/generated/curriculum.ts", import.meta.url));
+
+/** Only the days that have content files are generated. The rest are placeholders in days.ts. */
+const dayFiles = readdirSync(contentDir)
+  .filter((name) => /^day-\d{2}\.yaml$/.test(name))
+  .sort();
+
+const INSTRUCTIONS: Record<string, string> = {
+  multiple_choice: "Choose one option.",
+  fill_blank: "Type the missing word.",
+  spelling_correction: "Type the correct spelling.",
+  vocabulary_matching: "Match each word with its meaning.",
+};
+
+interface SourceExercise {
+  id: string;
+  type: string;
+  topics: string[];
+  points: number;
+  prompt: string;
+  choices?: string[];
+  answer?: string;
+  accepted?: string[];
+  text?: string;
+  pairs?: { word: string; meaning: string }[];
+  explanation: string;
+}
+
+function fail(file: string, message: string): never {
+  throw new Error(`${file}: ${message}`);
+}
+
+/** Maps one authored exercise onto the renderer type and the answer check the server grades with. */
+function convertExercise(file: string, source: SourceExercise) {
+  const base = { id: source.id, instructions: INSTRUCTIONS[source.type], points: source.points };
+  const feedbackKey = source.topics[0];
+  const common = { expected: "", explanation: source.explanation, feedbackKey };
+
+  if (source.type === "multiple_choice") {
+    const choices = source.choices ?? [];
+    const index = choices.indexOf(source.answer ?? "");
+    if (index < 0) fail(file, `${source.id}: answer is not one of the choices`);
+    return {
+      exercise: { ...base, kind: "multiple_choice", content: { prompt: source.prompt, options: choices } },
+      answer: { ...common, expected: choices[index], check: { option: index } },
+    };
+  }
+  if (source.type === "fill_blank" || source.type === "spelling_correction") {
+    const accepted = source.accepted ?? [];
+    if (accepted.length === 0) fail(file, `${source.id}: no accepted answer`);
+    const isFill = source.type === "fill_blank";
+    const hasBlank = /_{3,}/.test(source.prompt);
+    return {
+      exercise: {
+        ...base,
+        instructions: isFill ? (hasBlank ? base.instructions : "Type your answer.") : source.prompt,
+        kind: isFill ? "fill_blank" : "spelling_correction",
+        content: isFill ? { sentence: source.prompt, hint: null } : { sentence: source.text ?? "" },
+      },
+      answer: { ...common, expected: accepted[0], check: { accepted } },
+    };
+  }
+  if (source.type === "vocabulary_matching") {
+    const pairs = source.pairs ?? [];
+    const pairMap = Object.fromEntries(pairs.map((pair) => [pair.word, pair.meaning]));
+    const meanings = pairs.map((pair) => pair.meaning);
+    // Shuffle the meanings by one place so the learner cannot match by position.
+    const shuffled = [...meanings.slice(1), meanings[0]];
+    return {
+      exercise: {
+        ...base,
+        instructions: source.prompt,
+        kind: "vocabulary_matching",
+        content: { words: pairs.map((pair) => pair.word), meanings: shuffled },
+      },
+      answer: {
+        ...common,
+        expected: pairs.map((pair) => `${pair.word}: ${pair.meaning}`).join(". ") + ".",
+        check: { pairs: pairMap },
+      },
+    };
+  }
+  fail(file, `${source.id}: unsupported type ${source.type}`);
+}
+
+const days = dayFiles.map((name) => {
+  const file = name;
+  const source = parse(readFileSync(`${contentDir}${name}`, "utf8"));
+  const cards = (source.lessons ?? []).flatMap(
+    (lesson: { cards: { title: string; body: string; examples?: string[]; watch_out?: string }[] }) =>
+      lesson.cards.map((card) => ({
+        title: card.title,
+        explanation: card.body,
+        watchOut: card.watch_out ?? null,
+        examples: card.examples ?? [],
+      })),
+  );
+  const converted = (source.exercises as SourceExercise[]).map((exercise) => convertExercise(file, exercise));
+  return {
+    dayNumber: source.day as number,
+    title: source.title as string,
+    lesson: {
+      vocabulary: (source.vocabulary ?? []).map((item: { word: string; definition: string; example: string }) => ({
+        word: item.word,
+        definition: item.definition,
+        example: item.example,
+      })),
+      grammar: cards,
+    },
+    exercises: converted.map((item) => item.exercise),
+    answers: Object.fromEntries(converted.map((item) => [item.exercise.id, item.answer])),
+  };
+});
+
+const header = `// Generated by apps/web/scripts/build-fixture-content.mts from content/days. Do not edit.
+import type { Exercise, Lesson } from "@/lib/api/types";
+import type { AnswerCheck } from "@/lib/fixtures/answer-keys";
+
+export interface GeneratedAnswer {
+  check: AnswerCheck;
+  expected: string;
+  explanation: string;
+  feedbackKey: string;
+}
+
+export interface GeneratedDay {
+  dayNumber: number;
+  title: string;
+  lesson: Lesson;
+  exercises: Exercise[];
+  answers: Record<string, GeneratedAnswer>;
+}
+
+export const GENERATED_DAYS: GeneratedDay[] = `;
+
+mkdirSync(dirname(outFile), { recursive: true });
+writeFileSync(outFile, `${header}${JSON.stringify(days, null, 2)};\n`);
+console.log(`Wrote ${days.length} day(s) to ${outFile}`);

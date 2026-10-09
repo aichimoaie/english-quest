@@ -29,3 +29,6 @@ apps/web/.next/
 apps/web/out/
 test-results/
 playwright-report/
+
+# Generated from content/days for the temporary fixture server
+apps/web/lib/fixtures/generated/

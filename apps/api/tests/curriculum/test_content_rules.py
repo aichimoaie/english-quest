@@ -12,7 +12,7 @@ from english_quest_api.curriculum import ContentIssue, validate_content_dir
 Data = dict[str, Any]
 Mutation = Callable[[Data], None]
 
-# Index of each Day 1 exercise in content/days/day-01.yaml.
+# Index of each exercise in the DAY_ONE_DATA fixture in conftest.py.
 MULTIPLE_CHOICE = 0
 FILL_BLANK = 1
 LISTENING = 3
@@ -148,6 +148,11 @@ RULE_CASES = [
         _del(0, "explanation"),
         "Field required",
         id="missing-explanation",
+    ),
+    pytest.param(
+        _del(0, "difficulty"),
+        "Field required",
+        id="missing-difficulty",
     ),
     pytest.param(
         _set(0, "points", 0),

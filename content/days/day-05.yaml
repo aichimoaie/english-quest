@@ -1,0 +1,398 @@
+# Day 5: Just for Fun (I).
+# Structure follows Part I, Day 5 of the reference book (learning goals and
+# progression only). All wording, items, answers and explanations are original.
+# Status: draft until a human reviewer approves it (PRD section 11).
+day: 5
+title: "Just for Fun (I)"
+
+lessons:
+  - id: d05-lesson-antonyms
+    learning_area: Vocabulary
+    title: "Opposites that start with R"
+    cards:
+      - title: What an antonym is
+        body: "An antonym is a word with the opposite meaning of another word. To find one, you must know the meaning of the first word well."
+        examples:
+          - "Hot and cold are antonyms."
+          - "Rise and fall are antonyms."
+      - title: Start from the meaning
+        body: "Think about what the given word means before you think about spelling. Then look for the reverse meaning that starts with the required letter."
+        examples:
+          - "The opposite of reward is punish, and the opposite of punish is reward."
+        watch_out: "A word can have more than one opposite. Accept any answer that fits the meaning and the letter."
+
+  - id: d05-lesson-eponyms
+    learning_area: Vocabulary
+    title: "Words named after people"
+    cards:
+      - title: Sandwich
+        body: "A popular story says that the fourth Earl of Sandwich asked for meat between two slices of bread, so he could eat without leaving the card table. The food took its name from his title."
+        examples:
+          - "He packed a sandwich for the trip."
+      - title: Leotard
+        body: "Jules Leotard was a French acrobat in the 1800s. He wore a close-fitting, one-piece costume, and the garment is named after him."
+        examples:
+          - "She wore a leotard to dance class."
+      - title: Cardigan
+        body: "The knitted jacket is named after James Brudenell, the seventh Earl of Cardigan, a British army officer in the 1850s. The name passed from the earl to the garment."
+        examples:
+          - "He buttoned his cardigan against the cold."
+
+  - id: d05-lesson-word-histories
+    learning_area: Vocabulary
+    title: "Word histories and trivia"
+    cards:
+      - title: Italic type
+        body: "Italic type is slanted. It is named after Italy, because a Venetian printer, Aldus Manutius, introduced it around the year 1500."
+        examples:
+          - "Book titles are often printed in italic."
+      - title: Whiskey
+        body: "The word whiskey comes from an Irish phrase that means water of life."
+        examples:
+          - "He ordered a whiskey with ice."
+      - title: British and American words
+        body: "In Britain, a streetcar is called a tram, and a movie theatre is called a cinema. Learn the local word when you travel, so you are understood."
+        examples:
+          - "The tram stops near the park."
+
+vocabulary:
+  - word: synonym
+    definition: a word with nearly the same meaning as another word
+    example: Big and large are synonyms.
+    audio_ref: d05-vocab-synonym
+  - word: antonym
+    definition: a word with the opposite meaning of another word
+    example: Light is an antonym of heavy.
+    audio_ref: d05-vocab-antonym
+  - word: eponym
+    definition: a word that comes from the name of a real person
+    example: Sandwich is an eponym.
+    audio_ref: d05-vocab-eponym
+  - word: italic
+    definition: a slanted style of printed letters
+    example: The quotation is printed in italic.
+    audio_ref: d05-vocab-italic
+  - word: cardigan
+    definition: a knitted jacket that opens at the front
+    example: She wore a warm cardigan on the bus.
+    audio_ref: d05-vocab-cardigan
+  - word: sandwich
+    definition: food made of fillings between two slices of bread
+    example: I packed a cheese sandwich for lunch.
+    audio_ref: d05-vocab-sandwich
+  - word: leotard
+    definition: a close-fitting, one-piece garment worn for dance or sport
+    example: The dancer wore a black leotard.
+    audio_ref: d05-vocab-leotard
+  - word: whiskey
+    definition: a strong alcoholic drink made from grain
+    example: He poured a small glass of whiskey.
+    audio_ref: d05-vocab-whiskey
+
+exercises:
+  # Opposite meaning that starts with R (book section: fluency test, open-ended).
+  - id: d05-fluency-01
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.fluency]
+    difficulty: 1
+    points: 1
+    prompt: "Write one word that starts with R and means the opposite of accept."
+    accepted: ["reject", "refuse"]
+    explanation: "Reject and refuse both reverse accept. Both start with R."
+
+  - id: d05-fluency-02
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.fluency]
+    difficulty: 1
+    points: 1
+    prompt: "Write one word that starts with R and means the opposite of advance."
+    accepted: ["retreat", "recede", "regress"]
+    explanation: "To retreat is to move back, the reverse of moving forward."
+
+  - id: d05-fluency-03
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.fluency]
+    difficulty: 1
+    points: 1
+    prompt: "Write one word that starts with R and means the opposite of lower."
+    accepted: ["raise", "rise"]
+    explanation: "To raise is to move something up, the reverse of lowering it."
+
+  - id: d05-fluency-04
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.fluency]
+    difficulty: 1
+    points: 1
+    prompt: "Write one word that starts with R and means the opposite of poor."
+    accepted: ["rich"]
+    explanation: "Rich is the opposite of poor."
+
+  - id: d05-fluency-05
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.fluency]
+    difficulty: 2
+    points: 1
+    prompt: "Write one word that starts with R and means the opposite of smooth."
+    accepted: ["rough", "rugged"]
+    explanation: "A smooth surface is the reverse of a rough one."
+
+  - id: d05-fluency-06
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.fluency]
+    difficulty: 2
+    points: 1
+    prompt: "Write one word that starts with R and means the opposite of flexible."
+    accepted: ["rigid"]
+    explanation: "Rigid means stiff and unable to bend, the reverse of flexible."
+
+  - id: d05-fluency-07
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.fluency]
+    difficulty: 1
+    points: 1
+    prompt: "Write one word that starts with R and means the opposite of fall."
+    accepted: ["rise"]
+    explanation: "Rise means to go up, the reverse of fall."
+
+  - id: d05-fluency-08
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.fluency]
+    difficulty: 1
+    points: 1
+    prompt: "Write one word that starts with R and means the opposite of wrong."
+    accepted: ["right"]
+    explanation: "Right is the opposite of wrong, and it starts with R."
+
+  - id: d05-fluency-09
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.fluency]
+    difficulty: 1
+    points: 1
+    prompt: "Write one word that starts with R and means the opposite of punish."
+    accepted: ["reward"]
+    explanation: "A reward is the reverse of a punishment."
+
+  - id: d05-fluency-10
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.fluency]
+    difficulty: 2
+    points: 1
+    prompt: "Write one word that starts with R and means the opposite of urban."
+    accepted: ["rural", "rustic"]
+    explanation: "Rural and rustic describe the countryside, the reverse of city life."
+
+  - id: d05-fluency-11
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.fluency]
+    difficulty: 3
+    points: 1
+    prompt: "Write one word that starts with R and means the opposite of dim."
+    accepted: ["radiant", "resplendent"]
+    explanation: "Radiant describes light that shines brightly, the reverse of dim."
+
+  - id: d05-fluency-12
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.fluency]
+    difficulty: 2
+    points: 1
+    prompt: "Write one word that starts with R and means the opposite of dismiss."
+    accepted: ["retain", "recall", "reinstate", "rehire"]
+    explanation: "To retain means to keep someone, the reverse of letting them go."
+
+  # Add one or two letters before -ank (book section: think of words, definition given).
+  - id: d05-ank-01
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_building]
+    difficulty: 2
+    points: 1
+    prompt: "Add one or two letters before -ank to make a word meaning: a long, flat piece of wood."
+    accepted: ["plank"]
+    explanation: "Plank is p-l-ank: a long, flat board used in building."
+
+  - id: d05-ank-02
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_building]
+    difficulty: 2
+    points: 1
+    prompt: "Add one or two letters before -ank to make a word meaning: a playful trick meant to fool someone."
+    accepted: ["prank"]
+    explanation: "Prank is p-r-ank."
+
+  - id: d05-ank-03
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_building]
+    difficulty: 2
+    points: 1
+    prompt: "Add one or two letters before -ank to make a word meaning: a large container for liquid or gas."
+    accepted: ["tank"]
+    explanation: "Tank is t-ank: a large container."
+
+  - id: d05-ank-04
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_building]
+    difficulty: 2
+    points: 1
+    prompt: "Add one or two letters before -ank to make a word meaning: honest and direct in speech."
+    accepted: ["frank"]
+    explanation: "Frank is f-r-ank, meaning open and direct."
+
+  - id: d05-ank-05
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_building]
+    difficulty: 3
+    points: 1
+    prompt: "Add one or two letters before -ank to make a word meaning: a handle that you turn to start a machine."
+    accepted: ["crank"]
+    explanation: "Crank is c-r-ank, the handle used to turn an engine or a mechanism."
+
+  - id: d05-ank-06
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_building]
+    difficulty: 3
+    points: 1
+    prompt: "Add one or two letters before -ank to make a word meaning: a loud, sharp sound of metal hitting metal."
+    accepted: ["clank"]
+    explanation: "Clank is c-l-ank, the sound of metal striking metal."
+
+  # Opposite meaning, given the first letter (book section: think of words, opposite).
+  - id: d05-opp-01
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.word_building]
+    difficulty: 2
+    points: 1
+    prompt: "Write a word that starts with M and means the opposite of ancient."
+    accepted: ["modern"]
+    explanation: "Modern is the reverse of ancient."
+
+  - id: d05-opp-02
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.word_building]
+    difficulty: 2
+    points: 1
+    prompt: "Write a word that starts with D and means the opposite of ascend."
+    accepted: ["descend"]
+    explanation: "Descend means to go down, the reverse of ascend."
+
+  - id: d05-opp-03
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.word_building]
+    difficulty: 2
+    points: 1
+    prompt: "Write a word that starts with T and means the opposite of cruel."
+    accepted: ["tender"]
+    explanation: "Tender means gentle and kind, the reverse of cruel."
+
+  - id: d05-opp-04
+    type: fill_blank
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms, vocabulary.word_building]
+    difficulty: 3
+    points: 1
+    prompt: "Write a word that starts with H and means the opposite of hostile."
+    accepted: ["hospitable"]
+    explanation: "Hospitable means welcoming to guests, the reverse of hostile."
+
+  # The name behind the word (book section: The Name Behind the Word).
+  - id: d05-name-01
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.eponyms]
+    difficulty: 1
+    points: 1
+    prompt: "Which word is said to come from the title of an English earl?"
+    choices: ["sandwich", "whiskey", "italic"]
+    answer: "sandwich"
+    explanation: "A popular story links the sandwich to the fourth Earl of Sandwich."
+
+  - id: d05-name-02
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.eponyms]
+    difficulty: 1
+    points: 1
+    prompt: "Which garment is named after a French acrobat?"
+    choices: ["cardigan", "leotard", "sandwich"]
+    answer: "leotard"
+    explanation: "Jules Leotard, a French acrobat, gave his name to the one-piece costume."
+
+  - id: d05-name-03
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.eponyms]
+    difficulty: 2
+    points: 1
+    prompt: "Which garment is named after a British army officer and earl?"
+    choices: ["leotard", "cardigan", "whiskey"]
+    answer: "cardigan"
+    explanation: "The knitted jacket takes its name from James Brudenell, the seventh Earl of Cardigan."
+
+  # Did you know (trivia, checked by one question each).
+  - id: d05-trivia-01
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_origins]
+    difficulty: 2
+    points: 1
+    prompt: "The word whiskey comes from an Irish phrase. What does that phrase mean?"
+    choices: ["water of life", "golden barrel", "river of fire"]
+    answer: "water of life"
+    explanation: "The Irish phrase means water of life."
+
+  - id: d05-trivia-02
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.british_american]
+    difficulty: 2
+    points: 1
+    prompt: "In Britain, what is a streetcar called?"
+    choices: ["tram", "cable car", "metro"]
+    answer: "tram"
+    explanation: "British English uses tram for a streetcar."

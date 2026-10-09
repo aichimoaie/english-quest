@@ -39,6 +39,11 @@ export function LessonView({ day: dayNumber }: { day: number }) {
             <section key={point.title} className="card stack" style={{ gap: "var(--s-3)" }}>
               <h2 className="t-head">{point.title}</h2>
               <p className="t-body">{point.explanation}</p>
+              {point.watchOut ? (
+                <p className="t-body">
+                  <strong>Watch out:</strong> {point.watchOut}
+                </p>
+              ) : null}
               <ul className="notes" style={{ background: "var(--brand-soft)" }}>
                 {point.examples.map((example) => (
                   <li key={example} style={{ color: "var(--ink)" }}>

@@ -1,188 +1,308 @@
-# Day 2: Possessives: my, your, his, her
-# Authored from scratch for English Quest. Not taken from any published book.
-# Learning objective: Use my, your, his and her before a noun to show who owns something.
+# Day 2: Test Your Vocabulary.
+# Structure follows Part I, Day 2 of the reference book (learning goals and
+# progression only). All words, items, answers and explanations are original.
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 2
-title: "Possessives: my, your, his, her"
+title: "Test Your Vocabulary"
 
 lessons:
-  - id: d02-lesson-my-your
-    learning_area: Grammar
-    title: "My and your"
+  - id: d02-lesson-meaning-clues
+    learning_area: Vocabulary
+    title: "Find meaning from clues"
     cards:
-      - title: Possessive words come before a noun
-        body: A possessive word shows who owns something. Put it before the noun it describes, and do not add "a" or "the" before it. "My" is for I, and "your" is for you.
+      - title: Match a word to its meaning
+        body: "A good vocabulary means you know what a word means, not only how it looks. Read the word, think of a situation where you would use it, then choose the meaning that fits."
         examples:
-          - "My bag is red."
-          - "Is this your umbrella?"
-        watch_out: Do not write "a my bag" or "the your bag".
-      - title: The same word for one or many
-        body: The word your does not change for the number of things. Use it with you, whether you talk to one person or to several.
+          - "A lucid explanation is clear, so you can follow it easily."
+        watch_out: "Do not choose a meaning only because the word looks similar to something you know."
+      - title: Similar or opposite
+        body: "Many words come in pairs of similar and opposite meanings. Frugal means careful with money, so its opposite is extravagant, and its similar word is thrifty."
         examples:
-          - "Your keys are on the table."
-          - "Your bags are in the hall."
-
-  - id: d02-lesson-his-her
-    learning_area: Grammar
-    title: "His and her"
-    cards:
-      - title: Choose his or her by the owner
-        body: Use "his" when the owner is a man or a boy, and "her" when the owner is a woman or a girl. The thing that is owned does not decide the word.
+          - "A frugal shopper compares prices before buying."
+          - "An extravagant gift costs far more than planned."
+        watch_out: "Check whether the question asks for a similar word or an opposite word."
+      - title: Judge a statement with a word
+        body: "Some sentences use a word correctly and some use it wrongly. Read the whole sentence, then decide whether the word's meaning makes sense in it."
         examples:
-          - "He loves his new bicycle."
-          - "She forgot her passport."
-        watch_out: Do not write "She forgot his passport." Look at who owns the passport.
-      - title: Look at the owner, not the object
-        body: A notebook can be his or her notebook. Read the sentence to find the owner, then pick the matching word.
-        examples:
-          - "Ben lost his notebook."
-          - "Anna lost her notebook."
+          - "An austere room has few decorations, so it is plain."
+        watch_out: "A word can be correct in one sentence and wrong in another."
 
 vocabulary:
-  - word: backpack
-    definition: a bag that you wear on your back
-    example: My backpack has three pockets.
-    audio_ref: d02-vocab-backpack
-  - word: notebook
-    definition: a small book with empty pages for writing notes
-    example: Her notebook is full of new words.
-    audio_ref: d02-vocab-notebook
-  - word: umbrella
-    definition: something you hold over your head to stay dry in the rain
-    example: Take your umbrella, because it might rain.
-    audio_ref: d02-vocab-umbrella
-  - word: passport
-    definition: an official document that shows who you are when you travel
-    example: His passport expires next year.
-    audio_ref: d02-vocab-passport
-  - word: bicycle
-    definition: a vehicle with two wheels that you pedal
-    example: Our bicycle is in the garage.
-    audio_ref: d02-vocab-bicycle
-  - word: jacket
-    definition: a short coat with sleeves that you wear outside
-    example: Her jacket is warm and green.
-    audio_ref: d02-vocab-jacket
-  - word: wallet
-    definition: a small flat case for money and cards
-    example: Your wallet is on the kitchen counter.
-    audio_ref: d02-vocab-wallet
-  - word: mobile phone
-    definition: a small phone that you can carry with you
-    example: My mobile phone needs charging.
-    audio_ref: d02-vocab-mobile-phone
+  - word: wary
+    definition: cautious, because you expect something bad might happen
+    example: Stay wary of offers that sound too good to be true.
+    audio_ref: d02-vocab-wary
+  - word: frugal
+    definition: careful with money and not wasteful
+    example: Her frugal habits helped her save for a flat.
+    audio_ref: d02-vocab-frugal
+  - word: lucid
+    definition: clear and easy to understand
+    example: The teacher gave a lucid explanation of the rule.
+    audio_ref: d02-vocab-lucid
+  - word: tenacious
+    definition: refusing to give up, even when things are difficult
+    example: The tenacious runner finished the race despite the rain.
+    audio_ref: d02-vocab-tenacious
+  - word: ephemeral
+    definition: lasting for only a very short time
+    example: The rainbow was ephemeral and faded in minutes.
+    audio_ref: d02-vocab-ephemeral
+  - word: benevolent
+    definition: kind, and wanting to help other people
+    example: The benevolent doctor treated patients for free.
+    audio_ref: d02-vocab-benevolent
+  - word: austere
+    definition: plain and simple, without luxury or decoration
+    example: The monastery had an austere dining hall.
+    audio_ref: d02-vocab-austere
+  - word: cogent
+    definition: clear, logical and convincing
+    example: She made a cogent case for the new plan.
+    audio_ref: d02-vocab-cogent
+  - word: prudent
+    definition: sensible and careful about risks
+    example: It is prudent to check the weather before a hike.
+    audio_ref: d02-vocab-prudent
+  - word: meticulous
+    definition: very careful about small details
+    example: He kept meticulous notes on every experiment.
+    audio_ref: d02-vocab-meticulous
 
 exercises:
-  - id: d02-grammar-mc-01
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics:
-      - grammar.possessive.determiner
-    points: 1
-    prompt: "Choose the correct word: ___ name is Lena."
-    choices:
-      - My
-      - Me
-      - I
-    answer: My
-    explanation: "\"My\" is a possessive word, so it goes before the noun \"name\". \"Me\" and \"I\" are pronouns, not possessive words."
-
-  - id: d02-grammar-mc-02
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics:
-      - grammar.possessive.determiner
-    points: 1
-    prompt: Which sentence is correct?
-    choices:
-      - She dog is friendly.
-      - Her dog is friendly.
-      - Hers dog is friendly.
-    answer: Her dog is friendly.
-    explanation: "\"Her\" comes before the noun \"dog\". \"Hers\" stands alone, as in \"The dog is hers.\""
-
-  - id: d02-grammar-fill-01
-    type: fill_blank
-    learning_area: Grammar
-    origin: original
-    topics:
-      - grammar.possessive.his_her
-    points: 1
-    prompt: "Fill in the blank: Tom lost ___ keys on the bus."
-    accepted:
-      - his
-    explanation: "Tom is a man, so the owner word is \"his\". Use \"her\" when the owner is a woman or a girl."
-
-  - id: d02-vocabulary-match-01
+  # Match each word to its meaning (book section: Test 5, matching).
+  - id: d02-match-01
     type: vocabulary_matching
     learning_area: Vocabulary
     origin: original
-    topics:
-      - vocabulary.everyday_objects
-    points: 4
-    prompt: Match each word with its meaning.
+    topics: [vocabulary.word_meanings]
+    difficulty: 2
+    points: 1
+    prompt: "Match each word with its meaning."
     pairs:
-      - word: backpack
-        meaning: a bag that you wear on your back
-      - word: notebook
-        meaning: a small book with empty pages for writing notes
-      - word: umbrella
-        meaning: something you hold over your head to stay dry in the rain
-      - word: passport
-        meaning: an official document that shows who you are when you travel
-    explanation: Each word names a thing you carry or use. Read the meanings again if you are unsure.
+      - word: wary
+        meaning: cautious about possible danger
+      - word: frugal
+        meaning: careful with money
+      - word: lucid
+        meaning: clear and easy to follow
+      - word: tenacious
+        meaning: refusing to give up
+      - word: ephemeral
+        meaning: lasting only briefly
+    explanation: "Lucid means clear, and each of the other four words has exactly one matching meaning."
 
-  - id: d02-spelling-01
-    type: spelling_correction
-    learning_area: Spelling
+  - id: d02-match-02
+    type: vocabulary_matching
+    learning_area: Vocabulary
     origin: original
-    topics:
-      - spelling.double_letters
+    topics: [vocabulary.word_meanings]
+    difficulty: 2
     points: 1
-    prompt: One word is misspelled. Retype the whole sentence with the word fixed.
-    text: I left my umbrela at the station.
-    accepted:
-      - I left my umbrella at the station.
-    explanation: "\"Umbrella\" has two l's together in the middle. Say it in parts: um-brel-la."
+    prompt: "Match each word with its meaning."
+    pairs:
+      - word: benevolent
+        meaning: kind and wanting to help
+      - word: austere
+        meaning: plain, without luxury
+      - word: cogent
+        meaning: clear and convincing
+      - word: prudent
+        meaning: sensible about risks
+      - word: meticulous
+        meaning: very careful about details
+    explanation: "Prudent and careful sound alike, but prudent is about judging risks, while meticulous is about small details."
 
-  - id: d02-sentence-order-01
-    type: sentence_ordering
-    learning_area: Sentence construction
+  # Similar or opposite meaning (book section: Test 6, similar/opposite).
+  - id: d02-sim-opp-01
+    type: multiple_choice
+    learning_area: Vocabulary
     origin: original
-    topics:
-      - sentence.word_order.basic_clause
+    topics: [vocabulary.antonyms]
+    difficulty: 2
     points: 1
-    prompt: Put the words in the correct order to make one sentence.
-    tokens:
-      - is
-      - door.
-      - by
-      - bicycle
-      - Your
-      - the
-    answer:
-      - Your
-      - bicycle
-      - is
-      - by
-      - the
-      - door.
-    explanation: Start with the owner word "Your" and the noun "bicycle". Then add "is", the place "by the door", and the full stop at the end.
+    prompt: "Which word is the opposite of frugal?"
+    choices: ["extravagant", "thrifty", "careful"]
+    answer: "extravagant"
+    explanation: "Extravagant means spending too much, the reverse of frugal. Thrifty and careful are similar."
 
-  - id: d02-listening-mc-01
-    type: listening_comprehension
-    learning_area: Listening
+  - id: d02-sim-opp-02
+    type: multiple_choice
+    learning_area: Vocabulary
     origin: original
-    topics:
-      - listening.detail
+    topics: [vocabulary.synonyms]
+    difficulty: 2
     points: 1
-    prompt: "Listen, then choose the answer: Whose jacket is it?"
-    audio_text: "Excuse me, is this blue jacket yours? No, it is not mine. I think it belongs to Jen. Her jacket is always blue."
-    choices:
-      - Jen
-      - The speaker
-      - Tom
-    answer: Jen
-    explanation: The speaker says the jacket is not theirs and that it belongs to Jen. Listen for the word that comes after "belongs to".
+    prompt: "Which word is similar in meaning to tenacious?"
+    choices: ["persistent", "careless", "timid"]
+    answer: "persistent"
+    explanation: "Persistent means continuing firmly, which is close to tenacious."
+
+  - id: d02-sim-opp-03
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Which word is the opposite of benevolent?"
+    choices: ["malicious", "generous", "gentle"]
+    answer: "malicious"
+    explanation: "Malicious means wanting to harm others, the reverse of benevolent."
+
+  - id: d02-sim-opp-04
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.synonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Which word is similar in meaning to prudent?"
+    choices: ["sensible", "reckless", "nervous"]
+    answer: "sensible"
+    explanation: "Sensible and prudent both describe good judgment. Reckless is the opposite."
+
+  - id: d02-sim-opp-05
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Which word is the opposite of ephemeral?"
+    choices: ["permanent", "fleeting", "brief"]
+    answer: "permanent"
+    explanation: "Permanent means lasting forever. Fleeting and brief are similar to ephemeral."
+
+  - id: d02-sim-opp-06
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.synonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Which word is similar in meaning to cogent?"
+    choices: ["persuasive", "vague", "rude"]
+    answer: "persuasive"
+    explanation: "A persuasive argument is convincing, as a cogent one is."
+
+  - id: d02-sim-opp-07
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Which word is the opposite of meticulous?"
+    choices: ["careless", "careful", "precise"]
+    answer: "careless"
+    explanation: "Careless means not paying attention to details, the reverse of meticulous."
+
+  - id: d02-sim-opp-08
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.synonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Which word is similar in meaning to austere?"
+    choices: ["severe", "lavish", "warm"]
+    answer: "severe"
+    explanation: "Severe means strict and plain, close to austere. Lavish is the opposite."
+
+  - id: d02-sim-opp-09
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 3
+    points: 1
+    prompt: "Which word is the opposite of wary?"
+    choices: ["trusting", "careful", "anxious"]
+    answer: "trusting"
+    explanation: "Trusting means believing people will not harm you, the reverse of wary."
+
+  - id: d02-sim-opp-10
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.synonyms]
+    difficulty: 1
+    points: 1
+    prompt: "Which word is similar in meaning to wary?"
+    choices: ["cautious", "reckless", "generous"]
+    answer: "cautious"
+    explanation: "Cautious means careful about possible danger, which is the same as wary."
+
+  # Right or wrong statement (book section: Test 7, true/false).
+  - id: d02-judge-01
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_use]
+    difficulty: 1
+    points: 1
+    prompt: "Is this statement true? A frugal person spends money carelessly."
+    choices: ["True", "False"]
+    answer: "False"
+    explanation: "A frugal person is careful with money, so the statement is false."
+
+  - id: d02-judge-02
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_use]
+    difficulty: 1
+    points: 1
+    prompt: "Is this statement true? A lucid explanation is easy to follow."
+    choices: ["True", "False"]
+    answer: "True"
+    explanation: "Lucid means clear, so a lucid explanation is easy to follow."
+
+  - id: d02-judge-03
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_use]
+    difficulty: 2
+    points: 1
+    prompt: "Is this statement true? An ephemeral flower lasts for many years."
+    choices: ["True", "False"]
+    answer: "False"
+    explanation: "Ephemeral means lasting only briefly, so an ephemeral flower does not last for years."
+
+  - id: d02-judge-04
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_use]
+    difficulty: 2
+    points: 1
+    prompt: "Is this statement true? A tenacious athlete gives up after the first loss."
+    choices: ["True", "False"]
+    answer: "False"
+    explanation: "Tenacious means refusing to give up, so the statement is false."
+
+  - id: d02-judge-05
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_use]
+    difficulty: 1
+    points: 1
+    prompt: "Is this statement true? Benevolent people want to help others."
+    choices: ["True", "False"]
+    answer: "True"
+    explanation: "Benevolent means kind and wanting to help, so the statement is true."
+
+  - id: d02-judge-06
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_use]
+    difficulty: 2
+    points: 1
+    prompt: "Is this statement true? An austere room is full of decoration and luxury."
+    choices: ["True", "False"]
+    answer: "False"
+    explanation: "Austere means plain and simple, the reverse of a room full of decoration."

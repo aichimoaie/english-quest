@@ -1,20 +1,21 @@
 /*
- * TEMPORARY fixture content for the frontend skeleton. Remove when apps/api serves
- * GET /api/v1/days/{day}. Real curriculum lives in content/days (workstream 6).
- *
- * All wording here is original, written for English Quest. Days 1 and 2 have
- * exercises; the other days are placeholders until their content is reviewed.
+ * TEMPORARY course outline for the frontend skeleton. Remove when apps/api serves
+ * GET /api/v1/days/{day}. Lessons and exercises come from content/days through
+ * lib/fixtures/generated, so there is no second copy of the content here. Days
+ * without a content file are placeholders until their content is reviewed.
  */
-import type { DaySummary, Exercise, Lesson } from "@/lib/api/types";
+import type { DaySummary } from "@/lib/api/types";
+import { GENERATED_DAYS, type GeneratedDay } from "./generated/curriculum";
 
 export { TOTAL_DAYS } from "@/lib/course";
 
-export const DAY_TITLES: { title: string; objective: string }[] = [
-  { title: "Be: am, is, are", objective: "Choose am, is or are with names, pronouns and places." },
-  { title: "Possessives: my, your, his, her", objective: "Use my, your, his and her before a noun to show who owns something." },
-  { title: "Present simple: I work", objective: "Use the base verb with I, you, we and they." },
-  { title: "Present simple: he, she, it", objective: "Add -s to the verb with he, she and it." },
-  { title: "Question words", objective: "Ask who, what, where, when and how." },
+/** One entry per course day, in day order. Days 1 to 5 also have a content file with the same title. */
+export const DAY_OUTLINE: { title: string; objective: string }[] = [
+  { title: "Test Your Pronunciation", objective: "Choose the preferred pronunciation of common, educated and unfamiliar words." },
+  { title: "Test Your Vocabulary", objective: "Match words to their meanings and spot similar and opposite words." },
+  { title: "Test Your Spelling", objective: "Spell common words correctly and find the misspelled one." },
+  { title: "Test Your Grammar", objective: "Choose correct grammar, pronouns and verb forms." },
+  { title: "Just for Fun (I)", objective: "Play word games: opposites that start with R and words named after people." },
   { title: "Possessives: my, your, his", objective: "Show who owns something." },
   { title: "There is, there are", objective: "Say what exists in a place." },
   { title: "Can and can't", objective: "Talk about ability and rules." },
@@ -42,198 +43,14 @@ export const DAY_TITLES: { title: string; objective: string }[] = [
   { title: "Review and practice", objective: "Bring together the grammar from the first 29 days." },
 ];
 
-export const DAY_SUMMARIES: DaySummary[] = DAY_TITLES.map((entry, index) => ({
+export const CONTENT_BY_DAY: Record<number, GeneratedDay> = Object.fromEntries(
+  GENERATED_DAYS.map((day) => [day.dayNumber, day]),
+);
+
+export const DAY_SUMMARIES: DaySummary[] = DAY_OUTLINE.map((entry, index) => ({
   dayNumber: index + 1,
   title: entry.title,
   objective: entry.objective,
   status: index === 0 ? "current" : "locked",
   bestScorePct: null,
 }));
-
-export const DAY_ONE_LESSON: Lesson = {
-  vocabulary: [
-    {
-      word: "teacher",
-      definition: "A person whose job is to help others learn.",
-      example: "Our teacher explains each lesson slowly.",
-    },
-    {
-      word: "student",
-      definition: "A person who is learning something.",
-      example: "The student writes a short story every week.",
-    },
-    {
-      word: "doctor",
-      definition: "A person who treats sick people.",
-      example: "The doctor is kind and very patient.",
-    },
-  ],
-  grammar: [
-    {
-      title: "Be: am, is, are",
-      explanation: "Use am with I. Use is with he, she, it and one name. Use are with you, we and they.",
-      examples: ["I am tired.", "She is a teacher.", "They are from Spain."],
-    },
-  ],
-};
-
-export const DAY_ONE_EXERCISES: Exercise[] = [
-  {
-    id: "ex_d1_choice",
-    kind: "multiple_choice",
-    instructions: "Pick the correct sentence.",
-    points: 1,
-    content: {
-      prompt: "Which sentence is correct?",
-      options: ["She are a teacher.", "She is a teacher.", "She be a teacher."],
-    },
-  },
-  {
-    id: "ex_d1_fill",
-    kind: "fill_blank",
-    instructions: "Type the missing word.",
-    points: 1,
-    content: { sentence: "They ____ from Spain.", hint: "Type one word." },
-  },
-  {
-    id: "ex_d1_order",
-    kind: "sentence_ordering",
-    instructions: "Tap the words in the right order.",
-    points: 1,
-    content: { words: ["is", "Ana", "name", "My"] },
-  },
-  {
-    id: "ex_d1_match",
-    kind: "vocabulary_matching",
-    instructions: "Match each word to its meaning.",
-    points: 3,
-    content: {
-      words: ["teacher", "student", "doctor"],
-      meanings: ["someone who learns", "someone who treats sick people", "someone who teaches"],
-    },
-  },
-  {
-    id: "ex_d1_spell",
-    kind: "spelling_correction",
-    instructions: "One word is misspelled. Type the sentence with the word fixed.",
-    points: 1,
-    content: { sentence: "I recieve a letter every week." },
-  },
-  {
-    id: "ex_d1_listen",
-    kind: "listening_comprehension",
-    instructions: "Listen to the clip, then answer the question.",
-    points: 1,
-    content: {
-      audioUrl: null,
-      prompt: "What time does the shop open?",
-      options: ["At seven", "At eight", "At nine"],
-    },
-  },
-  {
-    id: "ex_d1_say",
-    kind: "pronunciation_practice",
-    instructions: "Listen, then choose the word you hear. Then rate your own pronunciation.",
-    points: 1,
-    content: { audioUrl: null, options: ["ship", "sheep"] },
-  },
-];
-
-export const DAY_TWO_LESSON: Lesson = {
-  vocabulary: [
-    {
-      word: "backpack",
-      definition: "A bag that you wear on your back.",
-      example: "My backpack has three pockets.",
-    },
-    {
-      word: "umbrella",
-      definition: "Something you hold over your head to stay dry in the rain.",
-      example: "Take your umbrella, because it might rain.",
-    },
-    {
-      word: "passport",
-      definition: "An official document that shows who you are when you travel.",
-      example: "His passport expires next year.",
-    },
-  ],
-  grammar: [
-    {
-      title: "My and your",
-      explanation: "Put a possessive word before the noun it describes. Use my for I and your for you.",
-      examples: ["My bag is red.", "Is this your umbrella?"],
-    },
-    {
-      title: "His and her",
-      explanation: "Use his for a man or boy, and her for a woman or girl. Look at the owner, not the object.",
-      examples: ["He loves his new bicycle.", "She forgot her passport."],
-    },
-  ],
-};
-
-export const DAY_TWO_EXERCISES: Exercise[] = [
-  {
-    id: "ex_d2_choice_my",
-    kind: "multiple_choice",
-    instructions: "Pick the word that completes the sentence.",
-    points: 1,
-    content: { prompt: "___ name is Lena.", options: ["My", "Me", "I"] },
-  },
-  {
-    id: "ex_d2_choice_her",
-    kind: "multiple_choice",
-    instructions: "Pick the correct sentence.",
-    points: 1,
-    content: {
-      prompt: "Which sentence is correct?",
-      options: ["She dog is friendly.", "Her dog is friendly.", "Hers dog is friendly."],
-    },
-  },
-  {
-    id: "ex_d2_fill",
-    kind: "fill_blank",
-    instructions: "Type the missing word.",
-    points: 1,
-    content: { sentence: "Tom lost ____ keys on the bus.", hint: "Type one word." },
-  },
-  {
-    id: "ex_d2_match",
-    kind: "vocabulary_matching",
-    instructions: "Match each word to its meaning.",
-    points: 4,
-    content: {
-      words: ["backpack", "notebook", "umbrella", "passport"],
-      meanings: [
-        "an official document that shows who you are when you travel",
-        "a bag that you wear on your back",
-        "a small book with empty pages for writing notes",
-        "something you hold over your head to stay dry in the rain",
-      ],
-    },
-  },
-  {
-    id: "ex_d2_spell",
-    kind: "spelling_correction",
-    instructions: "One word is misspelled. Type the sentence with the word fixed.",
-    points: 1,
-    content: { sentence: "I left my umbrela at the station." },
-  },
-  {
-    id: "ex_d2_order",
-    kind: "sentence_ordering",
-    instructions: "Tap the words in the right order.",
-    points: 1,
-    content: { words: ["is", "door.", "by", "bicycle", "Your", "the"] },
-  },
-  {
-    id: "ex_d2_listen",
-    kind: "listening_comprehension",
-    instructions: "Listen to the clip, then answer the question.",
-    points: 1,
-    content: {
-      audioUrl: null,
-      prompt: "Whose jacket is it?",
-      options: ["Jen", "The speaker", "Tom"],
-    },
-  },
-];

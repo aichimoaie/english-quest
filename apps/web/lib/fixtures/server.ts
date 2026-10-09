@@ -22,13 +22,13 @@ import type {
   StartedAttempt,
   VocabularyEntry,
 } from "@/lib/api/types";
-import { ANSWER_KEYS } from "./answer-keys";
+import { isCorrect } from "./answer-keys";
+import type { GeneratedAnswer } from "./generated/curriculum";
 import { PASS_MARK_PCT, TOTAL_DAYS } from "@/lib/course";
-import { DAY_ONE_EXERCISES, DAY_ONE_LESSON, DAY_TWO_EXERCISES, DAY_TWO_LESSON, DAY_TITLES } from "./days";
+import { CONTENT_BY_DAY, DAY_OUTLINE } from "./days";
 
-const EMPTY_LESSON = { vocabulary: [], grammar: [] };
-const LESSONS_BY_DAY: Record<number, Lesson> = { 1: DAY_ONE_LESSON, 2: DAY_TWO_LESSON };
-const EXERCISES_BY_DAY: Record<number, Exercise[]> = { 1: DAY_ONE_EXERCISES, 2: DAY_TWO_EXERCISES };
+const EMPTY_LESSON: Lesson = { vocabulary: [], grammar: [] };
+const ANSWERS: Record<string, GeneratedAnswer> = Object.assign({}, ...Object.values(CONTENT_BY_DAY).map((day) => day.answers));
 
 interface Run {
   day: number;
@@ -60,11 +60,15 @@ function statusOf(day: number): DayStatus {
 }
 
 function exercisesFor(day: number): Exercise[] {
-  return EXERCISES_BY_DAY[day] ?? [];
+  return CONTENT_BY_DAY[day]?.exercises ?? [];
+}
+
+function isUnlocked(day: number): boolean {
+  return statusOf(day) !== "locked";
 }
 
 function summaryFor(day: number): DaySummary {
-  const entry = DAY_TITLES[day - 1];
+  const entry = DAY_OUTLINE[day - 1];
   return {
     dayNumber: day,
     title: entry.title,
@@ -83,12 +87,12 @@ function parseDay(segment: string): number {
 }
 
 function gradeItem(exerciseId: string, input: AnswerInput): AnswerResult {
-  const key = ANSWER_KEYS[exerciseId];
+  const key = ANSWERS[exerciseId];
   if (!key) {
     throw problem(404, "Exercise not found", `There is no exercise ${exerciseId}.`);
   }
   return {
-    isCorrect: key.isCorrect(input.submitted),
+    isCorrect: isCorrect(input.submitted, key.check),
     expected: key.expected,
     explanation: key.explanation,
     feedbackKey: key.feedbackKey,
@@ -180,23 +184,26 @@ function progress(): Progress {
 }
 
 function vocabulary(): VocabularyEntry[] {
-  return DAY_ONE_LESSON.vocabulary.map((item) => ({
-    id: `vocab_d1_${item.word}`,
-    word: item.word,
-    definition: item.definition,
-    example: item.example,
-    dayNumber: 1,
-    timesCorrect: 0,
-    timesWrong: 0,
-  }));
+  return Object.values(CONTENT_BY_DAY)
+    .filter((day) => isUnlocked(day.dayNumber))
+    .flatMap((day) =>
+    day.lesson.vocabulary.map((item) => ({
+      id: `vocab_d${day.dayNumber}_${item.word}`,
+      word: item.word,
+      definition: item.definition,
+      example: item.example,
+      dayNumber: day.dayNumber,
+      timesCorrect: 0,
+      timesWrong: 0,
+    })),
+  );
 }
 
 function dayDetail(day: number): DayDetail {
-  const summary = summaryFor(day);
-  const unlocked = summary.status !== "locked";
+  const unlocked = isUnlocked(day);
   return {
-    ...summary,
-    lesson: unlocked ? (LESSONS_BY_DAY[day] ?? EMPTY_LESSON) : EMPTY_LESSON,
+    ...summaryFor(day),
+    lesson: unlocked ? (CONTENT_BY_DAY[day]?.lesson ?? EMPTY_LESSON) : EMPTY_LESSON,
     exercises: unlocked ? exercisesFor(day) : [],
   };
 }
@@ -229,9 +236,9 @@ export async function fixtureCall<T>(method: string, path: string, body?: unknow
   } else if (method === "POST" && match(/^\/api\/v1\/attempts\/[^/]+\/complete$/)) {
     result = completeRun(route.split("/")[4]);
   } else if (method === "GET" && route === "/api/v1/review/daily") {
-    result = { items: state.completedDays.has(1) ? DAY_ONE_EXERCISES : [] };
+    result = { items: state.completedDays.has(1) ? exercisesFor(1) : [] };
   } else if (method === "GET" && route === "/api/v1/review/mixed") {
-    result = { items: state.completedDays.has(1) ? DAY_ONE_EXERCISES : [] };
+    result = { items: state.completedDays.has(1) ? exercisesFor(1) : [] };
   } else if (method === "POST" && route === "/api/v1/review/answers") {
     const input = readBody<AnswerInput>(body);
     result = gradeItem(input.exerciseId, input);

@@ -36,6 +36,7 @@ export interface VocabularyItem {
 export interface GrammarPoint {
   title: string;
   explanation: string;
+  watchOut: string | null;
   examples: string[];
 }
 

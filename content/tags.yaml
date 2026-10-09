@@ -1,0 +1,71 @@
+# Tag vocabulary for curriculum exercises. Every tag value used in content/days
+# must come from this file. Checked by
+# apps/api/tests/curriculum/test_tagged_day_content.py.
+#
+# How each tag is carried:
+#   skill       -> learning_area on the exercise (one of the seven PRD areas)
+#   topic       -> topics on the exercise (dotted, at most four per exercise)
+#   difficulty  -> difficulty on the exercise (1 to 3, scale below)
+#   day         -> the day file the exercise sits in (day-NN.yaml) and its id prefix (dNN-)
+#   type        -> type on the exercise (one of the kinds below)
+
+skills:
+  - Pronunciation
+  - Grammar
+  - Vocabulary
+  - Spelling
+  - Listening
+  - Sentence construction
+  - Review and retention
+
+difficulty:
+  1: One rule, or a common word, with a single step.
+  2: A rule with a common exception, or a close distractor.
+  3: A less common word, or a step that needs two rules.
+
+exercise_types:
+  - multiple_choice
+  - listening_comprehension
+  - pronunciation_practice
+  - pronunciation_self_rating
+  - fill_blank
+  - spelling_correction
+  - vocabulary_matching
+  - sentence_ordering
+
+topics:
+  Pronunciation:
+    - pronunciation.common_errors
+    - pronunciation.educated_standard
+    - pronunciation.unknown_words
+    - pronunciation.affected
+  Spelling:
+    - spelling.doubled_letters
+    - spelling.prefix_joins
+    - spelling.adding_endings
+    - spelling.word_breaks
+    - spelling.vowel_sounds
+    - spelling.silent_letters
+    - spelling.word_roots
+    - spelling.ie_ei
+    - spelling.ent_ence_ant_ance
+    - spelling.number_words
+  Grammar:
+    - grammar.past_forms
+    - grammar.word_choice
+    - grammar.agreement
+    - grammar.pronoun_case
+    - grammar.negatives
+    - grammar.determiners
+    - grammar.lie_lay
+    - grammar.adjective_absolutes
+  Vocabulary:
+    - vocabulary.word_meanings
+    - vocabulary.synonyms
+    - vocabulary.antonyms
+    - vocabulary.word_use
+    - vocabulary.fluency
+    - vocabulary.word_building
+    - vocabulary.eponyms
+    - vocabulary.word_origins
+    - vocabulary.british_american

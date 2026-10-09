@@ -1,4 +1,4 @@
-"""The real Day 2 content must pass every rule and cover the Day 2 exercise types."""
+"""The real Day 2 content must pass every rule and cover the vocabulary tests."""
 
 from pathlib import Path
 
@@ -7,14 +7,7 @@ from english_quest_api.curriculum.models import Day
 
 CONTENT_DAYS = Path(__file__).resolve().parents[4] / "content" / "days"
 
-SCORED_TYPES_IN_DAY_TWO = {
-    "multiple_choice",
-    "fill_blank",
-    "vocabulary_matching",
-    "spelling_correction",
-    "sentence_ordering",
-    "listening_comprehension",
-}
+TYPES_IN_DAY_TWO = {"vocabulary_matching", "multiple_choice"}
 
 
 def _day_two() -> Day:
@@ -24,15 +17,15 @@ def _day_two() -> Day:
 
 
 def test_day_two_loads_with_its_title() -> None:
-    assert _day_two().title == "Possessives: my, your, his, her"
+    assert _day_two().title == "Test Your Vocabulary"
 
 
-def test_day_two_has_about_six_exercises_covering_the_day_one_types() -> None:
+def test_day_two_uses_matching_and_multiple_choice() -> None:
     day = _day_two()
     types = {exercise.type for exercise in day.exercises}
 
-    assert 6 <= len(day.exercises) <= 8
-    assert types == SCORED_TYPES_IN_DAY_TWO
+    assert types == TYPES_IN_DAY_TWO
+    assert len(day.exercises) >= 6
 
 
 def test_every_day_two_exercise_is_original_and_explained() -> None:
@@ -48,25 +41,13 @@ def test_day_two_ids_use_the_day_prefix() -> None:
     assert all(lesson.id.startswith("d02-") for lesson in day.lessons)
 
 
-def test_day_two_teaches_the_four_possessive_words() -> None:
-    example_words = {
-        word.strip(".,?!").lower()
-        for lesson in _day_two().lessons
-        for card in lesson.cards
-        for example in card.examples
-        for word in example.split()
-    }
+def test_day_two_teaches_word_meanings_and_opposites() -> None:
+    topics = {topic for exercise in _day_two().exercises for topic in exercise.topics}
 
-    assert {"my", "your", "his", "her"} <= example_words
+    assert {"vocabulary.word_meanings", "vocabulary.antonyms", "vocabulary.synonyms"} <= topics
 
 
-def test_day_two_covers_the_learning_areas_it_teaches() -> None:
+def test_day_two_covers_only_vocabulary() -> None:
     covered = {exercise.learning_area for exercise in _day_two().exercises}
 
-    assert covered == {
-        LearningArea.GRAMMAR,
-        LearningArea.VOCABULARY,
-        LearningArea.LISTENING,
-        LearningArea.SENTENCE_CONSTRUCTION,
-        LearningArea.SPELLING,
-    }
+    assert covered == {LearningArea.VOCABULARY}
