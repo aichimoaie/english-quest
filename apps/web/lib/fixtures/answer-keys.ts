@@ -11,7 +11,7 @@ export type AnswerCheck = { option: number } | { accepted: string[] } | { pairs:
 
 /** Case and surrounding spaces are ignored; everything else must match. */
 export function normaliseText(value: string): string {
-  return value.trim().toLowerCase().replace(/\s+/g, " ");
+  return value.trim().toLowerCase();
 }
 
 export function isCorrect(submitted: Submitted, check: AnswerCheck): boolean {

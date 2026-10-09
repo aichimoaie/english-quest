@@ -99,8 +99,14 @@ function convertExercise(file: string, source: SourceExercise) {
 const days = dayFiles.map((name) => {
   const file = name;
   const source = parse(readFileSync(`${contentDir}${name}`, "utf8"));
-  const cards = (source.lessons ?? []).flatMap((lesson: { cards: { title: string; body: string; examples?: string[] }[] }) =>
-    lesson.cards.map((card) => ({ title: card.title, explanation: card.body, examples: card.examples ?? [] })),
+  const cards = (source.lessons ?? []).flatMap(
+    (lesson: { cards: { title: string; body: string; examples?: string[]; watch_out?: string }[] }) =>
+      lesson.cards.map((card) => ({
+        title: card.title,
+        explanation: card.body,
+        watchOut: card.watch_out ?? null,
+        examples: card.examples ?? [],
+      })),
   );
   const converted = (source.exercises as SourceExercise[]).map((exercise) => convertExercise(file, exercise));
   return {

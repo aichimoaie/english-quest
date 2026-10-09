@@ -155,6 +155,15 @@ describe("fixture server", () => {
     expect(new Set(vocabulary.map((entry) => entry.dayNumber))).toEqual(new Set([1]));
   });
 
+  it("carries the watch-out tip of each lesson card to the learner", async () => {
+    for (const day of [1, 2, 3]) {
+      await completeDay(day);
+    }
+    const day4 = await call<DayDetail>("GET", `${BASE}/days/4`);
+
+    expect(day4.lesson.grammar.map((point) => point.watchOut)).toContain("Do not say I seen it or we done it.");
+  });
+
   it("tells the learner to type an answer when a fill-blank prompt has no blank", async () => {
     for (const day of [1, 2, 3, 4]) {
       await completeDay(day);
