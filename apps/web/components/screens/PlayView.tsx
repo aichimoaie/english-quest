@@ -182,7 +182,7 @@ export function PlayView({ day: dayNumber }: { day: number }) {
           ratePronunciation.mutateAsync({ itemId: exercise.id, method: "recognition", selfRating: rating })
         }
         finishLabel="Next"
-        explain={screen.explain}
+        explain={() => screen.explain}
         onFinish={async () => advance()}
       />
     </div>

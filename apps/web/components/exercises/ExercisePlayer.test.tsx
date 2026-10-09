@@ -55,7 +55,7 @@ describe("ExercisePlayer", () => {
       explanation: "Use is with one subject.",
       feedbackKey: "be.one",
     }));
-    render(<ExercisePlayer exercises={exercises} submit={submit} onFinish={vi.fn()} finishLabel="Finish" explain={false} />);
+    render(<ExercisePlayer exercises={exercises} submit={submit} onFinish={vi.fn()} finishLabel="Finish" explain={() => false} />);
 
     fireEvent.click(screen.getByRole("button", { name: "am" }));
     fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
@@ -72,11 +72,39 @@ describe("ExercisePlayer", () => {
       explanation: "Use is with one subject.",
       feedbackKey: "be.one",
     }));
-    render(<ExercisePlayer exercises={exercises} submit={submit} onFinish={vi.fn()} finishLabel="Finish" explain={true} />);
+    render(<ExercisePlayer exercises={exercises} submit={submit} onFinish={vi.fn()} finishLabel="Finish" explain={() => true} />);
 
     fireEvent.click(screen.getByRole("button", { name: "am" }));
     fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
 
+    expect(await screen.findByText(/Use is with one subject/)).toBeTruthy();
+  });
+
+  it("decides the explanation for each item on its own", async () => {
+    const submit = vi.fn(async () => ({
+      isCorrect: false,
+      expected: "is",
+      explanation: "Use is with one subject.",
+      feedbackKey: "be.one",
+    }));
+    render(
+      <ExercisePlayer
+        exercises={exercises}
+        submit={submit}
+        onFinish={vi.fn()}
+        finishLabel="Finish"
+        explain={(exercise) => exercise.id === "ex_b"}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "am" }));
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+    expect(await screen.findByText("Not quite")).toBeTruthy();
+    expect(screen.queryByText(/Use is with one subject/)).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "Continue" }));
+    fireEvent.change(screen.getByLabelText("Your answer"), { target: { value: "are" } });
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
     expect(await screen.findByText(/Use is with one subject/)).toBeTruthy();
   });
 

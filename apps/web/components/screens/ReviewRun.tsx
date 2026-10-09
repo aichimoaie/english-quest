@@ -42,6 +42,8 @@ export function ReviewRun({ mode }: { mode: "daily" | "mixed" }) {
     );
   }
 
+  const explainById = new Map(query.data.items.map(({ exercise, explain }) => [exercise.id, explain]));
+
   return (
     <div className="stack">
       <header className="stack" style={{ gap: "var(--s-2)" }}>
@@ -49,10 +51,11 @@ export function ReviewRun({ mode }: { mode: "daily" | "mixed" }) {
         <h1 className="t-title">Practice from earlier days</h1>
       </header>
       <ExercisePlayer
-        exercises={query.data.items}
+        exercises={query.data.items.map(({ exercise }) => exercise)}
         submit={(exercise, submitted) => submitReviewAnswer.mutateAsync({ exerciseId: exercise.id, submitted })}
         rate={(exercise, rating) => ratePronunciation.mutateAsync({ itemId: exercise.id, method: "recognition", selfRating: rating })}
         finishLabel="Finish review"
+        explain={(exercise) => explainById.get(exercise.id) === true}
         onFinish={async () => setFinished(true)}
       />
     </div>

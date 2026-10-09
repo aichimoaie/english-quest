@@ -159,8 +159,14 @@ export interface CompletedAttempt {
   nextDay: number | null;
 }
 
+/** A review item, with the explain flag of the test it came from. */
+export interface ReviewItem {
+  exercise: Exercise;
+  explain: boolean;
+}
+
 export interface ReviewSet {
-  items: Exercise[];
+  items: ReviewItem[];
 }
 
 export interface PronunciationRatingInput {

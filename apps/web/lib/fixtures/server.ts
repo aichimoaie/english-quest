@@ -19,13 +19,14 @@ import type {
   Exercise,
   Progress,
   PronunciationRatingInput,
+  ReviewItem,
   StartedAttempt,
   VocabularyEntry,
 } from "@/lib/api/types";
 import { DEV_ANSWERS, isCorrect } from "./answer-keys";
 import type { GeneratedAnswer } from "./generated/curriculum";
 import { PASS_MARK_PCT, TOTAL_DAYS } from "@/lib/course";
-import { dayItems } from "@/lib/day-screens";
+import { dayItems, dayReviewItems } from "@/lib/day-screens";
 import { isScored, scorePercent } from "@/lib/scoring";
 import { CONTENT_BY_DAY, DAY_OUTLINE, DEV_FIXTURE_EXERCISES } from "./days";
 
@@ -62,6 +63,10 @@ function statusOf(day: number): DayStatus {
 
 function exercisesFor(day: number): Exercise[] {
   return dayItems(CONTENT_BY_DAY[day]?.screens ?? []);
+}
+
+function reviewFor(day: number): ReviewItem[] {
+  return dayReviewItems(CONTENT_BY_DAY[day]?.screens ?? []);
 }
 
 function isUnlocked(day: number): boolean {
@@ -232,9 +237,9 @@ export async function fixtureCall<T>(method: string, path: string, body?: unknow
   } else if (method === "POST" && match(/^\/api\/v1\/attempts\/[^/]+\/complete$/)) {
     result = completeRun(route.split("/")[4]);
   } else if (method === "GET" && route === "/api/v1/review/daily") {
-    result = { items: state.completedDays.has(1) ? exercisesFor(1) : [] };
+    result = { items: state.completedDays.has(1) ? reviewFor(1) : [] };
   } else if (method === "GET" && route === "/api/v1/review/mixed") {
-    result = { items: state.completedDays.has(1) ? exercisesFor(1) : [] };
+    result = { items: state.completedDays.has(1) ? reviewFor(1) : [] };
   } else if (method === "GET" && route === "/api/v1/dev/exercises") {
     // Dev only: one item of each new kind plus a timed item. Not a day, and not in the day list.
     result = { items: DEV_FIXTURE_EXERCISES };
