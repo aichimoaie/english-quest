@@ -21,6 +21,7 @@ WriteDay = Callable[..., Path]
 DAY_ONE_DATA: dict[str, Any] = {
     "day": 1,
     "title": 'Greetings and the verb "be"',
+    "objective": "Greet people and use the verb be.",
     "vocabulary": [
         {
             "word": "brother",

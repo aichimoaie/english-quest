@@ -10,6 +10,7 @@
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 2
 title: "Test Your Vocabulary"
+objective: "Match words to their meanings and spot similar and opposite words."
 
 vocabulary:
   - word: "imminent"

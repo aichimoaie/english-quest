@@ -32,6 +32,7 @@ screen that follows them.
 
 ```yaml
 day: 1                       # 1 to 30, must match the file name day-01.yaml
+objective: ...               # one line: what the learner can do after the day
 title: Greetings and the verb "be"
 vocabulary:                  # 1 to 12 words
   - word: brother

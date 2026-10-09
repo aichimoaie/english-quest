@@ -8,6 +8,7 @@
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 3
 title: "Test Your Spelling"
+objective: "Spell common words correctly and find the misspelled one."
 
 vocabulary:
   - word: "drunkenness"

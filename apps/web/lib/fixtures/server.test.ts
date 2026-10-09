@@ -126,11 +126,14 @@ describe("fixture server", () => {
     await completeDay(5);
     await completeDay(6);
     const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/7/attempts`);
-    const completed = await call<{ scorePct: number; status: string; nextDay: number | null }>("POST", `${BASE}/attempts/${attemptId}/complete`);
+    const completed = await call<{ scorePct: number | null; status: string; nextDay: number | null }>("POST", `${BASE}/attempts/${attemptId}/complete`);
+    const day7 = await call<DayDetail>("GET", `${BASE}/days/7`);
     const day8 = await call<DaySummary>("GET", `${BASE}/days/8`);
 
+    expect(completed.scorePct).toBeNull();
     expect(completed.status).toBe("passed");
     expect(completed.nextDay).toBe(8);
+    expect(day7.bestScorePct).toBeNull();
     expect(day8.status).toBe("current");
   });
 
