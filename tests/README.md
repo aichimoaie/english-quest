@@ -73,7 +73,7 @@ These names come from the architecture report and are not yet on main. Change th
 - Curriculum validator: `english_quest_api.curriculum.validate`, run with the content directory as its argument.
 - Web app: static export in `apps/web/out`, with a `build` script in `apps/web/package.json`.
 - Sign-in page: `/login` with fields labelled `Email` and `Password`, and a `Sign in` button.
-- Day flow labels (from the prototype's UI text): `Your 30 days` heading, a `Day 1` link or button, `Check answer` and `Continue` buttons, and `Correct` or `Not quite` feedback. Choice answers are buttons whose pressed state is `aria-pressed`.
+- Day flow labels (from the prototype's UI text): `Your 30 days` heading, a `Day 1` link or button, `Start` and `Next` buttons on intro and results screens (the screen flow is in [content/README.md](../content/README.md#screen-flow)), `Check answer` and `Continue` buttons for items, and `Correct` or `Not quite` feedback. Choice answers are buttons whose pressed state is `aria-pressed`.
 - Learner seeding: `tests/e2e/global-setup.ts` runs `alembic upgrade head` and `python -m english_quest_api.seed_learner` against `EQ_TEST_DATABASE_URL`, with `EQ_LEARNER_EMAIL` and `EQ_LEARNER_PASSWORD` in the environment. Workstream 5 (authentication) must provide that command.
 - Contract run database: `test_openapi_contract.py` points `DATABASE_URL` at `EQ_TEST_DATABASE_URL`, runs `alembic upgrade head` on it, and only then imports the app. It never uses SQLite. Change the variable name if `apps/api` reads a different one.
 
