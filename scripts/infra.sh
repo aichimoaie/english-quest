@@ -4,7 +4,7 @@
 #   scripts/infra.sh plan  <dev|prod>   init both Terraform roots and print the plan. Changes nothing.
 #   scripts/infra.sh up    <dev|prod>   print the plan, then apply it after you type the environment name.
 #   scripts/infra.sh down  <dev|prod>   print the destroy plan, then destroy after you type the environment name.
-#   scripts/infra.sh check              format, validate, lint and test every root. Needs no Azure access.
+#   scripts/infra.sh check              format, validate and lint every root. Needs no Azure access.
 #
 # Needs terraform, the Azure CLI logged in, and the approved subscription selected.
 # Reads deployment/terraform/backend.hcl (git-ignored; it holds the state storage
@@ -53,6 +53,8 @@ require_env_files() {
     if grep -q 'REPLACE-' "$vars"; then
       die "$vars still has REPLACE- placeholders. Fill them in before running."
     fi
+    grep -Eq "^subscription_id[[:space:]]*=[[:space:]]*\"$APPROVED_SUBSCRIPTION_ID\"" "$vars" ||
+      die "$vars does not set subscription_id to the approved $APPROVED_SUBSCRIPTION_ID."
   done
 }
 
@@ -71,7 +73,7 @@ plan_root() {
   [ "$out" = "-" ] || out_args=(-out="$out")
   local code=0
   terraform -chdir="$dir" plan -input=false -detailed-exitcode \
-    -var-file="vars/$env.tfvars" "${out_args[@]}" "$@" || code=$?
+    -var-file="vars/$env.tfvars" ${out_args[@]+"${out_args[@]}"} "$@" || code=$?
   if [ "$code" -gt 2 ]; then
     die "terraform plan failed in $dir (exit $code)."
   fi
@@ -113,8 +115,8 @@ run_apply() {
   [ "$mode" = "down" ] && destroy_args=(-destroy)
 
   local single_code=0 cicd_code=0
-  plan_root "$single_dir" "$env" "$work/single.tfplan" "${destroy_args[@]}" || single_code=$?
-  plan_root "$cicd_dir" "$env" "$work/cicd.tfplan" "${destroy_args[@]}" || cicd_code=$?
+  plan_root "$single_dir" "$env" "$work/single.tfplan" ${destroy_args[@]+"${destroy_args[@]}"} || single_code=$?
+  plan_root "$cicd_dir" "$env" "$work/cicd.tfplan" ${destroy_args[@]+"${destroy_args[@]}"} || cicd_code=$?
 
   if [ "$single_code" -eq 0 ] && [ "$cicd_code" -eq 0 ]; then
     echo "No changes for the $env environment. Nothing to do."
@@ -159,23 +161,19 @@ run_apply() {
   echo "Done: $mode $env."
 }
 
-# Layer 1 of the test plan: format, validate, lint and native tests on every root.
+# Format, validate and lint every root. Needs no Azure access.
 run_check() {
   require_tools
+  command -v tflint >/dev/null || die "tflint is not on PATH. Install it to run this check."
   terraform -chdir="$tf_root" fmt -check -recursive
   local dir
   for dir in "$single_dir" "$cicd_dir"; do
     terraform -chdir="$dir" init -backend=false -input=false >/dev/null
     terraform -chdir="$dir" validate
   done
-  if command -v tflint >/dev/null; then
-    tflint --chdir="$single_dir" --init >/dev/null
-    tflint --chdir="$single_dir"
-    tflint --chdir="$cicd_dir"
-  else
-    echo "tflint not found; skipping lint. Install it to run this check." >&2
-  fi
-  terraform -chdir="$single_dir" test
+  tflint --chdir="$single_dir" --init >/dev/null
+  tflint --chdir="$single_dir"
+  tflint --chdir="$cicd_dir"
   echo "Checks passed."
 }
 

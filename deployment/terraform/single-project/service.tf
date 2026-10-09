@@ -21,8 +21,8 @@ resource "azurerm_container_app" "api" {
   }
 
   secret {
-    name                = "database-url"
-    key_vault_secret_id = azurerm_key_vault_secret.database_url.versionless_id
+    name                = "api-database-url"
+    key_vault_secret_id = azurerm_key_vault_secret.api_database_url.versionless_id
     identity            = azurerm_user_assigned_identity.app.id
   }
 
@@ -50,7 +50,7 @@ resource "azurerm_container_app" "api" {
 
       env {
         name        = "DATABASE_URL"
-        secret_name = "database-url"
+        secret_name = "api-database-url"
       }
 
       env {
@@ -71,7 +71,10 @@ resource "azurerm_container_app" "api" {
     ignore_changes = [template[0].container[0].image]
   }
 
-  depends_on = [azurerm_role_assignment.app_secrets_user]
+  depends_on = [
+    azurerm_role_assignment.app_secrets_user,
+    postgresql_role.api,
+  ]
 }
 
 # Runs `alembic upgrade head` as a separate job. The deploy pipeline starts it

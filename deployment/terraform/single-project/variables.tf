@@ -29,6 +29,12 @@ variable "location" {
   default     = "eastus"
 }
 
+variable "operator_ip_address" {
+  description = "Your public IPv4 address, so terraform can set the API database login from this machine. Null when the apply runs inside Azure. Set it in vars/<env>.tfvars before the first up."
+  type        = string
+  default     = null
+}
+
 variable "static_web_app_location" {
   description = "Region for the Static Web App. Documented exception: Static Web Apps is not offered in East US, so it uses East US 2. The API and database stay in East US."
   type        = string

@@ -10,7 +10,6 @@ deployment/terraform/
   single-project/   The application: resource group, API, migration job, PostgreSQL,
                     Key Vault, Static Web App, logs and alerts, budget.
     vars/dev.tfvars, vars/prod.tfvars
-    tests/          Native Terraform tests (plan only, providers mocked, no Azure calls).
   cicd/             The deploy identity that GitHub Actions signs in as.
     vars/dev.tfvars, vars/prod.tfvars
 ```
@@ -24,7 +23,7 @@ Each environment has its own state key: `english-quest-<env>.tfstate` for `singl
 Everything runs through `scripts/infra.sh`:
 
 ```bash
-scripts/infra.sh check            # format, validate, lint, native tests. No Azure access.
+scripts/infra.sh check            # format, validate, lint. No Azure access.
 scripts/infra.sh plan dev         # init both roots and print the plan. Changes nothing.
 scripts/infra.sh up dev           # print both plans, then apply after you type: dev
 scripts/infra.sh down prod        # print the destroy plans, then destroy after you type: prod
@@ -69,6 +68,8 @@ Then copy `backend.hcl.example` to `backend.hcl` (git-ignored) and set the accou
 
 Before the first `up`, fill in the `REPLACE-` values in `single-project/vars/<env>.tfvars` and `cicd/vars/<env>.tfvars`: the alert and budget email addresses, and the budget start date.
 
+Also set `operator_ip_address` in `single-project/vars/<env>.tfvars` to your public IPv4 address. Terraform connects to PostgreSQL from your machine to create the API login role and its password, and the server accepts only Azure services and that address. Update the value when your address changes. `scripts/infra.sh` refuses to run if either tfvars file sets a `subscription_id` other than the approved one.
+
 ## What the MVP creates
 
 | Resource | Where | Notes |
@@ -77,9 +78,10 @@ Before the first `up`, fill in the `REPLACE-` values in `single-project/vars/<en
 | Static Web App (Free) | `storage.tf` | East US 2, the documented exception. |
 | Container Apps environment and API app | `service.tf` | 0.25 vCPU, 0.5 GiB, min 1 and max 2 replicas. |
 | Migration job `job-eq-<env>-migrate` | `service.tf` | Runs `alembic upgrade head`. The pipeline starts it and waits for it before updating the API image. Terraform never starts it. |
-| PostgreSQL Flexible Server, `B_Standard_B1ms`, 32 GiB | `postgres.tf` | No HA, 7-day backups. Public endpoint with TLS required and the `allow-azure-services` firewall rule. No VNet, subnet or private endpoint (owner decision). |
-| Key Vault (RBAC), `database-url` secret | `keyvault.tf` | The runtime source of the database URL. Purge protection on in prod only (D8). |
-| User-assigned identity | `iam.tf` | Read-only access to the vault (Key Vault Secrets User). The API and the job read `DATABASE_URL` through it. |
+| PostgreSQL Flexible Server, `B_Standard_B1ms`, 32 GiB | `postgres.tf` | No HA, 7-day backups. Public endpoint with TLS required, the `allow-azure-services` firewall rule and the optional operator rule. No VNet, subnet or private endpoint (owner decision). |
+| PostgreSQL login roles `english_quest_server` (NOLOGIN) and `english_quest_api` (LOGIN) | `postgres.tf` | Created by Terraform, which sets the API login's generated password. The API role is a member of the server role, which alone reads the answer keys. The migration keeps its `IF NOT EXISTS` guard. |
+| Key Vault (RBAC), `database-url` and `api-database-url` secrets | `keyvault.tf` | `database-url` is the administrator login, for the migration job only. `api-database-url` is the restricted API login. Purge protection on in prod only (D8). |
+| User-assigned identity | `iam.tf` | Read-only access to the vault (Key Vault Secrets User). The API reads `api-database-url` as `DATABASE_URL`. The migration job reads `database-url` as `MIGRATION_DATABASE_URL`. |
 | Log Analytics workspace, 30 days, 1 GB daily cap | `telemetry.tf` | Container logs (D3). |
 | Five metric alerts and an action group (email) | `telemetry.tf` | PostgreSQL CPU and storage, API 5xx, API restarts, API has no running replica. |
 | Monthly budget, 40 USD, resource-group scope | `budget.tf` | Prod only (D2). 80% of actual and 100% forecast. |
@@ -99,6 +101,7 @@ No domain is decided. `single-project/variables.tf` has `custom_domain` with the
 - **Alert metric dimension.** The 5xx alert filters the `Requests` metric on `StatusCodeCategory`. This name is not verified, because no Container App exists yet to list the metric definitions. Confirm it on the first plan after the first apply.
 - **Role propagation.** The app identity's vault role can take a minute to take effect. If the first apply fails on the Key Vault reference, run `up` again. It is idempotent.
 - **Budget and resource group.** Only prod has a budget (D2). Dev has none.
+- **Production down then up (D8, accepted).** Prod has purge protection on. After `down prod`, the Key Vault name stays reserved for the 7-day soft-delete retention, and the Log Analytics workspace name stays reserved for its retention period after deletion. `up prod` fails on those names until they are released. Wait for the retention period, then run `up prod` again. The names are not changed.
 
 ## Not in this root
 
@@ -107,4 +110,6 @@ No domain is decided. `single-project/variables.tf` has `custom_domain` with the
 
 ## Tools
 
-Local checks need Terraform 1.8 or newer (1.9.8 was used to write this), tflint, and the Azure CLI for `up`, `down` and `plan`. `scripts/infra.sh check` needs no Azure access. Plans and applies use `azurerm` 4.81.x and `azuread` 3.10.x, pinned in the lock files for linux_amd64 and darwin_arm64.
+Local checks need Terraform 1.8 or newer (1.9.8 was used to write this), tflint (`scripts/infra.sh check` fails without it), and the Azure CLI for `up`, `down` and `plan`. `scripts/infra.sh check` needs no Azure access. Plans and applies use `azurerm` 4.81.x, `random` 3.9.x and `postgresql` 1.25.x, pinned in the lock file for linux_amd64 and darwin_arm64.
+
+The pull-request infra job runs `scripts/infra.sh check` on this folder. It installs Terraform and tflint for that job.

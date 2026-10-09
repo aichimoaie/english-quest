@@ -1,7 +1,7 @@
 data "azurerm_client_config" "current" {}
 
-# The runtime source of the database URL. The API and the migration job read it
-# through the app identity in iam.tf, so the URL is not copied into app settings.
+# The runtime sources of the database URLs. The API and the migration job read
+# them through the app identity in iam.tf, so the URLs are not copied into app settings.
 resource "azurerm_key_vault" "this" {
   name                = module.shared.key_vault_name
   location            = var.location
@@ -25,6 +25,14 @@ resource "azurerm_role_assignment" "operator_secrets_officer" {
 resource "azurerm_key_vault_secret" "database_url" {
   name         = "database-url"
   value        = local.database_url
+  key_vault_id = azurerm_key_vault.this.id
+
+  depends_on = [azurerm_role_assignment.operator_secrets_officer]
+}
+
+resource "azurerm_key_vault_secret" "api_database_url" {
+  name         = "api-database-url"
+  value        = local.api_database_url
   key_vault_id = azurerm_key_vault.this.id
 
   depends_on = [azurerm_role_assignment.operator_secrets_officer]
