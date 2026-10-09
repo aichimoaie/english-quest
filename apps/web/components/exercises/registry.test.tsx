@@ -3,7 +3,7 @@ import type { ExerciseKind } from "@/lib/api/types";
 import { exerciseRegistry } from "./registry";
 
 describe("exercise registry", () => {
-  it("has one renderer for each of the seven exercise types", () => {
+  it("has one renderer for each of the eleven exercise types", () => {
     const expected: ExerciseKind[] = [
       "multiple_choice",
       "fill_blank",
@@ -12,6 +12,10 @@ describe("exercise registry", () => {
       "spelling_correction",
       "listening_comprehension",
       "pronunciation_practice",
+      "find_misspelled",
+      "self_check",
+      "right_wrong",
+      "timed_recall",
     ];
 
     expect(Object.keys(exerciseRegistry).sort()).toEqual([...expected].sort());

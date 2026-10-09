@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ExercisePlayer } from "@/components/exercises/ExercisePlayer";
+import { LessonIntro } from "@/components/lesson/LessonIntro";
+import { lessonPanels } from "@/components/lesson/lessonPanels";
 import { ErrorState, LoadingState } from "@/components/ui/QueryState";
 import { ApiError } from "@/lib/api/errors";
 import { useCompleteAttempt, useDay, useRatePronunciation, useStartAttempt, useSubmitAnswer } from "@/lib/api/hooks";
@@ -18,6 +20,7 @@ export function PlayView({ day: dayNumber }: { day: number }) {
   const ratePronunciation = useRatePronunciation();
   const complete = useCompleteAttempt(dayNumber);
   const [attempt, setAttempt] = useState<StartedAttempt | null>(null);
+  const [lessonRead, setLessonRead] = useState(false);
   const requested = useRef(false);
   const { mutate: startRun } = start;
 
@@ -56,6 +59,21 @@ export function PlayView({ day: dayNumber }: { day: number }) {
     );
   }
 
+  if (detail.isError) {
+    return (
+      <div className="stack">
+        <ErrorState
+          message="We could not load this day. Try again in a moment."
+          action={
+            <button type="button" className="btn btn-primary" onClick={() => void detail.refetch()}>
+              Try again
+            </button>
+          }
+        />
+      </div>
+    );
+  }
+
   if (!attempt || detail.isPending) return <LoadingState label="Getting your questions…" />;
 
   return (
@@ -64,6 +82,14 @@ export function PlayView({ day: dayNumber }: { day: number }) {
         Leave practice
       </Link>
       <p className="t-label">Day {dayNumber}: {detail.data?.title}</p>
+      {!lessonRead && detail.data && (detail.data.lesson.grammar.length > 0 || detail.data.lesson.vocabulary.length > 0) ? (
+        <LessonIntro
+          day={{ label: `Day ${dayNumber}`, title: detail.data.title, intro: detail.data.objective }}
+          panels={lessonPanels(detail.data.lesson)}
+          ctaLabel="Start exercises"
+          onContinue={() => setLessonRead(true)}
+        />
+      ) : (
       <ExercisePlayer
         exercises={attempt.exercises}
         submit={(exercise, submitted) =>
@@ -78,6 +104,7 @@ export function PlayView({ day: dayNumber }: { day: number }) {
           router.push(`/days/${dayNumber}/summary`);
         }}
       />
+      )}
     </div>
   );
 }

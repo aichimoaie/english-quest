@@ -26,3 +26,34 @@ export function isCorrect(submitted: Submitted, check: AnswerCheck): boolean {
     Object.entries(check.pairs).every(([word, meaning]) => submitted.pairs[word] === meaning)
   );
 }
+
+/*
+ * DEV ONLY. Answers for the dev items in days.ts. They are served only by the dev
+ * fixture route and are not part of any day.
+ */
+export const DEV_ANSWERS: Record<string, { check: AnswerCheck; expected: string; explanation: string; feedbackKey: string }> = {
+  ex_dev_find: {
+    check: { option: 0 },
+    expected: "recieve",
+    explanation: "Receive has the pattern i before e, except after c.",
+    feedbackKey: "spelling.ie_ei",
+  },
+  ex_dev_self: {
+    check: { option: 0 },
+    expected: "I agree.",
+    explanation: "Say I agree, not I am agree.",
+    feedbackKey: "self.agree",
+  },
+  ex_dev_right: {
+    check: { option: 1 },
+    expected: "Wrong",
+    explanation: "Use is with she, so the sentence should be She is my friend.",
+    feedbackKey: "be.subject_agreement",
+  },
+  ex_dev_timed: {
+    check: { accepted: ["cottage"] },
+    expected: "cottage",
+    explanation: "A cottage is a small house in the country.",
+    feedbackKey: "vocab.meaning",
+  },
+};

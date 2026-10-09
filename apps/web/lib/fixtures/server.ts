@@ -22,13 +22,13 @@ import type {
   StartedAttempt,
   VocabularyEntry,
 } from "@/lib/api/types";
-import { isCorrect } from "./answer-keys";
+import { DEV_ANSWERS, isCorrect } from "./answer-keys";
 import type { GeneratedAnswer } from "./generated/curriculum";
 import { PASS_MARK_PCT, TOTAL_DAYS } from "@/lib/course";
-import { CONTENT_BY_DAY, DAY_OUTLINE } from "./days";
+import { CONTENT_BY_DAY, DAY_OUTLINE, DEV_FIXTURE_EXERCISES } from "./days";
 
 const EMPTY_LESSON: Lesson = { vocabulary: [], grammar: [] };
-const ANSWERS: Record<string, GeneratedAnswer> = Object.assign({}, ...Object.values(CONTENT_BY_DAY).map((day) => day.answers));
+const ANSWERS: Record<string, GeneratedAnswer> = Object.assign({}, DEV_ANSWERS, ...Object.values(CONTENT_BY_DAY).map((day) => day.answers));
 
 interface Run {
   day: number;
@@ -239,6 +239,9 @@ export async function fixtureCall<T>(method: string, path: string, body?: unknow
     result = { items: state.completedDays.has(1) ? exercisesFor(1) : [] };
   } else if (method === "GET" && route === "/api/v1/review/mixed") {
     result = { items: state.completedDays.has(1) ? exercisesFor(1) : [] };
+  } else if (method === "GET" && route === "/api/v1/dev/exercises") {
+    // Dev only: one item of each new kind plus a timed item. Not a day, and not in the day list.
+    result = { items: DEV_FIXTURE_EXERCISES };
   } else if (method === "POST" && route === "/api/v1/review/answers") {
     const input = readBody<AnswerInput>(body);
     result = gradeItem(input.exerciseId, input);
