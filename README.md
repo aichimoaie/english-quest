@@ -12,7 +12,7 @@ Workstream dependency map: [docs/implementation/workstreams.md](docs/implementat
 | `apps/api` | FastAPI service (Python 3.12, uv). |
 | `apps/web` | Next.js web app, static export (workstream 1). |
 | `content/` | Curriculum as reviewed YAML and JSON Schemas (workstreams 4 and 6). |
-| `infra/` | OpenTofu modules and the dev and prod environments (workstream 7). |
+| `deployment/terraform/` | Terraform roots for the Azure MVP and the dev and prod environments (workstream 7). Spin up and down with `scripts/infra.sh`; see [its README](deployment/terraform/README.md). |
 | `docs/` | PRD, implementation notes, and ADRs. |
 
 ## Run the API locally

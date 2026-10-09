@@ -1,5 +1,0 @@
-# Copy to terraform.tfvars (git-ignored) and fill in the values.
-subscription_id       = "00000000-0000-0000-0000-000000000000"
-tenant_id             = "00000000-0000-0000-0000-000000000000"
-budget_contact_emails = ["you@example.com"]
-# Set to the first day of a current or future month, for example "2026-11-01T00:00:00Z".

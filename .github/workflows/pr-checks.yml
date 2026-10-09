@@ -16,9 +16,10 @@ env:
   # Area locations. The commands each job runs are listed in docs/ci.md.
   WEB_DIR: apps/web
   API_DIR: apps/api
-  TOFU_DIR: infra
+  INFRA_DIR: deployment/terraform
   NODE_VERSION: "24"
-  TOFU_VERSION: "1.13.1"
+  TERRAFORM_VERSION: "1.9.8"
+  TFLINT_VERSION: "v0.55.1"
 
 jobs:
   changes:
@@ -50,7 +51,8 @@ jobs:
               - 'uv.lock'
               - '.github/workflows/**'
             infra:
-              - 'infra/**'
+              - 'deployment/terraform/**'
+              - 'scripts/infra.sh'
               - '.github/workflows/**'
       # An area job runs only when its paths changed and its directory exists on this branch.
       - id: areas
@@ -61,7 +63,7 @@ jobs:
         run: |
           [[ "$CHANGED_WEB" == "true" && -d "$WEB_DIR" ]] && web=true || web=false
           [[ "$CHANGED_API" == "true" && -d "$API_DIR" ]] && api=true || api=false
-          [[ "$CHANGED_INFRA" == "true" && -d "$TOFU_DIR" ]] && infra=true || infra=false
+          [[ "$CHANGED_INFRA" == "true" && -d "$INFRA_DIR" ]] && infra=true || infra=false
           {
             echo "web=$web"
             echo "api=$api"
@@ -117,23 +119,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: opentofu/setup-opentofu@v2
+      - uses: hashicorp/setup-terraform@v3
         with:
-          tofu_version: ${{ env.TOFU_VERSION }}
-      - name: Format check
-        run: tofu fmt -check -recursive "$TOFU_DIR"
-      - name: Validate environments
-        run: |
-          shopt -s nullglob
-          envs=("$TOFU_DIR"/envs/*/)
-          if [ ${#envs[@]} -eq 0 ]; then
-            echo "No environments found under $TOFU_DIR/envs" >&2
-            exit 1
-          fi
-          for env in "${envs[@]}"; do
-            tofu -chdir="$env" init -backend=false -input=false
-            tofu -chdir="$env" validate
-          done
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+      - uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: ${{ env.TFLINT_VERSION }}
+      - name: Format, validate and lint
+        run: scripts/infra.sh check
 
   # Single required status for branch protection. Path-filtered jobs that do not
   # run are reported as skipped, which this job accepts.
