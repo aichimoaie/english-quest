@@ -80,10 +80,6 @@ def _swap_first_two_screens(data: Data) -> None:
     data["screens"][0], data["screens"][1] = data["screens"][1], data["screens"][0]
 
 
-def _drop_final_test(data: Data) -> None:
-    data["screens"] = data["screens"][:-1]
-
-
 def _vocabulary_del(index: int, key: str) -> Mutation:
     def mutate(data: Data) -> None:
         del data["vocabulary"][index][key]
@@ -202,11 +198,6 @@ RULE_CASES = [
         _swap_first_two_screens,
         "the first screen must be a text screen",
         id="day-does-not-open-with-text",
-    ),
-    pytest.param(
-        _drop_final_test,
-        "the last screen must be a test",
-        id="day-does-not-end-with-a-test",
     ),
     pytest.param(
         _set(SELF_RATING, "answer", "I have a sheep."),
@@ -409,3 +400,17 @@ def test_duplicate_key_is_rejected_not_overridden(
 
     assert not report.ok
     assert "duplicate key" in _messages(report.issues)
+
+
+def test_day_may_end_on_a_text_screen(day_one_data: Data, write_day: Callable[..., Path]) -> None:
+    day_one_data["screens"].append(
+        {
+            "kind": "text",
+            "id": "d01-screen-closing",
+            "title": "Closing text",
+            "cards": [{"title": "Closing", "body": "Reading text that ends the day."}],
+        }
+    )
+    report = validate_content_dir(write_day(day_one_data).parent)
+
+    assert report.ok, _messages(report.issues)

@@ -64,7 +64,7 @@ class DayDetail(ApiModel):
     objective: str
     status: DayStatus
     vocabulary: list[DayVocabulary]
-    # The screens in the order the learner meets them. The day ends after the last test.
+    # The screens in the order the learner meets them. The day ends after the last screen.
     screens: list[DayScreen]
 
 

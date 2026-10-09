@@ -1,0 +1,237 @@
+# Day 12: Let's Learn Ten New Words.
+# Source: reference book, Twelfth Day (pp. 89-91).
+# Transcribed from pages/page89.md through page91.md, in the book's order, except the test.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref, and the test intro) were added for this app. origin is "original" only because the
+# schema requires that value.
+# The book has one test on p. 89: complete the ten words from their clues. The owner decided that the
+# ten word texts come before it, and the test is the last screen. The book's sentence that refers to
+# "the key that follows the test" is kept verbatim, although the key now comes before the test.
+# Explanations are the book's own, shown on each word's text screen. The test shows the answer key on
+# its results screen.
+# Status: draft until a human reviewer approves it (PRD section 11).
+day: 12
+title: "Let's Learn Ten New Words"
+
+vocabulary:
+  - word: "livid"
+    definition: "dark, grayish-blue in color"
+    example: "The bruise on his arm was livid and purple."
+    audio_ref: "d12-vocab-livid"
+  - word: "fervid"
+    definition: "heated or vehement in spirit"
+    example: "She made a fervid speech about the new library."
+    audio_ref: "d12-vocab-fervid"
+  - word: "rabid"
+    definition: "extreme in opinion or practice"
+    example: "The rabid fan followed the team to every game."
+    audio_ref: "d12-vocab-rabid"
+  - word: "pallid"
+    definition: "wan; without color"
+    example: "After the long flight he looked pallid and tired."
+    audio_ref: "d12-vocab-pallid"
+  - word: "lucid"
+    definition: "clear; easily understood"
+    example: "The teacher gave a lucid explanation of the rule."
+    audio_ref: "d12-vocab-lucid"
+  - word: "morbid"
+    definition: "diseased; gruesome; easily influenced by ideas of a gloomy nature"
+    example: "The film had a morbid story that many people found upsetting."
+    audio_ref: "d12-vocab-morbid"
+  - word: "sordid"
+    definition: "filthy; dirty; mean"
+    example: "The sordid alley was full of litter."
+    audio_ref: "d12-vocab-sordid"
+  - word: "candid"
+    definition: "frank; honest; truthful"
+    example: "He gave a candid answer, even though it was hard to hear."
+    audio_ref: "d12-vocab-candid"
+  - word: "vivid"
+    definition: "bright; sharp; clear"
+    example: "The painting had vivid red and green colors."
+    audio_ref: "d12-vocab-vivid"
+  - word: "lurid"
+    definition: "glaringly sensational; marked by violent passion or crime"
+    example: "The newspaper printed lurid details of the crime."
+    audio_ref: "d12-vocab-lurid"
+
+screens:
+  - kind: "text"
+    id: "d12-screen-introduction"
+    title: "Let's Learn Ten New Words"
+    cards:
+      - title: "Twelfth Day"
+        body: |-
+          *A quick warm-up that will help you add some short and expressive terms to your vocabulary.*
+
+          Do you have a good stock of short, graphic terms with which to express your ideas?
+  - kind: "text"
+    id: "d12-screen-livid"
+    title: "1. Livid"
+    cards:
+      - title: "Livid"
+        body: "**Livid.** This can best be understood by thinking of a black-and-blue bruise. Also used figuratively, as *livid with rage*, when the face takes on this unpleasant color."
+  - kind: "text"
+    id: "d12-screen-fervid"
+    title: "2. Fervid"
+    cards:
+      - title: "Fervid"
+        body: "**Fervid.** A *fervid* attitude is ardent and zealous; a *fervid* attack is warm and passionate. This word comes from a Latin verb meaning to boil or flame."
+  - kind: "text"
+    id: "d12-screen-rabid"
+    title: "3. Rabid"
+    cards:
+      - title: "Rabid"
+        body: "**Rabid.** A *rabid* person is fanatical, goes to extreme lengths in expressing an opinion or taking a stand. This word is from a Latin stem meaning to rave, the same stem from which we derive *rabies*, the disease that affects dogs."
+  - kind: "text"
+    id: "d12-screen-pallid"
+    title: "4. Pallid"
+    cards:
+      - title: "Pallid"
+        body: "**Pallid.** This word is essentially similar in meaning to *pale*, except for its added implication that color or health has been lost through some abnormal condition such as weakness, illness, fainting, fatigue, etc."
+  - kind: "text"
+    id: "d12-screen-lucid"
+    title: "5. Lucid"
+    cards:
+      - title: "Lucid"
+        body: "**Lucid.** If anything is *lucid*, it is clear or easy to understand. We may speak of *lucid* prose, a *lucid* argument, or of a mental patient whose mind is no longer *lucid*."
+  - kind: "text"
+    id: "d12-screen-morbid"
+    title: "6. Morbid"
+    cards:
+      - title: "Morbid"
+        body: "**Morbid.** In its medical sense, *morbid* implies lack of health, as in a *morbid* condition of the lungs or a *morbid* growth on the intestines; in its extended and more general meaning, the word implies unnatural gruesomeness or gloomy pessimism, as in the *morbid* cartoons of Charles Addams or the *morbid* atmosphere of Russian novels. The word derives from Latin *morbus*, disease."
+  - kind: "text"
+    id: "d12-screen-sordid"
+    title: "7. Sordid"
+    cards:
+      - title: "Sordid"
+        body: "**Sordid.** This is a difficult word to explain because so much of its impact comes from its emotional flavor rather than from its direct meaning. A *sordid* atmosphere implies repulsiveness and degradation, lack of cleanliness and cheerfulness, perhaps even an open display of base passions or immorality. *Sordid* surroundings might be mean, dirty, indicative of dire poverty. A *sordid* book might deal with vile people and foul doings. The word comes from Latin *sordere*, to be dirty."
+  - kind: "text"
+    id: "d12-screen-candid"
+    title: "8. Candid"
+    cards:
+      - title: "Candid"
+        body: "**Candid.** A *candid* person is frank, aboveboard, not given to deception or concealment. If you are noted for your candidness, you do not attempt to hide what you know, even at the risk of hurting people's feelings or putting yourself at a disadvantage. The word is from Latin *toga candidus*, the white (for purity) garment worn by Roman office-seekers who thereby signified that they had nothing to conceal — and it is from the same root that we get the word *candidate*."
+  - kind: "text"
+    id: "d12-screen-vivid"
+    title: "9. Vivid"
+    cards:
+      - title: "Vivid"
+        body: "**Vivid.** A *vivid* picture is sharp and clear; *vivid* colors are brilliant, like bright red or green, rather than dull, like gray or black; a *vivid* account appeals powerfully to the imagination, has a sharp impact on the emotions, etc. The word is from the Latin *vivere*, to be alive."
+  - kind: "text"
+    id: "d12-screen-lurid"
+    title: "10. Lurid"
+    cards:
+      - title: "Lurid"
+        body: "**Lurid.** A woman with a *lurid* past has lived sensationally, notoriously, scandalously; the *lurid* details of death, catastrophe, etc., are those which might offend the sensitive reader or listener — such extreme details might be excessively gruesome, repugnant, or disgusting."
+  - kind: "test"
+    id: "d12-test-complete-words"
+    title: "Complete the Words"
+    intro: |-
+      Complete as many of the following words as you can, then add to your vocabulary by studying the key that follows the test.
+
+      All ten answers end in "-id"; the reader is given the first letter and asked to fill in the rest.
+    items:
+      - id: "d12-fill-01"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 1: dark, grayish-blue in color — L____ID"
+        accepted: ["livid"]
+        explanation: "Key: livid."
+      - id: "d12-fill-02"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 2: heated or vehement in spirit — F____ID"
+        accepted: ["fervid"]
+        explanation: "Key: fervid."
+      - id: "d12-fill-03"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 3: extreme in opinion or practice — R____ID"
+        accepted: ["rabid"]
+        explanation: "Key: rabid."
+      - id: "d12-fill-04"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 4: wan; without color — P____ID"
+        accepted: ["pallid"]
+        explanation: "Key: pallid."
+      - id: "d12-fill-05"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 5: clear; easily understood — L____ID"
+        accepted: ["lucid"]
+        explanation: "Key: lucid."
+      - id: "d12-fill-06"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 6: diseased; gruesome; easily influenced by ideas of a gloomy nature — M____ID"
+        accepted: ["morbid"]
+        explanation: "Key: morbid."
+      - id: "d12-fill-07"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 7: filthy; dirty; mean — S____ID"
+        accepted: ["sordid"]
+        explanation: "Key: sordid."
+      - id: "d12-fill-08"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 8: frank; honest; truthful — C____ID"
+        accepted: ["candid"]
+        explanation: "Key: candid."
+      - id: "d12-fill-09"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 9: bright; sharp; clear — V____ID"
+        accepted: ["vivid"]
+        explanation: "Key: vivid."
+      - id: "d12-fill-10"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 10: glaringly sensational; marked by violent passion or crime — L____ID"
+        accepted: ["lurid"]
+        explanation: "Key: lurid."
