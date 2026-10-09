@@ -149,6 +149,15 @@ def test_day_three_has_no_closing_text_after_its_last_test() -> None:
     assert day.screens[-1].id == "d03-test-9"
 
 
+def test_day_six_closes_with_reading_text_after_its_last_test() -> None:
+    day = _days()[6]
+    last_test = [screen for screen in day.screens if isinstance(screen, models.TestScreen)][-1]
+
+    assert last_test.id == "d06-test-pronunciation"
+    assert isinstance(day.screens[-1], models.TextScreen)
+    assert day.screens[-1].id == "d06-screen-watch-accent"
+
+
 def test_day_four_test_ten_is_self_check_with_no_score() -> None:
     day = _days()[4]
     test_ten = next(screen for screen in day.screens if screen.id == "d04-test-10")

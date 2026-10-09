@@ -1,0 +1,212 @@
+# Day 7: More Practice in Good Pronunciation.
+# Source: reference book, Seventh Day (pp. 39-46).
+# Transcribed from pages/page41.md through page46.md, in the book's order.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref) were added for this app. origin is "original" only because the schema requires that value.
+# The Seventh Day has no test. Its pages are reading text only, so the day has no scored items.
+# The book's tables are written as numbered lists. Page-break headers and "continued" notes are omitted.
+# Status: draft until a human reviewer approves it (PRD section 11).
+day: 7
+title: "More Practice in Good Pronunciation"
+
+vocabulary:
+  - word: "camouflage"
+    definition: "a way of hiding something by making it look like its surroundings; pronounced KAM'-ə-flahzh"
+    example: "The soldiers wore green camouflage in the forest."
+    audio_ref: "d07-vocab-camouflage"
+  - word: "sabotage"
+    definition: "deliberate damage done to stop something from working; pronounced SAB'-ə-tahzh"
+    example: "The workers were blamed for the sabotage of the machine."
+    audio_ref: "d07-vocab-sabotage"
+  - word: "prestige"
+    definition: "respect and admiration that comes from success or rank; pronounced press-TEEZH'"
+    example: "The job carries a lot of prestige in the town."
+    audio_ref: "d07-vocab-prestige"
+  - word: "perspiration"
+    definition: "the liquid that comes out of the skin when you are hot or working hard; pronounced pur-spə-RAY'-shən"
+    example: "Perspiration covered his face after the long run."
+    audio_ref: "d07-vocab-perspiration"
+  - word: "superfluous"
+    definition: "more than is needed; not necessary; pronounced soo-PUR'-floo-əs"
+    example: "Superfluous words make a sentence harder to follow."
+    audio_ref: "d07-vocab-superfluous"
+
+screens:
+  - kind: "text"
+    id: "d07-screen-introduction"
+    title: "More Practice in Good Pronunciation"
+    cards:
+      - title: "Seventh Day"
+        body: "Here are 25 important words that poor speakers say in a slovenly fashion. How about you?"
+  - kind: "text"
+    id: "d07-screen-say-clearly"
+    title: "Say It Clearly"
+    cards:
+      - title: "Say It Clearly"
+        body: |-
+          Now let us look at another group of pronunciation demons: words, like *accessory*, that may tempt unwary speakers into omitting essential letters. This leads to the kind of slovenly articulation that robs speech of forcefulness. Say each word aloud with particular attention to the italicized letter, which should be sounded distinctly.
+
+          1. a**C**cessory — ak-SESS'-ər-ee
+          2. su**C**cin**C**t — sək-SINGKT'
+          3. a**C**cept — ak-SEPT'
+          4. a**C**cede — ak-SEED'
+          5. a**C**celerator — ak-SEL'-ə-ray-tər
+          6. lib**R**ary — LYE'-brer-ee
+          7. Feb**R**uary — FEB'-roo-er-ee
+          8. len**G**th — LENGKTH
+          9. stren**G**th — STRENGKTH
+          10. wi**D**th — WIDTH
+          11. gover**N**ment — GUV'-ərn-mənt
+          12. g**E**ography — jee-OG'-rə-fee
+          13. **E**leven — ə-LEV'-ən
+          14. as**K**ed — ASKT
+          15. pi**C**ture — PIK'-chər
+          16. proba**B**ly — PROB'-əb-lee
+          17. ru**I**n (2 syllables) — ROO'-ən
+          18. po**E**m (2 syllables) — PO'-əm
+          19. reco**G**nize — REK'-əg-nize
+          20. partic**U**lar — pər-TIK'-yə-lər
+          21. fig**U**re — FIG'-yər
+          22. reg**U**lar — REG'-yə-lər
+          23. acc**U**rate — AK'-yə-rət
+          24. man**U**facture — man-yə-FAK'-chər
+          25. kep**T** — KEPT
+
+          In this type of word especially, only constant repetition of the correct form is likely to be effective in changing habits. So be relentless in your practice; read the entire list aloud as often as you think necessary to engrave the crucial letter of each word on your mind. Then check on the success of your practice by reading the following phrases quickly. Are you saying all the sounds that should be heard?
+
+          - succinct and acceptable analysis
+          - length and width of the library
+          - February the eleventh
+          - recognized the government
+          - kept the picture
+          - accurate figures
+          - regular manufactures
+          - of particular strength
+          - probably ruined the poem
+          - asked for geography
+
+          Let us now cruise along over the remaining categories, with the understanding that final and complete mastery can be achieved only from repeated practice. Single out for special attention those groups in which you feel weakest, and be generous with your time and effort. Frequent repetition of the words aloud will make correct habits so deep-seated that the possibility of error, even in the heat of animated conversation, will be reduced to the vanishing point.
+  - kind: "text"
+    id: "d07-screen-dont-say-too-much"
+    title: "Don't Say Too Much"
+    cards:
+      - title: "Don't Say Too Much"
+        body: |-
+          In the previous section, your practice was devoted to words in which speakers often casually ignore essential letters that should be clearly pronounced. This section, on the contrary, offers the kind of demon—*mischievous* is a typical example—in which some people tend to insert sounds that aren't there.
+
+          Read each word in Column I aloud. Check your pronunciation by referring to the correct form in Column II. Are you saying no more than necessary? Make sure that you avoid the incorrect form listed in Column III.
+
+          1. mischievous — II. Say: MISS'-chə-vəs; III. Do Not Say: miss-CHEE'-vee-əs
+          2. grievous — II. Say: GREE'-vəs; III. Do Not Say: GREE'-vee-əs
+          3. film — II. Say: FILM (1 syllable); III. Do Not Say: FILL'-əm
+          4. elm — II. Say: ELM (1 syllable); III. Do Not Say: ELL'-əm
+          5. drowned — II. Say: DROWND (1 syllable); III. Do Not Say: DROWN'-dəd
+          6. percolator — II. Say: PUR'-kə-lay-tər; III. Do Not Say: PUR'-kyə-lay-tər
+          7. attacked — II. Say: ə-TAKT'; III. Do Not Say: ə-TAK'-təd
+          8. athletic — II. Say: ath-LET'-ic; III. Do Not Say: ath-ə-LET'-ic
+          9. athlete — II. Say: ATH'-leet; III. Do Not Say: ATH'-ə-leet
+          10. just — II. Say: JUST; III. Do Not Say: JIST
+          11. get — II. Say: GET; III. Do Not Say: GIT
+          12. wrestle — II. Say: RESS'-əl; III. Do Not Say: RASS'-əl
+  - kind: "text"
+    id: "d07-screen-sound-h-beware-g"
+    title: "Sound Your H and Beware of G"
+    cards:
+      - title: "Sound Your H"
+        body: |-
+          In a few English words, such as *honor* and *honest*, the letter *H* is, of course, silent; but in the following words the *H* should be clearly pronounced. Try these aloud.
+
+          1. **h**uman
+          2. **h**umanity
+          3. **h**umane
+          4. **h**umor
+          5. **h**umorous
+          6. **h**umid
+          7. **h**umidity
+          8. **h**uge
+          9. **h**umble
+          10. **h**omage
+
+          In *herb*, the *H* is usually silent, but it is equally correct to sound it; say either *'erb* or *herb*.
+      - title: "Beware of G"
+        body: |-
+          *G* is a tricky confusing letter. Often it is hard, as in *game*. Just as often, especially before vowels, *E*, *I*, and *Y*, it is soft, as in *gem*, *gin*, and *gymnasium*.
+
+          Beware particularly of the following words, in each of which *G* is soft, with the sound of *J*.
+
+          1. orgy
+          2. gesture
+          3. gesticulate
+          4. turgid
+          5. intelligentsia
+          6. gibberish
+          7. gibe
+          8. longevity (lon-JEV'-ə-tee)
+
+          And beware, too, of these, in which *G* has the same sound as the *S* in *pleasure*, *treasure*, or *measure*, indicated usually by the symbol *ZH*. Say *pleasure* several times aloud, noting the characteristic sound of the *S*; then give the same sound to *G* in each of the following.
+
+          1. garage — gə-RAHZH'
+          2. barrage — bə-RAHZH'
+          3. camouflage — KAM'-ə-flahzh
+          4. massage — mə-SAHZH'
+          5. corsage — kor-SAHZH'
+          6. sabotage — SAB'-ə-tahzh
+          7. prestige — press-TEEZH'
+          8. cortege — kor-TEZH'
+
+          Practice aloud with an alert ear to make sure you are not pronouncing the *G* like a *J*; the tongue should hang slack in the mouth rather than hitting the front of the palate, and the result should be fairly liquid.
+  - kind: "text"
+    id: "d07-screen-untwisted"
+    title: "Keep Sounds Untwisted"
+    cards:
+      - title: "Keep Sounds Untwisted"
+        body: |-
+          In eight special words, poor speakers tend to transpose sounds, pronouncing them in incorrect order, often with humorous results. Try these, noting the instructions.
+
+          1. *bronchial*—BRONG'-kee-əl, not BRON'-ə-kəl (Note that *ch*- precedes the *-i*.)
+          2. *superfluous*—soo-PUR'-floo-əs, not soo-PUR'-fə-ləs (Note that *l*- precedes the *-u*.)
+          3. *larynx*—LAR'-inx (ă as in *hat*), not LAHR'-nix (Note that *y*- precedes the *-n*.)
+          4. *irrelevant*—ir-REL'-ə-vənt, not ir-REV'-ə-lənt (Note that *l*- precedes the *-v*.)
+          5. *modern*—MOD'-ərn, not MOD'-rən (note again that *e*- precedes the *-r*.)
+          6. *pattern*—PAT'-ərn, not PAT'-rən (Note again that *e*- precedes the *-r*.)
+          7. *perspiration*—pur-spə-RAY'-shən, not press-pə-RAY'-shən (Note that *e*- precedes the *-r*.)
+          8. *prescription*—prə-SKRIP'-shən, not pər-SKRIP'-shən (Note that in this word, on the other hand, *r*- precedes the *-e*.)
+  - kind: "text"
+    id: "d07-screen-get-straight-ile"
+    title: "Get Straight on -ILE"
+    cards:
+      - title: "Get Straight on -ILE"
+        body: |-
+          Most words that end in *-ile* are preferably pronounced with the ending *-ill*, to rhyme with *mill*, with the exceptions noted later. Practice the following by saying them aloud over and over again.
+
+          1. fragile — FRAJ'-ill
+          2. servile — SUR'-vill
+          3. versatile — VUR'-sə-till
+          4. fertile — FUR'-till
+          5. imbecile — IM'-bə-sill
+          6. hostile — HOS'-till
+          7. sterile — STER'-ill
+          8. docile — DOSS'-ill
+          9. agile — AJ'-ill
+          10. futile — FYOO'-till
+          11. virile — VIR'-ill, not VER'-ill
+
+          In the following exceptions, the last syllable rhymes with *mile*.
+
+          1. infantile — IN'-fən-tile
+          2. senile — SEE'-nile
+          3. profile — PRO'-file
+          4. exile — EK'-sile *or* EG'-zile
+          5. reconcile — REK'-ən-sile
+          6. crocodile — KROK'-ə-dile
+          7. turnstile — TURN'-stile
+          8. bibliophile — BIB'-lee-ə-file
+
+          In four special words, you may rhyme the ending either with *mill* or with *mile*. Use whichever form sounds better to you.
+
+          1. juvenile
+          2. textile
+          3. mercantile
+          4. domicile
