@@ -249,4 +249,32 @@ describe("ExercisePlayer recall set and end screen", () => {
     fireEvent.click(screen.getByRole("button", { name: "Save run" }));
     await waitFor(() => expect(onFinish).toHaveBeenCalledTimes(1));
   });
+
+  it("gives the headline from points-weighted scored items only, leaving out self-checks", async () => {
+    // One point right and three points wrong is 25%. Counting the self-check, or counting items instead of points, gives a different number.
+    const mixed: Exercise[] = [
+      { id: "ex_m1", kind: "multiple_choice", instructions: "Pick.", points: 1, content: { prompt: "Which?", options: ["am", "is"] } },
+      { id: "ex_m2", kind: "multiple_choice", instructions: "Pick.", points: 3, content: { prompt: "Which?", options: ["am", "is"] } },
+      { id: "ex_self", kind: "self_check", instructions: "Reflect.", points: 1, content: { prompt: "Do you say this?" } },
+    ] as Exercise[];
+    const submit = vi.fn(async (exercise: Exercise) => ({
+      isCorrect: exercise.id !== "ex_m2",
+      expected: null,
+      explanation: "Noted.",
+      feedbackKey: "ok",
+    }));
+    render(<ExercisePlayer exercises={mixed} submit={submit} onFinish={vi.fn(async () => undefined)} finishLabel="Save run" />);
+
+    fireEvent.click(screen.getByRole("button", { name: "am" }));
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Continue" }));
+    fireEvent.click(screen.getByRole("button", { name: "am" }));
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Continue" }));
+    fireEvent.click(screen.getByRole("button", { name: "Yes, I often say this" }));
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+    fireEvent.click(await screen.findByRole("button", { name: "See my results" }));
+
+    expect(screen.getByText("25% correct")).toBeTruthy();
+  });
 });

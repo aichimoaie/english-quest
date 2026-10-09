@@ -5,7 +5,7 @@
  *
  * It mirrors the server rules that matter to the UI: days unlock in order, a run
  * completes a day at 70%, scoring uses each item's first answer in a run, and
- * the server returns `expected` only after an answer is recorded, and self-check
+ * the server returns `expected` only after an answer is recorded. Self-check
  * items are shown but not scored.
  */
 import { ApiError } from "@/lib/api/errors";
