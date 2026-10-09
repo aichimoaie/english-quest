@@ -1,0 +1,868 @@
+# Day 13: A Challenge to Your Vocabulary.
+# Source: reference book, Thirteenth Day (pp. 92-97).
+# Transcribed from pages/page92.md through page97.md, in the book's order.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref, and the test intro for Tests 1 and 2, which have no instruction line in the book) were
+# added for this app. origin is "original" only because the schema requires that value.
+# Explanations are the book's own where it gives them. Where it gives only the key, the explanation
+# is "Key: ..." and the test does not show explanations (explain is false).
+# Status: draft until a human reviewer approves it (PRD section 11).
+day: 13
+title: "A Challenge to Your Vocabulary"
+
+vocabulary:
+  - word: "obstetrician"
+    definition: "a doctor who delivers babies"
+    example: "The obstetrician stayed with the mother through the night."
+    audio_ref: "d13-vocab-obstetrician"
+  - word: "virtuoso"
+    definition: "a person with exceptional skill in an art, especially music"
+    example: "The violinist was a virtuoso who played every note with ease."
+    audio_ref: "d13-vocab-virtuoso"
+  - word: "choreographer"
+    definition: "a person who arranges the steps of a ballet or dance"
+    example: "The choreographer taught the dancers a new routine."
+    audio_ref: "d13-vocab-choreographer"
+  - word: "aesthete"
+    definition: "someone who devotes their life to beauty"
+    example: "The aesthete spent every weekend visiting galleries and concerts."
+    audio_ref: "d13-vocab-aesthete"
+  - word: "entomology"
+    definition: "the study of insects"
+    example: "She is studying entomology and has collected over a hundred beetles."
+    audio_ref: "d13-vocab-entomology"
+  - word: "amnesia"
+    definition: "loss of memory"
+    example: "After the accident he had amnesia and could not recall his own name."
+    audio_ref: "d13-vocab-amnesia"
+  - word: "claustrophobia"
+    definition: "morbid fear of enclosed spaces"
+    example: "Her claustrophobia made the crowded elevator difficult to bear."
+    audio_ref: "d13-vocab-claustrophobia"
+  - word: "soliloquize"
+    definition: "to speak aloud to oneself"
+    example: "The actor began to soliloquize on the empty stage."
+    audio_ref: "d13-vocab-soliloquize"
+  - word: "alleviate"
+    definition: "to diminish or lessen"
+    example: "The cool drink helped to alleviate the heat."
+    audio_ref: "d13-vocab-alleviate"
+  - word: "cower"
+    definition: "to crouch in fear"
+    example: "The puppy began to cower under the table during the storm."
+    audio_ref: "d13-vocab-cower"
+  - word: "malign"
+    definition: "to slander, or gossip about, someone"
+    example: "It is unkind to malign a neighbor behind their back."
+    audio_ref: "d13-vocab-malign"
+  - word: "parsimonious"
+    definition: "stingy, tight-fisted"
+    example: "The parsimonious landlord never repaired anything."
+    audio_ref: "d13-vocab-parsimonious"
+
+screens:
+  - kind: "text"
+    id: "d13-screen-introduction"
+    title: "A Challenge to Your Vocabulary"
+    cards:
+      - title: "Thirteenth Day"
+        body: |-
+          *Here are 50 more words that should be in every educated person's vocabulary — how successfully can you learn them?*
+
+          A test can be used for one of two purposes: to check on your knowledge, or to motivate your learning. These tests have the latter end in view.
+
+          It is true in a sense that if you cannot answer a question you thereby display your ignorance. It is equally true, and far more important, that when you finally discover the correct answer to the question you thereupon erase that ignorance.
+
+          In the five tests which follow you will be asked 50 questions — *and your learning will come from the questions you cannot answer.* Each test will take you no more than three minutes. Go through the tests quickly, guessing as wildly as you like; then pay particular attention to the answers. For every mistake you make you will learn a new word. The more errors, the more words you will add to your vocabulary. So have no fear of coming through with a low score — the lower it is, the greater you gain!
+  - kind: "test"
+    id: "d13-test-people"
+    title: "Test 1: People"
+    intro: "Choose the answer that fits each question."
+    items:
+      - id: "d13-people-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 1, item 1: Are babies delivered by ...?"
+        choices: ["a pediatrician", "an osteopath", "an obstetrician"]
+        answer: "an obstetrician"
+        explanation: "Key: an obstetrician."
+      - id: "d13-people-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 1, item 2: Are teeth straightened by ...?"
+        choices: ["an orthodontist", "a podiatrist", "an orthopedist"]
+        answer: "an orthodontist"
+        explanation: "Key: an orthodontist."
+      - id: "d13-people-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 1, item 3: Is music played superbly by ...?"
+        choices: ["a chanteuse", "a tyro", "a virtuoso"]
+        answer: "a virtuoso"
+        explanation: "Key: a virtuoso."
+      - id: "d13-people-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 1, item 4: Is a loud-mouthed, turbulent woman ...?"
+        choices: ["a feminist", "a virago", "an executrix"]
+        answer: "a virago"
+        explanation: "Key: a virago."
+      - id: "d13-people-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 1, item 5: Is a politician who tries to cause unrest among the masses so he may gain his own selfish ends ...?"
+        choices: ["a reactionary", "a demagogue", "a radical"]
+        answer: "a demagogue"
+        explanation: "Key: a demagogue."
+      - id: "d13-people-06"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 1, item 6: Is someone who arranges a ballet ...?"
+        choices: ["a choreographer", "a thespian", "a terpsichorean"]
+        answer: "a choreographer"
+        explanation: "Key: a choreographer."
+      - id: "d13-people-07"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 1, item 7: Is a doctor who performs eye surgery ...?"
+        choices: ["an ophthalmologist", "an optician", "an optometrist"]
+        answer: "an ophthalmologist"
+        explanation: "Key: an ophthalmologist."
+      - id: "d13-people-08"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 1, item 8: Is someone who dabbles in the arts ...?"
+        choices: ["a gourmet", "a connoisseur", "a dilettante"]
+        answer: "a dilettante"
+        explanation: "Key: a dilettante."
+      - id: "d13-people-09"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 1, item 9: Is someone who has dedicated his life to beauty ...?"
+        choices: ["a voluptuary", "an aesthete", "an ascetic"]
+        answer: "an aesthete"
+        explanation: "Key: an aesthete."
+      - id: "d13-people-10"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 1, item 10: Is a stamp collector ...?"
+        choices: ["a bibliophile", "a numismatist", "a philatelist"]
+        answer: "a philatelist"
+        explanation: "Key: a philatelist."
+  - kind: "test"
+    id: "d13-test-sciences"
+    title: "Test 2: The Sciences"
+    intro: "Choose the answer that fits each question."
+    items:
+      - id: "d13-sci-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 1: Does anthropology deal with the development of ...?"
+        choices: ["plants", "animals", "mankind"]
+        answer: "mankind"
+        explanation: "Key: mankind."
+      - id: "d13-sci-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 2: Is astronomy concerned with ...?"
+        choices: ["rocks", "stars", "insects"]
+        answer: "stars"
+        explanation: "Key: stars."
+      - id: "d13-sci-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 3: Does semantics explore ...?"
+        choices: ["the meanings of words", "the source of words", "the use of words"]
+        answer: "the meanings of words"
+        explanation: "Key: the meanings of words."
+      - id: "d13-sci-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 4: Does entomology deal with ...?"
+        choices: ["words", "insects", "fish"]
+        answer: "insects"
+        explanation: "Key: insects."
+      - id: "d13-sci-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 5: Does etymology deal with ...?"
+        choices: ["words", "insects", "fish"]
+        answer: "words"
+        explanation: "Key: words."
+      - id: "d13-sci-06"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 2, item 6: Is eugenics the science of ...?"
+        choices: ["social conditions", "better offspring", "atomic energy"]
+        answer: "better offspring"
+        explanation: "Key: better offspring."
+      - id: "d13-sci-07"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 7: Does dermatology relate to diseases of the ...?"
+        choices: ["digestive tract", "skin", "feet"]
+        answer: "skin"
+        explanation: "Key: skin."
+      - id: "d13-sci-08"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 8: Is ornithology concerned with ...?"
+        choices: ["birds", "reptiles", "climate"]
+        answer: "birds"
+        explanation: "Key: birds."
+      - id: "d13-sci-09"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 9: Does geriatrics attempt to solve the problems of ...?"
+        choices: ["infancy", "adolescence", "old age"]
+        answer: "old age"
+        explanation: "Key: old age."
+      - id: "d13-sci-10"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 10: Is genetics interested in ...?"
+        choices: ["heredity", "conservation", "mineral resources"]
+        answer: "heredity"
+        explanation: "Key: heredity."
+  - kind: "test"
+    id: "d13-test-abnormal-states"
+    title: "Test 3: Abnormal States"
+    intro: "Answer YES or NO."
+    explain: true
+    items:
+      - id: "d13-state-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 3, item 1: Does amnesia mean loss of memory?"
+        choices: ["YES", "NO"]
+        answer: "YES"
+        explanation: "Key: Yes."
+      - id: "d13-state-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 3, item 2: Does aphasia affect the ability to walk?"
+        choices: ["YES", "NO"]
+        answer: "NO"
+        explanation: "No, aphasia is loss or impairment of the ability to use language."
+      - id: "d13-state-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 3, item 3: Does a somnambulist walk in his sleep?"
+        choices: ["YES", "NO"]
+        answer: "YES"
+        explanation: "Key: Yes."
+      - id: "d13-state-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 3, item 4: Does insomnia keep one up at night?"
+        choices: ["YES", "NO"]
+        answer: "YES"
+        explanation: "Key: Yes."
+      - id: "d13-state-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 3, item 5: Is a neurosis more serious than a psychosis?"
+        choices: ["YES", "NO"]
+        answer: "NO"
+        explanation: "No, a neurosis is an emotional disorder caused by conflicts, tensions, insecurity, etc., but a psychosis is a severe form of mental derangement."
+      - id: "d13-state-06"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 3, item 6: Is claustrophobia fear of open spaces?"
+        choices: ["YES", "NO"]
+        answer: "NO"
+        explanation: "No, claustrophobia is morbid fear of enclosed spaces, agoraphobia is fear of open places."
+      - id: "d13-state-07"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 3, item 7: Is dipsomania related to thievery?"
+        choices: ["YES", "NO"]
+        answer: "NO"
+        explanation: "No, dipsomania is another name for alcoholism, kleptomania is related to thievery."
+      - id: "d13-state-08"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 3, item 8: Is acrophobia fear of high places?"
+        choices: ["YES", "NO"]
+        answer: "YES"
+        explanation: "Key: Yes."
+      - id: "d13-state-09"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 3, item 9: Is egocentricity a morbid interest in oneself?"
+        choices: ["YES", "NO"]
+        answer: "YES"
+        explanation: "Key: Yes."
+      - id: "d13-state-10"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 3, item 10: Is pyromania related to fire?"
+        choices: ["YES", "NO"]
+        answer: "YES"
+        explanation: "Yes, the pyromaniac has a morbid and irresistible compulsion to set fires."
+  - kind: "test"
+    id: "d13-test-actions"
+    title: "Test 4: Actions"
+    intro: "Answer TRUE or FALSE."
+    explain: true
+    items:
+      - id: "d13-action-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 4, item 1: Verify means to ascertain the truth of something."
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Key: True."
+      - id: "d13-action-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 4, item 2: Soliloquize means to think silently about something."
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "False, it means to talk aloud to oneself."
+      - id: "d13-action-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 4, item 3: To alleviate means to aggravate, make worse."
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "False, it means to diminish or lessen."
+      - id: "d13-action-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 4, item 4: To deprecate is to belittle."
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Key: True."
+      - id: "d13-action-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 4, item 5: To cower is to stand up bravely to danger."
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "False, to cower is to crouch in fear."
+      - id: "d13-action-06"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 4, item 6: To cavil is to raise trivial objections."
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Key: True."
+      - id: "d13-action-07"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 4, item 7: To badger is to torment, annoy, harass."
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Key: True."
+      - id: "d13-action-08"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 4, item 8: If you temporize, you meet your obligations promptly."
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "False, if you temporize you play for time, postpone, or procrastinate."
+      - id: "d13-action-09"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 4, item 9: To meander is to wander aimlessly."
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Key: True."
+      - id: "d13-action-10"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 4, item 10: To malign someone is to recommend him heartily."
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "False, to malign someone is to slander him."
+  - kind: "test"
+    id: "d13-test-comparisons"
+    title: "Test 5: Comparisons"
+    intro: "Answer SAME or OPPOSITE."
+    explain: true
+    items:
+      - id: "d13-compare-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 5, item 1: Do parsimonious and prodigal mean the same or opposite?"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "OPPOSITE"
+        explanation: "Opposite: parsimonious is stingy, prodigal is extravagant."
+      - id: "d13-compare-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 5, item 2: Are aquiline and straight the same or opposite?"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "OPPOSITE"
+        explanation: "Opposite: aquiline means beaked, curved."
+      - id: "d13-compare-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 5, item 3: Are taciturn and loquacious the same or opposite?"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "OPPOSITE"
+        explanation: "Opposite: taciturn means quiet, disinclined to talk, loquacious means talkative."
+      - id: "d13-compare-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 5, item 4: Are exigency and emergency the same or opposite?"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "SAME"
+        explanation: "Key: Same."
+      - id: "d13-compare-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 5, item 5: Do enervated and exhausted mean the same or opposite?"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "SAME"
+        explanation: "Key: Same."
+      - id: "d13-compare-06"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 5, item 6: Are erudite and ignorant the same or opposite?"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "OPPOSITE"
+        explanation: "Opposite: erudite means learned."
+      - id: "d13-compare-07"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 5, item 7: Are apathetic and lethargic the same or opposite?"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "SAME"
+        explanation: "Same; both words mean having or exhibiting little or no feeling."
+      - id: "d13-compare-08"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 5, item 8: Do savor and flavor mean the same or opposite?"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "SAME"
+        explanation: "Key: Same."
+      - id: "d13-compare-09"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 5, item 9: Are inclement and mild the same or opposite?"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "OPPOSITE"
+        explanation: "Opposite: inclement means harsh, unfavorable."
+      - id: "d13-compare-10"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 5, item 10: Are coquetry and flirtatiousness the same or opposite?"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "SAME"
+        explanation: "Key: Same."
+  - kind: "text"
+    id: "d13-screen-test-your-learning"
+    title: "Test Your Learning"
+    cards:
+      - title: "Test Your Learning"
+        body: |-
+          Now, to show you how easy it is to add to your vocabulary, let me offer you a quick test designed to check your learning. Spend a little time examining your mistakes, if any, and let the correct answers erase such areas of ignorance as the original test may have revealed. Then, when you are ready, take this last test.
+  - kind: "test"
+    id: "d13-test-learning"
+    title: "Test Your Learning"
+    intro: "Directions: Write one of the words discussed in these pages which best fits the brief definition. The initial letter is offered to guide your thinking."
+    items:
+      - id: "d13-learn-01"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 1: first assistant to the stork — o____"
+        accepted: ["obstetrician"]
+        explanation: "Key: obstetrician."
+      - id: "d13-learn-02"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 2: accomplished musician — v____"
+        accepted: ["virtuoso"]
+        explanation: "Key: virtuoso."
+      - id: "d13-learn-03"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 3: arranger of the ballet — c____"
+        accepted: ["choreographer"]
+        explanation: "Key: choreographer."
+      - id: "d13-learn-04"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 4: devotee of beauty — a____"
+        accepted: ["aesthete"]
+        explanation: "Key: aesthete."
+      - id: "d13-learn-05"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 5: science of heavenly bodies — a____"
+        accepted: ["astronomy"]
+        explanation: "Key: astronomy."
+      - id: "d13-learn-06"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 6: study of insects — e____"
+        accepted: ["entomology"]
+        explanation: "Key: entomology."
+      - id: "d13-learn-07"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 7: study of heredity — g____"
+        accepted: ["genetics"]
+        explanation: "Key: genetics."
+      - id: "d13-learn-08"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 8: science that deals with the problems of old age — g____"
+        accepted: ["geriatrics"]
+        explanation: "Key: geriatrics."
+      - id: "d13-learn-09"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 9: loss of memory — a____"
+        accepted: ["amnesia"]
+        explanation: "Key: amnesia."
+      - id: "d13-learn-10"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 10: loss of power to use language — a____"
+        accepted: ["aphasia"]
+        explanation: "Key: aphasia."
+      - id: "d13-learn-11"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 11: alcoholism — d____"
+        accepted: ["dipsomania"]
+        explanation: "Key: dipsomania."
+      - id: "d13-learn-12"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 12: fear of restricted areas — c____"
+        accepted: ["claustrophobia"]
+        explanation: "Key: claustrophobia."
+      - id: "d13-learn-13"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 13: to speak aloud to oneself — s____"
+        accepted: ["soliloquize"]
+        explanation: "Key: soliloquize."
+      - id: "d13-learn-14"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 14: to lessen — a____"
+        accepted: ["alleviate"]
+        explanation: "Key: alleviate."
+      - id: "d13-learn-15"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 15: to crouch in fear — c____"
+        accepted: ["cower"]
+        explanation: "Key: cower."
+      - id: "d13-learn-16"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 16: to slander, or gossip about, someone — m____"
+        accepted: ["malign"]
+        explanation: "Key: malign."
+      - id: "d13-learn-17"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 17: tight-fisted — p____"
+        accepted: ["parsimonious"]
+        explanation: "Key: parsimonious."
+      - id: "d13-learn-18"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 18: worn out with fatigue — e____"
+        accepted: ["enervated"]
+        explanation: "Key: enervated."
+      - id: "d13-learn-19"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 19: harsh, unfavorable — i____"
+        accepted: ["inclement"]
+        explanation: "Key: inclement."
+      - id: "d13-learn-20"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 20: learned, versed in book knowledge — e____"
+        accepted: ["erudite"]
+        explanation: "Key: erudite."

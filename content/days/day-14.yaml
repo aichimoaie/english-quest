@@ -1,0 +1,411 @@
+# Day 14: Just for Fun (III).
+# Source: reference book, Fourteenth Day (pp. 98-104).
+# Transcribed from pages/page98.md through page104.md, in the book's order.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref, the example sentences in Part II, and the test intro for Part II) were added for this app.
+# origin is "original" only because the schema requires that value.
+# Part I (The Misplaced Months) has no items in the book, so it is a text screen, not a test.
+# Part II (What's Wrong With This?) is a test: each sentence is answered by typing its correction.
+# Part III is a text screen followed by its four tests, each with its own key.
+# Explanations are the book's own where it gives them. Where it gives only the key, the explanation
+# is "Key: ..." and the test does not show explanations (explain is false).
+# Status: draft until a human reviewer approves it (PRD section 11).
+day: 14
+title: "Just for Fun (III)"
+
+vocabulary:
+  - word: "mercenary"
+    definition: "influenced exclusively by money"
+    example: "The mercenary lawyer took the case only for the fee."
+    audio_ref: "d14-vocab-mercenary"
+  - word: "replenish"
+    definition: "to renew or refill"
+    example: "They replenished the water bottles before the hike."
+    audio_ref: "d14-vocab-replenish"
+  - word: "gourmand"
+    definition: "a ravenous eater, a glutton"
+    example: "The gourmand ordered a second dessert and then a third plate."
+    audio_ref: "d14-vocab-gourmand"
+  - word: "frugal"
+    definition: "thrifty"
+    example: "A frugal family saves money by cooking at home."
+    audio_ref: "d14-vocab-frugal"
+  - word: "crass"
+    definition: "crude"
+    example: "His crass remark embarrassed everyone at the table."
+    audio_ref: "d14-vocab-crass"
+  - word: "opulent"
+    definition: "wealthy"
+    example: "The opulent hotel had marble floors and gold fittings."
+    audio_ref: "d14-vocab-opulent"
+  - word: "nebulous"
+    definition: "indistinct, obscure, vague"
+    example: "The plan was still nebulous, so nobody knew what to do next."
+    audio_ref: "d14-vocab-nebulous"
+  - word: "pedantic"
+    definition: "showing off one's learning"
+    example: "The pedantic teacher corrected every small mistake in the essay."
+    audio_ref: "d14-vocab-pedantic"
+  - word: "adamant"
+    definition: "unyielding"
+    example: "She was adamant that the decision would not change."
+    audio_ref: "d14-vocab-adamant"
+  - word: "contrite"
+    definition: "remorseful"
+    example: "He felt contrite after he broke the window and apologized."
+    audio_ref: "d14-vocab-contrite"
+  - word: "obfuscate"
+    definition: "to confuse or bewilder"
+    example: "The long answer seemed designed to obfuscate the issue."
+    audio_ref: "d14-vocab-obfuscate"
+  - word: "anathema"
+    definition: "an object of deep hatred"
+    example: "Cruelty to animals is anathema to the club's members."
+    audio_ref: "d14-vocab-anathema"
+
+screens:
+  - kind: "text"
+    id: "d14-screen-introduction"
+    title: "Just for Fun (III)"
+    cards:
+      - title: "Fourteenth Day"
+        body: "JUST FOR FUN (III)"
+  - kind: "text"
+    id: "d14-screen-misplaced-months"
+    title: "I. The Misplaced Months"
+    cards:
+      - title: "The Misplaced Months"
+        body: |-
+          If you ever studied Latin, you have no doubt wondered why *September*, named after the Latin numeral *septem* (seven), stands for our ninth month. And why *October*, *November*, and *December*, respectively from the Roman numbers *octo* (eight), *novem* (nine), and *decem* (ten), actually refer to our tenth, eleventh, and twelfth months. The explanation is simple: The old Roman calendar started with March, not January, and September, October, November, and December *were* the seventh, eighth, ninth, and tenth months in early Roman times. When we revised the calendar, we slipped in two extra months at the beginning of the year but never got around to changing the four misleading names.
+  - kind: "test"
+    id: "d14-test-whats-wrong"
+    title: "II. What's Wrong With This?"
+    intro: "Type each sentence with its error corrected. If a sentence is already acceptable English, type it unchanged."
+    explain: true
+    items:
+      - id: "d14-wrong-01"
+        type: "spelling_correction"
+        learning_area: "Grammar"
+        origin: "original"
+        topics: ["grammar.agreement"]
+        difficulty: 2
+        points: 1
+        prompt: "Test II, item 1: Correct this sentence."
+        text: "This criteria is not, in my opinion, very reliable."
+        accepted: ["These criteria are not, in my opinion, very reliable."]
+        explanation: "*Criteria* is a plural noun, although admittedly it has an amazing resemblance to a singular. (The singular form is *criterion*.) Hence, adjective *this* and verb *is* should also be plural. Correct form: *These criteria are not . . . reliable.*"
+      - id: "d14-wrong-02"
+        type: "spelling_correction"
+        learning_area: "Grammar"
+        origin: "original"
+        topics: ["grammar.word_choice"]
+        difficulty: 2
+        points: 1
+        prompt: "Test II, item 2: Correct this sentence."
+        text: "The alumni of Girls' High School will hold their annual meeting in April."
+        accepted: ["The alumnae of Girls' High School will hold their annual meeting in April."]
+        explanation: "Graduates of a girls' school would likely be females. *Alumni*, plural of *alumnus*, refers only to males. Correct word in the sentence offered: *alumnae*, plural of *alumna*, the feminine form of *alumnus*. Pronounce them as follows: *alumni*: ə-LUM'-nye; *alumnae*: ə-LUM'-nee."
+      - id: "d14-wrong-03"
+        type: "spelling_correction"
+        learning_area: "Grammar"
+        origin: "original"
+        topics: ["grammar.lie_lay"]
+        difficulty: 2
+        points: 1
+        prompt: "Test II, item 3: Correct this sentence."
+        text: "Why don't you lay down for a nap before dinner?"
+        accepted: ["Why don't you lie down for a nap before dinner?"]
+        explanation: "The verb is wrong. *Lay* means to place or put. The required form, which would mean to rest or recline, is *lie*."
+      - id: "d14-wrong-04"
+        type: "spelling_correction"
+        learning_area: "Grammar"
+        origin: "original"
+        topics: ["grammar.word_choice"]
+        difficulty: 2
+        points: 1
+        prompt: "Test II, item 4: Correct this sentence."
+        text: "I'm surprised you didn't get an invite to Charlie Jerome's party."
+        accepted: ["I'm surprised you didn't get an invitation to Charlie Jerome's party."]
+        explanation: "*Invite* may be used only as a verb. Proper form: *invitation*."
+      - id: "d14-wrong-05"
+        type: "spelling_correction"
+        learning_area: "Grammar"
+        origin: "original"
+        topics: ["grammar.word_choice"]
+        difficulty: 3
+        points: 1
+        prompt: "Test II, item 5: This sentence is already acceptable English. Type it unchanged."
+        text: "What an aggravating child she is!"
+        accepted: ["What an aggravating child she is!"]
+        explanation: "The original meaning of *aggravate* was to make worse, to intensify, and so grammarians have in the past warned against its use as a synonym for *exasperate* or *irritate*. However, words change with usage, and since *aggravating* is now widely used in both speech and writing with the meaning of *annoying*, the sentence as it stands is acceptable English."
+      - id: "d14-wrong-06"
+        type: "spelling_correction"
+        learning_area: "Grammar"
+        origin: "original"
+        topics: ["grammar.pronoun_case"]
+        difficulty: 2
+        points: 1
+        prompt: "Test II, item 6: Correct this sentence."
+        text: "No one but I can help you."
+        accepted: ["No one but me can help you."]
+        explanation: "In this sentence, *but* means *except* and is a preposition. According to grammatical rule, prepositions govern the objective case of the pronoun; hence, the proper phrasing is: *No one but me can help you.*"
+      - id: "d14-wrong-07"
+        type: "spelling_correction"
+        learning_area: "Grammar"
+        origin: "original"
+        topics: ["grammar.agreement"]
+        difficulty: 3
+        points: 1
+        prompt: "Test II, item 7: Correct this sentence."
+        text: "It is I who is responsible for this trouble."
+        accepted: ["It is I who am responsible for this trouble."]
+        explanation: "*Who* takes the same verb as does its antecedent. The antecedent of *who* in this sentence is *I*. Since we say *I am*, not *I is*, the sentence should read: *It is I who am responsible . . .*"
+      - id: "d14-wrong-08"
+        type: "spelling_correction"
+        learning_area: "Grammar"
+        origin: "original"
+        topics: ["grammar.word_choice"]
+        difficulty: 2
+        points: 1
+        prompt: "Test II, item 8: This sentence is already acceptable English. Type it unchanged."
+        text: "Can I borrow your pen if you're not using it?"
+        accepted: ["Can I borrow your pen if you're not using it?"]
+        explanation: "Purists rail against the use of *can* to seek permission, and parents from time immemorial (and with little success) have attempted to train their children to show politeness by using *may* as a substitute. Nevertheless, it is today established and cultivated usage to ask permission with the verb *can*."
+      - id: "d14-wrong-09"
+        type: "spelling_correction"
+        learning_area: "Grammar"
+        origin: "original"
+        topics: ["grammar.word_choice"]
+        difficulty: 3
+        points: 1
+        prompt: "Test II, item 9: Correct this sentence."
+        text: "What affect does he have on you?"
+        accepted: ["What effect does he have on you?"]
+        explanation: "Except with a special and technical meaning in psychology, *affect* is used only as a verb. Here a noun is required. Correct form: *effect*."
+      - id: "d14-wrong-10"
+        type: "spelling_correction"
+        learning_area: "Grammar"
+        origin: "original"
+        topics: ["grammar.word_choice"]
+        difficulty: 3
+        points: 1
+        prompt: "Test II, item 10: Correct this sentence."
+        text: "How does he effect you?"
+        accepted: ["How does he affect you?"]
+        explanation: "In this sentence a verb is required. Correct form: *affect*."
+  - kind: "text"
+    id: "d14-screen-how-good"
+    title: "III. How Good Is Your Vocabulary?"
+    cards:
+      - title: "How Good Is Your Vocabulary?"
+        body: |-
+          Everybody realizes the value of a large vocabulary. There is no doubt that the better a person's verbal equipment, the more accurately he can think about and analyze life's complex problems.
+
+          Have you ever wondered how your vocabulary compares with the average? If you have, these tests will give you a reliable answer.
+  - kind: "test"
+    id: "d14-test-average"
+    title: "Test 1: Is Your Vocabulary Average?"
+    intro: "If it is, you should be able to determine in at least 4 instances out of 5 whether word and definition are the same or opposite in meaning."
+    items:
+      - id: "d14-avg-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 1, item 1: audacity; boldness"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "SAME"
+        explanation: "Key: SAME."
+      - id: "d14-avg-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 1, item 2: incessant; never-ending"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "SAME"
+        explanation: "Key: SAME."
+      - id: "d14-avg-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 1, item 3: adept; awkward"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "OPPOSITE"
+        explanation: "Key: OPPOSITE."
+      - id: "d14-avg-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 1, item 4: to scoff at; to respect"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "OPPOSITE"
+        explanation: "Key: OPPOSITE."
+      - id: "d14-avg-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 1, item 5: precise; accurate"
+        choices: ["SAME", "OPPOSITE"]
+        answer: "SAME"
+        explanation: "Key: SAME."
+  - kind: "test"
+    id: "d14-test-good"
+    title: "Test 2: Is Your Vocabulary Good?"
+    intro: "Then you will be able to check the correct meaning of at least 4 of the following 5 words."
+    items:
+      - id: "d14-good-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 1: mercenary"
+        choices: ["influenced exclusively by money", "commercial", "expensive"]
+        answer: "influenced exclusively by money"
+        explanation: "Key: influenced exclusively by money."
+      - id: "d14-good-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 2: arrogant"
+        choices: ["shy", "excessively proud and self-confident", "intelligent, possessed of a keen mind"]
+        answer: "excessively proud and self-confident"
+        explanation: "Key: excessively proud and self-confident."
+      - id: "d14-good-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 3: to replenish"
+        choices: ["use carefully", "save for future use", "renew, refill"]
+        answer: "renew, refill"
+        explanation: "Key: renew, refill."
+      - id: "d14-good-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 2, item 4: gourmand"
+        choices: ["ravenous eater, glutton", "stickler for etiquette", "wealthy man, plutocrat"]
+        answer: "ravenous eater, glutton"
+        explanation: "Key: ravenous eater, glutton."
+      - id: "d14-good-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 5: frugal"
+        choices: ["thrifty", "extravagant", "foolish"]
+        answer: "thrifty"
+        explanation: "Key: thrifty."
+  - kind: "test"
+    id: "d14-test-excellent"
+    title: "Test 3: Have You an Excellent Vocabulary?"
+    intro: "Then you should be able to match *all* the words in the first column with their correct synonyms in the second column."
+    items:
+      - id: "d14-excellent-01"
+        type: "vocabulary_matching"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 3: match each word in the first column with its synonym."
+        pairs:
+          - word: "crass"
+            meaning: "crude"
+          - word: "opulent"
+            meaning: "wealthy"
+          - word: "nebulous"
+            meaning: "indistinct, obscure, vague"
+          - word: "pedantic"
+            meaning: "showing off one's learning"
+          - word: "adamant"
+            meaning: "unyielding"
+        explanation: "Key: 1-g, 2-a, 3-e, 4-b, 5-f."
+  - kind: "test"
+    id: "d14-test-superior"
+    title: "Test 4: Is Your Vocabulary Superior?"
+    intro: "Then you will sail right through these difficult words, choosing a proper definition in every case."
+    items:
+      - id: "d14-superior-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 4, item 1: contrite"
+        choices: ["remorseful", "irritable", "trustworthy"]
+        answer: "remorseful"
+        explanation: "Key: remorseful."
+      - id: "d14-superior-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 4, item 2: vagary"
+        choices: ["rare gem", "wild idea, freakish whim", "pleasant surprise"]
+        answer: "wild idea, freakish whim"
+        explanation: "Key: wild idea, freakish whim."
+      - id: "d14-superior-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 4, item 3: to obfuscate"
+        choices: ["misunderstand", "solve", "confuse or bewilder"]
+        answer: "confuse or bewilder"
+        explanation: "Key: confuse or bewilder."
+      - id: "d14-superior-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 4, item 4: parsimonious"
+        choices: ["religious", "stingy", "hypocritical"]
+        answer: "stingy"
+        explanation: "Key: stingy."
+      - id: "d14-superior-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Test 4, item 5: anathema"
+        choices: ["drug that alleviates pain", "philosophy of life", "object of deep hatred"]
+        answer: "object of deep hatred"
+        explanation: "Key: object of deep hatred."

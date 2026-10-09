@@ -132,7 +132,7 @@ follow from them:
 - **Original wording only.** Write every word, example and explanation for this
   app. Do not copy from any published book, including the book named in the
   project brief. Do not copy the prototype's text either.
-  - **Exception: Days 1 to 5.** These are the reference book's text, copied
+  - **Exception: Days 1 to 5 and Days 13 to 14.** These are the reference book's text, copied
     verbatim with the owner's written approval. Each file's header says so. Do not
     use them as a model for new days.
 - **English-only explanations.** Explanations use simple English (PRD section 2).
