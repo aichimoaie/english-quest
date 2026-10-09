@@ -7,7 +7,7 @@ interface DayEndScreenProps {
 }
 
 /**
- * The screen after a day's last test. It ends the run and leads to the day result.
+ * The screen after a day's last screen. It ends the run and leads to the day result.
  * The server saves the run when the learner presses the button.
  */
 export function DayEndScreen({ dayNumber, title, finishing, error, onFinish }: DayEndScreenProps) {

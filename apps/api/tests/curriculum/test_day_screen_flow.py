@@ -1,4 +1,4 @@
-"""Days 1 to 5 must run in the approved screen order, with each test's intro and items in place.
+"""Days 1 to 5 and 11 to 14 must run in the approved screen order, with each test's intro and items in place.
 
 The expected screens below are the owner's confirmed model: a text screen for each day intro or
 reading text, and a test screen for each test. A test screen's results screen is implied, so the
@@ -48,6 +48,50 @@ APPROVED_FLOW: dict[int, list[tuple[str, str]]] = {
         ("text", "d05-screen-did-you-know"),
         ("test", "d05-test-think-of-words"),
     ],
+    11: [
+        ("text", "d11-screen-introduction"),
+        ("text", "d11-screen-another-way-of-saying-foot"),
+        ("test", "d11-test-first-set"),
+        ("text", "d11-screen-another-kind-of-ped"),
+        ("text", "d11-screen-new-roots"),
+        ("test", "d11-test-second-set"),
+        ("text", "d11-screen-few-roots"),
+        ("text", "d11-screen-tie-it-up"),
+    ],
+    12: [
+        ("text", "d12-screen-introduction"),
+        ("text", "d12-screen-livid"),
+        ("text", "d12-screen-fervid"),
+        ("text", "d12-screen-rabid"),
+        ("text", "d12-screen-pallid"),
+        ("text", "d12-screen-lucid"),
+        ("text", "d12-screen-morbid"),
+        ("text", "d12-screen-sordid"),
+        ("text", "d12-screen-candid"),
+        ("text", "d12-screen-vivid"),
+        ("text", "d12-screen-lurid"),
+        ("test", "d12-test-complete-words"),
+    ],
+    13: [
+        ("text", "d13-screen-introduction"),
+        ("test", "d13-test-people"),
+        ("test", "d13-test-sciences"),
+        ("test", "d13-test-abnormal-states"),
+        ("test", "d13-test-actions"),
+        ("test", "d13-test-comparisons"),
+        ("text", "d13-screen-test-your-learning"),
+        ("test", "d13-test-learning"),
+    ],
+    14: [
+        ("text", "d14-screen-introduction"),
+        ("text", "d14-screen-misplaced-months"),
+        ("test", "d14-test-whats-wrong"),
+        ("text", "d14-screen-how-good"),
+        ("test", "d14-test-average"),
+        ("test", "d14-test-good"),
+        ("test", "d14-test-excellent"),
+        ("test", "d14-test-superior"),
+    ],
 }
 
 
@@ -58,6 +102,7 @@ EXPLAINED_TESTS = {
     "d04-test-11",
     "d05-test-fluency",
     "d05-test-think-of-words",
+    "d14-test-whats-wrong",
 }
 
 

@@ -168,6 +168,42 @@ describe("PlayView screen order", () => {
     await waitFor(() => expect(api.completeAttempt).toHaveBeenCalledWith("att_1"));
   });
 
+  it("ends a day on a text screen, then the day end, with the run saved only after it", async () => {
+    const closing: DayDetail = {
+      ...day,
+      screens: [
+        ...day.screens.slice(0, 2),
+        {
+          kind: "text",
+          id: "d01-screen-closing",
+          title: "Let's tie it all up",
+          cards: [{ title: "Closing card", explanation: "The day ends here.", watchOut: null, examples: [] }],
+        },
+      ],
+    };
+    api.getDay.mockResolvedValue(closing);
+    renderPlayView();
+
+    fireEvent.click(await screen.findByRole("button", { name: "Start" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Start" }));
+    fireEvent.click(await screen.findByRole("button", { name: option("am") }));
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+    fireEvent.click(await screen.findByRole("button", { name: "Continue" }));
+    fireEvent.click(await screen.findByRole("button", { name: option("were") }));
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+    fireEvent.click(await screen.findByRole("button", { name: "See my results" }));
+    expect(await screen.findByRole("heading", { name: "50% correct" })).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: "Next" }));
+
+    // The closing text comes after the test, and the day end only after its Next.
+    expect(await screen.findByRole("heading", { name: "Let's tie it all up" })).toBeTruthy();
+    expect(screen.queryByText("Day 1 finished")).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: "Next" }));
+
+    expect(await screen.findByText("Day 1 finished")).toBeTruthy();
+    expect(api.completeAttempt).not.toHaveBeenCalled();
+  });
+
   it("does not put the day end before the last test's results", async () => {
     api.getDay.mockResolvedValue(day);
     renderPlayView();

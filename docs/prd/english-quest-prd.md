@@ -19,7 +19,7 @@ Success for the MVP means the learner completes the 30 days on the app and can s
 
 ## 3. 30-day learning model
 
-- The course has 30 days. Each day has a fixed set of screens: intro text, then tests with their exercises. Session length is **Open** (section 18).
+- The course has 30 days. Each day has a fixed set of screens: intro text, then tests with their exercises and reading text, in the book's order. Session length is **Open** (section 18).
 - **Order:** days unlock in order. Day N+1 unlocks only after Day N is complete.
 - **Completion:** a day counts as complete when one run of its tests reaches 70% (see section 6).
 - **Missed days:** a missed calendar day pauses the schedule and resets the current streak. The learner resumes at the next unlocked day.

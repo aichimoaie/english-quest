@@ -13,9 +13,10 @@ import { useCompleteAttempt, useDay, useRatePronunciation, useStartAttempt, useS
 import type { StartedAttempt } from "@/lib/api/types";
 
 /**
- * Plays one run of a day screen by screen, in the order the day lists them: a text
- * screen (Start, then Next), then for each test its intro (Start), its items and its
- * results screen with the test's score (Next). After the last test comes the day end.
+ * Plays one run of a day screen by screen, in the order the day lists them: text
+ * screens (Start, then Next) and tests, where each test is its intro (Start), its items
+ * and its results screen with the test's score (Next). After the last screen comes the
+ * day end.
  * The server grades every answer and saves the run when the learner finishes the day.
  */
 export function PlayView({ day: dayNumber }: { day: number }) {
