@@ -81,13 +81,14 @@ export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel 
 
   async function handleSubmit(submitted: Submitted) {
     if (!exercise) return;
+    const sentAtExpiry = timeUp;
     setBusy(true);
     setError(null);
     try {
       const answer = await submit(exercise, submitted);
       setResults((current) => ({ ...current, [exercise.id]: answer }));
     } catch {
-      if (timeUp) {
+      if (sentAtExpiry) {
         setExpiryFailed(true);
         setError("The answer could not be sent when time ran out.");
       } else {

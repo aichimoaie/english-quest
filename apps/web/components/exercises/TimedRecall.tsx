@@ -23,10 +23,10 @@ export function TimedRecall({ exercise, result, busy, onSubmit, timer }: Exercis
   }, [text]);
 
   useEffect(() => {
-    if (!expired || result !== null || expirySent.current) return;
+    if (!expired || result !== null || busy || expirySent.current) return;
     expirySent.current = true;
     onSubmit({ text: textRef.current });
-  }, [expired, result, onSubmit]);
+  }, [expired, result, busy, onSubmit]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

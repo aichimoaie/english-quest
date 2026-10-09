@@ -249,6 +249,44 @@ describe("ExercisePlayer set timer and end screen", () => {
     }
   });
 
+  it("does not resend at expiry while a check is still in flight", async () => {
+    vi.useFakeTimers();
+    try {
+      let resolveCheck: (answer: AnswerResult) => void = () => undefined;
+      const submit = vi.fn(
+        () =>
+          new Promise<AnswerResult>((resolve) => {
+            resolveCheck = resolve;
+          }),
+      );
+      render(<ExercisePlayer exercises={timedSet} submit={submit} onFinish={vi.fn()} finishLabel="See result" />);
+
+      fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
+      fireEvent.change(screen.getByRole("textbox"), { target: { value: "cottage" } });
+      fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+      act(() => {
+        vi.advanceTimersByTime(300_000);
+      });
+      await act(async () => {
+        for (let i = 0; i < 5; i++) await Promise.resolve();
+      });
+
+      expect(submit).toHaveBeenCalledTimes(1);
+
+      await act(async () => {
+        resolveCheck({ isCorrect: true, expected: "cottage", explanation: "Yes.", feedbackKey: "ok" });
+        for (let i = 0; i < 5; i++) await Promise.resolve();
+      });
+
+      expect(submit).toHaveBeenCalledTimes(1);
+      expect(screen.queryByRole("alert")).toBeNull();
+      expect(screen.getByText("1 of 2 correct")).toBeTruthy();
+      expect(screen.getByText("1 not reached before the test ended.")).toBeTruthy();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("offers a way to the end screen when the answer cannot be sent at expiry", async () => {
     vi.useFakeTimers();
     try {
