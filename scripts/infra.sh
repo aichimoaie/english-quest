@@ -50,7 +50,7 @@ require_env_files() {
   local vars
   for vars in "$single_dir/vars/$env.tfvars" "$cicd_dir/vars/$env.tfvars"; do
     [ -f "$vars" ] || die "missing $vars."
-    if grep -q 'REPLACE-' "$vars"; then
+    if grep -Eq '^[^#]*REPLACE-' "$vars"; then
       die "$vars still has REPLACE- placeholders. Fill them in before running."
     fi
     grep -Eq "^subscription_id[[:space:]]*=[[:space:]]*\"$APPROVED_SUBSCRIPTION_ID\"" "$vars" ||
