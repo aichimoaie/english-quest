@@ -7,24 +7,242 @@
 # audio_ref) were added for this app. origin is "original" only because the schema requires that value.
 # Test I (fluency) has 20 items. Its items 1-16 are on page 31 and items 17-20 are on page 32.
 # Accepted answers are the book's key. Where the key lists alternatives, each one is accepted.
-# Parts II (The Name Behind the Word) and III (Did You Know That) are reading text and are kept as lesson cards.
+# Parts II (The Name Behind the Word) and III (Did You Know That) are reading text and are kept as text screens.
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 5
 title: "Just for Fun (I)"
 
-lessons:
-  - id: d05-lesson-fluency
-    learning_area: Vocabulary
-    title: "Test Your Fluency"
+vocabulary:
+  - word: "boycott"
+    definition: "to refuse to deal with, work for, or buy from a person or company as a protest (named after Captain Charles C. Boycott)"
+    example: "Many customers decided to boycott the store until prices came down."
+    audio_ref: "d05-vocab-boycott"
+  - word: "silhouette"
+    definition: "a simple portrait showing only the outline of a person, in one solid colour (named after Etienne de Silhouette)"
+    example: "The children cut a silhouette of the castle from black paper."
+    audio_ref: "d05-vocab-silhouette"
+  - word: "treacle"
+    definition: "the British name for molasses"
+    example: "Stir a spoonful of treacle into the oatmeal for sweetness."
+    audio_ref: "d05-vocab-treacle"
+
+screens:
+  - kind: "text"
+    id: "d05-screen-introduction"
+    learning_area: "Vocabulary"
+    title: "Just for Fun (I)"
     cards:
-      - title: "Fifth Day: Just for Fun (I)"
-        body: |-
-          **Subsection:** I. TEST YOUR FLUENCY
-
-          How quickly can you call words to mind? Here is a reliable test of your vocabulary responsiveness. In five minutes or less, write next to each of the following words a word which starts with *R* and is essentially *opposite* in meaning to, or in contrast with, the given word. *Examples: walk—run; imaginary—real; square—round.*
-
-  - id: d05-lesson-name-behind-word
-    learning_area: Vocabulary
+      - title: "Fifth Day"
+        body: "JUST FOR FUN (I)"
+  - kind: "test"
+    id: "d05-test-fluency"
+    learning_area: "Vocabulary"
+    title: "I. Test Your Fluency"
+    intro: "How quickly can you call words to mind? Here is a reliable test of your vocabulary responsiveness. In five minutes or less, write next to each of the following words a word which starts with *R* and is essentially *opposite* in meaning to, or in contrast with, the given word. *Examples: walk—run; imaginary—real; square—round.*"
+    items:
+      - id: "d05-flu-01"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 1
+        points: 1
+        prompt: "Test I, item 1: slow. Write a word that starts with R and is opposite in meaning."
+        accepted: ["rapid"]
+        explanation: "Key: 1-rapid."
+      - id: "d05-flu-02"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 1
+        points: 1
+        prompt: "Test I, item 2: common. Write a word that starts with R and is opposite in meaning."
+        accepted: ["rare"]
+        explanation: "Key: 2-rare."
+      - id: "d05-flu-03"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 1
+        points: 1
+        prompt: "Test I, item 3: cooked. Write a word that starts with R and is opposite in meaning."
+        accepted: ["raw"]
+        explanation: "Key: 3-raw."
+      - id: "d05-flu-04"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 1
+        points: 1
+        prompt: "Test I, item 4: unprepared. Write a word that starts with R and is opposite in meaning."
+        accepted: ["ready"]
+        explanation: "Key: 4-ready."
+      - id: "d05-flu-05"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 1
+        points: 1
+        prompt: "Test I, item 5: front. Write a word that starts with R and is opposite in meaning."
+        accepted: ["rear"]
+        explanation: "Key: 5-rear."
+      - id: "d05-flu-06"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 1
+        points: 1
+        prompt: "Test I, item 6: forget. Write a word that starts with R and is opposite in meaning."
+        accepted: ["recollect", "remember", "recall"]
+        explanation: "Key: 6-recollect, remember, or recall."
+      - id: "d05-flu-07"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 2
+        points: 1
+        prompt: "Test I, item 7: send. Write a word that starts with R and is opposite in meaning."
+        accepted: ["receive", "retain", "rescind"]
+        explanation: "Key: 7-receive, retain, or rescind."
+      - id: "d05-flu-08"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 2
+        points: 1
+        prompt: "Test I, item 8: increase. Write a word that starts with R and is opposite in meaning."
+        accepted: ["reduce", "retard"]
+        explanation: "Key: 8-reduce or retard."
+      - id: "d05-flu-09"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 1
+        points: 1
+        prompt: "Test I, item 9: left. Write a word that starts with R and is opposite in meaning."
+        accepted: ["right"]
+        explanation: "Key: 9-right."
+      - id: "d05-flu-10"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 1
+        points: 1
+        prompt: "Test I, item 10: green. Write a word that starts with R and is opposite in meaning."
+        accepted: ["ripe"]
+        explanation: "Key: 10-ripe."
+      - id: "d05-flu-11"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 1
+        points: 1
+        prompt: "Test I, item 11: polite. Write a word that starts with R and is opposite in meaning."
+        accepted: ["rude"]
+        explanation: "Key: 11-rude."
+      - id: "d05-flu-12"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 2
+        points: 1
+        prompt: "Test I, item 12: transient. Write a word that starts with R and is opposite in meaning."
+        accepted: ["resident"]
+        explanation: "Key: 12-resident."
+      - id: "d05-flu-13"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 2
+        points: 1
+        prompt: "Test I, item 13: wholesale. Write a word that starts with R and is opposite in meaning."
+        accepted: ["retail"]
+        explanation: "Key: 13-retail."
+      - id: "d05-flu-14"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 2
+        points: 1
+        prompt: "Test I, item 14: submit. Write a word that starts with R and is opposite in meaning."
+        accepted: ["resist", "rebel"]
+        explanation: "Key: 14-resist or rebel."
+      - id: "d05-flu-15"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 2
+        points: 1
+        prompt: "Test I, item 15: dull. Write a word that starts with R and is opposite in meaning."
+        accepted: ["radiant"]
+        explanation: "Key: 15-radiant."
+      - id: "d05-flu-16"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 3
+        points: 1
+        prompt: "Test I, item 16: aggressive. Write a word that starts with R and is opposite in meaning."
+        accepted: ["recessive", "reticent", "retiring", "reluctant"]
+        explanation: "Key: 16-recessive, reticent, retiring, or reluctant."
+      - id: "d05-flu-17"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 2
+        points: 1
+        prompt: "Test I, item 17: careful. Write a word that starts with R and is opposite in meaning."
+        accepted: ["reckless"]
+        explanation: "Key: 17-reckless."
+      - id: "d05-flu-18"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 2
+        points: 1
+        prompt: "Test I, item 18: work. Write a word that starts with R and is opposite in meaning."
+        accepted: ["rest", "relax", "relaxation", "recreation"]
+        explanation: "Key: 18-rest, relax(ation), or recreation."
+      - id: "d05-flu-19"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 2
+        points: 1
+        prompt: "Test I, item 19: urban. Write a word that starts with R and is opposite in meaning."
+        accepted: ["rural", "rustic"]
+        explanation: "Key: 19-rural or rustic."
+      - id: "d05-flu-20"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.fluency"]
+        difficulty: 2
+        points: 1
+        prompt: "Test I, item 20: conform. Write a word that starts with R and is opposite in meaning."
+        accepted: ["resist", "rebel"]
+        explanation: "Key: 20-resist or rebel."
+  - kind: "text"
+    id: "d05-screen-name-behind-word"
+    learning_area: "Vocabulary"
     title: "II. The Name Behind the Word"
     cards:
       - title: "The Name Behind the Word"
@@ -36,9 +254,9 @@ lessons:
           **MARCEL WAVE:** Marcel was a famous French hairdresser who made a fortune out of his new idea in coiffures.
 
           **SILHOUETTE:** Etienne de Silhouette was finance minister of France just before the Revolution. He insisted that the nobles lead simpler lives, thus saving money, which, of course, they could donate to the government. The silhouette (as it was later called) was invented at about this time and was obviously a very simple sort of portraiture. The connection of ideas appealed to the Parisian mind, and the minister's name was soon used to describe the new art form.
-
-  - id: d05-lesson-did-you-know
-    learning_area: Vocabulary
+  - kind: "text"
+    id: "d05-screen-did-you-know"
+    learning_area: "Vocabulary"
     title: "III. Did You Know That"
     cards:
       - title: "Did You Know That"
@@ -52,585 +270,362 @@ lessons:
           In England a *streetcar* is called a *tram*; a *cookie jar* is known as a *biscuit barrel*; *molasses* is known as *treacle*; and the *movies* are called the *cinema*.
 
           *Whiskey* is from the Irish *uisgebeatha* meaning *water of life*.
-
-  - id: d05-lesson-think-of-words
-    learning_area: Vocabulary
+  - kind: "test"
+    id: "d05-test-think-of-words"
+    learning_area: "Vocabulary"
     title: "IV. Think of Words"
-    cards:
-      - title: "Think of Words"
-        body: |-
-          Can you think of 10 words ending in *-ANK*? Add one or two letters only, to fit each definition.
+    intro: |-
+      Can you think of 10 words ending in *-ANK*? Add one or two letters only, to fit each definition.
 
-          Now your problem is to think of a word *opposed* in meaning to the definition offered. The initial letter is supplied.
-
-vocabulary:
-  - word: boycott
-    definition: "to refuse to deal with, work for, or buy from a person or company as a protest (named after Captain Charles C. Boycott)"
-    example: "Many customers decided to boycott the store until prices came down."
-    audio_ref: d05-vocab-boycott
-  - word: silhouette
-    definition: "a simple portrait showing only the outline of a person, in one solid colour (named after Etienne de Silhouette)"
-    example: "The children cut a silhouette of the castle from black paper."
-    audio_ref: d05-vocab-silhouette
-  - word: treacle
-    definition: "the British name for molasses"
-    example: "Stir a spoonful of treacle into the oatmeal for sweetness."
-    audio_ref: d05-vocab-treacle
-
-exercises:
-  # Test I, fluency. Items 1-16 are on page 31; items 17-20 are on page 32.
-  - id: d05-flu-01
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 1
-    points: 1
-    prompt: "Test I, item 1: slow. Write a word that starts with R and is opposite in meaning."
-    accepted: ["rapid"]
-    explanation: "Key: 1-rapid."
-  - id: d05-flu-02
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 1
-    points: 1
-    prompt: "Test I, item 2: common. Write a word that starts with R and is opposite in meaning."
-    accepted: ["rare"]
-    explanation: "Key: 2-rare."
-  - id: d05-flu-03
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 1
-    points: 1
-    prompt: "Test I, item 3: cooked. Write a word that starts with R and is opposite in meaning."
-    accepted: ["raw"]
-    explanation: "Key: 3-raw."
-  - id: d05-flu-04
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 1
-    points: 1
-    prompt: "Test I, item 4: unprepared. Write a word that starts with R and is opposite in meaning."
-    accepted: ["ready"]
-    explanation: "Key: 4-ready."
-  - id: d05-flu-05
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 1
-    points: 1
-    prompt: "Test I, item 5: front. Write a word that starts with R and is opposite in meaning."
-    accepted: ["rear"]
-    explanation: "Key: 5-rear."
-  - id: d05-flu-06
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 1
-    points: 1
-    prompt: "Test I, item 6: forget. Write a word that starts with R and is opposite in meaning."
-    accepted: ["recollect", "remember", "recall"]
-    explanation: "Key: 6-recollect, remember, or recall."
-  - id: d05-flu-07
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 2
-    points: 1
-    prompt: "Test I, item 7: send. Write a word that starts with R and is opposite in meaning."
-    accepted: ["receive", "retain", "rescind"]
-    explanation: "Key: 7-receive, retain, or rescind."
-  - id: d05-flu-08
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 2
-    points: 1
-    prompt: "Test I, item 8: increase. Write a word that starts with R and is opposite in meaning."
-    accepted: ["reduce", "retard"]
-    explanation: "Key: 8-reduce or retard."
-  - id: d05-flu-09
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 1
-    points: 1
-    prompt: "Test I, item 9: left. Write a word that starts with R and is opposite in meaning."
-    accepted: ["right"]
-    explanation: "Key: 9-right."
-  - id: d05-flu-10
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 1
-    points: 1
-    prompt: "Test I, item 10: green. Write a word that starts with R and is opposite in meaning."
-    accepted: ["ripe"]
-    explanation: "Key: 10-ripe."
-  - id: d05-flu-11
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 1
-    points: 1
-    prompt: "Test I, item 11: polite. Write a word that starts with R and is opposite in meaning."
-    accepted: ["rude"]
-    explanation: "Key: 11-rude."
-  - id: d05-flu-12
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 2
-    points: 1
-    prompt: "Test I, item 12: transient. Write a word that starts with R and is opposite in meaning."
-    accepted: ["resident"]
-    explanation: "Key: 12-resident."
-  - id: d05-flu-13
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 2
-    points: 1
-    prompt: "Test I, item 13: wholesale. Write a word that starts with R and is opposite in meaning."
-    accepted: ["retail"]
-    explanation: "Key: 13-retail."
-  - id: d05-flu-14
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 2
-    points: 1
-    prompt: "Test I, item 14: submit. Write a word that starts with R and is opposite in meaning."
-    accepted: ["resist", "rebel"]
-    explanation: "Key: 14-resist or rebel."
-  - id: d05-flu-15
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 2
-    points: 1
-    prompt: "Test I, item 15: dull. Write a word that starts with R and is opposite in meaning."
-    accepted: ["radiant"]
-    explanation: "Key: 15-radiant."
-  - id: d05-flu-16
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 3
-    points: 1
-    prompt: "Test I, item 16: aggressive. Write a word that starts with R and is opposite in meaning."
-    accepted: ["recessive", "reticent", "retiring", "reluctant"]
-    explanation: "Key: 16-recessive, reticent, retiring, or reluctant."
-  - id: d05-flu-17
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 2
-    points: 1
-    prompt: "Test I, item 17: careful. Write a word that starts with R and is opposite in meaning."
-    accepted: ["reckless"]
-    explanation: "Key: 17-reckless."
-  - id: d05-flu-18
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 2
-    points: 1
-    prompt: "Test I, item 18: work. Write a word that starts with R and is opposite in meaning."
-    accepted: ["rest", "relax", "relaxation", "recreation"]
-    explanation: "Key: 18-rest, relax(ation), or recreation."
-  - id: d05-flu-19
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 2
-    points: 1
-    prompt: "Test I, item 19: urban. Write a word that starts with R and is opposite in meaning."
-    accepted: ["rural", "rustic"]
-    explanation: "Key: 19-rural or rustic."
-  - id: d05-flu-20
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.fluency]
-    difficulty: 2
-    points: 1
-    prompt: "Test I, item 20: conform. Write a word that starts with R and is opposite in meaning."
-    accepted: ["resist", "rebel"]
-    explanation: "Key: 20-resist or rebel."
-
-  # Test IV, part 1: words ending in -ANK, items 1-10. Key: 1-blank, 2-dank, 3-lank, 4-clank, 5-prank,
-  # 6-flank, 7-crank, 8-shank, 9-frank, 10-plank
-  - id: d05-think-01
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_building]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 1: ___ank. Free from writing; empty. Add one or two letters."
-    accepted: ["blank"]
-    explanation: "Key: 1-blank."
-  - id: d05-think-02
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_building]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 2: ___ank. Disagreeably moist. Add one or two letters."
-    accepted: ["dank"]
-    explanation: "Key: 2-dank."
-  - id: d05-think-03
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_building]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 3: ___ank. Slender. Add one or two letters."
-    accepted: ["lank"]
-    explanation: "Key: 3-lank."
-  - id: d05-think-04
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_building]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 4: ___ank. Noise. Add one or two letters."
-    accepted: ["clank"]
-    explanation: "Key: 4-clank."
-  - id: d05-think-05
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_building]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 5: ___ank. Trick. Add one or two letters."
-    accepted: ["prank"]
-    explanation: "Key: 5-prank."
-  - id: d05-think-06
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_building]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 6: ___ank. Side of an animal. Add one or two letters."
-    accepted: ["flank"]
-    explanation: "Key: 6-flank."
-  - id: d05-think-07
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_building]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 7: ___ank. An arm for winding. Add one or two letters."
-    accepted: ["crank"]
-    explanation: "Key: 7-crank."
-  - id: d05-think-08
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_building]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 8: ___ank. Lower part of the leg. Add one or two letters."
-    accepted: ["shank"]
-    explanation: "Key: 8-shank."
-  - id: d05-think-09
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_building]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 9: ___ank. Candid. Add one or two letters."
-    accepted: ["frank"]
-    explanation: "Key: 9-frank."
-  - id: d05-think-10
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.word_building]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 10: ___ank. Board. Add one or two letters."
-    accepted: ["plank"]
-    explanation: "Key: 10-plank."
-
-  # Test IV, part 2: opposite meanings, initial letter supplied, items 11-35.
-  - id: d05-think-11
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 11: a___. Opposed in meaning to: passive."
-    accepted: ["active", "alive", "alert"]
-    explanation: "Key: 11-active, alive, or alert."
-  - id: d05-think-12
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 12: b___. Opposed in meaning to: dull."
-    accepted: ["bright"]
-    explanation: "Key: 12-bright."
-  - id: d05-think-13
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 13: r___. Opposed in meaning to: throw."
-    accepted: ["catch"]
-    explanation: "Key: 13-catch."
-  - id: d05-think-14
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 14: d___. Opposed in meaning to: stay."
-    accepted: ["depart"]
-    explanation: "Key: 14-depart."
-  - id: d05-think-15
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 15: e___. Opposed in meaning to: leave."
-    accepted: ["enter"]
-    explanation: "Key: 15-enter."
-  - id: d05-think-16
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 16: f___. Opposed in meaning to: smile."
-    accepted: ["frown"]
-    explanation: "Key: 16-frown."
-  - id: d05-think-17
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 17: g___. Opposed in meaning to: sad."
-    accepted: ["gay", "glad"]
-    explanation: "Key: 17-gay or glad."
-  - id: d05-think-18
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 18: h___. Opposed in meaning to: proud."
-    accepted: ["humble"]
-    explanation: "Key: 18-humble."
-  - id: d05-think-19
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 3
-    points: 1
-    prompt: "Test IV, item 19: i___. Opposed in meaning to: community."
-    accepted: ["individual"]
-    explanation: "Key: 19-individual."
-  - id: d05-think-20
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 20: j___. Opposed in meaning to: senile."
-    accepted: ["juvenile"]
-    explanation: "Key: 20-juvenile."
-  - id: d05-think-21
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 21: k___. Opposed in meaning to: be ignorant."
-    accepted: ["know"]
-    explanation: "Key: 21-know."
-  - id: d05-think-22
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 3
-    points: 1
-    prompt: "Test IV, item 22: l___. Opposed in meaning to: stiff."
-    accepted: ["lithe", "lax"]
-    explanation: "Key: 22-lithe or lax."
-  - id: d05-think-23
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 3
-    points: 1
-    prompt: "Test IV, item 23: m___. Opposed in meaning to: phobia."
-    accepted: ["mania"]
-    explanation: "Key: 23-mania."
-  - id: d05-think-24
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 3
-    points: 1
-    prompt: "Test IV, item 24: n___. Opposed in meaning to: sophisticated."
-    accepted: ["naive"]
-    explanation: "Key: 24-naive."
-  - id: d05-think-25
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 25: o___. Opposed in meaning to: closed."
-    accepted: ["open", "opened"]
-    explanation: "Key: 25-open(ed)."
-  - id: d05-think-26
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 26: p___. Opposed in meaning to: meek."
-    accepted: ["proud"]
-    explanation: "Key: 26-proud."
-  - id: d05-think-27
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 3
-    points: 1
-    prompt: "Test IV, item 27: q___. Opposed in meaning to: ordinary."
-    accepted: ["quaint", "queer"]
-    explanation: "Key: 27-quaint or queer."
-  - id: d05-think-28
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 28: r___. Opposed in meaning to: common."
-    accepted: ["rare"]
-    explanation: "Key: 28-rare."
-  - id: d05-think-29
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 29: s___. Opposed in meaning to: complex."
-    accepted: ["simple"]
-    explanation: "Key: 29-simple."
-  - id: d05-think-30
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 30: t___. Opposed in meaning to: wild."
-    accepted: ["tame"]
-    explanation: "Key: 30-tame."
-  - id: d05-think-31
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 3
-    points: 1
-    prompt: "Test IV, item 31: u___. Opposed in meaning to: unique."
-    accepted: ["universal"]
-    explanation: "Key: 31-universal."
-  - id: d05-think-32
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Test IV, item 32: v___. Opposed in meaning to: valuable."
-    accepted: ["valueless"]
-    explanation: "Key: 32-valueless."
-  - id: d05-think-33
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 3
-    points: 1
-    prompt: "Test IV, item 33: w___. Opposed in meaning to: ruddy."
-    accepted: ["wan", "white"]
-    explanation: "Key: 33-wan or white."
-  - id: d05-think-34
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 3
-    points: 1
-    prompt: "Test IV, item 34: y___. Opposed in meaning to: white of an egg."
-    accepted: ["yolk", "yellow"]
-    explanation: "Key: 34-yolk or yellow."
-  - id: d05-think-35
-    type: fill_blank
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 3
-    points: 1
-    prompt: "Test IV, item 35: z___. Opposed in meaning to: lowest point."
-    accepted: ["zenith"]
-    explanation: "Key: 35-zenith."
+      Now your problem is to think of a word *opposed* in meaning to the definition offered. The initial letter is supplied.
+    items:
+      - id: "d05-think-01"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 1: ___ank. Free from writing; empty. Add one or two letters."
+        accepted: ["blank"]
+        explanation: "Key: 1-blank."
+      - id: "d05-think-02"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 2: ___ank. Disagreeably moist. Add one or two letters."
+        accepted: ["dank"]
+        explanation: "Key: 2-dank."
+      - id: "d05-think-03"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 3: ___ank. Slender. Add one or two letters."
+        accepted: ["lank"]
+        explanation: "Key: 3-lank."
+      - id: "d05-think-04"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 4: ___ank. Noise. Add one or two letters."
+        accepted: ["clank"]
+        explanation: "Key: 4-clank."
+      - id: "d05-think-05"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 5: ___ank. Trick. Add one or two letters."
+        accepted: ["prank"]
+        explanation: "Key: 5-prank."
+      - id: "d05-think-06"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 6: ___ank. Side of an animal. Add one or two letters."
+        accepted: ["flank"]
+        explanation: "Key: 6-flank."
+      - id: "d05-think-07"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 7: ___ank. An arm for winding. Add one or two letters."
+        accepted: ["crank"]
+        explanation: "Key: 7-crank."
+      - id: "d05-think-08"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 8: ___ank. Lower part of the leg. Add one or two letters."
+        accepted: ["shank"]
+        explanation: "Key: 8-shank."
+      - id: "d05-think-09"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 9: ___ank. Candid. Add one or two letters."
+        accepted: ["frank"]
+        explanation: "Key: 9-frank."
+      - id: "d05-think-10"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_building"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 10: ___ank. Board. Add one or two letters."
+        accepted: ["plank"]
+        explanation: "Key: 10-plank."
+      - id: "d05-think-11"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 11: a___. Opposed in meaning to: passive."
+        accepted: ["active", "alive", "alert"]
+        explanation: "Key: 11-active, alive, or alert."
+      - id: "d05-think-12"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 12: b___. Opposed in meaning to: dull."
+        accepted: ["bright"]
+        explanation: "Key: 12-bright."
+      - id: "d05-think-13"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 13: r___. Opposed in meaning to: throw."
+        accepted: ["catch"]
+        explanation: "Key: 13-catch."
+      - id: "d05-think-14"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 14: d___. Opposed in meaning to: stay."
+        accepted: ["depart"]
+        explanation: "Key: 14-depart."
+      - id: "d05-think-15"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 15: e___. Opposed in meaning to: leave."
+        accepted: ["enter"]
+        explanation: "Key: 15-enter."
+      - id: "d05-think-16"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 16: f___. Opposed in meaning to: smile."
+        accepted: ["frown"]
+        explanation: "Key: 16-frown."
+      - id: "d05-think-17"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 17: g___. Opposed in meaning to: sad."
+        accepted: ["gay", "glad"]
+        explanation: "Key: 17-gay or glad."
+      - id: "d05-think-18"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 18: h___. Opposed in meaning to: proud."
+        accepted: ["humble"]
+        explanation: "Key: 18-humble."
+      - id: "d05-think-19"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 3
+        points: 1
+        prompt: "Test IV, item 19: i___. Opposed in meaning to: community."
+        accepted: ["individual"]
+        explanation: "Key: 19-individual."
+      - id: "d05-think-20"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 20: j___. Opposed in meaning to: senile."
+        accepted: ["juvenile"]
+        explanation: "Key: 20-juvenile."
+      - id: "d05-think-21"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 21: k___. Opposed in meaning to: be ignorant."
+        accepted: ["know"]
+        explanation: "Key: 21-know."
+      - id: "d05-think-22"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 3
+        points: 1
+        prompt: "Test IV, item 22: l___. Opposed in meaning to: stiff."
+        accepted: ["lithe", "lax"]
+        explanation: "Key: 22-lithe or lax."
+      - id: "d05-think-23"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 3
+        points: 1
+        prompt: "Test IV, item 23: m___. Opposed in meaning to: phobia."
+        accepted: ["mania"]
+        explanation: "Key: 23-mania."
+      - id: "d05-think-24"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 3
+        points: 1
+        prompt: "Test IV, item 24: n___. Opposed in meaning to: sophisticated."
+        accepted: ["naive"]
+        explanation: "Key: 24-naive."
+      - id: "d05-think-25"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 25: o___. Opposed in meaning to: closed."
+        accepted: ["open", "opened"]
+        explanation: "Key: 25-open(ed)."
+      - id: "d05-think-26"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 26: p___. Opposed in meaning to: meek."
+        accepted: ["proud"]
+        explanation: "Key: 26-proud."
+      - id: "d05-think-27"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 3
+        points: 1
+        prompt: "Test IV, item 27: q___. Opposed in meaning to: ordinary."
+        accepted: ["quaint", "queer"]
+        explanation: "Key: 27-quaint or queer."
+      - id: "d05-think-28"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 28: r___. Opposed in meaning to: common."
+        accepted: ["rare"]
+        explanation: "Key: 28-rare."
+      - id: "d05-think-29"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 29: s___. Opposed in meaning to: complex."
+        accepted: ["simple"]
+        explanation: "Key: 29-simple."
+      - id: "d05-think-30"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 30: t___. Opposed in meaning to: wild."
+        accepted: ["tame"]
+        explanation: "Key: 30-tame."
+      - id: "d05-think-31"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 3
+        points: 1
+        prompt: "Test IV, item 31: u___. Opposed in meaning to: unique."
+        accepted: ["universal"]
+        explanation: "Key: 31-universal."
+      - id: "d05-think-32"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 32: v___. Opposed in meaning to: valuable."
+        accepted: ["valueless"]
+        explanation: "Key: 32-valueless."
+      - id: "d05-think-33"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 3
+        points: 1
+        prompt: "Test IV, item 33: w___. Opposed in meaning to: ruddy."
+        accepted: ["wan", "white"]
+        explanation: "Key: 33-wan or white."
+      - id: "d05-think-34"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 3
+        points: 1
+        prompt: "Test IV, item 34: y___. Opposed in meaning to: white of an egg."
+        accepted: ["yolk", "yellow"]
+        explanation: "Key: 34-yolk or yellow."
+      - id: "d05-think-35"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 3
+        points: 1
+        prompt: "Test IV, item 35: z___. Opposed in meaning to: lowest point."
+        accepted: ["zenith"]
+        explanation: "Key: 35-zenith."

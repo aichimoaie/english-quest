@@ -19,6 +19,7 @@ ExerciseType = Literal[
     "grammar_correction",
     "listening_comprehension",
     "pronunciation_practice",
+    "self_check",
     "sentence_transformation",
     "daily_review",
     "mixed_review",

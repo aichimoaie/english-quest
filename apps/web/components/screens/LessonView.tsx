@@ -11,8 +11,10 @@ export function LessonView({ day: dayNumber }: { day: number }) {
   if (day.isPending) return <LoadingState label="Loading the lesson…" />;
   if (day.isError) return <ErrorState />;
 
-  const { lesson, title, status, exercises } = day.data;
-  const hasLesson = lesson.vocabulary.length > 0 || lesson.grammar.length > 0;
+  const { vocabulary, screens, title, status } = day.data;
+  const cards = screens.flatMap((screen) => (screen.kind === "text" ? screen.cards : []));
+  const hasTests = screens.some((screen) => screen.kind === "test");
+  const hasLesson = vocabulary.length > 0 || cards.length > 0;
 
   return (
     <div className="stack">
@@ -35,7 +37,7 @@ export function LessonView({ day: dayNumber }: { day: number }) {
         </div>
       ) : (
         <>
-          {lesson.grammar.map((point) => (
+          {cards.map((point) => (
             <section key={point.title} className="card stack" style={{ gap: "var(--s-3)" }}>
               <h2 className="t-head">{point.title}</h2>
               <p className="t-body">{point.explanation}</p>
@@ -54,10 +56,10 @@ export function LessonView({ day: dayNumber }: { day: number }) {
             </section>
           ))}
 
-          {lesson.vocabulary.length > 0 ? (
+          {vocabulary.length > 0 ? (
             <section className="stack" style={{ gap: "var(--s-3)" }}>
               <h2 className="section-title">New words</h2>
-              {lesson.vocabulary.map((item) => (
+              {vocabulary.map((item) => (
                 <article key={item.word} className="card vocab">
                   <p className="word">{item.word}</p>
                   <p className="t-body">{item.definition}</p>
@@ -67,7 +69,7 @@ export function LessonView({ day: dayNumber }: { day: number }) {
             </section>
           ) : null}
 
-          {exercises.length > 0 ? (
+          {hasTests ? (
             <Link className="btn btn-primary btn-block" href={`/days/${dayNumber}/play`}>
               Start practice
             </Link>

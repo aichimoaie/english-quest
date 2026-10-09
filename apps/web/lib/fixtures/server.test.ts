@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { AnswerInput, DayDetail, DaySummary, Exercise, Submitted, VocabularyEntry } from "@/lib/api/types";
+import type { AnswerInput, DayDetail, DayScreen, DaySummary, Exercise, Submitted, VocabularyEntry } from "@/lib/api/types";
+import { dayItems } from "@/lib/day-screens";
 import { CONTENT_BY_DAY } from "./days";
 
 /** Each test gets a fresh fixture server, because the fixture keeps state in memory. */
@@ -9,6 +10,11 @@ async function loadServer() {
 }
 
 const BASE = "/api/v1";
+
+/** The cards of every text screen in a day, in order. */
+function textCards(screens: DayScreen[]) {
+  return screens.flatMap((screen) => (screen.kind === "text" ? screen.cards : []));
+}
 
 function answerFor(exerciseId: string) {
   const answer = Object.values(CONTENT_BY_DAY)
@@ -53,29 +59,29 @@ describe("fixture server", () => {
     const day = await call<DayDetail>("GET", `${BASE}/days/1`);
     const serialised = JSON.stringify(day);
 
-    expect(day.exercises.length).toBeGreaterThan(0);
+    expect(dayItems(day.screens).length).toBeGreaterThan(0);
     expect(serialised).not.toContain("answer_key");
     expect(serialised).not.toContain("isCorrect");
     expect(serialised).not.toContain("expected");
-    for (const exercise of day.exercises) {
+    for (const exercise of dayItems(day.screens)) {
       expect(Object.keys(exercise)).not.toContain("answer");
     }
   });
 
   it("only reveals the expected answer after the learner answers", async () => {
     const { attemptId, exercises } = await call<{ attemptId: string; exercises: Exercise[] }>("POST", `${BASE}/days/1/attempts`);
-    const input: AnswerInput = { exerciseId: exercises[0].id, submitted: { optionIndex: 0 } };
+    const input: AnswerInput = { exerciseId: exercises[0].id, submitted: { optionIndex: 1 } };
 
     const result = await call<{ isCorrect: boolean; expected?: string | null }>("POST", `${BASE}/attempts/${attemptId}/answers`, input);
 
     expect(result.isCorrect).toBe(false);
-    expect(result.expected).toBe("LY-brer-ee");
+    expect(result.expected).toBe("ə-TAL'-yən");
   });
 
   it("keeps later days locked until the day before is complete", async () => {
     const day2 = await call<DayDetail>("GET", `${BASE}/days/2`);
     expect(day2.status).toBe("locked");
-    expect(day2.exercises).toEqual([]);
+    expect(day2.screens).toEqual([]);
 
     await expect(call("POST", `${BASE}/days/2/attempts`)).rejects.toMatchObject({ status: 409 });
   });
@@ -107,7 +113,7 @@ describe("fixture server", () => {
 
   it("scores a run below 70% as not passed and leaves the next day locked", async () => {
     const { attemptId } = await call<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
-    await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: "d01-pron-common-01", submitted: { optionIndex: 0 } });
+    await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: "d01-pron-t1-01", submitted: { optionIndex: 1 } });
 
     const completed = await call<{ scorePct: number; status: string; nextDay: number | null }>("POST", `${BASE}/attempts/${attemptId}/complete`);
 
@@ -117,7 +123,7 @@ describe("fixture server", () => {
     expect((await call<DayDetail>("GET", `${BASE}/days/2`)).status).toBe("locked");
   });
 
-  it("serves the Day 2 lesson and exercises once Day 2 unlocks", async () => {
+  it("serves the Day 2 screens and exercises once Day 2 unlocks", async () => {
     const { attemptId, exercises } = await call<{ attemptId: string; exercises: Exercise[] }>("POST", `${BASE}/days/1/attempts`);
     for (const exercise of exercises) {
       await call("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId: exercise.id, submitted: correctSubmission(exercise.id) });
@@ -128,9 +134,38 @@ describe("fixture server", () => {
     const attempt = await call<{ exercises: Exercise[] }>("POST", `${BASE}/days/2/attempts`);
 
     expect(day2.status).toBe("current");
-    expect(day2.lesson.grammar.map((card) => card.title)).toEqual(CONTENT_BY_DAY[2].lesson.grammar.map((card) => card.title));
-    expect(day2.exercises.map((exercise) => exercise.id)).toEqual(attempt.exercises.map((exercise) => exercise.id));
+    expect(textCards(day2.screens).map((card) => card.title)).toEqual(textCards(CONTENT_BY_DAY[2].screens).map((card) => card.title));
+    expect(dayItems(day2.screens).map((exercise) => exercise.id)).toEqual(attempt.exercises.map((exercise) => exercise.id));
     expect(attempt.exercises).toHaveLength(CONTENT_BY_DAY[2].exercises.length);
+  });
+
+  it("serves Days 1 to 5 with their screens in the approved order", async () => {
+    const approved: Record<number, string[]> = {
+      1: [
+        "text:d01-screen-part-one",
+        "text:d01-screen-first-day",
+        "test:d01-test-1",
+        "test:d01-test-2",
+        "test:d01-test-3",
+        "test:d01-test-4",
+      ],
+      2: ["text:d02-screen-introduction", "text:d02-screen-three-tests", "test:d02-test-5", "test:d02-test-6", "test:d02-test-7"],
+      3: ["text:d03-screen-introduction", "test:d03-test-8", "test:d03-test-9"],
+      4: ["text:d04-screen-introduction", "test:d04-test-10", "test:d04-test-11"],
+      5: [
+        "text:d05-screen-introduction",
+        "test:d05-test-fluency",
+        "text:d05-screen-name-behind-word",
+        "text:d05-screen-did-you-know",
+        "test:d05-test-think-of-words",
+      ],
+    };
+    for (const day of [1, 2, 3, 4, 5]) {
+      if (day > 1) await completeDay(day - 1);
+      const detail = await call<DayDetail>("GET", `${BASE}/days/${day}`);
+
+      expect(detail.screens.map((screen) => `${screen.kind}:${screen.id}`)).toEqual(approved[day]);
+    }
   });
 
   it("shows Day 2 with the vocabulary title and objective", async () => {
@@ -155,13 +190,13 @@ describe("fixture server", () => {
     expect(new Set(vocabulary.map((entry) => entry.dayNumber))).toEqual(new Set([1]));
   });
 
-  it("carries the watch-out tip of each lesson card to the learner", async () => {
+  it("carries each text screen's cards to the learner unchanged", async () => {
     for (const day of [1, 2, 3]) {
       await completeDay(day);
     }
     const day4 = await call<DayDetail>("GET", `${BASE}/days/4`);
 
-    expect(day4.lesson.grammar.map((point) => point.watchOut)).toContain("Do not say I seen it or we done it.");
+    expect(textCards(day4.screens)).toEqual(textCards(CONTENT_BY_DAY[4].screens));
   });
 
   it("tells the learner to type an answer when a fill-blank prompt has no blank", async () => {
@@ -169,11 +204,11 @@ describe("fixture server", () => {
       await completeDay(day);
     }
     const attempt = await call<{ exercises: Exercise[] }>("POST", `${BASE}/days/5/attempts`);
-    const item = attempt.exercises.find((exercise) => exercise.id === "d05-fluency-01");
+    const item = attempt.exercises.find((exercise) => exercise.id === "d05-flu-01");
 
     expect(item).toMatchObject({
       instructions: "Type your answer.",
-      content: { sentence: "Write one word that starts with R and means the opposite of accept." },
+      content: { sentence: "Test I, item 1: slow. Write a word that starts with R and is opposite in meaning." },
     });
   });
 
@@ -186,7 +221,7 @@ describe("fixture server", () => {
     const days = await call<DaySummary[]>("GET", `${BASE}/days`);
     expect(days).toHaveLength(30);
     const day1 = await call<DayDetail>("GET", `${BASE}/days/1`);
-    expect(day1.exercises.some((exercise) => exercise.id.startsWith("ex_dev_"))).toBe(false);
+    expect(dayItems(day1.screens).some((exercise) => exercise.id.startsWith("ex_dev_"))).toBe(false);
     await expect(call("GET", `${BASE}/days/0`)).rejects.toMatchObject({ status: 404 });
   });
 
@@ -212,7 +247,14 @@ describe("fixture server", () => {
         const actual = await importOriginal<typeof import("./days")>();
         return {
           ...actual,
-          CONTENT_BY_DAY: { ...actual.CONTENT_BY_DAY, 1: { ...actual.CONTENT_BY_DAY[1], exercises: actual.DEV_FIXTURE_EXERCISES } },
+          CONTENT_BY_DAY: {
+            ...actual.CONTENT_BY_DAY,
+            1: {
+              ...actual.CONTENT_BY_DAY[1],
+              exercises: actual.DEV_FIXTURE_EXERCISES,
+              screens: [{ kind: "test", id: "d01-test-dev", title: "Dev items", intro: "Dev intro.", exercises: actual.DEV_FIXTURE_EXERCISES }],
+            },
+          },
         };
       });
       const server = await import("./server");

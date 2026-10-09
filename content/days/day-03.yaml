@@ -9,9 +9,24 @@
 day: 3
 title: "Test Your Spelling"
 
-lessons:
-  - id: d03-lesson-introduction
-    learning_area: Spelling
+vocabulary:
+  - word: "drunkenness"
+    definition: "the correct spelling; formed from the adjective drunken plus the ending -ness"
+    example: "Drunkenness is never an excuse for bad behavior."
+    audio_ref: "d03-vocab-drunkenness"
+  - word: "liquefy"
+    definition: "to change into a liquid; one of the few verbs spelled with the ending -efy"
+    example: "Heat will liquefy the wax."
+    audio_ref: "d03-vocab-liquefy"
+  - word: "receive"
+    definition: "to get or accept something; spelled i before e, except after c"
+    example: "I will receive my package tomorrow."
+    audio_ref: "d03-vocab-receive"
+
+screens:
+  - kind: "text"
+    id: "d03-screen-introduction"
+    learning_area: "Spelling"
     title: "Test Your Spelling"
     cards:
       - title: "Third Day: Test Your Spelling"
@@ -19,188 +34,180 @@ lessons:
           In a few moments you can find out whether your spelling is as good as it should be—or whether you make errors you're not even aware of!
 
           *IS YOUR SPELLING AS GOOD AS YOU ARE?*
-
-vocabulary:
-  - word: drunkenness
-    definition: "the correct spelling; formed from the adjective drunken plus the ending -ness"
-    example: "Drunkenness is never an excuse for bad behavior."
-    audio_ref: d03-vocab-drunkenness
-  - word: liquefy
-    definition: "to change into a liquid; one of the few verbs spelled with the ending -efy"
-    example: "Heat will liquefy the wax."
-    audio_ref: d03-vocab-liquefy
-  - word: receive
-    definition: "to get or accept something; spelled i before e, except after c"
-    example: "I will receive my package tomorrow."
-    audio_ref: d03-vocab-receive
-
-exercises:
-  # Test 8: Which is correct? Answers: 1-b, 2-b, 3-a, 4-a, 5-b, 6-b, 7-a, 8-b, 9-b, 10-a
-  - id: d03-spell-t8-01
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.adding_endings]
-    difficulty: 2
-    points: 1
-    prompt: "Test 8, item 1: Which is correct?"
-    choices: ["drunkeness", "drunkenness"]
-    answer: "drunkenness"
-    explanation: "Answer: (b). The adjective drunken, plus the ending -ness."
-  - id: d03-spell-t8-02
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.doubled_letters]
-    difficulty: 2
-    points: 1
-    prompt: "Test 8, item 2: Which is correct?"
-    choices: ["embarassment", "embarrassment"]
-    answer: "embarrassment"
-    explanation: "Answer: (b). Note that both the r and s are doubled."
-  - id: d03-spell-t8-03
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.word_breaks]
-    difficulty: 2
-    points: 1
-    prompt: "Test 8, item 3: Which is correct?"
-    choices: ["all right", "alright"]
-    answer: "all right"
-    explanation: "Answer: (a). Only the two-word spelling is fully acceptable, no matter what the meaning."
-  - id: d03-spell-t8-04
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.vowel_sounds]
-    difficulty: 2
-    points: 1
-    prompt: "Test 8, item 4: Which is correct?"
-    choices: ["repetition", "repitition"]
-    answer: "repetition"
-    explanation: "Answer: (a). Think of the verb form repeat to remember the correct vowel after the p."
-  - id: d03-spell-t8-05
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.doubled_letters]
-    difficulty: 2
-    points: 1
-    prompt: "Test 8, item 5: Which is correct?"
-    choices: ["occurrance", "occurrence"]
-    answer: "occurrence"
-    explanation: "Answer: (b). Note the double r and -ence ending."
-  - id: d03-spell-t8-06
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.doubled_letters]
-    difficulty: 2
-    points: 1
-    prompt: "Test 8, item 6: Which is correct?"
-    choices: ["occassional", "occasional"]
-    answer: "occasional"
-    explanation: "Answer: (b). No reason for the double s, though most poor spellers are addicted to it."
-  - id: d03-spell-t8-07
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.vowel_sounds]
-    difficulty: 2
-    points: 1
-    prompt: "Test 8, item 7: Which is correct?"
-    choices: ["separate", "seperate"]
-    answer: "separate"
-    explanation: "Answer: (a). Remember the crucial a by thinking of its synonym, apart."
-  - id: d03-spell-t8-08
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.adding_endings]
-    difficulty: 2
-    points: 1
-    prompt: "Test 8, item 8: Which is correct?"
-    choices: ["cooly", "coolly"]
-    answer: "coolly"
-    explanation: "Answer: (b). Cool plus the adverbial ending -ly."
-  - id: d03-spell-t8-09
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.prefix_joins]
-    difficulty: 2
-    points: 1
-    prompt: "Test 8, item 9: Which is correct?"
-    choices: ["reccomend", "recommend"]
-    answer: "recommend"
-    explanation: "Answer: (b). The verb commend, which everyone spells correctly, plus the prefix re-."
-  - id: d03-spell-t8-10
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.word_roots]
-    difficulty: 2
-    points: 1
-    prompt: "Test 8, item 10: Which is correct?"
-    choices: ["liquefy", "liquify"]
-    answer: "liquefy"
-    explanation: "Answer: (a). Only five verbs end in -efy rather than the common -ify: liquefy, putrefy, rarefy, stupefy, and, of course, defy."
-
-  # Test 9: find the misspelled word in each line and rewrite it. Answers: 1-superintendent,
-  # 2-analyze, 3-disappointed, 4-receive, 5-irresistible
-  - id: d03-spell-t9-01
-    type: spelling_correction
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.ent_ence_ant_ance]
-    difficulty: 2
-    points: 1
-    prompt: "Test 9, item 1: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
-    text: "superintendant, persistent, insistent, dependent, consistent"
-    accepted: ["superintendent"]
-    explanation: "Change superintendant to superintendent. These are the five -ent words that are most troublesome to insecure spellers. The two most frequently misspelled -ance words are resistance and perseverance."
-  - id: d03-spell-t9-02
-    type: spelling_correction
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.word_roots]
-    difficulty: 2
-    points: 1
-    prompt: "Test 9, item 2: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
-    text: "supervise, advertise, despise, analize, memorize"
-    accepted: ["analyze"]
-    explanation: "Change analize to analyze. The only two common words ending in -yze are analyze and paralyze."
-  - id: d03-spell-t9-03
-    type: spelling_correction
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.prefix_joins]
-    difficulty: 2
-    points: 1
-    prompt: "Test 9, item 3: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
-    text: "dissatisfied, dissimilar, dissapointed, disappear, misspelling, misspent"
-    accepted: ["disappointed"]
-    explanation: "Change dissapointed to disappointed. Disappointed and disappear are combinations of the prefix dis- and the roots appoint and appear, hence no reason for a double s. In the other words, however, the double s is required because the roots start with s: dis- plus satisfied, dis- plus similar, mis- plus spelling, mis- plus spent."
-  - id: d03-spell-t9-04
-    type: spelling_correction
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.ie_ei]
-    difficulty: 2
-    points: 1
-    prompt: "Test 9, item 4: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
-    text: "niece, achieve, relieve, recieve, seize, leisure, weird"
-    accepted: ["receive"]
-    explanation: "Change recieve to receive. The rule, you will recall, is \"i before e, except after c.\" Since there is an immediately preceding c in receive, -ei, rather than -ie, is the correct pattern. True, there is no c in seize, leisure, and weird, but these are the three important exceptions to the rule."
-  - id: d03-spell-t9-05
-    type: spelling_correction
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.word_roots]
-    difficulty: 2
-    points: 1
-    prompt: "Test 9, item 5: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
-    text: "indispensable, irritable, irresistable, dependable, inimitable"
-    accepted: ["irresistible"]
-    explanation: "Change irresistable to irresistible. The -able, -ible problem is one of the thorniest in English spelling, and the five words offered here are the ones that cause the most confusion."
+  - kind: "test"
+    id: "d03-test-8"
+    learning_area: "Spelling"
+    title: "Test 8: These 10 Words Baffle Many People — Do You Know How to Spell Them?"
+    intro: "Which is correct:"
+    items:
+      - id: "d03-spell-t8-01"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.adding_endings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 8, item 1: Which is correct?"
+        choices: ["drunkeness", "drunkenness"]
+        answer: "drunkenness"
+        explanation: "Answer: (b). The adjective drunken, plus the ending -ness."
+      - id: "d03-spell-t8-02"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.doubled_letters"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 8, item 2: Which is correct?"
+        choices: ["embarassment", "embarrassment"]
+        answer: "embarrassment"
+        explanation: "Answer: (b). Note that both the r and s are doubled."
+      - id: "d03-spell-t8-03"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_breaks"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 8, item 3: Which is correct?"
+        choices: ["all right", "alright"]
+        answer: "all right"
+        explanation: "Answer: (a). Only the two-word spelling is fully acceptable, no matter what the meaning."
+      - id: "d03-spell-t8-04"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.vowel_sounds"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 8, item 4: Which is correct?"
+        choices: ["repetition", "repitition"]
+        answer: "repetition"
+        explanation: "Answer: (a). Think of the verb form repeat to remember the correct vowel after the p."
+      - id: "d03-spell-t8-05"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.doubled_letters"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 8, item 5: Which is correct?"
+        choices: ["occurrance", "occurrence"]
+        answer: "occurrence"
+        explanation: "Answer: (b). Note the double r and -ence ending."
+      - id: "d03-spell-t8-06"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.doubled_letters"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 8, item 6: Which is correct?"
+        choices: ["occassional", "occasional"]
+        answer: "occasional"
+        explanation: "Answer: (b). No reason for the double s, though most poor spellers are addicted to it."
+      - id: "d03-spell-t8-07"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.vowel_sounds"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 8, item 7: Which is correct?"
+        choices: ["separate", "seperate"]
+        answer: "separate"
+        explanation: "Answer: (a). Remember the crucial a by thinking of its synonym, apart."
+      - id: "d03-spell-t8-08"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.adding_endings"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 8, item 8: Which is correct?"
+        choices: ["cooly", "coolly"]
+        answer: "coolly"
+        explanation: "Answer: (b). Cool plus the adverbial ending -ly."
+      - id: "d03-spell-t8-09"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.prefix_joins"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 8, item 9: Which is correct?"
+        choices: ["reccomend", "recommend"]
+        answer: "recommend"
+        explanation: "Answer: (b). The verb commend, which everyone spells correctly, plus the prefix re-."
+      - id: "d03-spell-t8-10"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 8, item 10: Which is correct?"
+        choices: ["liquefy", "liquify"]
+        answer: "liquefy"
+        explanation: "Answer: (a). Only five verbs end in -efy rather than the common -ify: liquefy, putrefy, rarefy, stupefy, and, of course, defy."
+  - kind: "test"
+    id: "d03-test-9"
+    learning_area: "Spelling"
+    title: "Test 9: Do You Recognize Incorrect Spelling?"
+    intro: "Find the single misspelled word in each line, cross it out, and rewrite it correctly."
+    items:
+      - id: "d03-spell-t9-01"
+        type: "spelling_correction"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.ent_ence_ant_ance"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 9, item 1: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
+        text: "superintendant, persistent, insistent, dependent, consistent"
+        accepted: ["superintendent"]
+        explanation: "Change superintendant to superintendent. These are the five -ent words that are most troublesome to insecure spellers. The two most frequently misspelled -ance words are resistance and perseverance."
+      - id: "d03-spell-t9-02"
+        type: "spelling_correction"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 9, item 2: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
+        text: "supervise, advertise, despise, analize, memorize"
+        accepted: ["analyze"]
+        explanation: "Change analize to analyze. The only two common words ending in -yze are analyze and paralyze."
+      - id: "d03-spell-t9-03"
+        type: "spelling_correction"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.prefix_joins"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 9, item 3: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
+        text: "dissatisfied, dissimilar, dissapointed, disappear, misspelling, misspent"
+        accepted: ["disappointed"]
+        explanation: "Change dissapointed to disappointed. Disappointed and disappear are combinations of the prefix dis- and the roots appoint and appear, hence no reason for a double s. In the other words, however, the double s is required because the roots start with s: dis- plus satisfied, dis- plus similar, mis- plus spelling, mis- plus spent."
+      - id: "d03-spell-t9-04"
+        type: "spelling_correction"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.ie_ei"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 9, item 4: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
+        text: "niece, achieve, relieve, recieve, seize, leisure, weird"
+        accepted: ["receive"]
+        explanation: "Change recieve to receive. The rule, you will recall, is \"i before e, except after c.\" Since there is an immediately preceding c in receive, -ei, rather than -ie, is the correct pattern. True, there is no c in seize, leisure, and weird, but these are the three important exceptions to the rule."
+      - id: "d03-spell-t9-05"
+        type: "spelling_correction"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 9, item 5: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
+        text: "indispensable, irritable, irresistable, dependable, inimitable"
+        accepted: ["irresistible"]
+        explanation: "Change irresistable to irresistible. The -able, -ible problem is one of the thorniest in English spelling, and the five words offered here are the ones that cause the most confusion."

@@ -14,8 +14,16 @@ const dayDetail: DayDetail = {
   objective: 'One item of each new exercise kind.',
   status: 'current',
   bestScorePct: null,
-  lesson: { vocabulary: [], grammar: [] },
-  exercises: DEV_FIXTURE_EXERCISES,
+  vocabulary: [],
+  screens: [
+    {
+      kind: 'text',
+      id: 'd01-screen-dev-intro',
+      title: 'Dev fixture intro',
+      cards: [{ title: 'Dev fixture', explanation: 'One item of each new exercise kind.', watchOut: null, examples: [] }],
+    },
+    { kind: 'test', id: 'd01-test-dev', title: 'Dev items', intro: 'Answer each item.', exercises: DEV_FIXTURE_EXERCISES },
+  ],
 };
 
 function stubAnswer(exerciseId: string, submitted: Submitted): AnswerResult {
@@ -62,6 +70,8 @@ test.describe('@dev-fixture exercise screens from the dev fixture day', () => {
   test('plays each new exercise kind and shows the end-of-set screen', async ({ page }, testInfo) => {
     const answerBodies = await serveDevFixtureDay(page);
     await page.goto('/days/1/play');
+    await page.getByRole('button', { name: 'Start' }).click();
+    await page.getByRole('button', { name: 'Start' }).click();
 
     await expect(page.getByText('Which word is misspelled?')).toBeVisible();
     await capture(page, testInfo, '1-find-misspelled');
@@ -94,8 +104,12 @@ test.describe('@dev-fixture exercise screens from the dev fixture day', () => {
     expect(answerBodies.at(-1)).toEqual({ exerciseId: 'ex_dev_timed', submitted: { text: 'cottage' } });
     await page.getByRole('button', { name: 'See my results' }).click();
 
-    await expect(page.getByRole('heading', { name: '3 of 3 correct' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '100% correct' })).toBeVisible();
     await expect(page.getByText('Every question was checked.')).toBeVisible();
     await capture(page, testInfo, '5-end-of-set');
+
+    await page.getByRole('button', { name: 'Next' }).click();
+    await expect(page.getByText('Day 1 complete')).toBeVisible();
+    await capture(page, testInfo, '6-day-end');
   });
 });

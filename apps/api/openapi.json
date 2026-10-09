@@ -585,16 +585,33 @@
             ],
             "title": "Status"
           },
-          "lesson": {
-            "type": "string",
-            "title": "Lesson"
-          },
-          "exercises": {
+          "vocabulary": {
             "items": {
-              "$ref": "#/components/schemas/ExercisePrompt"
+              "$ref": "#/components/schemas/DayVocabulary"
             },
             "type": "array",
-            "title": "Exercises"
+            "title": "Vocabulary"
+          },
+          "screens": {
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/TextScreen"
+                },
+                {
+                  "$ref": "#/components/schemas/TestScreen"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "kind",
+                "mapping": {
+                  "test": "#/components/schemas/TestScreen",
+                  "text": "#/components/schemas/TextScreen"
+                }
+              }
+            },
+            "type": "array",
+            "title": "Screens"
           }
         },
         "type": "object",
@@ -603,8 +620,8 @@
           "title",
           "objective",
           "status",
-          "lesson",
-          "exercises"
+          "vocabulary",
+          "screens"
         ],
         "title": "DayDetail"
       },
@@ -652,6 +669,29 @@
         ],
         "title": "DaySummary"
       },
+      "DayVocabulary": {
+        "properties": {
+          "word": {
+            "type": "string",
+            "title": "Word"
+          },
+          "definition": {
+            "type": "string",
+            "title": "Definition"
+          },
+          "example": {
+            "type": "string",
+            "title": "Example"
+          }
+        },
+        "type": "object",
+        "required": [
+          "word",
+          "definition",
+          "example"
+        ],
+        "title": "DayVocabulary"
+      },
       "ExercisePrompt": {
         "properties": {
           "id": {
@@ -671,6 +711,7 @@
               "grammar_correction",
               "listening_comprehension",
               "pronunciation_practice",
+              "self_check",
               "sentence_transformation",
               "daily_review",
               "mixed_review"
@@ -731,6 +772,42 @@
           "status"
         ],
         "title": "Health"
+      },
+      "LessonCard": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          },
+          "watchOut": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Watchout"
+          },
+          "examples": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Examples"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "explanation"
+        ],
+        "title": "LessonCard"
       },
       "Progress": {
         "properties": {
@@ -902,6 +979,77 @@
           "graceUsed"
         ],
         "title": "StreakDetail"
+      },
+      "TestScreen": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "const": "test",
+            "title": "Kind"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "intro": {
+            "type": "string",
+            "title": "Intro"
+          },
+          "exercises": {
+            "items": {
+              "$ref": "#/components/schemas/ExercisePrompt"
+            },
+            "type": "array",
+            "title": "Exercises"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "id",
+          "title",
+          "intro",
+          "exercises"
+        ],
+        "title": "TestScreen",
+        "description": "One test: its intro, then its items, then a results screen with that test's score."
+      },
+      "TextScreen": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "const": "text",
+            "title": "Kind"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "cards": {
+            "items": {
+              "$ref": "#/components/schemas/LessonCard"
+            },
+            "type": "array",
+            "title": "Cards"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kind",
+          "id",
+          "title",
+          "cards"
+        ],
+        "title": "TextScreen",
+        "description": "A day intro or reading text. The learner reads it, then presses Start or Next."
       },
       "ValidationError": {
         "properties": {

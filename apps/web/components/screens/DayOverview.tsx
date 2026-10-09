@@ -5,6 +5,7 @@ import { Icon } from "@/components/ui/IconSprite";
 import { ErrorState, LoadingState } from "@/components/ui/QueryState";
 import { useDay } from "@/lib/api/hooks";
 import { cx } from "@/lib/cx";
+import { dayItems } from "@/lib/day-screens";
 
 export function DayOverview({ day: dayNumber }: { day: number }) {
   const day = useDay(dayNumber);
@@ -16,7 +17,8 @@ export function DayOverview({ day: dayNumber }: { day: number }) {
 
   const detail = day.data;
   const locked = detail.status === "locked";
-  const hasContent = detail.exercises.length > 0;
+  const items = dayItems(detail.screens);
+  const hasContent = items.length > 0;
   const chip = detail.status === "done" ? "ok" : detail.status === "current" ? "brand" : "";
   const chipText = detail.status === "done" ? "Done" : detail.status === "current" ? "Today" : "Locked";
 
@@ -47,7 +49,7 @@ export function DayOverview({ day: dayNumber }: { day: number }) {
       <section className="card stack" style={{ gap: "var(--s-2)" }}>
         <h2 className="t-label">Today’s goal</h2>
         <p className="t-body">{detail.objective}</p>
-        {hasContent ? <p className="t-small">{detail.exercises.length} questions · you need 70% in one run to finish the day</p> : null}
+        {hasContent ? <p className="t-small">{items.length} questions · you need 70% in one run to finish the day</p> : null}
       </section>
 
       {locked ? (

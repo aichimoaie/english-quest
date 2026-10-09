@@ -9,9 +9,16 @@
 day: 1
 title: "Test Your Pronunciation"
 
-lessons:
-  - id: d01-lesson-introduction
-    learning_area: Pronunciation
+vocabulary:
+  - word: "epitome"
+    definition: "choosing the right pronunciation; pronounced EP'-ə-tome"
+    example: "Choose the right pronunciation of epitome before you say it aloud."
+    audio_ref: "d01-vocab-epitome"
+
+screens:
+  - kind: "text"
+    id: "d01-screen-part-one"
+    learning_area: "Pronunciation"
     title: "Test Your English!"
     cards:
       - title: "Test Your English!"
@@ -31,11 +38,10 @@ lessons:
 
           The relationships you have with other people are largely dependent on words—you communicate to others your feelings, your needs, your ideas, your reactions in words. *More important, you continuously present yourself in words.*
       - title: "What your words say about you"
-        body: |-
-          Just what kind of person do others see when you translate your thoughts into speech or writing? Part I will help you find out—will help you discover what your spelling, pronunciation, and grammar say about you.
-
-  - id: d01-lesson-pronunciation
-    learning_area: Pronunciation
+        body: "Just what kind of person do others see when you translate your thoughts into speech or writing? Part I will help you find out—will help you discover what your spelling, pronunciation, and grammar say about you."
+  - kind: "text"
+    id: "d01-screen-first-day"
+    learning_area: "Pronunciation"
     title: "Test Your Pronunciation"
     cards:
       - title: "First Day: Test Your Pronunciation"
@@ -47,238 +53,247 @@ lessons:
           In the following four tests, check in each instance the pronunciation you naturally and habitually use—do not be influenced by what you think may or may not be "correct."
 
           [The symbol ə indicates the very slight vowel sound heard in the first syllable of *commit* (kə-MIT') or the last syllable of *Linda* (LIN'-də)].
-
-vocabulary:
-  - word: epitome
-    definition: "choosing the right pronunciation; pronounced EP'-ə-tome"
-    example: "Choose the right pronunciation of epitome before you say it aloud."
-    audio_ref: d01-vocab-epitome
-
-exercises:
-  # Test 1: Do You Avoid Common but Glaring Errors? Answers: 1-a, 2-a, 3-b, 4-a, 5-b
-  - id: d01-pron-t1-01
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.common_errors]
-    difficulty: 1
-    points: 1
-    prompt: "Test 1, item 1: Italian. Which pronunciation do you naturally use?"
-    choices: ["ə-TAL'-yən", "eye-TAL'-yən"]
-    answer: "ə-TAL'-yən"
-    explanation: "Answer: (a)."
-  - id: d01-pron-t1-02
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.common_errors]
-    difficulty: 1
-    points: 1
-    prompt: "Test 1, item 2: genuine. Which pronunciation do you naturally use?"
-    choices: ["JEN'-yoo-in", "JEN'-yoo-wine"]
-    answer: "JEN'-yoo-in"
-    explanation: "Answer: (a)."
-  - id: d01-pron-t1-03
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.common_errors]
-    difficulty: 1
-    points: 1
-    prompt: "Test 1, item 3: theater. Which pronunciation do you naturally use?"
-    choices: ["thee-AY'-tər", "THEE'-ə-tər"]
-    answer: "THEE'-ə-tər"
-    explanation: "Answer: (b)."
-  - id: d01-pron-t1-04
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.common_errors]
-    difficulty: 1
-    points: 1
-    prompt: "Test 1, item 4: nuclear. Which pronunciation do you naturally use?"
-    choices: ["NOO'-klee-ər", "NOO'-kyə-lər"]
-    answer: "NOO'-klee-ər"
-    explanation: "Answer: (a)."
-  - id: d01-pron-t1-05
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.common_errors]
-    difficulty: 1
-    points: 1
-    prompt: "Test 1, item 5: pronunciation. Which pronunciation do you naturally use?"
-    choices: ["pro-NOUN'-see-ay-shən", "pro-NUN'-see-ay-shən"]
-    answer: "pro-NUN'-see-ay-shən"
-    explanation: "Answer: (b). Test 1 asks you to get at least four of the five words right."
-
-  # Test 2: Does Your Pronunciation Meet Educated Standards? Answers: 1-b, 2-a, 3-a, 4-b, 5-b
-  - id: d01-pron-t2-01
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.educated_standard]
-    difficulty: 2
-    points: 1
-    prompt: "Test 2, item 1: percolator. Which is the preferred pronunciation?"
-    choices: ["PUR'-kyoo-lay-tər", "PUR'-kə-lay-tər"]
-    answer: "PUR'-kə-lay-tər"
-    explanation: "Answer: (b)."
-  - id: d01-pron-t2-02
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.educated_standard]
-    difficulty: 2
-    points: 1
-    prompt: "Test 2, item 2: preferable. Which is the preferred pronunciation?"
-    choices: ["PREF'-ər-ə-bəl", "prə-FUR'-ə-bəl"]
-    answer: "PREF'-ər-ə-bəl"
-    explanation: "Answer: (a)."
-  - id: d01-pron-t2-03
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.educated_standard]
-    difficulty: 2
-    points: 1
-    prompt: "Test 2, item 3: phraseology. Which is the preferred pronunciation?"
-    choices: ["fray-zee-OL'-ə-jee", "fray-ZOL'-ə-jee"]
-    answer: "fray-zee-OL'-ə-jee"
-    explanation: "Answer: (a)."
-  - id: d01-pron-t2-04
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.educated_standard]
-    difficulty: 2
-    points: 1
-    prompt: "Test 2, item 4: extraordinary. Which is the preferred pronunciation?"
-    choices: ["EX'-trə-OR'-də-ner-ee", "ex-TRAWR'-də-ner-ee"]
-    answer: "ex-TRAWR'-də-ner-ee"
-    explanation: "Answer: (b)."
-  - id: d01-pron-t2-05
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.educated_standard]
-    difficulty: 2
-    points: 1
-    prompt: "Test 2, item 5: naiveté. Which is the preferred pronunciation?"
-    choices: ["NAY'-və-tee", "nah-eev-TAY'"]
-    answer: "nah-eev-TAY'"
-    explanation: "Answer: (b). Test 2 asks you to get at least four of the five words right."
-
-  # Test 3: If You Use an Unknown Word, Do You Say It Correctly? Answers: 1-b, 2-a, 3-b, 4-a, 5-b
-  - id: d01-pron-t3-01
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.unknown_words]
-    difficulty: 2
-    points: 1
-    prompt: "Test 3, item 1: epitome. Which is the correct pronunciation?"
-    choices: ["EP'-ə-tome", "ə-PIT'-ə-mee"]
-    answer: "ə-PIT'-ə-mee"
-    explanation: "Answer: (b)."
-  - id: d01-pron-t3-02
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.unknown_words]
-    difficulty: 2
-    points: 1
-    prompt: "Test 3, item 2: awry. Which is the correct pronunciation?"
-    choices: ["ə-RYE'", "AW'-ree"]
-    answer: "ə-RYE'"
-    explanation: "Answer: (a)."
-  - id: d01-pron-t3-03
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.unknown_words]
-    difficulty: 2
-    points: 1
-    prompt: "Test 3, item 3: machinations. Which is the correct pronunciation?"
-    choices: ["match-ə-NAY'-shənz", "mak-ə-NAY'-shənz"]
-    answer: "mak-ə-NAY'-shənz"
-    explanation: "Answer: (b)."
-  - id: d01-pron-t3-04
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.unknown_words]
-    difficulty: 2
-    points: 1
-    prompt: "Test 3, item 4: inexorable. Which is the correct pronunciation?"
-    choices: ["in-EX'-ər-ə-bəl", "IN'-əg-ZAWR'-ə-bəl"]
-    answer: "in-EX'-ər-ə-bəl"
-    explanation: "Answer: (a)."
-  - id: d01-pron-t3-05
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.unknown_words]
-    difficulty: 2
-    points: 1
-    prompt: "Test 3, item 5: ribald. Which is the correct pronunciation?"
-    choices: ["RYE'-bawld", "RIB'-əld"]
-    answer: "RIB'-əld"
-    explanation: "Answer: (b). Test 3 asks you to know at least four of the five words."
-
-  # Test 4: Do You Ever Make People Uncomfortable with Affected Pronunciation? Answers: 1-b, 2-a, 3-b, 4-b, 5-a
-  - id: d01-pron-t4-01
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.affected]
-    difficulty: 1
-    points: 1
-    prompt: "Test 4, item 1: been. Which is the preferable form?"
-    choices: ["BEAN", "BIN"]
-    answer: "BIN"
-    explanation: "Answer: (b)."
-  - id: d01-pron-t4-02
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.affected]
-    difficulty: 1
-    points: 1
-    prompt: "Test 4, item 2: student. Which is the preferable form?"
-    choices: ["STOO'-dənt", "STYOO'-dənt"]
-    answer: "STOO'-dənt"
-    explanation: "Answer: (a)."
-  - id: d01-pron-t4-03
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.affected]
-    difficulty: 1
-    points: 1
-    prompt: "Test 4, item 3: last. Which is the preferable form?"
-    choices: ["LAHST", "LAST"]
-    answer: "LAST"
-    explanation: "Answer: (b)."
-  - id: d01-pron-t4-04
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.affected]
-    difficulty: 1
-    points: 1
-    prompt: "Test 4, item 4: secretary. Which is the preferable form?"
-    choices: ["SEK'-rə-tree", "SEK'-rə-ter-ee"]
-    answer: "SEK'-rə-ter-ee"
-    explanation: "Answer: (b)."
-  - id: d01-pron-t4-05
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.affected]
-    difficulty: 1
-    points: 1
-    prompt: "Test 4, item 5: again. Which is the preferable form?"
-    choices: ["ə-GEN'", "ə-GAYN'"]
-    answer: "ə-GEN'"
-    explanation: "Answer: (a). Test 4 asks you to check the preferable form in at least four of the five words."
+  - kind: "test"
+    id: "d01-test-1"
+    learning_area: "Pronunciation"
+    title: "Test 1: Do You Avoid Common but Glaring Errors?"
+    intro: "If so, you will check the preferable pronunciation of at least four of the following five words."
+    items:
+      - id: "d01-pron-t1-01"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 1, item 1: Italian. Which pronunciation do you naturally use?"
+        choices: ["ə-TAL'-yən", "eye-TAL'-yən"]
+        answer: "ə-TAL'-yən"
+        explanation: "Answer: (a)."
+      - id: "d01-pron-t1-02"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 1, item 2: genuine. Which pronunciation do you naturally use?"
+        choices: ["JEN'-yoo-in", "JEN'-yoo-wine"]
+        answer: "JEN'-yoo-in"
+        explanation: "Answer: (a)."
+      - id: "d01-pron-t1-03"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 1, item 3: theater. Which pronunciation do you naturally use?"
+        choices: ["thee-AY'-tər", "THEE'-ə-tər"]
+        answer: "THEE'-ə-tər"
+        explanation: "Answer: (b)."
+      - id: "d01-pron-t1-04"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 1, item 4: nuclear. Which pronunciation do you naturally use?"
+        choices: ["NOO'-klee-ər", "NOO'-kyə-lər"]
+        answer: "NOO'-klee-ər"
+        explanation: "Answer: (a)."
+      - id: "d01-pron-t1-05"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 1, item 5: pronunciation. Which pronunciation do you naturally use?"
+        choices: ["pro-NOUN'-see-ay-shən", "pro-NUN'-see-ay-shən"]
+        answer: "pro-NUN'-see-ay-shən"
+        explanation: "Answer: (b). Test 1 asks you to get at least four of the five words right."
+  - kind: "test"
+    id: "d01-test-2"
+    learning_area: "Pronunciation"
+    title: "Test 2: Does Your Pronunciation Meet Educated Standards?"
+    intro: "If so, you will check the preferred pronunciation of at least four of the following."
+    items:
+      - id: "d01-pron-t2-01"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 1: percolator. Which is the preferred pronunciation?"
+        choices: ["PUR'-kyoo-lay-tər", "PUR'-kə-lay-tər"]
+        answer: "PUR'-kə-lay-tər"
+        explanation: "Answer: (b)."
+      - id: "d01-pron-t2-02"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 2: preferable. Which is the preferred pronunciation?"
+        choices: ["PREF'-ər-ə-bəl", "prə-FUR'-ə-bəl"]
+        answer: "PREF'-ər-ə-bəl"
+        explanation: "Answer: (a)."
+      - id: "d01-pron-t2-03"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 3: phraseology. Which is the preferred pronunciation?"
+        choices: ["fray-zee-OL'-ə-jee", "fray-ZOL'-ə-jee"]
+        answer: "fray-zee-OL'-ə-jee"
+        explanation: "Answer: (a)."
+      - id: "d01-pron-t2-04"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 4: extraordinary. Which is the preferred pronunciation?"
+        choices: ["EX'-trə-OR'-də-ner-ee", "ex-TRAWR'-də-ner-ee"]
+        answer: "ex-TRAWR'-də-ner-ee"
+        explanation: "Answer: (b)."
+      - id: "d01-pron-t2-05"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 2, item 5: naiveté. Which is the preferred pronunciation?"
+        choices: ["NAY'-və-tee", "nah-eev-TAY'"]
+        answer: "nah-eev-TAY'"
+        explanation: "Answer: (b). Test 2 asks you to get at least four of the five words right."
+  - kind: "test"
+    id: "d01-test-3"
+    learning_area: "Pronunciation"
+    title: "Test 3: If You Use an Unknown Word, Do You Say It Correctly?"
+    intro: "If so, you will know the correct pronunciation of at least four of the following."
+    items:
+      - id: "d01-pron-t3-01"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.unknown_words"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 3, item 1: epitome. Which is the correct pronunciation?"
+        choices: ["EP'-ə-tome", "ə-PIT'-ə-mee"]
+        answer: "ə-PIT'-ə-mee"
+        explanation: "Answer: (b)."
+      - id: "d01-pron-t3-02"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.unknown_words"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 3, item 2: awry. Which is the correct pronunciation?"
+        choices: ["ə-RYE'", "AW'-ree"]
+        answer: "ə-RYE'"
+        explanation: "Answer: (a)."
+      - id: "d01-pron-t3-03"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.unknown_words"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 3, item 3: machinations. Which is the correct pronunciation?"
+        choices: ["match-ə-NAY'-shənz", "mak-ə-NAY'-shənz"]
+        answer: "mak-ə-NAY'-shənz"
+        explanation: "Answer: (b)."
+      - id: "d01-pron-t3-04"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.unknown_words"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 3, item 4: inexorable. Which is the correct pronunciation?"
+        choices: ["in-EX'-ər-ə-bəl", "IN'-əg-ZAWR'-ə-bəl"]
+        answer: "in-EX'-ər-ə-bəl"
+        explanation: "Answer: (a)."
+      - id: "d01-pron-t3-05"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.unknown_words"]
+        difficulty: 2
+        points: 1
+        prompt: "Test 3, item 5: ribald. Which is the correct pronunciation?"
+        choices: ["RYE'-bawld", "RIB'-əld"]
+        answer: "RIB'-əld"
+        explanation: "Answer: (b). Test 3 asks you to know at least four of the five words."
+  - kind: "test"
+    id: "d01-test-4"
+    learning_area: "Pronunciation"
+    title: "Test 4: Do You Ever Make People Uncomfortable with Affected Pronunciation?"
+    intro: "You probably don't — but check the preferable form in at least four of the following to be sure."
+    items:
+      - id: "d01-pron-t4-01"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.affected"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 4, item 1: been. Which is the preferable form?"
+        choices: ["BEAN", "BIN"]
+        answer: "BIN"
+        explanation: "Answer: (b)."
+      - id: "d01-pron-t4-02"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.affected"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 4, item 2: student. Which is the preferable form?"
+        choices: ["STOO'-dənt", "STYOO'-dənt"]
+        answer: "STOO'-dənt"
+        explanation: "Answer: (a)."
+      - id: "d01-pron-t4-03"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.affected"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 4, item 3: last. Which is the preferable form?"
+        choices: ["LAHST", "LAST"]
+        answer: "LAST"
+        explanation: "Answer: (b)."
+      - id: "d01-pron-t4-04"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.affected"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 4, item 4: secretary. Which is the preferable form?"
+        choices: ["SEK'-rə-tree", "SEK'-rə-ter-ee"]
+        answer: "SEK'-rə-ter-ee"
+        explanation: "Answer: (b)."
+      - id: "d01-pron-t4-05"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.affected"]
+        difficulty: 1
+        points: 1
+        prompt: "Test 4, item 5: again. Which is the preferable form?"
+        choices: ["ə-GEN'", "ə-GAYN'"]
+        answer: "ə-GEN'"
+        explanation: "Answer: (a). Test 4 asks you to check the preferable form in at least four of the five words."

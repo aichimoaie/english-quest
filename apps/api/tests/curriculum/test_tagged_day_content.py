@@ -64,7 +64,7 @@ def test_exercise_ids_use_their_day_prefix() -> None:
     for number in TAGGED_DAYS:
         prefix = f"d{number:02d}-"
         assert all(exercise.id.startswith(prefix) for exercise in days[number].exercises)
-        assert all(lesson.id.startswith(prefix) for lesson in days[number].lessons)
+        assert all(screen.id.startswith(prefix) for screen in days[number].screens)
 
 
 def test_every_new_day_exercise_is_original_and_explained() -> None:

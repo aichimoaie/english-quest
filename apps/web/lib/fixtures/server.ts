@@ -17,7 +17,6 @@ import type {
   DayStatus,
   DaySummary,
   Exercise,
-  Lesson,
   Progress,
   PronunciationRatingInput,
   StartedAttempt,
@@ -29,7 +28,6 @@ import { PASS_MARK_PCT, TOTAL_DAYS } from "@/lib/course";
 import { isScored, scorePercent } from "@/lib/scoring";
 import { CONTENT_BY_DAY, DAY_OUTLINE, DEV_FIXTURE_EXERCISES } from "./days";
 
-const EMPTY_LESSON: Lesson = { vocabulary: [], grammar: [] };
 const ANSWERS: Record<string, GeneratedAnswer> = Object.assign({}, DEV_ANSWERS, ...Object.values(CONTENT_BY_DAY).map((day) => day.answers));
 
 interface Run {
@@ -185,7 +183,7 @@ function vocabulary(): VocabularyEntry[] {
   return Object.values(CONTENT_BY_DAY)
     .filter((day) => isUnlocked(day.dayNumber))
     .flatMap((day) =>
-    day.lesson.vocabulary.map((item) => ({
+    day.vocabulary.map((item) => ({
       id: `vocab_d${day.dayNumber}_${item.word}`,
       word: item.word,
       definition: item.definition,
@@ -201,8 +199,8 @@ function dayDetail(day: number): DayDetail {
   const unlocked = isUnlocked(day);
   return {
     ...summaryFor(day),
-    lesson: unlocked ? (CONTENT_BY_DAY[day]?.lesson ?? EMPTY_LESSON) : EMPTY_LESSON,
-    exercises: unlocked ? exercisesFor(day) : [],
+    vocabulary: unlocked ? (CONTENT_BY_DAY[day]?.vocabulary ?? []) : [],
+    screens: unlocked ? (CONTENT_BY_DAY[day]?.screens ?? []) : [],
   };
 }
 

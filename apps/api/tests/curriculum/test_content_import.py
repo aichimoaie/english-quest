@@ -59,7 +59,7 @@ def test_changed_content_is_a_new_revision(day_one_data: Data, write_day: Any) -
     store = FakeStore()
     import_days([_load(write_day(day_one_data))], store)
 
-    day_one_data["lessons"][0]["cards"][0]["body"] = "A reworded explanation."
+    day_one_data["screens"][0]["cards"][0]["body"] = "A reworded explanation."
     result = import_days([_load(write_day(day_one_data))], store)
 
     assert result.inserted == (1,)
@@ -77,7 +77,7 @@ def test_hash_ignores_key_order(day_one_data: Data, write_day: Any) -> None:
 def test_hash_changes_with_learner_visible_content(day_one_data: Data, write_day: Any) -> None:
     before = _load(write_day(day_one_data)).content_hash
 
-    day_one_data["exercises"][0]["choices"] = ["Am", "Is", "Are", "Be"]
+    day_one_data["screens"][1]["items"][0]["choices"] = ["Am", "Is", "Are", "Be"]
     after = _load(write_day(day_one_data)).content_hash
 
     assert before != after

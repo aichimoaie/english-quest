@@ -16,6 +16,8 @@ interface ExercisePlayerProps {
   /** Called when the learner finishes from the end screen. */
   onFinish: () => Promise<void>;
   finishLabel: string;
+  /** Show each item's explanation on the end screen. A test's results screen uses this. */
+  explain?: boolean;
 }
 
 /** A self-check has no right answer, so its feedback is a note, not a verdict. */
@@ -34,7 +36,7 @@ function feedbackTitle(exercise: Exercise, result: AnswerResult): string {
  * screen. Grading happens on the server: this component sends each answer and
  * shows the feedback it gets.
  */
-export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel }: ExercisePlayerProps) {
+export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel, explain }: ExercisePlayerProps) {
   const [index, setIndex] = useState(0);
   const [results, setResults] = useState<Record<string, AnswerResult>>({});
   const [busy, setBusy] = useState(false);
@@ -109,6 +111,7 @@ export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel 
           finishLabel={finishLabel}
           finishing={finishing}
           onFinish={handleFinish}
+          explain={explain}
         />
         {error ? (
           <p className="t-small" role="alert" style={{ color: "var(--bad)", marginTop: "var(--s-3)" }}>

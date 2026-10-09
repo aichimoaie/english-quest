@@ -38,7 +38,7 @@ def test_day_two_ids_use_the_day_prefix() -> None:
     day = _day_two()
 
     assert all(exercise.id.startswith("d02-") for exercise in day.exercises)
-    assert all(lesson.id.startswith("d02-") for lesson in day.lessons)
+    assert all(screen.id.startswith("d02-") for screen in day.screens)
 
 
 def test_day_two_teaches_word_meanings_and_opposites() -> None:

@@ -39,7 +39,7 @@ def test_day_one_ids_use_the_day_prefix() -> None:
     day = _day_one()
 
     assert all(exercise.id.startswith("d01-") for exercise in day.exercises)
-    assert all(lesson.id.startswith("d01-") for lesson in day.lessons)
+    assert all(screen.id.startswith("d01-") for screen in day.screens)
 
 
 def test_day_one_covers_the_four_pronunciation_tests() -> None:
