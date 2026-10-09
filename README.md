@@ -31,14 +31,14 @@ Then open <http://localhost:8000/api/v1/health> (returns `{"status": "ok"}`) and
 
 ## Run the web app locally
 
-Prerequisites: Node 22 or later and pnpm (the version in the root `package.json`).
+Prerequisites: Node 22.18 or later and pnpm (the version in the root `package.json`). Node 22.18 is the floor because the fixture scripts run `.mts` files without a loader.
 
 ```bash
 pnpm install                         # from the repo root
 pnpm dev                             # http://localhost:3000
 ```
 
-In `pnpm dev` and tests, when `NEXT_PUBLIC_API_BASE_URL` is unset, the app uses a temporary fixture server in the browser, so it can be previewed without the API. Fixture state lives in memory and resets on reload. Fixtures are not included in production builds, so set `NEXT_PUBLIC_API_BASE_URL` to a running API for any build you deploy or preview against the real one. `pnpm build` writes the static export to `apps/web/out`. The checks are `pnpm lint`, `pnpm typecheck`, and `pnpm test`; CI runs the same commands (see [docs/ci.md](docs/ci.md)).
+In `pnpm dev` and tests, when `NEXT_PUBLIC_API_BASE_URL` is unset, the app uses a temporary fixture server in the browser, so it can be previewed without the API. Fixture state lives in memory and resets on reload. The fixture course data is generated from `content/days` by `apps/web/scripts/build-fixture-content.mts`, which the `pre` scripts run before dev, test, build, typecheck, and lint. Fixtures are not included in production builds, so set `NEXT_PUBLIC_API_BASE_URL` to a running API for any build you deploy or preview against the real one. `pnpm build` writes the static export to `apps/web/out`. The checks are `pnpm lint`, `pnpm typecheck`, and `pnpm test`; CI runs the same commands (see [docs/ci.md](docs/ci.md)).
 
 ## Check the API
 

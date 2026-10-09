@@ -130,7 +130,7 @@ the following:
   tags against `tags.yaml`.
 
 Once the schemas exist, the validator should validate each file against them as
-well, and the Day 1 fixture should pass both checks.
+well, and `content/days/day-01.yaml` should pass both checks.
 
 ## Adding a day
 

@@ -163,7 +163,7 @@ DAY_ONE_DATA: dict[str, Any] = {
             "prompt": "One word is misspelled. Retype the whole sentence with the word fixed.",
             "text": "We drink cofee in the morning.",
             "accepted": ["We drink coffee in the morning."],
-            "explanation": '"Coffee" has two f\'s and two e\'s.',
+            "explanation": "\"Coffee\" has two f's and two e's.",
         },
     ],
 }
