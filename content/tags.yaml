@@ -37,6 +37,10 @@ exercise_types:
 # right/wrong sections are forced choices, because no non-pronunciation kind
 # records a self-assessment.
 book_section_mapping:
+  pronunciation_choice: multiple_choice
+  vocabulary_matching_pairs: vocabulary_matching
+  similar_or_opposite: multiple_choice
+  true_or_false: multiple_choice
   spelling_choice: multiple_choice
   spelling_find_misspelled: spelling_correction
   grammar_yes_no: multiple_choice
@@ -47,6 +51,11 @@ book_section_mapping:
   did_you_know: lesson cards only (no exercise)
 
 topics:
+  Pronunciation:
+    - pronunciation.common_errors
+    - pronunciation.educated_standard
+    - pronunciation.unknown_words
+    - pronunciation.affected
   Spelling:
     - spelling.doubled_letters
     - spelling.prefix_joins
@@ -68,7 +77,10 @@ topics:
     - grammar.lie_lay
     - grammar.adjective_absolutes
   Vocabulary:
+    - vocabulary.word_meanings
+    - vocabulary.synonyms
     - vocabulary.antonyms
+    - vocabulary.word_use
     - vocabulary.fluency
     - vocabulary.word_building
     - vocabulary.eponyms
