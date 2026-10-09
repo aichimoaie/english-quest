@@ -56,8 +56,7 @@ export const DAY_SUMMARIES: DaySummary[] = DAY_OUTLINE.map((entry, index) => ({
 }));
 
 /*
- * DEV ONLY. One item of each new exercise kind, with the timed item last so
- * the set clock is on screen. It is served only by the dev fixture route
+ * DEV ONLY. One item of each new exercise kind. It is served only by the dev fixture route
  * (GET /api/v1/dev/exercises). It is not in the day list, not in the day
  * summaries, and not in the content files.
  */
@@ -86,8 +85,8 @@ export const DEV_FIXTURE_EXERCISES: Exercise[] = [
   {
     id: "ex_dev_timed",
     kind: "timed_recall",
-    instructions: "Type the missing word before the clock runs out.",
+    instructions: "Type the missing word.",
     points: 1,
-    content: { sentence: "A ____ is a small house in the country.", hint: "Type one word.", timeLimitSeconds: 60 },
+    content: { sentence: "A ____ is a small house in the country.", hint: "Type one word." },
   },
 ];

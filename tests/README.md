@@ -15,7 +15,7 @@ checks: browser flows, accessibility, layout at phone width, API contract, and c
 | `e2e/helpers.spec.ts` | Helper tests with fixed HTML fixtures (`@helper`). Each helper has a negative control. | `pnpm test:e2e:helpers` |
 | `e2e/day-flow.spec.ts` | Smoke test of the day flow through the public UI only (`@smoke`) | `pnpm test:e2e` |
 | `e2e/no-horizontal-scroll.spec.ts` | Every key page at 390 px (`@layout`) | `pnpm test:e2e` |
-| `e2e/dev-fixture-screens.spec.ts` | Screenshots of the dev fixture day (new exercise kinds, set timer, end-of-set screen). The day is served by `page.route`; grading is stubbed. | `pnpm test:e2e` |
+| `e2e/dev-fixture-screens.spec.ts` | Screenshots of the dev fixture day (new exercise kinds, end-of-set screen). The day is served by `page.route`; grading is stubbed. | `pnpm test:e2e` |
 | `unit/` | Vitest tests for the pure helpers (`violations.ts`, `overflow.ts`) | `pnpm test:unit` |
 | `vitest.config.ts` | Vitest config. It includes `apps/web/**/*.test.*` for workstream 1. | `pnpm test:unit` |
 | `pytest.ini`, `pyproject.toml`, `uv.lock` | pytest config and the locked test toolchain | see below |

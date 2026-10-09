@@ -1,4 +1,4 @@
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import type { AnswerResult, Exercise } from "@/lib/api/types";
 import { ExercisePlayer } from "./ExercisePlayer";
@@ -191,132 +191,45 @@ describe("ExercisePlayer", () => {
   });
 });
 
-describe("ExercisePlayer set timer and end screen", () => {
-  const timedSet: Exercise[] = [
+describe("ExercisePlayer recall set and end screen", () => {
+  const recallSet: Exercise[] = [
     {
-      id: "ex_t1",
+      id: "ex_r1",
       kind: "timed_recall",
       instructions: "Recall the word.",
       points: 1,
-      content: { sentence: "A ____ is a small house.", hint: null, timeLimitSeconds: 300 },
+      content: { sentence: "A ____ is a small house.", hint: null },
     },
     {
-      id: "ex_t2",
+      id: "ex_r2",
       kind: "timed_recall",
       instructions: "Recall the word.",
       points: 1,
-      content: { sentence: "A ____ is a large house.", hint: null, timeLimitSeconds: 300 },
+      content: { sentence: "A ____ is a large house.", hint: null },
     },
   ];
 
-  it("starts one clock for the whole set and keeps it running into the next item", async () => {
+  it("checks each recall item in turn with no clock, then shows the end screen", async () => {
     const submit = vi.fn(async () => ({ isCorrect: true, explanation: "Yes.", feedbackKey: "ok" }));
-    render(<ExercisePlayer exercises={timedSet} submit={submit} onFinish={vi.fn()} finishLabel="See result" />);
+    const onFinish = vi.fn(async () => undefined);
+    render(<ExercisePlayer exercises={recallSet} submit={submit} onFinish={onFinish} finishLabel="See result" />);
 
-    expect(screen.getByText("5:00")).toBeTruthy();
-    fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
+    expect(screen.queryByRole("button", { name: "Start timer" })).toBeNull();
+    expect((screen.getByRole("button", { name: "Check answer" }) as HTMLButtonElement).disabled).toBe(true);
     fireEvent.change(screen.getByRole("textbox"), { target: { value: "cottage" } });
     fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
     fireEvent.click(await screen.findByRole("button", { name: "Continue" }));
 
     expect(screen.getByText("Question 2 of 2")).toBeTruthy();
-    expect(screen.queryByRole("button", { name: "Start timer" })).toBeNull();
-    expect(screen.getByText("Running")).toBeTruthy();
-  });
+    expect(submit).toHaveBeenCalledWith(recallSet[0], { text: "cottage" });
 
-  it("sends the typed answer and then shows the end screen once the clock runs out", async () => {
-    vi.useFakeTimers();
-    try {
-      const submit = vi.fn(async () => ({ isCorrect: false, expected: "cottage", explanation: "Close.", feedbackKey: "x" }));
-      const onFinish = vi.fn(async () => undefined);
-      render(<ExercisePlayer exercises={timedSet} submit={submit} onFinish={onFinish} finishLabel="See result" />);
+    fireEvent.change(screen.getByRole("textbox"), { target: { value: "cottage" } });
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+    fireEvent.click(await screen.findByRole("button", { name: "See my results" }));
 
-      fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
-      fireEvent.change(screen.getByRole("textbox"), { target: { value: "shed" } });
-      act(() => {
-        vi.advanceTimersByTime(300_000);
-      });
-      await act(async () => {
-        await Promise.resolve();
-      });
-
-      expect(submit).toHaveBeenCalledWith(timedSet[0], { text: "shed" });
-      expect(screen.getByText("0 of 2 correct")).toBeTruthy();
-      expect(screen.getByText("1 not reached before the test ended.")).toBeTruthy();
-      expect(screen.getByText("cottage")).toBeTruthy();
-    } finally {
-      vi.useRealTimers();
-    }
-  });
-
-  it("does not resend at expiry while a check is still in flight", async () => {
-    vi.useFakeTimers();
-    try {
-      let resolveCheck: (answer: AnswerResult) => void = () => undefined;
-      const submit = vi.fn(
-        () =>
-          new Promise<AnswerResult>((resolve) => {
-            resolveCheck = resolve;
-          }),
-      );
-      render(<ExercisePlayer exercises={timedSet} submit={submit} onFinish={vi.fn()} finishLabel="See result" />);
-
-      fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
-      fireEvent.change(screen.getByRole("textbox"), { target: { value: "cottage" } });
-      fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
-      act(() => {
-        vi.advanceTimersByTime(300_000);
-      });
-      await act(async () => {
-        for (let i = 0; i < 5; i++) await Promise.resolve();
-      });
-
-      expect(submit).toHaveBeenCalledTimes(1);
-
-      await act(async () => {
-        resolveCheck({ isCorrect: true, expected: "cottage", explanation: "Yes.", feedbackKey: "ok" });
-        for (let i = 0; i < 5; i++) await Promise.resolve();
-      });
-
-      expect(submit).toHaveBeenCalledTimes(1);
-      expect(screen.queryByRole("alert")).toBeNull();
-      expect(screen.getByText("1 of 2 correct")).toBeTruthy();
-      expect(screen.getByText("1 not reached before the test ended.")).toBeTruthy();
-    } finally {
-      vi.useRealTimers();
-    }
-  });
-
-  it("offers a way to the end screen when the answer cannot be sent at expiry", async () => {
-    vi.useFakeTimers();
-    try {
-      const submit = vi.fn(async () => {
-        throw new Error("offline");
-      });
-      render(<ExercisePlayer exercises={timedSet} submit={submit} onFinish={vi.fn()} finishLabel="See result" />);
-
-      fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
-      fireEvent.change(screen.getByRole("textbox"), { target: { value: "shed" } });
-      act(() => {
-        vi.advanceTimersByTime(300_000);
-      });
-      await act(async () => {
-        for (let i = 0; i < 5; i++) await Promise.resolve();
-      });
-
-      expect(submit).toHaveBeenCalledWith(timedSet[0], { text: "shed" });
-      expect(screen.getByRole("alert").textContent).toBe("The answer could not be sent when time ran out.");
-      expect(screen.queryByText(/try again/i)).toBeNull();
-      expect(screen.queryByText("Your result")).toBeNull();
-
-      fireEvent.click(screen.getByRole("button", { name: "See my results" }));
-
-      expect(screen.getByText("Your result")).toBeTruthy();
-      expect(screen.getByText("0 of 2 correct")).toBeTruthy();
-      expect(screen.getByText("2 not reached before the test ended.")).toBeTruthy();
-    } finally {
-      vi.useRealTimers();
-    }
+    expect(screen.getByText("2 of 2 correct")).toBeTruthy();
+    expect(screen.getByText("Every question was checked.")).toBeTruthy();
+    expect(onFinish).not.toHaveBeenCalled();
   });
 
   it("lists each answer key on the end screen and finishes from there", async () => {
@@ -335,36 +248,5 @@ describe("ExercisePlayer set timer and end screen", () => {
     expect(screen.getByText("Every question was checked.")).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Save run" }));
     await waitFor(() => expect(onFinish).toHaveBeenCalledTimes(1));
-  });
-
-  it("ends the whole set when the clock runs out on a timed item that is not last", async () => {
-    vi.useFakeTimers();
-    try {
-      const submit = vi.fn(async () => ({ isCorrect: false, expected: "cottage", explanation: "Close.", feedbackKey: "x" }));
-      const timedThenChoice: Exercise[] = [
-        timedSet[0],
-        { id: "ex_later", kind: "multiple_choice", instructions: "Pick.", points: 1, content: { prompt: "Which is correct?", options: ["am", "is"] } },
-      ];
-      render(<ExercisePlayer exercises={timedThenChoice} submit={submit} onFinish={vi.fn()} finishLabel="See result" />);
-
-      fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
-      fireEvent.change(screen.getByRole("textbox"), { target: { value: "shed" } });
-      act(() => {
-        vi.advanceTimersByTime(300_000);
-      });
-      await act(async () => {
-        for (let i = 0; i < 5; i++) await Promise.resolve();
-      });
-
-      expect(submit).toHaveBeenCalledTimes(1);
-      expect(screen.getByText("Your result")).toBeTruthy();
-      expect(screen.getByText("0 of 2 correct")).toBeTruthy();
-      expect(screen.getByText("1 not reached before the test ended.")).toBeTruthy();
-      expect(screen.getByText("Which is correct?")).toBeTruthy();
-      expect(screen.getByText("Not reached")).toBeTruthy();
-      expect(screen.queryByText("Question 2 of 2")).toBeNull();
-    } finally {
-      vi.useRealTimers();
-    }
   });
 });

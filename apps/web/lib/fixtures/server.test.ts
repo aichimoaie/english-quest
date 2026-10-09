@@ -177,12 +177,11 @@ describe("fixture server", () => {
     });
   });
 
-  it("serves one dev item of each new kind and a timed item, outside the day list", async () => {
+  it("serves one dev item of each new kind, outside the day list", async () => {
     const { items } = await call<{ items: Exercise[] }>("GET", `${BASE}/dev/exercises`);
     const kinds = items.map((exercise) => exercise.kind);
 
     expect(kinds).toEqual(["find_misspelled", "self_check", "right_wrong", "timed_recall"]);
-    expect(items[3]).toMatchObject({ kind: "timed_recall", content: { timeLimitSeconds: 60 } });
 
     const days = await call<DaySummary[]>("GET", `${BASE}/days`);
     expect(days).toHaveLength(30);

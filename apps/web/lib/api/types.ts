@@ -98,7 +98,7 @@ export type Exercise =
     })
   | (ExerciseBase & {
       kind: "timed_recall";
-      content: { sentence: string; hint: string | null; timeLimitSeconds: number };
+      content: { sentence: string; hint: string | null };
     });
 
 /** What the learner submits. The shape depends on the exercise kind. */

@@ -33,7 +33,7 @@ const timedRecall: Exercise = {
   kind: "timed_recall",
   instructions: "Recall the word.",
   points: 1,
-  content: { sentence: "A ____ is a small house.", hint: "Starts with c.", timeLimitSeconds: 300 },
+  content: { sentence: "A ____ is a small house.", hint: "Starts with c." },
 };
 
 const answered: AnswerResult = { isCorrect: false, expected: "Wrong", explanation: "Use has with he or she.", feedbackKey: "has" };
@@ -97,67 +97,21 @@ describe("RightWrongTable", () => {
 });
 
 describe("TimedRecall", () => {
-  const running = { running: true, expired: false, secondsLeft: 300 };
+  it("sends the checked answer and keeps the check button off until text is typed", () => {
+    const { onSubmit } = renderExercise(timedRecall);
 
-  it("keeps the input closed until the set's clock is running", () => {
-    renderExercise(timedRecall, { timer: { running: false, expired: false, secondsLeft: 300 } });
-
-    expect((screen.getByRole("textbox") as HTMLInputElement).disabled).toBe(true);
-  });
-
-  it("opens the input and sends a checked answer while the clock runs", () => {
-    const { onSubmit } = renderExercise(timedRecall, { timer: running });
-
+    expect((screen.getByRole("button", { name: "Check answer" }) as HTMLButtonElement).disabled).toBe(true);
     fireEvent.change(screen.getByRole("textbox"), { target: { value: "cottage" } });
     fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
 
+    expect(onSubmit).toHaveBeenCalledTimes(1);
     expect(onSubmit).toHaveBeenCalledWith({ text: "cottage" });
   });
 
-  it("sends the typed answer when the set's clock runs out, without a check", () => {
-    const onSubmit = vi.fn<(submitted: Submitted) => void>();
-    const { rerender } = render(
-      <ExerciseRenderer exercise={timedRecall} result={null} busy={false} onSubmit={onSubmit} timer={running} />,
-    );
-    fireEvent.change(screen.getByRole("textbox"), { target: { value: "cottage" } });
-    expect(onSubmit).not.toHaveBeenCalled();
+  it("locks the input once the server has answered", () => {
+    renderExercise(timedRecall, { result: answered });
 
-    rerender(
-      <ExerciseRenderer
-        exercise={timedRecall}
-        result={null}
-        busy={false}
-        onSubmit={onSubmit}
-        timer={{ running: true, expired: true, secondsLeft: 0 }}
-      />,
-    );
-
-    expect(onSubmit).toHaveBeenCalledTimes(1);
-    expect(onSubmit).toHaveBeenCalledWith({ text: "cottage" });
+    expect((screen.getByRole("textbox") as HTMLInputElement).disabled).toBe(true);
     expect(screen.queryByRole("button", { name: "Check answer" })).toBeNull();
-  });
-
-  it("does not send a second time once the server has answered", () => {
-    const onSubmit = vi.fn<(submitted: Submitted) => void>();
-    const { rerender } = render(
-      <ExerciseRenderer
-        exercise={timedRecall}
-        result={null}
-        busy={false}
-        onSubmit={onSubmit}
-        timer={{ running: true, expired: true, secondsLeft: 0 }}
-      />,
-    );
-    rerender(
-      <ExerciseRenderer
-        exercise={timedRecall}
-        result={answered}
-        busy={false}
-        onSubmit={onSubmit}
-        timer={{ running: true, expired: true, secondsLeft: 0 }}
-      />,
-    );
-
-    expect(onSubmit).toHaveBeenCalledTimes(1);
   });
 });

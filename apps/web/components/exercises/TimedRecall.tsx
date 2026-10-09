@@ -1,32 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { cx } from "@/lib/cx";
 import type { ExerciseOf, ExerciseProps } from "./types";
 
-/**
- * A fill-in-the-blank item in a timed set. The player owns the clock for the
- * whole set. When it runs out, whatever the learner has typed is sent, even
- * without a check.
- */
-export function TimedRecall({ exercise, result, busy, onSubmit, timer }: ExerciseProps<ExerciseOf<"timed_recall">>) {
+/** A fill-in-the-blank recall item. The learner types the missing word and checks it. */
+export function TimedRecall({ exercise, result, busy, onSubmit }: ExerciseProps<ExerciseOf<"timed_recall">>) {
   const { sentence, hint } = exercise.content;
   const [text, setText] = useState("");
-  const expired = timer?.expired ?? false;
-  const canType = timer?.running === true && !expired && result === null && !busy;
-
-  // The expiry send reads the latest text without restarting when the text changes.
-  const textRef = useRef(text);
-  const expirySent = useRef(false);
-  useEffect(() => {
-    textRef.current = text;
-  }, [text]);
-
-  useEffect(() => {
-    if (!expired || result !== null || busy || expirySent.current) return;
-    expirySent.current = true;
-    onSubmit({ text: textRef.current });
-  }, [expired, result, busy, onSubmit]);
+  const canType = result === null && !busy;
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -52,7 +34,7 @@ export function TimedRecall({ exercise, result, busy, onSubmit, timer }: Exercis
         spellCheck={false}
         disabled={!canType}
       />
-      {result === null && !expired ? (
+      {result === null ? (
         <button type="submit" className="btn btn-primary btn-block" disabled={!canType || !text.trim()}>
           {busy ? "Checking…" : "Check answer"}
         </button>
