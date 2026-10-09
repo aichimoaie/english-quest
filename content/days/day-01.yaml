@@ -1,312 +1,284 @@
 # Day 1: Test Your Pronunciation.
-# Structure follows Part I, Day 1 of the reference book (learning goals and
-# progression only). All wording, items, answers and explanations are original.
-# Pronunciation keys are written for this app. They are not copied from any book.
+# Source: reference book, Part I introduction (pp. 13-14) and First Day (pp. 15-19).
+# Transcribed from pages/page15.md through page19.md, in the book's order.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref) were added for this app. origin is "original" only because the schema requires that value.
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 1
 title: "Test Your Pronunciation"
 
 lessons:
-  - id: d01-lesson-stress
+  - id: d01-lesson-introduction
     learning_area: Pronunciation
-    title: "Stress and the middle syllable"
+    title: "Test Your English!"
     cards:
-      - title: Stress makes a word easy to recognise
-        body: "Each word with more than one syllable has one syllable said with more force. A word can be understood with a wrong vowel, but a wrong stress often sounds strange."
-        examples:
-          - "In pruh-nun-see-AY-shun the stress falls on the fourth syllable."
-          - "Say eh-SPRES-oh, not ex-PRESS-oh, for espresso."
-        watch_out: "Check the stressed syllable in dictionary respellings, which mark it with a capital."
-      - title: Weak syllables are short and quiet
-        body: "In many unstressed syllables the vowel becomes a short, quiet sound called schwa, written as ə in respellings. The middle syllable of library is often quiet."
-        examples:
-          - "LY-brer-ee has three syllables when spoken carefully."
-        watch_out: "Do not drop a whole syllable just because it is quiet."
+      - title: "Test Your English!"
+        body: |-
+          Do you make embarrassing errors in pronunciation, spelling, grammar, word usage?
 
-  - id: d01-lesson-sounds
+          Is your vocabulary fresh and growing, or do you use the same old tired words over and over?
+
+          In short, does your English work for you or against you?
+
+          *HERE'S YOUR CHANCE TO FIND OUT!*
+      - title: "The words you use"
+        body: |-
+          The words you use can either work for you or against you—and, in a very real sense, you are the one who chooses which it's to be.
+
+          For, rightly or wrongly, you are often judged not only by what you say but, more immediately, by how you say it. Your language, whether in speech or writing, announces to the world—to your friends, to your business or professional associates, indeed to everyone with whom you come in contact for no matter how brief a time—*this is the kind of person I am.*
+
+          The relationships you have with other people are largely dependent on words—you communicate to others your feelings, your needs, your ideas, your reactions in words. *More important, you continuously present yourself in words.*
+      - title: "What your words say about you"
+        body: |-
+          Just what kind of person do others see when you translate your thoughts into speech or writing? Part I will help you find out—will help you discover what your spelling, pronunciation, and grammar say about you.
+
+  - id: d01-lesson-pronunciation
     learning_area: Pronunciation
-    title: "Silent letters and common mistakes"
+    title: "Test Your Pronunciation"
     cards:
-      - title: Some letters are silent
-        body: "Some letters are written but not spoken. The h in hour is silent, the w in sword is silent, and the gh in height is silent, leaving a long i sound."
-        examples:
-          - "The hour passed quickly."
-          - "She drew a sword in the play."
-        watch_out: "Say the word you know, not the spelling you see."
-      - title: Preferred pronunciations of common words
-        body: "Say ask with a k sound before the s. Burglar has two syllables, not three, and mischievous has three syllables with the middle one quiet."
-        examples:
-          - "Please ask the teacher a question."
-          - "The burglar was caught on camera."
-        watch_out: "Do not add an extra syllable to mischievous."
+      - title: "First Day: Test Your Pronunciation"
+        body: |-
+          Four short, but revealing, pronunciation tests give you an accurate indication of how you sound to other people.
+
+          *DOES YOUR PRONUNCIATION HELP YOU PUT YOUR BEST FOOT FORWARD?*
+
+          In the following four tests, check in each instance the pronunciation you naturally and habitually use—do not be influenced by what you think may or may not be "correct."
+
+          [The symbol ə indicates the very slight vowel sound heard in the first syllable of *commit* (kə-MIT') or the last syllable of *Linda* (LIN'-də)].
 
 vocabulary:
-  - word: library
-    definition: a room or building where books are kept for people to read or borrow
-    example: I study at the library on Tuesdays.
-    audio_ref: d01-vocab-library
-  - word: espresso
-    definition: strong coffee made by forcing hot water through finely ground beans
-    example: He ordered a small espresso after dinner.
-    audio_ref: d01-vocab-espresso
-  - word: forehead
-    definition: the front part of the head above the eyes
-    example: She wiped the sweat from her forehead.
-    audio_ref: d01-vocab-forehead
-  - word: height
-    definition: how tall a person or thing is
-    example: What is the height of that tower?
-    audio_ref: d01-vocab-height
-  - word: burglar
-    definition: a person who enters a building illegally to steal
-    example: The police arrested the burglar at the door.
-    audio_ref: d01-vocab-burglar
-  - word: quinoa
-    definition: a grain-like seed that is often eaten as a healthy side dish
-    example: We had quinoa with roasted vegetables.
-    audio_ref: d01-vocab-quinoa
+  - word: epitome
+    definition: "Book gives the pronunciation EP'-ə-tome (Test 3, item 1). No meaning is given in the book."
+    example: "The book gives no example sentence for this word."
+    audio_ref: d01-vocab-epitome
 
 exercises:
-  # Common but glaring errors (book section: Test 1, pronunciation_choice).
-  - id: d01-pron-common-01
+  # Test 1: Do You Avoid Common but Glaring Errors? Answers: 1-a, 2-a, 3-b, 4-a, 5-b
+  - id: d01-pron-t1-01
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.common_errors]
     difficulty: 1
     points: 1
-    prompt: "Which is the preferred pronunciation of library?"
-    choices: ["LY-bree", "LY-brer-ee"]
-    answer: "LY-brer-ee"
-    explanation: "The careful pronunciation keeps the middle syllable, with a quiet vowel."
-
-  - id: d01-pron-common-02
+    prompt: "Test 1, item 1: Italian. Which pronunciation do you naturally use?"
+    choices: ["ə-TAL'-yən", "eye-TAL'-yən"]
+    answer: "ə-TAL'-yən"
+    explanation: "Answer: (a)."
+  - id: d01-pron-t1-02
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.common_errors]
     difficulty: 1
     points: 1
-    prompt: "Which is the preferred pronunciation of mischievous?"
-    choices: ["MIS-chee-vee-us", "MIS-chuh-vus"]
-    answer: "MIS-chuh-vus"
-    explanation: "Mischievous has three syllables. The middle one is quiet."
-
-  - id: d01-pron-common-03
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.common_errors]
-    difficulty: 2
-    points: 1
-    prompt: "Which is the preferred pronunciation of supposedly?"
-    choices: ["suh-POHS-ed-lee", "suh-POHZ-id-lee"]
-    answer: "suh-POHZ-id-lee"
-    explanation: "The s in the middle of the word is voiced, like a z, and the ending is -id-lee."
-
-  - id: d01-pron-common-04
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.common_errors]
-    difficulty: 2
-    points: 1
-    prompt: "Which is the preferred pronunciation of espresso?"
-    choices: ["ex-PRESS-oh", "eh-SPRES-oh"]
-    answer: "eh-SPRES-oh"
-    explanation: "The stress falls on the second syllable, and the first vowel is quiet."
-
-  - id: d01-pron-common-05
+    prompt: "Test 1, item 2: genuine. Which pronunciation do you naturally use?"
+    choices: ["JEN'-yoo-in", "JEN'-yoo-wine"]
+    answer: "JEN'-yoo-in"
+    explanation: "Answer: (a)."
+  - id: d01-pron-t1-03
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.common_errors]
     difficulty: 1
     points: 1
-    prompt: "Which is the preferred pronunciation of Wednesday?"
-    choices: ["WED-nes-day", "WENZ-dee"]
-    answer: "WENZ-dee"
-    explanation: "Most speakers drop the middle syllable and say two syllables."
-
-  # Preferred pronunciation for educated speakers (book section: Test 2).
-  - id: d01-pron-educated-01
+    prompt: "Test 1, item 3: theater. Which pronunciation do you naturally use?"
+    choices: ["thee-AY'-tər", "THEE'-ə-tər"]
+    answer: "THEE'-ə-tər"
+    explanation: "Answer: (b)."
+  - id: d01-pron-t1-04
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
-    topics: [pronunciation.educated_standard]
-    difficulty: 2
-    points: 1
-    prompt: "Which is the preferred pronunciation of height?"
-    choices: ["HITE", "HYTE"]
-    answer: "HYTE"
-    explanation: "The vowel in height is the long i, as in high. The g is silent."
-
-  - id: d01-pron-educated-02
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.educated_standard]
-    difficulty: 2
-    points: 1
-    prompt: "Which is the preferred pronunciation of burglar?"
-    choices: ["BUR-gu-lar", "BUR-glur"]
-    answer: "BUR-glur"
-    explanation: "Burglar has two syllables, and the final syllable is a quiet schwa."
-
-  - id: d01-pron-educated-03
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.educated_standard]
+    topics: [pronunciation.common_errors]
     difficulty: 1
     points: 1
-    prompt: "Which is the preferred pronunciation of ask?"
-    choices: ["AKS", "ASK"]
-    answer: "ASK"
-    explanation: "The standard word has a k sound before the s. The form AKS is not standard."
+    prompt: "Test 1, item 4: nuclear. Which pronunciation do you naturally use?"
+    choices: ["NOO'-klee-ər", "NOO'-kyə-lər"]
+    answer: "NOO'-klee-ər"
+    explanation: "Answer: (a)."
+  - id: d01-pron-t1-05
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.common_errors]
+    difficulty: 1
+    points: 1
+    prompt: "Test 1, item 5: pronunciation. Which pronunciation do you naturally use?"
+    choices: ["pro-NOUN'-see-ay-shən", "pro-NUN'-see-ay-shən"]
+    answer: "pro-NUN'-see-ay-shən"
+    explanation: "Answer: (b). Test 1 asks you to get at least four of the five words right."
 
-  - id: d01-pron-educated-04
+  # Test 2: Does Your Pronunciation Meet Educated Standards? Answers: 1-b, 2-a, 3-a, 4-b, 5-b
+  - id: d01-pron-t2-01
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.educated_standard]
     difficulty: 2
     points: 1
-    prompt: "Which is the preferred pronunciation of picture?"
-    choices: ["PIK-tyoor", "PIK-chur"]
-    answer: "PIK-chur"
-    explanation: "Picture has two syllables, and the ending is the sound chur."
-
-  - id: d01-pron-educated-05
+    prompt: "Test 2, item 1: percolator. Which is the preferred pronunciation?"
+    choices: ["PUR'-kyoo-lay-tər", "PUR'-kə-lay-tər"]
+    answer: "PUR'-kə-lay-tər"
+    explanation: "Answer: (b)."
+  - id: d01-pron-t2-02
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.educated_standard]
     difficulty: 2
     points: 1
-    prompt: "Which is the preferred pronunciation of athlete?"
-    choices: ["ATH-uh-leet", "ATH-leet"]
-    answer: "ATH-leet"
-    explanation: "Athlete has two syllables. The second syllable is leet, with no extra uh sound before it."
+    prompt: "Test 2, item 2: preferable. Which is the preferred pronunciation?"
+    choices: ["PREF'-ər-ə-bəl", "prə-FUR'-ə-bəl"]
+    answer: "PREF'-ər-ə-bəl"
+    explanation: "Answer: (a)."
+  - id: d01-pron-t2-03
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.educated_standard]
+    difficulty: 2
+    points: 1
+    prompt: "Test 2, item 3: phraseology. Which is the preferred pronunciation?"
+    choices: ["fray-zee-OL'-ə-jee", "fray-ZOL'-ə-jee"]
+    answer: "fray-zee-OL'-ə-jee"
+    explanation: "Answer: (a)."
+  - id: d01-pron-t2-04
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.educated_standard]
+    difficulty: 2
+    points: 1
+    prompt: "Test 2, item 4: extraordinary. Which is the preferred pronunciation?"
+    choices: ["EX'-trə-OR'-də-ner-ee", "ex-TRAWR'-də-ner-ee"]
+    answer: "ex-TRAWR'-də-ner-ee"
+    explanation: "Answer: (b)."
+  - id: d01-pron-t2-05
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.educated_standard]
+    difficulty: 2
+    points: 1
+    prompt: "Test 2, item 5: naiveté. Which is the preferred pronunciation?"
+    choices: ["NAY'-və-tee", "nah-eev-TAY'"]
+    answer: "nah-eev-TAY'"
+    explanation: "Answer: (b). Test 2 asks you to get at least four of the five words right."
 
-  # Unknown words: check you know the correct pronunciation (book section: Test 3).
-  - id: d01-pron-unknown-01
+  # Test 3: If You Use an Unknown Word, Do You Say It Correctly? Answers: 1-b, 2-a, 3-b, 4-a, 5-b
+  - id: d01-pron-t3-01
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.unknown_words]
     difficulty: 2
     points: 1
-    prompt: "Which is the preferred pronunciation of gauge?"
-    choices: ["GAW-uh-jee", "GAYJ"]
-    answer: "GAYJ"
-    explanation: "Gauge is one syllable with a long a and a j sound."
-
-  - id: d01-pron-unknown-02
+    prompt: "Test 3, item 1: epitome. Which is the correct pronunciation?"
+    choices: ["EP'-ə-tome", "ə-PIT'-ə-mee"]
+    answer: "ə-PIT'-ə-mee"
+    explanation: "Answer: (b)."
+  - id: d01-pron-t3-02
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.unknown_words]
     difficulty: 2
     points: 1
-    prompt: "Which is the preferred pronunciation of quinoa?"
-    choices: ["KWIN-oh-uh", "KEEN-wah"]
-    answer: "KEEN-wah"
-    explanation: "Quinoa is pronounced keen-wah in most English dictionaries."
-
-  - id: d01-pron-unknown-03
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.unknown_words]
-    difficulty: 3
-    points: 1
-    prompt: "Which is the preferred pronunciation of sumptuous?"
-    choices: ["SUM-too-us", "SUMP-choo-us"]
-    answer: "SUMP-choo-us"
-    explanation: "The p is spoken, and the stressed syllable is the first one."
-
-  - id: d01-pron-unknown-04
+    prompt: "Test 3, item 2: awry. Which is the correct pronunciation?"
+    choices: ["ə-RYE'", "AW'-ree"]
+    answer: "ə-RYE'"
+    explanation: "Answer: (a)."
+  - id: d01-pron-t3-03
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.unknown_words]
     difficulty: 2
     points: 1
-    prompt: "Which is the preferred pronunciation of chasm?"
-    choices: ["CHAS-um", "KAZ-um"]
-    answer: "KAZ-um"
-    explanation: "The ch is spoken as a k sound in this word."
-
-  - id: d01-pron-unknown-05
+    prompt: "Test 3, item 3: machinations. Which is the correct pronunciation?"
+    choices: ["match-ə-NAY'-shənz", "mak-ə-NAY'-shənz"]
+    answer: "mak-ə-NAY'-shənz"
+    explanation: "Answer: (b)."
+  - id: d01-pron-t3-04
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.unknown_words]
     difficulty: 2
     points: 1
-    prompt: "Which is the preferred pronunciation of sword?"
-    choices: ["SWORD", "SORD"]
-    answer: "SORD"
-    explanation: "The w is silent in sword."
+    prompt: "Test 3, item 4: inexorable. Which is the correct pronunciation?"
+    choices: ["in-EX'-ər-ə-bəl", "IN'-əg-ZAWR'-ə-bəl"]
+    answer: "in-EX'-ər-ə-bəl"
+    explanation: "Answer: (a)."
+  - id: d01-pron-t3-05
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.unknown_words]
+    difficulty: 2
+    points: 1
+    prompt: "Test 3, item 5: ribald. Which is the correct pronunciation?"
+    choices: ["RYE'-bawld", "RIB'-əld"]
+    answer: "RIB'-əld"
+    explanation: "Answer: (b). Test 3 asks you to know at least four of the five words."
 
-  # Affected pronunciation (book section: Test 4, pronunciation_choice).
-  - id: d01-pron-affected-01
+  # Test 4: Do You Ever Make People Uncomfortable with Affected Pronunciation? Answers: 1-b, 2-a, 3-b, 4-b, 5-a
+  - id: d01-pron-t4-01
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.affected]
-    difficulty: 2
+    difficulty: 1
     points: 1
-    prompt: "Which is the preferred pronunciation of been?"
-    choices: ["BEEN", "BIN"]
+    prompt: "Test 4, item 1: been. Which is the preferable form?"
+    choices: ["BEAN", "BIN"]
     answer: "BIN"
-    explanation: "Been is short in ordinary speech, with the vowel of bin."
-
-  - id: d01-pron-affected-02
-    type: multiple_choice
-    learning_area: Pronunciation
-    origin: original
-    topics: [pronunciation.affected]
-    difficulty: 2
-    points: 1
-    prompt: "Which is the preferred pronunciation of forehead?"
-    choices: ["FOR-hed", "FOR-id"]
-    answer: "FOR-id"
-    explanation: "The word is said with two syllables and no separate h sound."
-
-  - id: d01-pron-affected-03
+    explanation: "Answer: (b)."
+  - id: d01-pron-t4-02
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.affected]
     difficulty: 1
     points: 1
-    prompt: "Which is the preferred pronunciation of width?"
-    choices: ["WITH", "WIDTH"]
-    answer: "WIDTH"
-    explanation: "Width keeps the d and the th, and the vowel is short."
-
-  - id: d01-pron-affected-04
+    prompt: "Test 4, item 2: student. Which is the preferable form?"
+    choices: ["STOO'-dənt", "STYOO'-dənt"]
+    answer: "STOO'-dənt"
+    explanation: "Answer: (a)."
+  - id: d01-pron-t4-03
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.affected]
-    difficulty: 2
+    difficulty: 1
     points: 1
-    prompt: "Which is the preferred pronunciation of clothes?"
-    choices: ["KLOHTHZ", "KLOHZ"]
-    answer: "KLOHZ"
-    explanation: "The th is not spoken in clothes, so the word ends with z."
-
-  - id: d01-pron-affected-05
+    prompt: "Test 4, item 3: last. Which is the preferable form?"
+    choices: ["LAHST", "LAST"]
+    answer: "LAST"
+    explanation: "Answer: (b)."
+  - id: d01-pron-t4-04
     type: multiple_choice
     learning_area: Pronunciation
     origin: original
     topics: [pronunciation.affected]
-    difficulty: 2
+    difficulty: 1
     points: 1
-    prompt: "Which is the preferred pronunciation of hour?"
-    choices: ["HOUR", "OW-er"]
-    answer: "OW-er"
-    explanation: "The h is silent in hour, so it sounds like our."
+    prompt: "Test 4, item 4: secretary. Which is the preferable form?"
+    choices: ["SEK'-rə-tree", "SEK'-rə-ter-ee"]
+    answer: "SEK'-rə-ter-ee"
+    explanation: "Answer: (b)."
+  - id: d01-pron-t4-05
+    type: multiple_choice
+    learning_area: Pronunciation
+    origin: original
+    topics: [pronunciation.affected]
+    difficulty: 1
+    points: 1
+    prompt: "Test 4, item 5: again. Which is the preferable form?"
+    choices: ["ə-GEN'", "ə-GAYN'"]
+    answer: "ə-GEN'"
+    explanation: "Answer: (a). Test 4 asks you to check the preferable form in at least four of the five words."

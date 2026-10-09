@@ -1,379 +1,162 @@
 # Day 4: Test Your Grammar.
-# Structure follows Part I, Day 4 of the reference book (learning goals and
-# progression only). All wording, items, answers and explanations are original.
+# Source: reference book, Fourth Day (pp. 25-30).
+# Transcribed from pages/page27.md through page30.md, in the book's order.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref) were added for this app. origin is "original" only because the schema requires that value.
+# Test 10 is a self-check checklist with no answer key. The schema has no field for an unscored
+# checklist, so its items and the book's explanations are kept as lesson cards.
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 4
 title: "Test Your Grammar"
 
 lessons:
-  - id: d04-lesson-verbs-negatives
+  - id: d04-lesson-introduction
     learning_area: Grammar
-    title: "Verb forms and negatives"
+    title: "Test Your Grammar"
     cards:
-      - title: Done and seen need a helper
-        body: "Done and seen need a helping verb such as has, have or had. Without a helper, use the simple past: did and saw."
-        examples:
-          - "I did the dishes after dinner."
-          - "I have seen that film twice."
-        watch_out: "Do not say I seen it or we done it."
-      - title: Doesn't and don't
-        body: "Doesn't is short for does not. Use it with he, she, it or one named person or thing. Don't is short for do not, and it goes with I, you, we and they."
-        examples:
-          - "She doesn't like coffee."
-          - "They don't live here."
-        watch_out: "Do not write He don't."
-      - title: Hardly and scarcely are already negative
-        body: "Hardly and scarcely mean almost not. Keep the verb positive after them."
-        examples:
-          - "I can hardly hear the music."
-          - "We scarcely knew the family."
-        watch_out: "Do not write can't hardly."
-      - title: One negative is enough
-        body: "Use one negative word in a clause. After a negative verb, use any, anybody and anywhere, not no, nobody and nowhere."
-        examples:
-          - "I don't have any time today."
-          - "I did not talk to anybody."
-        watch_out: "Do not write I don't have no time."
+      - title: "Fourth Day: Test Your Grammar"
+        body: |-
+          Do you generally use words correctly? Are you usually sure—or only half sure? Let's put it to a test.
 
-  - id: d04-lesson-pronouns
-    learning_area: Grammar
-    title: "Pronouns and prepositions"
-    cards:
-      - title: Subject pronouns come before the verb
-        body: "I, he, she, we and they do the action, so they come before the verb. Me, him, her, us and them receive the action, so they come after a verb or a preposition."
-        examples:
-          - "He and I can come to the party."
-          - "She saw them at the station."
-        watch_out: "Do not write Him and me can come."
-      - title: Remove the other name to check
-        body: "When two people are joined by and, leave out the other person and read the sentence again. Sam and I went home becomes I went home. She invited Sam and me becomes She invited me."
-        examples:
-          - "Tom and I are going to the cinema."
-          - "She invited Sam and me to lunch."
-        watch_out: "Do not decide by sound alone. Test the sentence with one name removed."
-      - title: Use object forms after prepositions
-        body: "After prepositions such as between, except, to, with, without, for and from, use me, him, her, us and them."
-        examples:
-          - "This is a secret between you and me."
-          - "Everyone came except her."
-        watch_out: "Do not write between you and I."
+          *DOES YOUR GRAMMAR MAKE A GOOD IMPRESSION?*
 
-  - id: d04-lesson-lie-lay
-    learning_area: Grammar
-    title: "Lie or lay"
-    cards:
-      - title: Lay needs an object
-        body: "Lay means put something down. It usually has an object, as in lay the book on the desk. Its past tense and past participle are both laid."
-        examples:
-          - "Lay the towel on the chair."
-          - "She laid the cups on the tray."
-        watch_out: "Do not write lie the book on the desk."
-      - title: Lie means rest
-        body: "Lie means rest or be in a flat position. It has no object. Its past tense is lay, and its past participle is lain."
-        examples:
-          - "I need to lie down for an hour."
-          - "Yesterday he lay on the sofa all afternoon."
-        watch_out: "Do not write I laid down for a nap."
+          No one's grammar is perfect, of course, but conspicuously poor English (such as some of the usages listed below) wrench the listener's attention away from *what* a speaker is saying and direct it to the *error* he is making.
+      - title: "Test 10: Is Your English Free of Glaring Errors?"
+        body: |-
+          Be honest with yourself. Do some of the following patterns occur with any frequency in your own speech? If you can check the NO box in most instances, consider yourself safe. On the other hand, wherever you must admit that you are addicted to a particular error, a little thought and concentration, plus an awareness of the principle involved, can quickly and permanently eliminate the incorrect pattern.
 
-  - id: d04-lesson-agreement
+  - id: d04-lesson-checklist
     learning_area: Grammar
-    title: "Agreement and precise words"
+    title: "Test 10: The checklist"
     cards:
-      - title: Two subjects joined by and take a plural verb
-        body: "When two subjects are joined by and, the verb is plural."
-        examples:
-          - "My sister and brother are here."
-          - "The cat and the dog are sleeping."
-        watch_out: "Do not write The cat and the dog is sleeping."
-      - title: Neither of and either of take a singular verb
-        body: "Neither of and either of mean one of two, so use a singular verb."
-        examples:
-          - "Neither of them is ready."
-          - "Either of these pens works well."
-      - title: Unique cannot be stronger
-        body: "Unique means one of a kind, so it cannot be more or less unique. Do not put most or very in front of it."
-        examples:
-          - "This is a unique design."
-        watch_out: "Do not write a most unique house."
-      - title: Use these or those before a noun
-        body: "Them is a pronoun, not an adjective. Before a noun, use this, that, these or those. Leave out here and there after this and that."
-        examples:
-          - "Those books are on the shelf."
-          - "This plan is better than that one."
-        watch_out: "Do not write them books or this here plan."
+      - title: "The error checklist"
+        body: |-
+          1. He *done*, I *seen* . . . (YES ( ) NO ( ))
+          2. *Irregardless* of what you say . . . (YES ( ) NO ( ))
+          3. He *don't* like to . . . (YES ( ) NO ( ))
+          4. *Him* and *me* can come . . . (YES ( ) NO ( ))
+          5. When his mother and father *was* alive . . . (YES ( ) NO ( ))
+          6. I *ain't* happy about it . . . (YES ( ) NO ( ))
+          7. We *can't hardly* . . . (YES ( ) NO ( ))
+          8. I don't need *no* money . . . (YES ( ) NO ( ))
+          9. *This here* plan, *that there* statement . . . (YES ( ) NO ( ))
+          10. *Them* books, *them* people . . . (YES ( ) NO ( ))
+      - title: "How did you do?"
+        body: |-
+          1. *Done* and *seen* may be used only after *has*, *have*, or *had*, i.e., in the perfect tense. The correct past tense of these verbs is *did* and *saw*.
+          2. The correct word is *regardless*; or, if you prefer to start with a negative prefix, say *irrespective*.
+          3. *Don't*, a contraction of *do not*, may be used only with a plural subject (or with the pronoun *I*). Say *doesn't* (a contraction of *does not*) with a singular subject: *he doesn't, she doesn't, it doesn't, the man doesn't*, etc.
+          4. *Him* and *me* are objective pronouns, as also are *her*, *us*, and *them*, and may not be used as subjects (i.e. before the verb). Say *He and I can come.*
+          5. Two words connected by *and* take a plural verb—*his mother and father were alive*, *the book and pen are hers*, etc.
+          6. While *ain't* is a good serviceable word, it is never used by educated speakers except in jest.
+          7. *Hardly* and *scarcely* are negative words—when you use them, keep the verb affirmative. Say *can hardly*, *can scarcely*, etc.
+          8. Here again, the double negative must be avoided—say *I don't need any money*. How would you eliminate the error in these similar sentences? *I can't see no one; I won't go there no more; I didn't take none; I didn't talk to nobody; I didn't see it nowhere.*
+          9. Omit *here* and *there*—say *this plan*, *that statement*.
+          10. *Them* may not be used as an adjective—say *those* or *these*.
 
 vocabulary:
-  - word: pronoun
-    definition: a word that replaces a noun, such as he, it or them
-    example: Tell Maria that she can borrow my bike.
-    audio_ref: d04-vocab-pronoun
-  - word: subject
-    definition: the person or thing that does the action in a sentence
-    example: In "The dog barked", the subject is the dog.
-    audio_ref: d04-vocab-subject
-  - word: object
-    definition: the person or thing that receives the action in a sentence
-    example: In "She kicked the ball", the object is the ball.
-    audio_ref: d04-vocab-object
-  - word: preposition
-    definition: a word such as in, on or between that shows place or relation
-    example: The keys are on the table.
-    audio_ref: d04-vocab-preposition
-  - word: contraction
-    definition: a short form made from two words, with an apostrophe
-    example: Doesn't is a contraction of does not.
-    audio_ref: d04-vocab-contraction
-  - word: double negative
-    definition: two negative words used together where one would be enough
-    example: I don't need no help is a double negative.
-    audio_ref: d04-vocab-double-negative
-  - word: perfect tense
-    definition: a verb form made with has, have or had and a past participle
-    example: I have finished my homework.
-    audio_ref: d04-vocab-perfect-tense
-  - word: plural
-    definition: more than one of something
-    example: The plural of child is children.
-    audio_ref: d04-vocab-plural
+  - word: irregardless
+    definition: "wrong; the correct word is regardless (Test 10, item 2)"
+    example: "The book gives no example sentence for this word."
+    audio_ref: d04-vocab-irregardless
+  - word: unique
+    definition: "means without a like or equal, so any modifying adjective is superfluous (Test 11, item 7)"
+    example: "The book gives no example sentence for this word."
+    audio_ref: d04-vocab-unique
+  - word: lay
+    definition: "means to place (something) (Test 11, item 4); when you mean rest or recline, say lie"
+    example: "Lay the pillow on the bed."
+    audio_ref: d04-vocab-lay
 
 exercises:
-  # Choose the correct form (book section: grammar_yes_no, turned into a forced choice).
-  - id: d04-check-01
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.past_forms]
-    difficulty: 1
-    points: 1
-    prompt: "Which sentence is correct?"
-    choices: ["We done the work yesterday.", "We did the work yesterday."]
-    answer: "We did the work yesterday."
-    explanation: "Done needs a helper such as has or have. For a simple past sentence, use did."
-
-  - id: d04-check-02
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.word_choice]
-    difficulty: 2
-    points: 1
-    prompt: "Which sentence is correct?"
-    choices: ["Irregardless of the weather, we went.", "Regardless of the weather, we went."]
-    answer: "Regardless of the weather, we went."
-    explanation: "Regardless is the standard word. Irregardless is not accepted in careful writing."
-
-  - id: d04-check-03
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.agreement]
-    difficulty: 1
-    points: 1
-    prompt: "Which sentence is correct?"
-    choices: ["She don't like cold weather.", "She doesn't like cold weather."]
-    answer: "She doesn't like cold weather."
-    explanation: "Doesn't goes with a singular subject such as she. Don't goes with I, you, we and they."
-
-  - id: d04-check-04
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.pronoun_case]
-    difficulty: 1
-    points: 1
-    prompt: "Which sentence is correct?"
-    choices: ["Him and me will cook tonight.", "He and I will cook tonight."]
-    answer: "He and I will cook tonight."
-    explanation: "Him and me are object forms, so they cannot be the subject. Use he and I before the verb."
-
-  - id: d04-check-05
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.agreement]
-    difficulty: 2
-    points: 1
-    prompt: "Which sentence is correct?"
-    choices: ["My cousin and nephew is at home.", "My cousin and nephew are at home."]
-    answer: "My cousin and nephew are at home."
-    explanation: "Two subjects joined by and take a plural verb, so are is correct."
-
-  - id: d04-check-06
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.negatives]
-    difficulty: 1
-    points: 1
-    prompt: "Which sentence is correct?"
-    choices: ["I ain't seen that movie yet.", "I haven't seen that movie yet."]
-    answer: "I haven't seen that movie yet."
-    explanation: "Ain't is not used in careful writing. Haven't is the standard contraction."
-
-  - id: d04-check-07
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.negatives]
-    difficulty: 2
-    points: 1
-    prompt: "Which sentence is correct?"
-    choices: ["I can't hardly wait for the trip.", "I can hardly wait for the trip."]
-    answer: "I can hardly wait for the trip."
-    explanation: "Hardly is already negative, so the verb after it should be positive."
-
-  - id: d04-check-08
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.negatives]
-    difficulty: 1
-    points: 1
-    prompt: "Which sentence is correct?"
-    choices: ["I don't have no time today.", "I don't have any time today."]
-    answer: "I don't have any time today."
-    explanation: "After a negative verb, use any. One negative is enough."
-
-  - id: d04-check-09
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.determiners]
-    difficulty: 2
-    points: 1
-    prompt: "Which sentence is correct?"
-    choices: ["That there book is mine.", "That book is mine."]
-    answer: "That book is mine."
-    explanation: "Do not add there after that. The phrase that book is enough."
-
-  - id: d04-check-10
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.determiners]
-    difficulty: 1
-    points: 1
-    prompt: "Which sentence is correct?"
-    choices: ["Them books are on the shelf.", "Those books are on the shelf."]
-    answer: "Those books are on the shelf."
-    explanation: "Them is a pronoun. Before a noun, use those or these."
-
-  # Right or wrong judgment (book section: grammar_right_wrong).
-  - id: d04-judge-01
+  # Test 11: right or wrong. Answers: 1-WRONG, 2-WRONG, 3-WRONG, 4-WRONG, 5-RIGHT, 6-RIGHT, 7-WRONG, 8-RIGHT
+  - id: d04-gram-t11-01
     type: multiple_choice
     learning_area: Grammar
     origin: original
     topics: [grammar.pronoun_case]
     difficulty: 2
     points: 1
-    prompt: "Is the word in brackets used correctly? Nobody in the class is as quick as [her]."
-    choices: ["Right", "Wrong"]
-    answer: "Wrong"
-    explanation: "Finish the comparison in your head: as quick as she is. The subject form she is needed."
-
-  - id: d04-judge-02
-    type: multiple_choice
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.pronoun_case]
-    difficulty: 1
-    points: 1
-    prompt: "Is the word in brackets used correctly? Our teacher gave the prize to Ana and [me]."
-    choices: ["Right", "Wrong"]
-    answer: "Right"
-    explanation: "The word to is a preposition, so the object form me is correct."
-
-  - id: d04-judge-03
+    prompt: "Test 11, item 1: He's not as tall as *me*. Is the italicized word right or wrong?"
+    choices: ["RIGHT", "WRONG"]
+    answer: "WRONG"
+    explanation: "WRONG. As you will see if you add the final implied word, \"He's not as tall as I (am).\""
+  - id: d04-gram-t11-02
     type: multiple_choice
     learning_area: Grammar
     origin: original
     topics: [grammar.pronoun_case]
     difficulty: 2
     points: 1
-    prompt: "Is the word in brackets used correctly? Between you and [I], the plan is weak."
-    choices: ["Right", "Wrong"]
-    answer: "Wrong"
-    explanation: "Between is a preposition, so use me. Test it by removing you and: between me."
-
-  - id: d04-judge-04
+    prompt: "Test 11, item 2: You work faster than *her*. Is the italicized word right or wrong?"
+    choices: ["RIGHT", "WRONG"]
+    answer: "WRONG"
+    explanation: "WRONG. As before, if you finish the sentence you can determine the correct word: \"You work faster than she (does).\""
+  - id: d04-gram-t11-03
+    type: multiple_choice
+    learning_area: Grammar
+    origin: original
+    topics: [grammar.pronoun_case]
+    difficulty: 2
+    points: 1
+    prompt: "Test 11, item 3: Would you like to visit my brother and *I* tonight? Is the italicized word right or wrong?"
+    choices: ["RIGHT", "WRONG"]
+    answer: "WRONG"
+    explanation: "WRONG. You would say, \". . . visit me,\" not I; hence, \". . . visit my brother and me.\" When undecided about a pronoun following and, say it over, leaving out the preceding words, and you can't go wrong. For example: He saw (John and) me (not I); We can do without (you and) her (not she); Can you talk to (them and) us (not we)?"
+  - id: d04-gram-t11-04
     type: multiple_choice
     learning_area: Grammar
     origin: original
     topics: [grammar.lie_lay]
     difficulty: 2
     points: 1
-    prompt: "Is the word in brackets used correctly? Please [lie] the blanket on the bed."
-    choices: ["Right", "Wrong"]
-    answer: "Wrong"
-    explanation: "The blanket is an object, so use lay: lay the blanket on the bed."
-
-  - id: d04-judge-05
+    prompt: "Test 11, item 4: If you don't feel well, why don't you *lay* down for a while? Is the italicized word right or wrong?"
+    choices: ["RIGHT", "WRONG"]
+    answer: "WRONG"
+    explanation: "WRONG. Lay means to place (something), as Lay the pillow on the bed. When you mean rest or recline, say lie."
+  - id: d04-gram-t11-05
     type: multiple_choice
     learning_area: Grammar
     origin: original
     topics: [grammar.lie_lay]
     difficulty: 2
     points: 1
-    prompt: "Is the word in brackets used correctly? After the storm, the boat [lay] on its side for a week."
-    choices: ["Right", "Wrong"]
-    answer: "Right"
-    explanation: "Lay is the past tense of lie, which means rest or be flat. The boat had no object."
-
-  - id: d04-judge-06
+    prompt: "Test 11, item 5: He felt so weak that he just *lay* asleep all day. Is the italicized word right or wrong?"
+    choices: ["RIGHT", "WRONG"]
+    answer: "RIGHT"
+    explanation: "RIGHT. The past tense of lie (to recline or rest) is, strangely enough, lay, not laid or lied. The past of lay is laid: They laid the foundation of the building this morning."
+  - id: d04-gram-t11-06
     type: multiple_choice
     learning_area: Grammar
     origin: original
     topics: [grammar.agreement]
     difficulty: 2
     points: 1
-    prompt: "Is the word in brackets used correctly? Each of the students [has] a locker."
-    choices: ["Right", "Wrong"]
-    answer: "Right"
-    explanation: "Each is singular, so the singular verb has is correct."
-
-  - id: d04-judge-07
+    prompt: "Test 11, item 6: Two new schools are now being built, but neither of them *is* finished. Is the italicized word right or wrong?"
+    choices: ["RIGHT", "WRONG"]
+    answer: "RIGHT"
+    explanation: "RIGHT. Neither of means neither one of, so requires a singular verb. The same rule applies to either of."
+  - id: d04-gram-t11-07
     type: multiple_choice
     learning_area: Grammar
     origin: original
     topics: [grammar.adjective_absolutes]
     difficulty: 2
     points: 1
-    prompt: "Is the word in brackets used correctly? This is the most [unique] song I know."
-    choices: ["Right", "Wrong"]
-    answer: "Wrong"
-    explanation: "Unique cannot be ranked, so most is not needed."
-
-  - id: d04-judge-08
+    prompt: "Test 11, item 7: This is a *most* unique house. Is the italicized word right or wrong?"
+    choices: ["RIGHT", "WRONG"]
+    answer: "WRONG"
+    explanation: "WRONG. Unique means without a like or equal, so any modifying adjective is superfluous."
+  - id: d04-gram-t11-08
     type: multiple_choice
     learning_area: Grammar
     origin: original
-    topics: [grammar.agreement]
-    difficulty: 1
-    points: 1
-    prompt: "Is the word in brackets used correctly? The dog and the cat [is] sleeping together."
-    choices: ["Right", "Wrong"]
-    answer: "Wrong"
-    explanation: "Two subjects joined by and need a plural verb, so are is correct."
-
-  # Complete the sentence (book section: grammar_right_wrong, answered in full).
-  - id: d04-fill-01
-    type: fill_blank
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.agreement]
+    topics: [grammar.pronoun_case]
     difficulty: 2
     points: 1
-    prompt: "Fill the blank with the correct form of be: Neither of the two girls ___ ready yet."
-    accepted: ["is"]
-    explanation: "Neither of takes a singular verb, so is is correct."
-
-  - id: d04-fill-02
-    type: fill_blank
-    learning_area: Grammar
-    origin: original
-    topics: [grammar.lie_lay]
-    difficulty: 2
-    points: 1
-    prompt: "Fill the blank with the past tense of lie (to rest): Yesterday I ___ on the sofa all afternoon."
-    accepted: ["lay"]
-    explanation: "Lie meaning rest has the past form lay, and it takes no object."
+    prompt: "Test 11, item 8: Let's keep this strictly between you and *me*. Is the italicized word right or wrong?"
+    choices: ["RIGHT", "WRONG"]
+    answer: "RIGHT"
+    explanation: "RIGHT. After between, which is a preposition, use only the objective forms of the pronoun: me, him, her, us, them. Other prepositions you must learn to be wary of, when a pronoun follows, are: except, but (meaning except), to, with, without, for, from, and against. Study these: a. No one's here except us. b. Everyone's satisfied but her. c. Will you speak to Sam and me? d. May I go with you and him? e. We can get along without you and them."

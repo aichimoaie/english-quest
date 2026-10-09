@@ -1,314 +1,206 @@
 # Day 3: Test Your Spelling.
-# Structure follows Part I, Day 3 of the reference book (learning goals and
-# progression only). All wording, items, answers and explanations are original.
+# Source: reference book, Third Day (pp. 22-26).
+# Transcribed from pages/page24.md through page26.md, in the book's order.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref) were added for this app. origin is "original" only because the schema requires that value.
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 3
 title: "Test Your Spelling"
 
 lessons:
-  - id: d03-lesson-doubled-letters
+  - id: d03-lesson-introduction
     learning_area: Spelling
-    title: "Doubled letters where word parts meet"
+    title: "Test Your Spelling"
     cards:
-      - title: Keep both letters when a prefix meets its root
-        body: "When a prefix ends with the same letter that the root starts with, write both letters. Mis- plus spelling and dis- plus similar both keep a double s."
-        examples:
-          - "Misspelling is easy to recognise in a list."
-          - "The two books are dissimilar in style."
-        watch_out: "Check the last letter of the prefix and the first letter of the root before you decide."
-      - title: Keep a single letter when the root starts differently
-        body: "Some prefixes join a root with a different first letter, so only one letter appears. Dis- plus appear gives disappear, and dis- plus appoint gives disappoint."
-        examples:
-          - "The bird began to disappear behind the hill."
-          - "The result did not disappoint anyone."
-        watch_out: "Do not add a second s just because the word looks long."
-      - title: Keep every letter of the adjective
-        body: "To make an adverb from an adjective, add -ly and keep every letter of the adjective. Cool already ends in l, so cool plus -ly gives coolly, with two l letters."
-        examples:
-          - "She answered coolly, without any fuss."
-          - "He finished the race fairly."
+      - title: "Third Day: Test Your Spelling"
+        body: |-
+          In a few moments you can find out whether your spelling is as good as it should be—or whether you make errors you're not even aware of!
 
-  - id: d03-lesson-ie-ei
-    learning_area: Spelling
-    title: "The ie and ei pattern"
-    cards:
-      - title: Write ie, except after c
-        body: "For a long e sound, write ie, as in believe. After c, write ei, as in receive. Seize, leisure and weird break the pattern without a c, so learn them as exceptions."
-        examples:
-          - "I believe you."
-          - "Did you receive the parcel?"
-          - "Please seize the chance."
-        watch_out: "The pattern only applies when the sound is a long e. In height, ei makes a long i sound, so the rule does not apply."
-      - title: After c, the pattern still holds
-        body: "Words with c before the vowel use ei, even when the vowel sound is long e. Ceiling, receipt and conceive are the common examples."
-        examples:
-          - "The ceiling is painted white."
-          - "Keep the receipt in your wallet."
-        watch_out: "Do not write cieling or receit."
-
-  - id: d03-lesson-endings
-    learning_area: Spelling
-    title: "Tricky word endings"
-    cards:
-      - title: Use -able when you can see the whole word
-        body: "If you can add -able to a complete word, as in enjoy plus able, the ending is -able. Possible, visible and edible use -ible and must be learned as a group."
-        examples:
-          - "The film was enjoyable."
-          - "The stain is visible from the door."
-        watch_out: "Do not assume an ending is -able only because the word sounds familiar."
-      - title: Compare with a related word
-        body: "Look at a related word. If it ends in -ent, the noun usually ends in -ence, as in independent and independence. If it ends in -ant, the noun usually ends in -ance, as in important and importance."
-        examples:
-          - "Her independence matters to her."
-          - "The importance of sleep is well known."
-        watch_out: "There are exceptions, so check unfamiliar words in a dictionary."
-      - title: Most verbs end in -ify
-        body: "Most verbs of this kind end in -ify, such as simplify and classify. Only a few end in -efy: liquefy, putrefy, rarefy, stupefy and defy."
-        examples:
-          - "Heat can liquefy wax."
-          - "We must simplify the rules."
-        watch_out: "Because -efy is the exception, learn it as a short list."
-
-  - id: d03-lesson-memory-hints
-    learning_area: Spelling
-    title: "Memory hints from related words"
-    cards:
-      - title: Link a hard word to a simpler one
-        body: "Many hard words become easier when you connect them to a simpler word. Repetition comes from repeat, so the vowel after the p is e, not i."
-        examples:
-          - "The repetition of the chorus made it memorable."
-        watch_out: "Do not write repitition. Think of repeat."
-      - title: Recommend keeps the double m
-        body: "Recommend is re- plus commend. Commend has a double m, and the prefix does not change that letter."
-        examples:
-          - "Can you recommend a good dentist?"
-        watch_out: "Do not write reccomend with a double c."
-      - title: Separate has an a in the middle
-        body: "Separate is a common error because of its vowels. Remember the a, and think of the word apart, which has the same a."
-        examples:
-          - "Keep the two groups separate."
+          *IS YOUR SPELLING AS GOOD AS YOU ARE?*
 
 vocabulary:
-  - word: accommodate
-    definition: to provide enough room or space for someone
-    example: The hotel can accommodate two hundred guests.
-    audio_ref: d03-vocab-accommodate
-  - word: embarrass
-    definition: to make someone feel awkward or ashamed
-    example: His loud ringtone embarrassed him in the meeting.
-    audio_ref: d03-vocab-embarrass
-  - word: rhythm
-    definition: a regular pattern of sounds or beats
-    example: The drummer kept a steady rhythm all night.
-    audio_ref: d03-vocab-rhythm
-  - word: necessary
-    definition: needed or essential
-    example: It is necessary to bring your passport.
-    audio_ref: d03-vocab-necessary
-  - word: definitely
-    definition: without any doubt
-    example: I will definitely call you tomorrow.
-    audio_ref: d03-vocab-definitely
-  - word: conscience
-    definition: the inner sense of what is right and wrong
-    example: Her conscience told her to return the extra money.
-    audio_ref: d03-vocab-conscience
-  - word: independent
-    definition: not controlled by or relying on other people
-    example: She is an independent person who runs her own shop.
-    audio_ref: d03-vocab-independent
+  - word: drunkenness
+    definition: "the correct spelling (Test 8, item 1; the adjective drunken plus the ending -ness)"
+    example: "The book gives no example sentence for this word."
+    audio_ref: d03-vocab-drunkenness
+  - word: liquefy
+    definition: "the correct spelling (Test 8, item 10; one of five verbs ending in -efy)"
+    example: "The book gives no example sentence for this word."
+    audio_ref: d03-vocab-liquefy
   - word: receive
-    definition: to get something that someone gives or sends
-    example: Did you receive my letter?
+    definition: "the correct spelling (Test 9, item 4; i before e, except after c)"
+    example: "The book gives no example sentence for this word."
     audio_ref: d03-vocab-receive
-  - word: privilege
-    definition: a special advantage that only some people have
-    example: Living near the library is a privilege.
-    audio_ref: d03-vocab-privilege
-  - word: occurred
-    definition: happened
-    example: The accident occurred near the station.
-    audio_ref: d03-vocab-occurred
 
 exercises:
-  # Choose the correct spelling (book section: spelling_choice).
-  - id: d03-spell-choice-01
+  # Test 8: Which is correct? Answers: 1-b, 2-b, 3-a, 4-a, 5-b, 6-b, 7-a, 8-b, 9-b, 10-a
+  - id: d03-spell-t8-01
+    type: multiple_choice
+    learning_area: Spelling
+    origin: original
+    topics: [spelling.adding_endings]
+    difficulty: 2
+    points: 1
+    prompt: "Test 8, item 1: Which is correct?"
+    choices: ["drunkeness", "drunkenness"]
+    answer: "drunkenness"
+    explanation: "Answer: (b). The adjective drunken, plus the ending -ness."
+  - id: d03-spell-t8-02
     type: multiple_choice
     learning_area: Spelling
     origin: original
     topics: [spelling.doubled_letters]
     difficulty: 2
     points: 1
-    prompt: "Which spelling is correct?"
-    choices: ["accomodate", "accommodate"]
-    answer: "accommodate"
-    explanation: "Accommodate has two c letters and two m letters. Say it in parts: ac-com-mo-date."
-
-  - id: d03-spell-choice-02
+    prompt: "Test 8, item 2: Which is correct?"
+    choices: ["embarassment", "embarrassment"]
+    answer: "embarrassment"
+    explanation: "Answer: (b). Note that both the r and s are doubled."
+  - id: d03-spell-t8-03
+    type: multiple_choice
+    learning_area: Spelling
+    origin: original
+    topics: [spelling.word_breaks]
+    difficulty: 2
+    points: 1
+    prompt: "Test 8, item 3: Which is correct?"
+    choices: ["all right", "alright"]
+    answer: "all right"
+    explanation: "Answer: (a). Only the two-word spelling is fully acceptable, no matter what the meaning."
+  - id: d03-spell-t8-04
     type: multiple_choice
     learning_area: Spelling
     origin: original
     topics: [spelling.vowel_sounds]
     difficulty: 2
     points: 1
-    prompt: "Which spelling is correct?"
-    choices: ["definately", "definitely"]
-    answer: "definitely"
-    explanation: "The word comes from definite, which has an i in the middle. Do not write an a there."
-
-  - id: d03-spell-choice-03
+    prompt: "Test 8, item 4: Which is correct?"
+    choices: ["repetition", "repitition"]
+    answer: "repetition"
+    explanation: "Answer: (a). Think of the verb form repeat to remember the correct vowel after the p."
+  - id: d03-spell-t8-05
     type: multiple_choice
     learning_area: Spelling
     origin: original
     topics: [spelling.doubled_letters]
     difficulty: 2
     points: 1
-    prompt: "Which spelling is correct?"
-    choices: ["neccessary", "necessary"]
-    answer: "necessary"
-    explanation: "One c and two s letters: ne-ces-sa-ry. Say the syllables slowly."
-
-  - id: d03-spell-choice-04
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.silent_letters]
-    difficulty: 2
-    points: 1
-    prompt: "Which spelling is correct?"
-    choices: ["rythm", "rhythm"]
-    answer: "rhythm"
-    explanation: "The word starts with rh, and the h is silent. The letter y does the work of a vowel."
-
-  - id: d03-spell-choice-05
+    prompt: "Test 8, item 5: Which is correct?"
+    choices: ["occurrance", "occurrence"]
+    answer: "occurrence"
+    explanation: "Answer: (b). Note the double r and -ence ending."
+  - id: d03-spell-t8-06
     type: multiple_choice
     learning_area: Spelling
     origin: original
     topics: [spelling.doubled_letters]
     difficulty: 2
     points: 1
-    prompt: "Which spelling is correct?"
-    choices: ["embarass", "embarrass"]
-    answer: "embarrass"
-    explanation: "Both the r and the s are doubled: em-bar-rass."
-
-  - id: d03-spell-choice-06
+    prompt: "Test 8, item 6: Which is correct?"
+    choices: ["occassional", "occasional"]
+    answer: "occasional"
+    explanation: "Answer: (b). No reason for the double s, though most poor spellers are addicted to it."
+  - id: d03-spell-t8-07
+    type: multiple_choice
+    learning_area: Spelling
+    origin: original
+    topics: [spelling.vowel_sounds]
+    difficulty: 2
+    points: 1
+    prompt: "Test 8, item 7: Which is correct?"
+    choices: ["separate", "seperate"]
+    answer: "separate"
+    explanation: "Answer: (a). Remember the crucial a by thinking of its synonym, apart."
+  - id: d03-spell-t8-08
+    type: multiple_choice
+    learning_area: Spelling
+    origin: original
+    topics: [spelling.adding_endings]
+    difficulty: 2
+    points: 1
+    prompt: "Test 8, item 8: Which is correct?"
+    choices: ["cooly", "coolly"]
+    answer: "coolly"
+    explanation: "Answer: (b). Cool plus the adverbial ending -ly."
+  - id: d03-spell-t8-09
+    type: multiple_choice
+    learning_area: Spelling
+    origin: original
+    topics: [spelling.prefix_joins]
+    difficulty: 2
+    points: 1
+    prompt: "Test 8, item 9: Which is correct?"
+    choices: ["reccomend", "recommend"]
+    answer: "recommend"
+    explanation: "Answer: (b). The verb commend, which everyone spells correctly, plus the prefix re-."
+  - id: d03-spell-t8-10
     type: multiple_choice
     learning_area: Spelling
     origin: original
     topics: [spelling.word_roots]
-    difficulty: 3
+    difficulty: 2
     points: 1
-    prompt: "Which spelling is correct?"
-    choices: ["concience", "conscience"]
-    answer: "conscience"
-    explanation: "The sc comes from a Latin root meaning to know. Compare conscious, which has the same letters."
+    prompt: "Test 8, item 10: Which is correct?"
+    choices: ["liquefy", "liquify"]
+    answer: "liquefy"
+    explanation: "Answer: (a). Only five verbs end in -efy rather than the common -ify: liquefy, putrefy, rarefy, stupefy, and, of course, defy."
 
-  - id: d03-spell-choice-07
-    type: multiple_choice
+  # Test 9: find the misspelled word in each line and rewrite it. Answers: 1-superintendent,
+  # 2-analyze, 3-disappointed, 4-receive, 5-irresistible
+  - id: d03-spell-t9-01
+    type: spelling_correction
     learning_area: Spelling
     origin: original
     topics: [spelling.ent_ence_ant_ance]
     difficulty: 2
     points: 1
-    prompt: "Which spelling is correct?"
-    choices: ["independant", "independent"]
-    answer: "independent"
-    explanation: "The adjective ends in -ent. Its noun form, independence, ends in -ence."
-
-  - id: d03-spell-choice-08
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.vowel_sounds]
-    difficulty: 2
-    points: 1
-    prompt: "Which spelling is correct?"
-    choices: ["priviledge", "privilege"]
-    answer: "privilege"
-    explanation: "Say it in three parts: priv-i-lege. There is no d in the word."
-
-  - id: d03-spell-choice-09
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.doubled_letters, spelling.adding_endings]
-    difficulty: 2
-    points: 1
-    prompt: "Which spelling is correct?"
-    choices: ["occured", "occurred"]
-    answer: "occurred"
-    explanation: "Occur is stressed on its last syllable, so the final r doubles before the -ed ending."
-
-  - id: d03-spell-choice-10
-    type: multiple_choice
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.word_breaks]
-    difficulty: 1
-    points: 1
-    prompt: "Which spelling is correct?"
-    choices: ["alot", "a lot"]
-    answer: "a lot"
-    explanation: "A lot is two words meaning a large amount, so write a and lot separately."
-
-  # Find the misspelled word in a list (book section: spelling_find_misspelled).
-  - id: d03-spell-find-01
+    prompt: "Test 9, item 1: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
+    text: "superintendant, persistent, insistent, dependent, consistent"
+    accepted: ["superintendent"]
+    explanation: "Change superintendant to superintendent. These are the five -ent words that are most troublesome to insecure spellers. The two most frequently misspelled -ance words are resistance and perseverance."
+  - id: d03-spell-t9-02
     type: spelling_correction
     learning_area: Spelling
     origin: original
-    topics: [spelling.doubled_letters]
+    topics: [spelling.word_roots]
     difficulty: 2
     points: 1
-    prompt: "Find the misspelled word in this list and type its correct spelling."
-    text: "guarantee, grammar, mysterious, tomorow, beautiful"
-    accepted: ["tomorrow"]
-    explanation: "Tomorrow has a double r, and it is pronounced to-MOR-oh."
-
-  - id: d03-spell-find-02
-    type: spelling_correction
-    learning_area: Spelling
-    origin: original
-    topics: [spelling.number_words]
-    difficulty: 2
-    points: 1
-    prompt: "Find the misspelled word in this list and type its correct spelling."
-    text: "forty, twelfth, ninty, eighth, seventh"
-    accepted: ["ninety"]
-    explanation: "Ninety is nine plus ty, so the e from nine stays in the word."
-
-  - id: d03-spell-find-03
+    prompt: "Test 9, item 2: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
+    text: "supervise, advertise, despise, analize, memorize"
+    accepted: ["analyze"]
+    explanation: "Change analize to analyze. The only two common words ending in -yze are analyze and paralyze."
+  - id: d03-spell-t9-03
     type: spelling_correction
     learning_area: Spelling
     origin: original
     topics: [spelling.prefix_joins]
     difficulty: 2
     points: 1
-    prompt: "Find the misspelled word in this list and type its correct spelling."
-    text: "disappear, dissapprove, dissolve, disobey, disagree"
-    accepted: ["disapprove"]
-    explanation: "Dis- plus approve gives one s, because approve starts with a."
-
-  - id: d03-spell-find-04
+    prompt: "Test 9, item 3: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
+    text: "dissatisfied, dissimilar, dissapointed, disappear, misspelling, misspent"
+    accepted: ["disappointed"]
+    explanation: "Change dissapointed to disappointed. Disappointed and disappear are combinations of the prefix dis- and the roots appoint and appear, hence no reason for a double s. In the other words, however, the double s is required because the roots start with s: dis- plus satisfied, dis- plus similar, mis- plus spelling, mis- plus spent."
+  - id: d03-spell-t9-04
     type: spelling_correction
     learning_area: Spelling
     origin: original
     topics: [spelling.ie_ei]
     difficulty: 2
     points: 1
-    prompt: "Find the misspelled word in this list and type its correct spelling."
-    text: "believe, ceiling, receipt, seize, wierd"
-    accepted: ["weird"]
-    explanation: "Weird is one of the exceptions to the ie and ei pattern, so it must be learned."
-
-  - id: d03-spell-find-05
+    prompt: "Test 9, item 4: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
+    text: "niece, achieve, relieve, recieve, seize, leisure, weird"
+    accepted: ["receive"]
+    explanation: "Change recieve to receive. The rule, you will recall, is \"i before e, except after c.\" Since there is an immediately preceding c in receive, -ei, rather than -ie, is the correct pattern. True, there is no c in seize, leisure, and weird, but these are the three important exceptions to the rule."
+  - id: d03-spell-t9-05
     type: spelling_correction
     learning_area: Spelling
     origin: original
-    topics: [spelling.ent_ence_ant_ance]
-    difficulty: 3
+    topics: [spelling.word_roots]
+    difficulty: 2
     points: 1
-    prompt: "Find the misspelled word in this list and type its correct spelling."
-    text: "guidance, sentence, independance, appearance, reference"
-    accepted: ["independence"]
-    explanation: "The noun form of independent ends in -ence, not -ance."
+    prompt: "Test 9, item 5: Find the single misspelled word in this line, cross it out, and rewrite it correctly."
+    text: "indispensable, irritable, irresistable, dependable, inimitable"
+    accepted: ["irresistible"]
+    explanation: "Change irresistable to irresistible. The -able, -ible problem is one of the thorniest in English spelling, and the five words offered here are the ones that cause the most confusion."

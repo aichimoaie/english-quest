@@ -1,308 +1,330 @@
 # Day 2: Test Your Vocabulary.
-# Structure follows Part I, Day 2 of the reference book (learning goals and
-# progression only). All words, items, answers and explanations are original.
+# Source: reference book, Second Day (pp. 18-23).
+# Transcribed from pages/page20.md through page23.md, in the book's order.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref) were added for this app. origin is "original" only because the schema requires that value.
+# Test 5 lists ten meanings with distractors. The schema allows at most six pairs per exercise, so
+# Test 5 is split into two matching exercises (items 1-5 and 6-10) with the book's correct pairs.
+# The book's pencil-margin annotations on pages 20-23 were not part of the printed text and are omitted.
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 2
 title: "Test Your Vocabulary"
 
 lessons:
-  - id: d02-lesson-meaning-clues
+  - id: d02-lesson-introduction
     learning_area: Vocabulary
-    title: "Find meaning from clues"
+    title: "Test Your Vocabulary"
     cards:
-      - title: Match a word to its meaning
-        body: "A good vocabulary means you know what a word means, not only how it looks. Read the word, think of a situation where you would use it, then choose the meaning that fits."
-        examples:
-          - "A lucid explanation is clear, so you can follow it easily."
-        watch_out: "Do not choose a meaning only because the word looks similar to something you know."
-      - title: Similar or opposite
-        body: "Many words come in pairs of similar and opposite meanings. Frugal means careful with money, so its opposite is extravagant, and its similar word is thrifty."
-        examples:
-          - "A frugal shopper compares prices before buying."
-          - "An extravagant gift costs far more than planned."
-        watch_out: "Check whether the question asks for a similar word or an opposite word."
-      - title: Judge a statement with a word
-        body: "Some sentences use a word correctly and some use it wrongly. Read the whole sentence, then decide whether the word's meaning makes sense in it."
-        examples:
-          - "An austere room has few decorations, so it is plain."
-        watch_out: "A word can be correct in one sentence and wrong in another."
+      - title: "Second Day: Test Your Vocabulary"
+        body: |-
+          React to 30 specially selected words to discover whether your vocabulary is average, good, or superior.
+
+          *DOES YOUR VOCABULARY REFLECT YOUR MENTAL STATURE?*
+
+          It was discovered some years ago that one particular ability was common to all successful business executives. At the Human Engineering Laboratory, then affiliated with the Stevens Institute of Technology in New Jersey, aptitude tests were administered to thousands of adults from every walk of life. Without exception, the top names showed the greatest skill in just one field—*vocabulary.* And, again without exception, everyone who had an extensive vocabulary also held a high position in his chosen field.
+
+          Surprisingly, formal education turned out to have less relationship to the vocabulary score than might reasonably be expected. One man, a major executive of the telephone company, made a better showing than any of the college professors who had taken the tests. *And this man had left school at the age of 14!*
+
+  - id: d02-lesson-vocabulary-tests
+    learning_area: Vocabulary
+    title: "The three vocabulary tests"
+    cards:
+      - title: "Second Day"
+        body: |-
+          The three tests that follow will show you whether your vocabulary is average, good, or superior.
+      - title: "Test 5: Do You Have an Average Vocabulary?"
+        body: |-
+          If so, you will have no difficulty matching the two columns below. Seventy-five percent of the adults tested knew all these words.
+      - title: "Test 6: Do You Have a Good Vocabulary?"
+        body: |-
+          Decide whether words and meanings are similar or opposite, and check the correct box. Only 49 percent of the adults tested knew these words. You have a good vocabulary if you can get at least eight right.
+      - title: "Test 7: Do You Have a Superior Vocabulary?"
+        body: |-
+          Determine which of the following statements are true, which false, and check the proper box. Only 22 percent of the adults tested knew these words, so yours is a superior vocabulary if you can react correctly to eight or more.
 
 vocabulary:
-  - word: wary
-    definition: cautious, because you expect something bad might happen
-    example: Stay wary of offers that sound too good to be true.
-    audio_ref: d02-vocab-wary
-  - word: frugal
-    definition: careful with money and not wasteful
-    example: Her frugal habits helped her save for a flat.
-    audio_ref: d02-vocab-frugal
-  - word: lucid
-    definition: clear and easy to understand
-    example: The teacher gave a lucid explanation of the rule.
-    audio_ref: d02-vocab-lucid
-  - word: tenacious
-    definition: refusing to give up, even when things are difficult
-    example: The tenacious runner finished the race despite the rain.
-    audio_ref: d02-vocab-tenacious
-  - word: ephemeral
-    definition: lasting for only a very short time
-    example: The rainbow was ephemeral and faded in minutes.
-    audio_ref: d02-vocab-ephemeral
-  - word: benevolent
-    definition: kind, and wanting to help other people
-    example: The benevolent doctor treated patients for free.
-    audio_ref: d02-vocab-benevolent
-  - word: austere
-    definition: plain and simple, without luxury or decoration
-    example: The monastery had an austere dining hall.
-    audio_ref: d02-vocab-austere
-  - word: cogent
-    definition: clear, logical and convincing
-    example: She made a cogent case for the new plan.
-    audio_ref: d02-vocab-cogent
-  - word: prudent
-    definition: sensible and careful about risks
-    example: It is prudent to check the weather before a hike.
-    audio_ref: d02-vocab-prudent
-  - word: meticulous
-    definition: very careful about small details
-    example: He kept meticulous notes on every experiment.
-    audio_ref: d02-vocab-meticulous
+  - word: imminent
+    definition: "likely to happen in the near future (Test 5, item 1)"
+    example: "The book gives no example sentence for this word."
+    audio_ref: d02-vocab-imminent
+  - word: latent
+    definition: "hidden (Test 5, item 6)"
+    example: "The book gives no example sentence for this word."
+    audio_ref: d02-vocab-latent
+  - word: cajole
+    definition: "coax (Test 5, item 9)"
+    example: "The book gives no example sentence for this word."
+    audio_ref: d02-vocab-cajole
 
 exercises:
-  # Match each word to its meaning (book section: Test 5, matching).
-  - id: d02-match-01
+  # Test 5, items 1-5. Answers: 1-j, 2-c, 3-g, 4-a, 5-d
+  - id: d02-vocab-t5a-01
     type: vocabulary_matching
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.word_meanings]
-    difficulty: 2
+    difficulty: 1
     points: 1
-    prompt: "Match each word with its meaning."
+    prompt: "Test 5: match each word with its meaning."
     pairs:
-      - word: wary
-        meaning: cautious about possible danger
-      - word: frugal
-        meaning: careful with money
-      - word: lucid
-        meaning: clear and easy to follow
-      - word: tenacious
-        meaning: refusing to give up
-      - word: ephemeral
-        meaning: lasting only briefly
-    explanation: "Lucid means clear, and each of the other four words has exactly one matching meaning."
+      - word: imminent
+        meaning: "likely to happen in the near future"
+      - word: fluster
+        meaning: "confuse"
+      - word: rigid
+        meaning: "stiff"
+      - word: purge
+        meaning: "cleanse"
+      - word: rehabilitate
+        meaning: "bring back to former excellence"
+    explanation: "Answers: 1-j, 2-c, 3-g, 4-a, 5-d. The book lists ten meanings for Test 5; this exercise uses the correct pairs for items 1-5."
 
-  - id: d02-match-02
+  # Test 5, items 6-10. Answers: 6-i, 7-b, 8-f, 9-h, 10-e
+  - id: d02-vocab-t5b-01
     type: vocabulary_matching
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.word_meanings]
-    difficulty: 2
+    difficulty: 1
     points: 1
-    prompt: "Match each word with its meaning."
+    prompt: "Test 5: match each word with its meaning."
     pairs:
-      - word: benevolent
-        meaning: kind and wanting to help
-      - word: austere
-        meaning: plain, without luxury
-      - word: cogent
-        meaning: clear and convincing
-      - word: prudent
-        meaning: sensible about risks
-      - word: meticulous
-        meaning: very careful about details
-    explanation: "Prudent and careful sound alike, but prudent is about judging risks, while meticulous is about small details."
+      - word: latent
+        meaning: "hidden"
+      - word: gaudy
+        meaning: "flashy"
+      - word: feign
+        meaning: "pretend"
+      - word: cajole
+        meaning: "coax"
+      - word: impede
+        meaning: "hinder"
+    explanation: "Answers: 6-i, 7-b, 8-f, 9-h, 10-e. The book lists ten meanings for Test 5; this exercise uses the correct pairs for items 6-10."
 
-  # Similar or opposite meaning (book section: Test 6, similar/opposite).
-  - id: d02-sim-opp-01
+  # Test 6: similar or opposite. Answers: 1-OPPOSITE, 2-similar, 3-opposite, 4-similar, 5-similar,
+  # 6-similar, 7-opposite, 8-opposite, 9-opposite, 10-SIMILAR
+  - id: d02-vocab-t6-01
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.antonyms]
     difficulty: 2
     points: 1
-    prompt: "Which word is the opposite of frugal?"
-    choices: ["extravagant", "thrifty", "careful"]
-    answer: "extravagant"
-    explanation: "Extravagant means spending too much, the reverse of frugal. Thrifty and careful are similar."
-
-  - id: d02-sim-opp-02
+    prompt: "Test 6, item 1: myriad means small in number. Is this similar or opposite?"
+    choices: ["SIMILAR", "OPPOSITE"]
+    answer: "OPPOSITE"
+    explanation: "Answer: OPPOSITE."
+  - id: d02-vocab-t6-02
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.synonyms]
     difficulty: 2
     points: 1
-    prompt: "Which word is similar in meaning to tenacious?"
-    choices: ["persistent", "careless", "timid"]
-    answer: "persistent"
-    explanation: "Persistent means continuing firmly, which is close to tenacious."
-
-  - id: d02-sim-opp-03
+    prompt: "Test 6, item 2: panacea means cure-all. Is this similar or opposite?"
+    choices: ["SIMILAR", "OPPOSITE"]
+    answer: "SIMILAR"
+    explanation: "Answer: similar."
+  - id: d02-vocab-t6-03
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.antonyms]
     difficulty: 2
     points: 1
-    prompt: "Which word is the opposite of benevolent?"
-    choices: ["malicious", "generous", "gentle"]
-    answer: "malicious"
-    explanation: "Malicious means wanting to harm others, the reverse of benevolent."
-
-  - id: d02-sim-opp-04
+    prompt: "Test 6, item 3: opulent means poverty-stricken. Is this similar or opposite?"
+    choices: ["SIMILAR", "OPPOSITE"]
+    answer: "OPPOSITE"
+    explanation: "Answer: opposite."
+  - id: d02-vocab-t6-04
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.synonyms]
     difficulty: 2
     points: 1
-    prompt: "Which word is similar in meaning to prudent?"
-    choices: ["sensible", "reckless", "nervous"]
-    answer: "sensible"
-    explanation: "Sensible and prudent both describe good judgment. Reckless is the opposite."
-
-  - id: d02-sim-opp-05
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Which word is the opposite of ephemeral?"
-    choices: ["permanent", "fleeting", "brief"]
-    answer: "permanent"
-    explanation: "Permanent means lasting forever. Fleeting and brief are similar to ephemeral."
-
-  - id: d02-sim-opp-06
+    prompt: "Test 6, item 4: eschew means avoid. Is this similar or opposite?"
+    choices: ["SIMILAR", "OPPOSITE"]
+    answer: "SIMILAR"
+    explanation: "Answer: similar."
+  - id: d02-vocab-t6-05
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.synonyms]
     difficulty: 2
     points: 1
-    prompt: "Which word is similar in meaning to cogent?"
-    choices: ["persuasive", "vague", "rude"]
-    answer: "persuasive"
-    explanation: "A persuasive argument is convincing, as a cogent one is."
-
-  - id: d02-sim-opp-07
-    type: multiple_choice
-    learning_area: Vocabulary
-    origin: original
-    topics: [vocabulary.antonyms]
-    difficulty: 2
-    points: 1
-    prompt: "Which word is the opposite of meticulous?"
-    choices: ["careless", "careful", "precise"]
-    answer: "careless"
-    explanation: "Careless means not paying attention to details, the reverse of meticulous."
-
-  - id: d02-sim-opp-08
+    prompt: "Test 6, item 5: nefarious means wicked. Is this similar or opposite?"
+    choices: ["SIMILAR", "OPPOSITE"]
+    answer: "SIMILAR"
+    explanation: "Answer: similar."
+  - id: d02-vocab-t6-06
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.synonyms]
     difficulty: 2
     points: 1
-    prompt: "Which word is similar in meaning to austere?"
-    choices: ["severe", "lavish", "warm"]
-    answer: "severe"
-    explanation: "Severe means strict and plain, close to austere. Lavish is the opposite."
-
-  - id: d02-sim-opp-09
+    prompt: "Test 6, item 6: incarcerate means imprison. Is this similar or opposite?"
+    choices: ["SIMILAR", "OPPOSITE"]
+    answer: "SIMILAR"
+    explanation: "Answer: similar."
+  - id: d02-vocab-t6-07
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
     topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test 6, item 7: ameliorate means make worse. Is this similar or opposite?"
+    choices: ["SIMILAR", "OPPOSITE"]
+    answer: "OPPOSITE"
+    explanation: "Answer: opposite."
+  - id: d02-vocab-t6-08
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test 6, item 8: candor means hypocrisy. Is this similar or opposite?"
+    choices: ["SIMILAR", "OPPOSITE"]
+    answer: "OPPOSITE"
+    explanation: "Answer: opposite."
+  - id: d02-vocab-t6-09
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.antonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test 6, item 9: taciturn means talkative. Is this similar or opposite?"
+    choices: ["SIMILAR", "OPPOSITE"]
+    answer: "OPPOSITE"
+    explanation: "Answer: opposite."
+  - id: d02-vocab-t6-10
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.synonyms]
+    difficulty: 2
+    points: 1
+    prompt: "Test 6, item 10: verbose means wordy. Is this similar or opposite?"
+    choices: ["SIMILAR", "OPPOSITE"]
+    answer: "SIMILAR"
+    explanation: "Answer: similar."
+
+  # Test 7: true or false. Answers: 1-FALSE, 2-false, 3-true, 4-true, 5-false, 6-TRUE, 7-false, 8-false,
+  # 9-true, 10-true
+  - id: d02-vocab-t7-01
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_meanings]
     difficulty: 3
     points: 1
-    prompt: "Which word is the opposite of wary?"
-    choices: ["trusting", "careful", "anxious"]
-    answer: "trusting"
-    explanation: "Trusting means believing people will not harm you, the reverse of wary."
-
-  - id: d02-sim-opp-10
+    prompt: "Test 7, item 1: Obsequiousness is a sign of pride. True or false?"
+    choices: ["TRUE", "FALSE"]
+    answer: "FALSE"
+    explanation: "Answer: FALSE."
+  - id: d02-vocab-t7-02
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.synonyms]
-    difficulty: 1
+    topics: [vocabulary.word_meanings]
+    difficulty: 3
     points: 1
-    prompt: "Which word is similar in meaning to wary?"
-    choices: ["cautious", "reckless", "generous"]
-    answer: "cautious"
-    explanation: "Cautious means careful about possible danger, which is the same as wary."
-
-  # Right or wrong statement (book section: Test 7, true/false).
-  - id: d02-judge-01
+    prompt: "Test 7, item 2: Parsimonious people are extravagant. True or false?"
+    choices: ["TRUE", "FALSE"]
+    answer: "FALSE"
+    explanation: "Answer: false."
+  - id: d02-vocab-t7-03
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.word_use]
-    difficulty: 1
+    topics: [vocabulary.word_meanings]
+    difficulty: 3
     points: 1
-    prompt: "Is this statement true? A frugal person spends money carelessly."
-    choices: ["True", "False"]
-    answer: "False"
-    explanation: "A frugal person is careful with money, so the statement is false."
-
-  - id: d02-judge-02
+    prompt: "Test 7, item 3: Peace in the world is certainly an exigency of the moment. True or false?"
+    choices: ["TRUE", "FALSE"]
+    answer: "TRUE"
+    explanation: "Answer: true."
+  - id: d02-vocab-t7-04
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.word_use]
-    difficulty: 1
+    topics: [vocabulary.word_meanings]
+    difficulty: 3
     points: 1
-    prompt: "Is this statement true? A lucid explanation is easy to follow."
-    choices: ["True", "False"]
-    answer: "True"
-    explanation: "Lucid means clear, so a lucid explanation is easy to follow."
-
-  - id: d02-judge-03
+    prompt: "Test 7, item 4: The wolf is a predatory animal. True or false?"
+    choices: ["TRUE", "FALSE"]
+    answer: "TRUE"
+    explanation: "Answer: true."
+  - id: d02-vocab-t7-05
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.word_use]
-    difficulty: 2
+    topics: [vocabulary.word_meanings]
+    difficulty: 3
     points: 1
-    prompt: "Is this statement true? An ephemeral flower lasts for many years."
-    choices: ["True", "False"]
-    answer: "False"
-    explanation: "Ephemeral means lasting only briefly, so an ephemeral flower does not last for years."
-
-  - id: d02-judge-04
+    prompt: "Test 7, item 5: An aquiline nose is straight. True or false?"
+    choices: ["TRUE", "FALSE"]
+    answer: "FALSE"
+    explanation: "Answer: false."
+  - id: d02-vocab-t7-06
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.word_use]
-    difficulty: 2
+    topics: [vocabulary.word_meanings]
+    difficulty: 3
     points: 1
-    prompt: "Is this statement true? A tenacious athlete gives up after the first loss."
-    choices: ["True", "False"]
-    answer: "False"
-    explanation: "Tenacious means refusing to give up, so the statement is false."
-
-  - id: d02-judge-05
+    prompt: "Test 7, item 6: Vice is anathema to moral people. True or false?"
+    choices: ["TRUE", "FALSE"]
+    answer: "TRUE"
+    explanation: "Answer: TRUE."
+  - id: d02-vocab-t7-07
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.word_use]
-    difficulty: 1
+    topics: [vocabulary.word_meanings]
+    difficulty: 3
     points: 1
-    prompt: "Is this statement true? Benevolent people want to help others."
-    choices: ["True", "False"]
-    answer: "True"
-    explanation: "Benevolent means kind and wanting to help, so the statement is true."
-
-  - id: d02-judge-06
+    prompt: "Test 7, item 7: It is easy to explain things to an obtuse person. True or false?"
+    choices: ["TRUE", "FALSE"]
+    answer: "FALSE"
+    explanation: "Answer: false."
+  - id: d02-vocab-t7-08
     type: multiple_choice
     learning_area: Vocabulary
     origin: original
-    topics: [vocabulary.word_use]
-    difficulty: 2
+    topics: [vocabulary.word_meanings]
+    difficulty: 3
     points: 1
-    prompt: "Is this statement true? An austere room is full of decoration and luxury."
-    choices: ["True", "False"]
-    answer: "False"
-    explanation: "Austere means plain and simple, the reverse of a room full of decoration."
+    prompt: "Test 7, item 8: Someone with catholic views is narrow-minded. True or false?"
+    choices: ["TRUE", "FALSE"]
+    answer: "FALSE"
+    explanation: "Answer: false."
+  - id: d02-vocab-t7-09
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_meanings]
+    difficulty: 3
+    points: 1
+    prompt: "Test 7, item 9: A large bank account obviates financial fears. True or false?"
+    choices: ["TRUE", "FALSE"]
+    answer: "TRUE"
+    explanation: "Answer: true."
+  - id: d02-vocab-t7-10
+    type: multiple_choice
+    learning_area: Vocabulary
+    origin: original
+    topics: [vocabulary.word_meanings]
+    difficulty: 3
+    points: 1
+    prompt: "Test 7, item 10: Erudite people are well educated. True or false?"
+    choices: ["TRUE", "FALSE"]
+    answer: "TRUE"
+    explanation: "Answer: true."

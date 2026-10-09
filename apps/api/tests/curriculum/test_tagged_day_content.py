@@ -80,10 +80,10 @@ def test_day_five_fluency_items_accept_each_fitting_opposite() -> None:
     days = _days()
     exercises = {exercise.id: exercise for exercise in days[5].exercises}
     fitting = {
-        "d05-fluency-02": ["regress"],
-        "d05-fluency-05": ["rugged"],
-        "d05-fluency-11": ["resplendent"],
-        "d05-fluency-12": ["recall", "reinstate", "rehire"],
+        "d05-flu-06": ["recall", "remember", "recollect"],
+        "d05-flu-14": ["resist", "rebel"],
+        "d05-flu-16": ["reticent", "reluctant"],
+        "d05-flu-18": ["relax", "recreation"],
     }
 
     for exercise_id, answers in fitting.items():
