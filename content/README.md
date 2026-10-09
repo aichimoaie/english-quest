@@ -75,13 +75,14 @@ The learner meets a day's screens in order:
 
 1. A text screen. The first one has a Start button, and each later one a Next button.
 2. For each test: the test's intro with a Start button, then its items, one per
-   screen. Then the test's results screen, which shows that test's score and,
-   for each item, its answer and explanation. A Next button leads on.
+   screen. Then the test's results screen, which shows that test's score and the
+   answer key for each item. With `explain: true` it also shows each item's
+   explanation. A Next button leads on.
 3. After the last test: the day-end screen. Its button saves the run and opens the
    day result.
 
-A test whose items are all `self_check` has no score. Its results screen shows the
-explanations only.
+A test with no scored items (for example, all `self_check`) has no score. Its
+results screen says "Your answers are in" and notes each answer instead.
 
 ## Learning areas
 
