@@ -38,10 +38,9 @@ vocabulary:                  # 1 to 12 words
     definition: ...          # short English definition
     example: My brother ...  # example sentence
     audio_ref: d01-vocab-brother  # name of the word's audio file (required)
-screens:                     # 1 to 12 screens, in the order the learner meets them
+screens:                     # in the order the learner meets them
   - kind: text               # a day intro or reading text
     id: d01-screen-intro     # dNN-screen-<name>, lowercase
-    learning_area: Grammar
     title: ...
     cards:                   # 1 to 6 cards
       - title: ...
@@ -50,7 +49,6 @@ screens:                     # 1 to 12 screens, in the order the learner meets t
         watch_out: ...       # optional common mistake
   - kind: test               # one test: its intro, its items, then its results
     id: d01-test-1          # dNN-test-<name>, lowercase
-    learning_area: Grammar
     title: ...
     intro: ...               # the test's instructions, shown before its Start button
     explain: true            # optional; shows each item's explanation on the results screen

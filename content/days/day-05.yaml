@@ -29,14 +29,12 @@ vocabulary:
 screens:
   - kind: "text"
     id: "d05-screen-introduction"
-    learning_area: "Vocabulary"
     title: "Just for Fun (I)"
     cards:
       - title: "Fifth Day"
         body: "JUST FOR FUN (I)"
   - kind: "test"
     id: "d05-test-fluency"
-    learning_area: "Vocabulary"
     title: "I. Test Your Fluency"
     intro: "How quickly can you call words to mind? Here is a reliable test of your vocabulary responsiveness. In five minutes or less, write next to each of the following words a word which starts with *R* and is essentially *opposite* in meaning to, or in contrast with, the given word. *Examples: walk—run; imaginary—real; square—round.*"
     explain: true
@@ -243,7 +241,6 @@ screens:
         explanation: "Key: 20-resist or rebel."
   - kind: "text"
     id: "d05-screen-name-behind-word"
-    learning_area: "Vocabulary"
     title: "II. The Name Behind the Word"
     cards:
       - title: "The Name Behind the Word"
@@ -257,7 +254,6 @@ screens:
           **SILHOUETTE:** Etienne de Silhouette was finance minister of France just before the Revolution. He insisted that the nobles lead simpler lives, thus saving money, which, of course, they could donate to the government. The silhouette (as it was later called) was invented at about this time and was obviously a very simple sort of portraiture. The connection of ideas appealed to the Parisian mind, and the minister's name was soon used to describe the new art form.
   - kind: "text"
     id: "d05-screen-did-you-know"
-    learning_area: "Vocabulary"
     title: "III. Did You Know That"
     cards:
       - title: "Did You Know That"
@@ -273,7 +269,6 @@ screens:
           *Whiskey* is from the Irish *uisgebeatha* meaning *water of life*.
   - kind: "test"
     id: "d05-test-think-of-words"
-    learning_area: "Vocabulary"
     title: "IV. Think of Words"
     intro: |-
       Can you think of 10 words ending in *-ANK*? Add one or two letters only, to fit each definition.

@@ -109,7 +109,7 @@ test.describe('@dev-fixture exercise screens from the dev fixture day', () => {
     await capture(page, testInfo, '5-end-of-set');
 
     await page.getByRole('button', { name: 'Next' }).click();
-    await expect(page.getByText('Day 1 complete')).toBeVisible();
+    await expect(page.getByText('Day 1 finished')).toBeVisible();
     await capture(page, testInfo, '6-day-end');
   });
 });

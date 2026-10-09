@@ -25,6 +25,7 @@ import type {
 import { DEV_ANSWERS, isCorrect } from "./answer-keys";
 import type { GeneratedAnswer } from "./generated/curriculum";
 import { PASS_MARK_PCT, TOTAL_DAYS } from "@/lib/course";
+import { dayItems } from "@/lib/day-screens";
 import { isScored, scorePercent } from "@/lib/scoring";
 import { CONTENT_BY_DAY, DAY_OUTLINE, DEV_FIXTURE_EXERCISES } from "./days";
 
@@ -60,7 +61,7 @@ function statusOf(day: number): DayStatus {
 }
 
 function exercisesFor(day: number): Exercise[] {
-  return CONTENT_BY_DAY[day]?.exercises ?? [];
+  return dayItems(CONTENT_BY_DAY[day]?.screens ?? []);
 }
 
 function isUnlocked(day: number): boolean {

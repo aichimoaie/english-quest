@@ -162,7 +162,7 @@ describe("PlayView screen order", () => {
     fireEvent.click(screen.getByRole("button", { name: "Next" }));
 
     // After the last test comes the day end, and only then is the run saved.
-    expect(await screen.findByText("Day 1 complete")).toBeTruthy();
+    expect(await screen.findByText("Day 1 finished")).toBeTruthy();
     expect(api.completeAttempt).not.toHaveBeenCalled();
     fireEvent.click(screen.getByRole("button", { name: "See my result" }));
     await waitFor(() => expect(api.completeAttempt).toHaveBeenCalledWith("att_1"));
@@ -182,7 +182,7 @@ describe("PlayView screen order", () => {
     fireEvent.click(await screen.findByRole("button", { name: "See my results" }));
 
     expect(await screen.findByRole("heading", { name: "50% correct" })).toBeTruthy();
-    expect(screen.queryByText("Day 1 complete")).toBeNull();
+    expect(screen.queryByText("Day 1 finished")).toBeNull();
   });
 });
 

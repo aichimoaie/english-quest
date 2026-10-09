@@ -28,7 +28,6 @@ vocabulary:
 screens:
   - kind: "text"
     id: "d02-screen-introduction"
-    learning_area: "Vocabulary"
     title: "Test Your Vocabulary"
     cards:
       - title: "Second Day: Test Your Vocabulary"
@@ -42,14 +41,12 @@ screens:
           Surprisingly, formal education turned out to have less relationship to the vocabulary score than might reasonably be expected. One man, a major executive of the telephone company, made a better showing than any of the college professors who had taken the tests. *And this man had left school at the age of 14!*
   - kind: "text"
     id: "d02-screen-three-tests"
-    learning_area: "Vocabulary"
     title: "The three vocabulary tests"
     cards:
       - title: "Second Day"
         body: "The three tests that follow will show you whether your vocabulary is average, good, or superior."
   - kind: "test"
     id: "d02-test-5"
-    learning_area: "Vocabulary"
     title: "Test 5: Do You Have an Average Vocabulary?"
     intro: "If so, you will have no difficulty matching the two columns below. Seventy-five percent of the adults tested knew all these words."
     items:
@@ -85,7 +82,6 @@ screens:
         explanation: "Answers: 1-j, 2-c, 3-g, 4-a, 5-d, 6-i, 7-b, 8-f, 9-h, 10-e."
   - kind: "test"
     id: "d02-test-6"
-    learning_area: "Vocabulary"
     title: "Test 6: Do You Have a Good Vocabulary?"
     intro: "Decide whether words and meanings are similar or opposite, and check the correct box. Only 49 percent of the adults tested knew these words. You have a good vocabulary if you can get at least eight right."
     items:
@@ -201,7 +197,6 @@ screens:
         explanation: "Answer: similar."
   - kind: "test"
     id: "d02-test-7"
-    learning_area: "Vocabulary"
     title: "Test 7: Do You Have a Superior Vocabulary?"
     intro: "Determine which of the following statements are true, which false, and check the proper box. Only 22 percent of the adults tested knew these words, so yours is a superior vocabulary if you can react correctly to eight or more."
     items:

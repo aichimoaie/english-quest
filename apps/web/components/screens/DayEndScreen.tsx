@@ -14,7 +14,7 @@ export function DayEndScreen({ dayNumber, title, finishing, error, onFinish }: D
   return (
     <div className="stack">
       <section className="card stack" style={{ gap: "var(--s-3)" }} aria-labelledby="day-end-title">
-        <p className="t-label">Day {dayNumber} complete</p>
+        <p className="t-label">Day {dayNumber} finished</p>
         <h2 id="day-end-title" className="t-title" tabIndex={-1}>
           {title}
         </h2>

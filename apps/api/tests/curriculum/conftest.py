@@ -33,7 +33,6 @@ DAY_ONE_DATA: dict[str, Any] = {
         {
             "kind": "text",
             "id": "d01-screen-be",
-            "learning_area": "Grammar",
             "title": 'The verb "be" in the present',
             "cards": [
                 {
@@ -47,7 +46,6 @@ DAY_ONE_DATA: dict[str, Any] = {
         {
             "kind": "test",
             "id": "d01-test-be",
-            "learning_area": "Grammar",
             "title": 'Test 1: Forms of "be"',
             "intro": 'Choose the correct form of "be".',
             "items": [

@@ -28,7 +28,6 @@ vocabulary:
 screens:
   - kind: "text"
     id: "d04-screen-introduction"
-    learning_area: "Grammar"
     title: "Test Your Grammar"
     cards:
       - title: "Fourth Day: Test Your Grammar"
@@ -40,7 +39,6 @@ screens:
           No one's grammar is perfect, of course, but conspicuously poor English (such as some of the usages listed below) wrench the listener's attention away from *what* a speaker is saying and direct it to the *error* he is making.
   - kind: "test"
     id: "d04-test-10"
-    learning_area: "Grammar"
     title: "Test 10: Is Your English Free of Glaring Errors?"
     intro: "Be honest with yourself. Do some of the following patterns occur with any frequency in your own speech? If you can check the NO box in most instances, consider yourself safe. On the other hand, wherever you must admit that you are addicted to a particular error, a little thought and concentration, plus an awareness of the principle involved, can quickly and permanently eliminate the incorrect pattern."
     explain: true
@@ -127,7 +125,6 @@ screens:
         explanation: "*Them* may not be used as an adjective—say *those* or *these*."
   - kind: "test"
     id: "d04-test-11"
-    learning_area: "Grammar"
     title: "Test 11: Are You Clear on Some of the Following Important Points of Correct English?"
     intro: "The italicized word in some of the following sentences is used correctly — in others, it violates an established rule of grammar. Do you know which is which? If you can make at least six correct choices, your English is above average."
     items:

@@ -144,7 +144,7 @@ describe("fixture server", () => {
     expect(attempt.attemptId).toMatch(/^att_/);
     expect(day2.status).toBe("current");
     expect(textCards(day2.screens).map((card) => card.title)).toEqual(textCards(CONTENT_BY_DAY[2].screens).map((card) => card.title));
-    expect(dayItems(day2.screens).map((exercise) => exercise.id)).toEqual(CONTENT_BY_DAY[2].exercises.map((exercise) => exercise.id));
+    expect(dayItems(day2.screens).map((exercise) => exercise.id)).toEqual(dayItems(CONTENT_BY_DAY[2].screens).map((exercise) => exercise.id));
   });
 
   it("serves Days 1 to 5 with their screens in the approved order", async () => {
@@ -259,7 +259,6 @@ describe("fixture server", () => {
             ...actual.CONTENT_BY_DAY,
             1: {
               ...actual.CONTENT_BY_DAY[1],
-              exercises: actual.DEV_FIXTURE_EXERCISES,
               screens: [{ kind: "test", id: "d01-test-dev", title: "Dev items", intro: "Dev intro.", exercises: actual.DEV_FIXTURE_EXERCISES }],
             },
           },

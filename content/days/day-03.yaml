@@ -26,7 +26,6 @@ vocabulary:
 screens:
   - kind: "text"
     id: "d03-screen-introduction"
-    learning_area: "Spelling"
     title: "Test Your Spelling"
     cards:
       - title: "Third Day: Test Your Spelling"
@@ -36,7 +35,6 @@ screens:
           *IS YOUR SPELLING AS GOOD AS YOU ARE?*
   - kind: "test"
     id: "d03-test-8"
-    learning_area: "Spelling"
     title: "Test 8: These 10 Words Baffle Many People — Do You Know How to Spell Them?"
     intro: "Which is correct:"
     explain: true
@@ -153,7 +151,6 @@ screens:
         explanation: "Answer: (a). Only five verbs end in -efy rather than the common -ify: liquefy, putrefy, rarefy, stupefy, and, of course, defy."
   - kind: "test"
     id: "d03-test-9"
-    learning_area: "Spelling"
     title: "Test 9: Do You Recognize Incorrect Spelling?"
     intro: "Find the single misspelled word in each line, cross it out, and rewrite it correctly."
     explain: true

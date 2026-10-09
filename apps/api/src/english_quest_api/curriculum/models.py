@@ -22,7 +22,6 @@ from pydantic import (
 
 DAY_MIN = 1
 DAY_MAX = 30
-MAX_SCREENS = 12
 
 NonBlank = Annotated[str, StringConstraints(min_length=1, pattern=r"\S")]
 EXERCISE_ID = r"^d(\d{2})-[a-z0-9]+(?:-[a-z0-9]+)*$"
@@ -178,7 +177,6 @@ class TextScreen(_Strict):
 
     kind: Literal["text"]
     id: Annotated[str, StringConstraints(pattern=SCREEN_ID)]
-    learning_area: LearningArea
     title: NonBlank
     cards: list[LessonCard] = Field(min_length=1, max_length=6)
 
@@ -188,7 +186,6 @@ class TestScreen(_Strict):
 
     kind: Literal["test"]
     id: Annotated[str, StringConstraints(pattern=TEST_ID)]
-    learning_area: LearningArea
     title: NonBlank
     intro: NonBlank
     items: list[Exercise] = Field(min_length=1)
@@ -202,7 +199,7 @@ class Day(_Strict):
     day: int = Field(ge=DAY_MIN, le=DAY_MAX)
     title: NonBlank
     vocabulary: list[VocabularyItem] = Field(min_length=1, max_length=12)
-    screens: list[Screen] = Field(min_length=1, max_length=MAX_SCREENS)
+    screens: list[Screen] = Field(min_length=1)
 
     @property
     def exercises(self) -> list[Exercise]:

@@ -18,7 +18,6 @@ vocabulary:
 screens:
   - kind: "text"
     id: "d01-screen-part-one"
-    learning_area: "Pronunciation"
     title: "Test Your English!"
     cards:
       - title: "Test Your English!"
@@ -41,7 +40,6 @@ screens:
         body: "Just what kind of person do others see when you translate your thoughts into speech or writing? Part I will help you find out—will help you discover what your spelling, pronunciation, and grammar say about you."
   - kind: "text"
     id: "d01-screen-first-day"
-    learning_area: "Pronunciation"
     title: "Test Your Pronunciation"
     cards:
       - title: "First Day: Test Your Pronunciation"
@@ -55,7 +53,6 @@ screens:
           [The symbol ə indicates the very slight vowel sound heard in the first syllable of *commit* (kə-MIT') or the last syllable of *Linda* (LIN'-də)].
   - kind: "test"
     id: "d01-test-1"
-    learning_area: "Pronunciation"
     title: "Test 1: Do You Avoid Common but Glaring Errors?"
     intro: "If so, you will check the preferable pronunciation of at least four of the following five words."
     items:
@@ -116,7 +113,6 @@ screens:
         explanation: "Answer: (b). Test 1 asks you to get at least four of the five words right."
   - kind: "test"
     id: "d01-test-2"
-    learning_area: "Pronunciation"
     title: "Test 2: Does Your Pronunciation Meet Educated Standards?"
     intro: "If so, you will check the preferred pronunciation of at least four of the following."
     items:
@@ -177,7 +173,6 @@ screens:
         explanation: "Answer: (b). Test 2 asks you to get at least four of the five words right."
   - kind: "test"
     id: "d01-test-3"
-    learning_area: "Pronunciation"
     title: "Test 3: If You Use an Unknown Word, Do You Say It Correctly?"
     intro: "If so, you will know the correct pronunciation of at least four of the following."
     items:
@@ -238,7 +233,6 @@ screens:
         explanation: "Answer: (b). Test 3 asks you to know at least four of the five words."
   - kind: "test"
     id: "d01-test-4"
-    learning_area: "Pronunciation"
     title: "Test 4: Do You Ever Make People Uncomfortable with Affected Pronunciation?"
     intro: "You probably don't — but check the preferable form in at least four of the following to be sure."
     items:
