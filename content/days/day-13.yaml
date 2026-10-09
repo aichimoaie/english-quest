@@ -7,7 +7,8 @@
 # audio_ref, and the test intro for Tests 1 and 2, which have no instruction line in the book) were
 # added for this app. origin is "original" only because the schema requires that value.
 # Explanations are the book's own where it gives them. Where it gives only the key, the explanation
-# is "Key: ..." and the test does not show explanations (explain is false).
+# is "Key: ..." and the test does not show explanations (explain is false). Tests 3 to 5 mix keys
+# with explanations; they also have explain false, so their results show no explanation text.
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 13
 title: "A Challenge to Your Vocabulary"
@@ -310,7 +311,7 @@ screens:
     id: "d13-test-abnormal-states"
     title: "Test 3: Abnormal States"
     intro: "Answer YES or NO."
-    explain: true
+    explain: false
     items:
       - id: "d13-state-01"
         type: "multiple_choice"
@@ -426,7 +427,7 @@ screens:
     id: "d13-test-actions"
     title: "Test 4: Actions"
     intro: "Answer TRUE or FALSE."
-    explain: true
+    explain: false
     items:
       - id: "d13-action-01"
         type: "multiple_choice"
@@ -542,7 +543,7 @@ screens:
     id: "d13-test-comparisons"
     title: "Test 5: Comparisons"
     intro: "Answer SAME or OPPOSITE."
-    explain: true
+    explain: false
     items:
       - id: "d13-compare-01"
         type: "multiple_choice"
