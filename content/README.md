@@ -148,13 +148,17 @@ follow from them:
 ## Reconciliation with content/schema
 
 The validator mirrors exercise envelope v1 from the exercise engine report
-(section 4). The JSON Schemas under `content/schema/` are not on main yet, so
-this file is the working reference for now. Before those schemas land, check
-the following:
+(section 4). The JSON Schemas under `content/schema/` are on main, but the
+content validator does not check day files against them yet. Until it does,
+the validator's own rules are the working reference. The schemas and the
+validator still differ in these places:
 
-- Field names and kind names match `content/schema`. Day 1 uses the kind names
-  in the table above. `vocabulary_matching` is the kind name the engine report
-  gives for vocabulary matching.
+- Field names and kind names are shared, but the schemas for
+  `listening_comprehension` and `pronunciation_practice` use a different shape
+  from the authoring format (`options` with `id` and `text`, and
+  `recognition_options` instead of `choices`). Day 1 uses the kind names in the
+  table above. `vocabulary_matching` is the kind name the engine report gives
+  for vocabulary matching.
 - Limits match: choices 2 to 5, points 1 to 10, topics 1 to 4 items.
 - The schema has a place for `kind_version` and `status`. The day files omit both,
   because the authoring format does not carry them yet.
@@ -164,8 +168,8 @@ the following:
   `apps/api/tests/curriculum/test_tagged_day_content.py` check the other
   tags against `tags.yaml`.
 
-Once the schemas exist, the validator should validate each file against them as
-well, and `content/days/day-01.yaml` should pass both checks.
+Once the validator checks each file against the schemas, `content/days/day-01.yaml`
+should pass both checks.
 
 ## Adding a day
 
