@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Feedback } from "@/components/ui/Feedback";
+import { Feedback, type FeedbackTone } from "@/components/ui/Feedback";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import type { AnswerResult, Exercise, Submitted } from "@/lib/api/types";
 import { ExerciseRenderer } from "./registry";
@@ -15,6 +15,17 @@ interface ExercisePlayerProps {
   /** Called once the learner continues past the last item. */
   onFinish: () => Promise<void>;
   finishLabel: string;
+}
+
+/** A self-check has no right answer, so its feedback is a note, not a verdict. */
+function feedbackTone(exercise: Exercise, result: AnswerResult): FeedbackTone {
+  if (exercise.kind === "self_check") return "note";
+  return result.isCorrect ? "ok" : "bad";
+}
+
+function feedbackTitle(exercise: Exercise, result: AnswerResult): string {
+  if (exercise.kind === "self_check") return "Noted";
+  return result.isCorrect ? "Correct" : "Not quite";
 }
 
 /**
@@ -100,9 +111,9 @@ export function ExercisePlayer({ exercises, submit, rate, onFinish, finishLabel 
         </div>
 
         {result ? (
-          <Feedback tone={result.isCorrect ? "ok" : "bad"} title={result.isCorrect ? "Correct" : "Not quite"}>
+          <Feedback tone={feedbackTone(exercise, result)} title={feedbackTitle(exercise, result)}>
             {result.explanation}
-            {!result.isCorrect && result.expected ? ` The answer is: ${result.expected}` : null}
+            {!result.isCorrect && result.expected && exercise.kind !== "self_check" ? ` The answer is: ${result.expected}` : null}
           </Feedback>
         ) : null}
       </section>

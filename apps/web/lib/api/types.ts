@@ -7,7 +7,7 @@
  * renders the server's feedback; it never grades anything itself.
  */
 
-/** The seven renderer types. The server maps every authoring kind onto one of these. */
+/** The renderer types. The server maps every authoring kind onto one of these. */
 export type ExerciseKind =
   | "multiple_choice"
   | "fill_blank"
@@ -15,7 +15,11 @@ export type ExerciseKind =
   | "vocabulary_matching"
   | "spelling_correction"
   | "listening_comprehension"
-  | "pronunciation_practice";
+  | "pronunciation_practice"
+  | "find_misspelled"
+  | "self_check"
+  | "right_wrong"
+  | "timed_recall";
 
 export type DayStatus = "locked" | "current" | "done";
 
@@ -79,11 +83,28 @@ export type Exercise =
   | (ExerciseBase & {
       kind: "pronunciation_practice";
       content: { audioUrl: string | null; options: string[] };
+    })
+  | (ExerciseBase & {
+      kind: "find_misspelled";
+      content: { prompt: string; options: string[] };
+    })
+  | (ExerciseBase & {
+      kind: "self_check";
+      content: { prompt: string };
+    })
+  | (ExerciseBase & {
+      kind: "right_wrong";
+      content: { prompt: string };
+    })
+  | (ExerciseBase & {
+      kind: "timed_recall";
+      content: { sentence: string; hint: string | null; timeLimitSeconds: number };
     });
 
 /** What the learner submits. The shape depends on the exercise kind. */
 export type Submitted =
   | { optionIndex: number }
+  | { optionIndex: number; text: string }
   | { text: string }
   | { order: string[] }
   | { pairs: Record<string, string> };

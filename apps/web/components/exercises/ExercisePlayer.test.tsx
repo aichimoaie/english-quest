@@ -48,6 +48,21 @@ describe("ExercisePlayer", () => {
     expect(screen.getByText(/The answer is: is/)).toBeTruthy();
   });
 
+  it("shows a self-check answer as a note, not a right or wrong verdict", async () => {
+    const selfCheck: Exercise[] = [
+      { id: "ex_self", kind: "self_check", instructions: "Be honest.", points: 1, content: { prompt: "I has two books." } },
+    ];
+    const submit = vi.fn(async () => ({ isCorrect: false, expected: "No", explanation: "Say have.", feedbackKey: "self" }));
+    render(<ExercisePlayer exercises={selfCheck} submit={submit} onFinish={vi.fn()} finishLabel="Finish" />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Yes, I often say this" }));
+    fireEvent.click(screen.getByRole("button", { name: "Check answer" }));
+
+    expect(await screen.findByText("Noted")).toBeTruthy();
+    expect(screen.queryByText("Not quite")).toBeNull();
+    expect(screen.queryByText(/The answer is:/)).toBeNull();
+  });
+
   it("moves to the next item and finishes after the last one", async () => {
     const submit = vi.fn(async () => ({ isCorrect: true, explanation: "Yes.", feedbackKey: "ok" }));
     const onFinish = vi.fn(async () => undefined);
