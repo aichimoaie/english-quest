@@ -59,6 +59,21 @@ export function PlayView({ day: dayNumber }: { day: number }) {
     );
   }
 
+  if (detail.isError) {
+    return (
+      <div className="stack">
+        <ErrorState
+          message="We could not load this day. Try again in a moment."
+          action={
+            <button type="button" className="btn btn-primary" onClick={() => void detail.refetch()}>
+              Try again
+            </button>
+          }
+        />
+      </div>
+    );
+  }
+
   if (!attempt || detail.isPending) return <LoadingState label="Getting your questions…" />;
 
   return (
