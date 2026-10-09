@@ -22,16 +22,16 @@ lessons:
 
 vocabulary:
   - word: drunkenness
-    definition: "the correct spelling (Test 8, item 1; the adjective drunken plus the ending -ness)"
-    example: "The book gives no example sentence for this word."
+    definition: "the correct spelling; formed from the adjective drunken plus the ending -ness"
+    example: "Drunkenness is never an excuse for bad behavior."
     audio_ref: d03-vocab-drunkenness
   - word: liquefy
-    definition: "the correct spelling (Test 8, item 10; one of five verbs ending in -efy)"
-    example: "The book gives no example sentence for this word."
+    definition: "to change into a liquid; one of the few verbs spelled with the ending -efy"
+    example: "Heat will liquefy the wax."
     audio_ref: d03-vocab-liquefy
   - word: receive
-    definition: "the correct spelling (Test 9, item 4; i before e, except after c)"
-    example: "The book gives no example sentence for this word."
+    definition: "to get or accept something; spelled i before e, except after c"
+    example: "I will receive my package tomorrow."
     audio_ref: d03-vocab-receive
 
 exercises:

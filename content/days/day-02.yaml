@@ -5,8 +5,7 @@
 # This departs from the content rule in content/README.md ("Original wording only").
 # App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
 # audio_ref) were added for this app. origin is "original" only because the schema requires that value.
-# Test 5 lists ten meanings with distractors. The schema allows at most six pairs per exercise, so
-# Test 5 is split into two matching exercises (items 1-5 and 6-10) with the book's correct pairs.
+# Test 5 is one matching exercise with all ten of its word and meaning pairs, in the book's order.
 # The book's pencil-margin annotations on pages 20-23 were not part of the printed text and are omitted.
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 2
@@ -46,16 +45,16 @@ lessons:
 
 vocabulary:
   - word: imminent
-    definition: "likely to happen in the near future (Test 5, item 1)"
-    example: "The book gives no example sentence for this word."
+    definition: "likely to happen in the near future"
+    example: "The storm was imminent, so we closed the windows."
     audio_ref: d02-vocab-imminent
   - word: latent
-    definition: "hidden (Test 5, item 6)"
-    example: "The book gives no example sentence for this word."
+    definition: "hidden; not yet visible or active"
+    example: "The disease stayed latent in his body for years."
     audio_ref: d02-vocab-latent
   - word: cajole
-    definition: "coax (Test 5, item 9)"
-    example: "The book gives no example sentence for this word."
+    definition: "coax"
+    example: "She tried to cajole the reluctant cat into its carrier."
     audio_ref: d02-vocab-cajole
 
 exercises:
