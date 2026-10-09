@@ -88,7 +88,7 @@ def _normal(text: str) -> str:
 
 
 class _ChoiceExercise(ScoredExercise):
-    choices: list[NonBlank] = Field(min_length=2, max_length=4)
+    choices: list[NonBlank] = Field(min_length=2, max_length=5)
     answer: NonBlank
 
     @model_validator(mode="after")

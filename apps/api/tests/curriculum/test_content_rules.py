@@ -111,8 +111,8 @@ RULE_CASES = [
         id="duplicate-choices-ignoring-case-and-spaces",
     ),
     pytest.param(
-        _set(MULTIPLE_CHOICE, "choices", ["Am", "Is", "Are", "Be", "Was"]),
-        "List should have at most 4 items",
+        _set(MULTIPLE_CHOICE, "choices", ["Am", "Is", "Are", "Be", "Was", "Been"]),
+        "List should have at most 5 items",
         id="too-many-choices",
     ),
     pytest.param(

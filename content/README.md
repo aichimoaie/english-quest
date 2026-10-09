@@ -96,7 +96,7 @@ The seven areas from PRD section 4. Use the exact spelling:
 
 | `type` | Fields | Rule |
 |---|---|---|
-| `multiple_choice` | `choices` (2 to 4, unique), `answer` | `answer` is one of `choices` |
+| `multiple_choice` | `choices` (2 to 5, unique), `answer` | `answer` is one of `choices` |
 | `listening_comprehension` | `audio_text`, `choices`, `answer` | As above. `audio_text` is the script the audio reads |
 | `pronunciation_practice` | `audio_text`, `choices`, `answer` | Recognition only |
 | `pronunciation_self_rating` | `audio_text` | Unscored. No `points`, `answer`, `choices` or `accepted`. The learner says the sentence aloud and rates it |
@@ -152,7 +152,7 @@ the following:
 - Field names and kind names match `content/schema`. Day 1 uses the kind names
   in the table above. `vocabulary_matching` is the kind name the engine report
   gives for vocabulary matching.
-- Limits match: choices 2 to 4, points 1 to 10, topics 1 to 4 items.
+- Limits match: choices 2 to 5, points 1 to 10, topics 1 to 4 items.
 - The schema has a place for `kind_version` and `status`. The day files omit both,
   because the authoring format does not carry them yet.
 - The schema has a taxonomy file for `topics`. `content/tags.yaml` is the tag
