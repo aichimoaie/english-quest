@@ -73,7 +73,7 @@ Rules for the layout:
 
 The learner meets a day's screens in order:
 
-1. A text screen. The first one has a Start button, and each later one a Next button.
+1. Text screens. The first one's button is Start, and each later text screen's button is Next.
 2. For each test: the test's intro with a Start button, then its items, one per
    screen. Then the test's results screen, which shows that test's score and the
    answer key for each item. A Next button leads on. With `explain: true`, each
@@ -108,9 +108,8 @@ The seven areas from PRD section 4. Use the exact spelling:
 
 Every exercise also needs `id`, `learning_area`, `origin: original`, `topics`
 (dotted, such as `grammar.be.present`), `difficulty` (1 to 3), `prompt` and
-`explanation`. Every type
-except `pronunciation_self_rating` and `self_check` also needs `points` (1 to 10). Unknown keys
-are rejected.
+`explanation`. Every type except `pronunciation_self_rating` and `self_check`
+also needs `points` (1 to 10). Unknown keys are rejected.
 
 Choices are unique when letter case and extra spaces are ignored. The grader
 compares a typed answer with `accepted` ignoring letter case and surrounding
