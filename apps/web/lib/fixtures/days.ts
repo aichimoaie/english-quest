@@ -11,10 +11,6 @@ export { TOTAL_DAYS } from "@/lib/course";
 
 /** Title and objective for each day that has no content file yet, keyed by day number. */
 export const PLACEHOLDER_OUTLINE: Record<number, { title: string; objective: string }> = {
-  11: { title: "Simple past: irregular verbs", objective: "Use common past forms such as went and had." },
-  12: { title: "Comparatives", objective: "Compare two things with -er and more." },
-  13: { title: "Superlatives", objective: "Name the most or the least in a group." },
-  14: { title: "Going to: plans", objective: "Talk about plans you already made." },
   15: { title: "Will: quick decisions", objective: "Decide something at the moment you speak." },
   16: { title: "Prepositions of time", objective: "Use in, on and at with time words." },
   17: { title: "Prepositions of place", objective: "Describe where things are." },
