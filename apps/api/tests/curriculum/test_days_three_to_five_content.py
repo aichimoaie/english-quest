@@ -1,4 +1,4 @@
-"""Days 3 to 5 must pass every rule and use only the tag vocabulary in content/tags.yaml."""
+"""Days 1 to 5 must use only the tag vocabulary in content/tags.yaml, and Days 3 to 5 must load with their titles."""
 
 from pathlib import Path
 
@@ -16,6 +16,7 @@ NEW_DAY_TITLES = {
     4: "Test Your Grammar",
     5: "Just for Fun (I)",
 }
+TAGGED_DAYS = range(1, 6)
 
 
 def _days() -> dict[int, Day]:
@@ -34,7 +35,7 @@ def test_every_exercise_is_tagged_from_the_vocabulary() -> None:
     days = _days()
     topics = {topic for group in TAGS["topics"].values() for topic in group}
 
-    for number in NEW_DAY_TITLES:
+    for number in TAGGED_DAYS:
         for exercise in days[number].exercises:
             assert exercise.learning_area in TAGS["skills"], exercise.id
             assert exercise.type in TAGS["exercise_types"], exercise.id
@@ -45,7 +46,7 @@ def test_every_exercise_is_tagged_from_the_vocabulary() -> None:
 def test_topics_belong_to_the_skill_of_their_exercise() -> None:
     days = _days()
 
-    for number in NEW_DAY_TITLES:
+    for number in TAGGED_DAYS:
         for exercise in days[number].exercises:
             skill = exercise.learning_area.value
             assert all(topic.split(".")[0] == skill.lower() for topic in exercise.topics), (
@@ -56,7 +57,7 @@ def test_topics_belong_to_the_skill_of_their_exercise() -> None:
 def test_exercise_ids_use_their_day_prefix() -> None:
     days = _days()
 
-    for number in NEW_DAY_TITLES:
+    for number in TAGGED_DAYS:
         prefix = f"d{number:02d}-"
         assert all(exercise.id.startswith(prefix) for exercise in days[number].exercises)
         assert all(lesson.id.startswith(prefix) for lesson in days[number].lessons)

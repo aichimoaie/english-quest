@@ -81,6 +81,7 @@ vocabulary:
 exercises:
   - id: d01-grammar-mc-01
     type: multiple_choice
+    difficulty: 1
     learning_area: Grammar
     origin: original
     topics:
@@ -96,6 +97,7 @@ exercises:
 
   - id: d01-grammar-fill-01
     type: fill_blank
+    difficulty: 1
     learning_area: Grammar
     origin: original
     topics:
@@ -108,6 +110,7 @@ exercises:
 
   - id: d01-grammar-mc-02
     type: multiple_choice
+    difficulty: 1
     learning_area: Grammar
     origin: original
     topics:
@@ -123,6 +126,7 @@ exercises:
 
   - id: d01-listening-mc-01
     type: listening_comprehension
+    difficulty: 1
     learning_area: Listening
     origin: original
     topics:
@@ -139,6 +143,7 @@ exercises:
 
   - id: d01-pronunciation-01
     type: pronunciation_practice
+    difficulty: 1
     learning_area: Pronunciation
     origin: original
     topics:
@@ -154,6 +159,7 @@ exercises:
 
   - id: d01-pronunciation-self-01
     type: pronunciation_self_rating
+    difficulty: 1
     learning_area: Pronunciation
     origin: original
     topics:
@@ -164,6 +170,7 @@ exercises:
 
   - id: d01-vocabulary-match-01
     type: vocabulary_matching
+    difficulty: 1
     learning_area: Vocabulary
     origin: original
     topics:
@@ -183,6 +190,7 @@ exercises:
 
   - id: d01-sentence-order-01
     type: sentence_ordering
+    difficulty: 1
     learning_area: Sentence construction
     origin: original
     topics:
@@ -205,6 +213,7 @@ exercises:
 
   - id: d01-spelling-01
     type: spelling_correction
+    difficulty: 1
     learning_area: Spelling
     origin: original
     topics:

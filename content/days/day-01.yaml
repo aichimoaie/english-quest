@@ -184,10 +184,10 @@ exercises:
     topics: [pronunciation.educated_standard]
     difficulty: 2
     points: 1
-    prompt: "Which is the preferred pronunciation of mischievous?"
-    choices: ["MIS-chee-vus", "MIS-chuh-vus"]
-    answer: "MIS-chuh-vus"
-    explanation: "The middle syllable is quiet, so the word has three syllables."
+    prompt: "Which is the preferred pronunciation of athlete?"
+    choices: ["ATH-uh-leet", "ATH-leet"]
+    answer: "ATH-leet"
+    explanation: "Athlete has two syllables. The second syllable is leet, with no extra uh sound before it."
 
   # Unknown words: check you know the correct pronunciation (book section: Test 3).
   - id: d01-pron-unknown-01

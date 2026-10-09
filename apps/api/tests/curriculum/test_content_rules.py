@@ -150,6 +150,11 @@ RULE_CASES = [
         id="missing-explanation",
     ),
     pytest.param(
+        _del(0, "difficulty"),
+        "Field required",
+        id="missing-difficulty",
+    ),
+    pytest.param(
         _set(0, "points", 0),
         "Input should be greater than or equal to 1",
         id="zero-points",
