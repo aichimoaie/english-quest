@@ -5,7 +5,8 @@
  *
  * It mirrors the server rules that matter to the UI: days unlock in order, a run
  * completes a day at 70%, scoring uses each item's first answer in a run, and
- * the server returns `expected` only after an answer is recorded.
+ * the server returns `expected` only after an answer is recorded, and self-check
+ * items are shown but not scored.
  */
 import { ApiError } from "@/lib/api/errors";
 import type {
@@ -140,13 +141,14 @@ function completeRun(attemptId: string): CompletedAttempt {
   if (!run) {
     throw problem(404, "Attempt not found", `There is no attempt ${attemptId}.`);
   }
-  const exercises = exercisesFor(run.day);
-  const totalPoints = exercises.reduce((sum, exercise) => sum + exercise.points, 0);
-  const earnedPoints = exercises.reduce(
+  // Self-check items are shown but not scored, the same rule the end-of-set headline uses.
+  const scored = exercisesFor(run.day).filter((exercise) => exercise.kind !== "self_check");
+  const totalPoints = scored.reduce((sum, exercise) => sum + exercise.points, 0);
+  const earnedPoints = scored.reduce(
     (sum, exercise) => sum + (run.runAnswers.get(exercise.id) ? exercise.points : 0),
     0,
   );
-  const scorePct = Math.round((earnedPoints / totalPoints) * 100);
+  const scorePct = totalPoints === 0 ? 0 : Math.round((earnedPoints / totalPoints) * 100);
   const passed = scorePct >= PASS_MARK_PCT;
 
   if (passed) {

@@ -203,4 +203,54 @@ describe("fixture server", () => {
     expect(right.isCorrect).toBe(true);
     expect(wrong.isCorrect).toBe(false);
   });
+
+  describe("saved score with self-check items", () => {
+    /** Day 1 becomes the dev fixture day: three scored items and one self-check. Unmocked after load so other tests keep the real content. */
+    async function loadWithDevFixtureDay() {
+      vi.resetModules();
+      vi.doMock("./days", async (importOriginal) => {
+        const actual = await importOriginal<typeof import("./days")>();
+        return {
+          ...actual,
+          CONTENT_BY_DAY: { ...actual.CONTENT_BY_DAY, 1: { ...actual.CONTENT_BY_DAY[1], exercises: actual.DEV_FIXTURE_EXERCISES } },
+        };
+      });
+      const server = await import("./server");
+      vi.doUnmock("./days");
+      return server;
+    }
+
+    async function runDevFixtureDay(submissions: Record<string, Submitted>) {
+      const { fixtureCall: devCall } = await loadWithDevFixtureDay();
+      const { attemptId } = await devCall<{ attemptId: string }>("POST", `${BASE}/days/1/attempts`);
+      for (const [exerciseId, submitted] of Object.entries(submissions)) {
+        await devCall("POST", `${BASE}/attempts/${attemptId}/answers`, { exerciseId, submitted });
+      }
+      return devCall<{ scorePct: number; status: string }>("POST", `${BASE}/attempts/${attemptId}/complete`);
+    }
+
+    it("does not lower the saved score when a self-check is answered the other way", async () => {
+      const completed = await runDevFixtureDay({
+        ex_dev_find: { optionIndex: 0 },
+        ex_dev_self: { optionIndex: 1 },
+        ex_dev_right: { optionIndex: 1 },
+        ex_dev_timed: { text: "cottage" },
+      });
+
+      expect(completed.scorePct).toBe(100);
+      expect(completed.status).toBe("passed");
+    });
+
+    it("saves the same percentage the end screen headline gives for the scored items", async () => {
+      // Two of the three scored items are right. The self-check is right too, but it must not add a point.
+      const completed = await runDevFixtureDay({
+        ex_dev_find: { optionIndex: 1 },
+        ex_dev_self: { optionIndex: 0 },
+        ex_dev_right: { optionIndex: 1 },
+        ex_dev_timed: { text: "cottage" },
+      });
+
+      expect(completed.scorePct).toBe(Math.round((2 / 3) * 100));
+    });
+  });
 });
