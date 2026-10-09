@@ -1,0 +1,337 @@
+# Day 8: Still More Words That Fool the Unwary.
+# Source: reference book, Eighth Day (pp. 45-51).
+# Transcribed from pages/page47.md through page51.md, in the book's order.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref) were added for this app. origin is "original" only because the schema requires that value.
+# Test Your Learning has 18 items. Items 1-8 are on page 50 and items 9-18 are on page 51.
+# Accepted answers are the book's key, one letter per item.
+# The book's tables are written as numbered lists. Page-break headers and "continued" notes are omitted.
+# Status: draft until a human reviewer approves it (PRD section 11).
+day: 8
+title: "Still More Words That Fool the Unwary"
+objective: "Learn where the accent goes in tricky words, then test what you learned."
+
+vocabulary:
+  - word: "awry"
+    definition: "not in the right position, or not going as planned; pronounced ə-RYE'"
+    example: "The plan went awry when it started to rain."
+    audio_ref: "d08-vocab-awry"
+  - word: "integral"
+    definition: "necessary and essential to the whole; pronounced IN'-tə-grəl"
+    example: "Practice is integral to learning a new sound."
+    audio_ref: "d08-vocab-integral"
+  - word: "caricature"
+    definition: "a drawing or description that makes a person look funny by exaggerating their features; pronounced KAR'-ə-kə-choor"
+    example: "The cartoonist drew a caricature of the mayor with a very large nose."
+    audio_ref: "d08-vocab-caricature"
+  - word: "acclimate"
+    definition: "to become used to a new place or situation; pronounced ə-KLY'-mət"
+    example: "It took a week for the new student to acclimate to the school."
+    audio_ref: "d08-vocab-acclimate"
+  - word: "chasm"
+    definition: "a deep crack or gap in the ground; pronounced KAZ'-əm"
+    example: "The bridge crossed a deep chasm."
+    audio_ref: "d08-vocab-chasm"
+
+screens:
+  - kind: "text"
+    id: "d08-screen-introduction"
+    title: "Still More Words That Fool the Unwary"
+    cards:
+      - title: "Eighth Day"
+        body: |-
+          You complete your understanding in the principles of correct pronunciation by examining four final categories of English words; then you check the success of your learning in Part II by taking a pronunciation test that most unsophisticated speakers would do very poorly on.
+  - kind: "text"
+    id: "d08-screen-misplace-accents"
+    title: "Don't Misplace Accents"
+    cards:
+      - title: "Don't Misplace Accents"
+        body: |-
+          The position of the accent in English words is more often a stumbling block and a source of doubt and confusion than any other single factor. Here are 20 words that cause a lot of trouble.
+
+          1. impotent — IM'-pə-tənt
+          2. impious — IM'-pee-əs
+          3. infamous — IN'-fə-məs
+          4. influence — IN'-floo-ənce
+          5. distribute — dis-TRIB'-yət
+          6. affluence — AF'-floo-ənce
+          7. awry — ə-RYE'
+          8. remonstrate — rə-MON'-strate
+          9. deficit — DEF'-ə-sit
+          10. champion — CHAM'-pee-ən
+          11. integral — IN'-tə-grəl
+          12. municipal — myoo-NISS'-ə-pəl
+          13. intricate — IN'-trə-kit
+          14. intricacy — IN'-trə-kə-see
+          15. caricature — KAR'-ə-kə-choor (ĂR as in *carriage*)
+          16. robust — rə-BUST'
+          17. acumen — ə-KYOO'-mən
+          18. plebeian — plə-BEE'-ən
+          19. ignominious — ig-nə-MIN'-ee-əs
+          20. dirigible — DIR'-ə-jə-bəl
+
+          In the following eight words you have greater freedom in placing the accent.
+
+          1. exquisite — EX'-kwi-zit *or* ex-KWIZ'-it
+          2. adult — ə-DULT' *or* AD'-ult
+          3. inquiry — in-KWY'-ree *or* IN'-kwə-ree
+          4. aspirant — as-PIRE'-ənt *or* ASS'-pə-rənt
+          5. incognito — in-KOG'-nə-tō *or* in-kəg-NEE'-tō (ō as in *go*)
+          6. secretive — sə-KREE'-tiv *or* SEEK'-rə-tiv
+          7. acclimate — ə-KLY'-mət *or* AK'-lə-mayt
+          8. address (as in *name and address*) — ə-DRESS' *or* AD'-ress; as a verb, or with other meanings: ə-DRESS' only
+  - kind: "text"
+    id: "d08-screen-deceptive-ch"
+    title: "Don't Be Misled by CH"
+    cards:
+      - title: "Don't Be Misled by CH"
+        body: |-
+          *Chiropodist*, you have learned, starts with the sound of *K* despite the spelling *CH*. In the following words the deceptive *CH* is always pronounced as a *K*.
+
+          1. chasm — KAZ'-əm
+          2. machinations — mak-ə-NAY'-shənz
+          3. chaos — KAY'-oss
+          4. archipelago — ahr-kə-PEL'-ə-go
+  - kind: "text"
+    id: "d08-screen-straight-on-a"
+    title: "Get Straight on A's"
+    cards:
+      - title: "Get Straight on A's"
+        body: |-
+          In *radiator*, as you now know, the first syllable rhymes with *bay*: RAY'-dee-ay-tər. The same is true of *aviator* (AY'-vee-ay-tər) and *verbatim* (vər-BAY'-təm). But in the following nine words you may use either the *A* of *bay* or the *A* of *hat*.
+
+          1. data — DAY'-tə *or* DAT'-ə
+          2. status — STAY'-təs *or* STAT'-əs
+          3. fracas — FRAY'-kəs *or* FRAK'-əs
+          4. ignoramus — ig-nə-RAY'-məs *or* ig-nə-RAM'-əs
+          5. ultimatum — ul-tə-MAY'-təm *or* ul-tə-MAT'-əm
+          6. strata — STRAY'-tə *or* STRAT'-ə
+          7. pro rata — pro RAY'-tə *or* pro RAT'-ə
+          8. gratis — GRAY'-təs *or* GRAT'-əs
+          9. apparatus — ap-ə-RAY'-təs *or* ap-ə-RAT'-əs
+  - kind: "text"
+    id: "d08-screen-unaffected"
+    title: "Speak Unaffectedly"
+    cards:
+      - title: "Speak Unaffectedly"
+        body: |-
+          Here is a final group of seven words in which the choice of pronunciation is a source of uncertainty to many people. The forms listed in Column I are recommended because they are popular, inconspicuous, unaffected—and therefore safe. On the other hand, the Column II pronunciations are prevalent in some sections of the country and especially on certain social levels; use them if your instinctive preference inclines you strongly in that direction and if you are quite sure your pronunciation will not set you apart from those with whom you usually talk.
+
+          1. either — I. Recommended: EE'-thər; II. Also Correct, but Conspicuous: EYE'-thər
+          2. neither — I. Recommended: NEE'-thər; II. Also Correct, but Conspicuous: NYE'-thər
+          3. aunt — I. Recommended: ANT; II. Also Correct, but Conspicuous: AHNT
+          4. vase — I. Recommended: VAYZ *or* VAYS; II. Also Correct, but Conspicuous: VAHZ
+          5. tomato — I. Recommended: tə-MAY'-tō; II. Also Correct, but Conspicuous: tə-MAH'-tō (ō as in *go*)
+          6. rather — I. Recommended: RA'-thər (rhymes with *gather*); II. Also Correct, but Conspicuous: RAH'-thər (rhymes with *father*)
+          7. chauffeur — I. Recommended: SHO'-fər; II. Also Correct, but Conspicuous: shə-FUR'
+  - kind: "test"
+    id: "d08-test-learning"
+    title: "Test Your Learning"
+    intro: |-
+      We have thoroughly explored twelve categories of demons that are the most devilish and the most troublesome in the entire English language. These words, more than any others, create doubt and confusion.
+
+      If you have worked hard on Part II, if you have begun to form new habits through repeated practice, then these words are no longer demons for you. They are no longer a source of possible error, no longer a cause of anxiety or lack of self-confidence.
+
+      Let us put the results of your study to a test. Here is a representative sampling of the words covered in Part II. Are you able now, unhesitatingly and unerringly, to make a correct choice?
+    explain: true
+    items:
+      - id: "d08-pron-learn-01"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 1: genuine. Which pronunciation is correct?"
+        choices: ["JEN'-yoo-wine", "JEN'-yoo-in"]
+        answer: "JEN'-yoo-in"
+        explanation: "Answer: (b)."
+      - id: "d08-pron-learn-02"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 2: manufacture. Which pronunciation is correct?"
+        choices: ["man-ə-FAK'-chər", "man-yə-FAK'-chər"]
+        answer: "man-yə-FAK'-chər"
+        explanation: "Answer: (b)."
+      - id: "d08-pron-learn-03"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 3: preferable. Which pronunciation is correct?"
+        choices: ["PREF'-ər-ə-bəl", "prə-FER'-ə-bəl"]
+        answer: "PREF'-ər-ə-bəl"
+        explanation: "Answer: (a)."
+      - id: "d08-pron-learn-04"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 4: figure. Which pronunciation is correct?"
+        choices: ["FIG'-ər", "FIG'-yər"]
+        answer: "FIG'-yər"
+        explanation: "Answer: (b)."
+      - id: "d08-pron-learn-05"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 5: grievous. Which pronunciation is correct?"
+        choices: ["GREE'-vəs", "GREE'-vee-əs"]
+        answer: "GREE'-vəs"
+        explanation: "Answer: (a)."
+      - id: "d08-pron-learn-06"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 6: athletic. Which pronunciation is correct?"
+        choices: ["ath-ə-LET'-ic", "ath-LET'-ic"]
+        answer: "ath-LET'-ic"
+        explanation: "Answer: (b)."
+      - id: "d08-pron-learn-07"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 7: huge. Which pronunciation is correct?"
+        choices: ["HYOOJ", "YOOJ"]
+        answer: "HYOOJ"
+        explanation: "Answer: (a)."
+      - id: "d08-pron-learn-08"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 8: gesture. Which pronunciation is correct?"
+        choices: ["GES'-chər", "JES'-chər"]
+        answer: "JES'-chər"
+        explanation: "Answer: (b)."
+      - id: "d08-pron-learn-09"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 9: prestige. Which pronunciation is correct?"
+        choices: ["press-TEEZH'", "press-TEEDJ'"]
+        answer: "press-TEEZH'"
+        explanation: "Answer: (a)."
+      - id: "d08-pron-learn-10"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 10: bronchial. Which pronunciation is correct?"
+        choices: ["BRON'-ə-kəl", "BRONG'-kee-əl"]
+        answer: "BRONG'-kee-əl"
+        explanation: "Answer: (b)."
+      - id: "d08-pron-learn-11"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 11: fertile. Which pronunciation is correct?"
+        choices: ["FUR'-till", "FUR'-tile"]
+        answer: "FUR'-till"
+        explanation: "Answer: (a)."
+      - id: "d08-pron-learn-12"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 12: senile. Which pronunciation is correct?"
+        choices: ["SEN'-ill", "SEE'-nile"]
+        answer: "SEE'-nile"
+        explanation: "Answer: (b)."
+      - id: "d08-pron-learn-13"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 13: impious. Which pronunciation is correct?"
+        choices: ["IM'-pee-əs", "im-PY'-əs"]
+        answer: "IM'-pee-əs"
+        explanation: "Answer: (a)."
+      - id: "d08-pron-learn-14"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 14: awry. Which pronunciation is correct?"
+        choices: ["ə-RYE'", "AW'-ree"]
+        answer: "ə-RYE'"
+        explanation: "Answer: (a)."
+      - id: "d08-pron-learn-15"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 15: intricacy. Which pronunciation is correct?"
+        choices: ["in-TRIK'-ə-see", "IN'-trə-kə-see"]
+        answer: "IN'-trə-kə-see"
+        explanation: "Answer: (b)."
+      - id: "d08-pron-learn-16"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 16: dirigible. Which pronunciation is correct?"
+        choices: ["DIR'-ə-jə-bəl", "de-RIJ'-e-bəl"]
+        answer: "DIR'-ə-jə-bəl"
+        explanation: "Answer: (a)."
+      - id: "d08-pron-learn-17"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 17: machinations. Which pronunciation is correct?"
+        choices: ["mak-ə-NAY'-shənz", "match-ə-NAY'-shənz"]
+        answer: "mak-ə-NAY'-shənz"
+        explanation: "Answer: (a)."
+      - id: "d08-pron-learn-18"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.educated_standard"]
+        difficulty: 2
+        points: 1
+        prompt: "Test Your Learning, item 18: aviator. Which pronunciation is correct?"
+        choices: ["AV'-ee-ay-tər", "AY'-vee-ay-tər"]
+        answer: "AY'-vee-ay-tər"
+        explanation: "Answer: (b)."

@@ -36,6 +36,8 @@ export function SummaryView({ day: dayNumber }: { day: number }) {
   }
 
   const passed = result.status === "passed";
+  const reached = result.scorePct === null ? "the end of this day" : `${PASS_MARK_PCT}%`;
+  const nextDayNote = result.nextDay ? ` Day ${result.nextDay} is now open.` : "";
 
   return (
     <div className="stack">
@@ -43,10 +45,10 @@ export function SummaryView({ day: dayNumber }: { day: number }) {
         {passed ? <Icon name="check" className="sm" /> : null}
         {passed ? "Day complete" : "Almost there"}
       </span>
-      <h1 className="t-display">{result.scorePct}%</h1>
+      {result.scorePct === null ? null : <h1 className="t-display">{result.scorePct}%</h1>}
       <p className="t-body">
         {passed
-          ? `Good work. You reached ${PASS_MARK_PCT}%.${result.nextDay ? ` Day ${result.nextDay} is now open.` : ""}`
+          ? `Good work. You reached ${reached}.${nextDayNote}`
           : `You need ${PASS_MARK_PCT}% to finish. Try the day again; your best run is saved.`}
       </p>
 

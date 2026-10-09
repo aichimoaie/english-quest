@@ -1,0 +1,235 @@
+# Day 6: Can You Pass This Easy Pronunciation Test?
+# Source: reference book, Part II divider and Sixth Day (pp. 33-40).
+# Transcribed from pages/page35.md through page40.md, in the book's order.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref) were added for this app. origin is "original" only because the schema requires that value.
+# Test Your Pronunciation has 9 items. Accepted answers are the book's key, one letter per item.
+# The book's tables are written as numbered lists. Page-break headers and "continued" notes are omitted.
+# The book's ə symbol note is kept in the test's intro, before its first item.
+# Day 6 ends with reading text after its last test, so the day end follows Watch Your Accent.
+# Status: draft until a human reviewer approves it (PRD section 11).
+day: 6
+title: "Can You Pass This Easy Pronunciation Test?"
+objective: "Test your pronunciation, then learn how to say words aloud and where the accent goes."
+
+vocabulary:
+  - word: "comparable"
+    definition: "able to be compared with something; similar; pronounced KOM'-pə-rə-bəl"
+    example: "Her new phone is comparable in price to mine."
+    audio_ref: "d06-vocab-comparable"
+  - word: "chiropodist"
+    definition: "a person who treats problems of the feet; pronounced kə-ROP'-ə-dist"
+    example: "I visited a chiropodist about my sore heel."
+    audio_ref: "d06-vocab-chiropodist"
+  - word: "accessory"
+    definition: "an extra item that goes with something else; pronounced ak-SESS'-ər-ee"
+    example: "The belt is a fashionable accessory for that dress."
+    audio_ref: "d06-vocab-accessory"
+  - word: "impotent"
+    definition: "without power or strength; pronounced IM'-pə-tənt"
+    example: "The old law was impotent because no one enforced it."
+    audio_ref: "d06-vocab-impotent"
+  - word: "mischievous"
+    definition: "playful in a way that causes trouble; pronounced MISS'-chə-vəs"
+    example: "The mischievous cat hid the keys."
+    audio_ref: "d06-vocab-mischievous"
+
+screens:
+  - kind: "text"
+    id: "d06-screen-part-two"
+    title: "Part II: Say It Right!"
+    cards:
+      - title: "Say It Right!"
+        body: |-
+          From your pronunciation of certain common and frequently used English words, people often form their first impressions of your educational background, of your ability and intelligence, perhaps even of your personality. This is unfortunate and in many instances probably illogical; what a person says is certainly a much more reasonable criterion of his worth than how he says it. But human nature is not always reasonable, and listeners tend to jump to sweeping conclusions from quick impressions of the way you speak.
+
+          *Your pronunciation, for this reason, always either adds to or detracts from the power and persuasiveness of your ideas.*
+
+          Consider the importance of pronunciation from another point of view. The effectiveness of a spoken thought stems not only from the thought itself or from the words in which it is presented, but also—often even more so—from the self-assurance of the person who is speaking. *Confidence and security about the correctness of your pronunciation can be a vital factor in helping you put across your ideas successfully.*
+
+          So the chapters in Part II have a number of aims:
+
+          ▶ To give you practical training in the correct pronunciation of some of the most troublesome words in the English language.
+
+          ▶ To offer you practice in these words, so that correct pronunciation becomes habitual and completely natural.
+
+          ▶ To root out of your speech—permanently and completely—every possibility of unconscious error.
+
+          ▶ To settle any doubts or confusion you may have about certain pronunciation demons.
+
+          ▶ And thus, in total, to increase your self-assurance whenever you give voice to your ideas.
+  - kind: "text"
+    id: "d06-screen-introduction"
+    title: "Can You Pass This Easy Pronunciation Test?"
+    cards:
+      - title: "Sixth Day"
+        body: "Your reaction to nine significant English words will tell you a great deal about your pronunciation habits."
+  - kind: "test"
+    id: "d06-test-pronunciation"
+    title: "Test Your Pronunciation"
+    intro: |-
+      High on the list of troublesome words are nine demons that have a diabolical ability to trap the unwary speaker. How do you pronounce each one? Make your decision not on the basis of what you may think is correct but solely in accordance with what you would say in ordinary conversation.
+
+      [The symbol ə indicates the very slight vowel heard in the first syllable of *commit* (kə-MIT') or the last syllable of *Linda* (LIN'-də)].
+    explain: true
+    items:
+      - id: "d06-pron-01"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Item 1: radiator. Which pronunciation do you naturally use?"
+        choices: ["RAD'-ee-ay-tər", "RAY'-dee-ay-tər"]
+        answer: "RAY'-dee-ay-tər"
+        explanation: "Answer: (b)."
+      - id: "d06-pron-02"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Item 2: mischievous. Which pronunciation do you naturally use?"
+        choices: ["miss-CHEE'-vee-əs", "MISS'-chə-vəs"]
+        answer: "MISS'-chə-vəs"
+        explanation: "Answer: (b)."
+      - id: "d06-pron-03"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Item 3: genuine. Which pronunciation do you naturally use?"
+        choices: ["JEN'-yoo-in", "JEN'-yoo-wine"]
+        answer: "JEN'-yoo-in"
+        explanation: "Answer: (a)."
+      - id: "d06-pron-04"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Item 4: comparable. Which pronunciation do you naturally use?"
+        choices: ["KOM'-pə-rə-bəl", "kəm-PAR'-ə-bəl (AR as in carriage)"]
+        answer: "KOM'-pə-rə-bəl"
+        explanation: "Answer: (a)."
+      - id: "d06-pron-05"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Item 5: chiropodist. Which pronunciation do you naturally use?"
+        choices: ["kə-ROP'-ə-dist", "tchə-ROP'-ə-dist"]
+        answer: "kə-ROP'-ə-dist"
+        explanation: "Answer: (a)."
+      - id: "d06-pron-06"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Item 6: human. Which pronunciation do you naturally use?"
+        choices: ["YOO'-mən", "HYOO'-mən"]
+        answer: "HYOO'-mən"
+        explanation: "Answer: (b)."
+      - id: "d06-pron-07"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Item 7: impotent. Which pronunciation do you naturally use?"
+        choices: ["im-PO'-tənt", "IM'-pə-tənt"]
+        answer: "IM'-pə-tənt"
+        explanation: "Answer: (b)."
+      - id: "d06-pron-08"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Item 8: accessory. Which pronunciation do you naturally use?"
+        choices: ["ə-SESS'-ər-ee", "ak-SESS'-ər-ee"]
+        answer: "ak-SESS'-ər-ee"
+        explanation: "Answer: (b)."
+      - id: "d06-pron-09"
+        type: "multiple_choice"
+        learning_area: "Pronunciation"
+        origin: "original"
+        topics: ["pronunciation.common_errors"]
+        difficulty: 1
+        points: 1
+        prompt: "Item 9: orgy. Which pronunciation do you naturally use?"
+        choices: ["OR'-jee", "OR'-gee (g as in game)"]
+        answer: "OR'-jee"
+        explanation: "Answer: (a)."
+  - kind: "text"
+    id: "d06-screen-say-it-aloud"
+    title: "Say It Aloud"
+    cards:
+      - title: "Say It Aloud"
+        body: |-
+          Knowing the correct forms is only half the battle in your conquest of pronunciation demons. The other, and possibly more important, half is developing the habit of *using* the correct forms without hesitation whenever you speak. An awareness that the first *A* of *radiator* is pronounced as it is in *bay*, or that *mischievous* has three syllables rather than four, is of little benefit if you still unthinkingly say RAD'-ee-ay-tər and miss-CHEE'-vee-əs in your everyday conversation. Only practice will permanently root these mispronunciations out of your speech. So say these words several times aloud, hear them correctly in your own voice, push them deep into your consciousness.
+
+          1. radiator — RAY'-dee-ay-tər
+          2. mischievous — MISS'-chə-vəs
+          3. genuine — JEN'-yoo-in
+          4. comparable — KOM'-pə-rə-bəl
+          5. chiropodist — kə-ROP'-ə-dist
+          6. human — HYOO'-mən
+          7. impotent — IM'-pə-tənt
+          8. accessory — ak-SESS'-ər-ee
+          9. orgy — OR'-jee
+
+          So far you have been practicing the correct sounds of these tricky demons with a proper wariness and a certain self-consciousness. Suppose you were uttering the words casually in conversation; would you unhesitatingly avoid the pitfalls? Let us see. Read these phrases aloud, quickly and naturally—and, of course, correctly.
+
+          - a hot radiator
+          - human mischievousness
+          - genuine impotence
+          - incomparably skillful chiropodist
+          - wild orgies
+          - optional accessories
+  - kind: "text"
+    id: "d06-screen-watch-accent"
+    title: "Watch Your Accent"
+    cards:
+      - title: "Watch Your Accent"
+        body: |-
+          Each of the nine words covered up to this point serves as a warning sign of a kind of error effective speakers have learned to avoid.
+
+          *Comparable*, for example, is one of a group of demons ending in *-able* that cause the most plaguing type of accent trouble. Your final and complete conquest of this group will require patience and tenacity. Accenting the indicated syllable may at first seem almost superhumanly difficult; but it will become gradually easier with practice. Listen to yourself carefully, or ask a friend to listen to you, as you say the following words aloud; make sure you are accenting the capitalized syllable and not the one after it.
+
+          1. COM'-parable
+          2. PREF'-erable
+          3. AM'-icable
+          4. HOS'-pitable
+          5. AD'-mirable
+          6. LAM'-entable
+          7. EX'-plicable
+          8. AP'-plicable
+          9. FOR'-midable
+          10. REP'-utable
+          11. DES'-picable
+
+          In other forms of these words, the accent remains on the same syllable: *in*-COM'-*parable*, *in*-HOS'-*pitable*, *dis*-REP'-*utable*, COM'-*parability*, etc.
+
+          The one exception to the group, *disputable*, may be pronounced with the accent either on the first or on the second syllable: DIS'-*putable* or *dis*-PU'-*table*. So also the negative form: *in*-DIS'-*putable* or *indis*-PU'-*table*.
+
+          When you are sure you have all these words under effortless control, try reading these phrases aloud. Can you, without any great difficulty, keep the accent where it belongs?
+
+          - admirable results
+          - amicable settlement
+          - lamentable error
+          - despicable dishonesty
+          - applicable examples

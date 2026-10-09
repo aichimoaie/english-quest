@@ -1,6 +1,4 @@
-"""Days 1 to 5 and 11 to 14 must run in the approved screen order.
-
-Each test's intro and items must be in place.
+"""Checked days must run in the approved screen order, with each test's intro and items in place.
 
 The expected screens below are the owner's confirmed model: a text screen for each day intro or
 reading text, and a test screen for each test. A test screen's results screen is implied, so the
@@ -49,6 +47,51 @@ APPROVED_FLOW: dict[int, list[tuple[str, str]]] = {
         ("text", "d05-screen-name-behind-word"),
         ("text", "d05-screen-did-you-know"),
         ("test", "d05-test-think-of-words"),
+    ],
+    6: [
+        ("text", "d06-screen-part-two"),
+        ("text", "d06-screen-introduction"),
+        ("test", "d06-test-pronunciation"),
+        ("text", "d06-screen-say-it-aloud"),
+        ("text", "d06-screen-watch-accent"),
+    ],
+    7: [
+        ("text", "d07-screen-introduction"),
+        ("text", "d07-screen-say-clearly"),
+        ("text", "d07-screen-dont-say-too-much"),
+        ("text", "d07-screen-sound-h-beware-g"),
+        ("text", "d07-screen-untwisted"),
+        ("text", "d07-screen-get-straight-ile"),
+    ],
+    8: [
+        ("text", "d08-screen-introduction"),
+        ("text", "d08-screen-misplace-accents"),
+        ("text", "d08-screen-deceptive-ch"),
+        ("text", "d08-screen-straight-on-a"),
+        ("text", "d08-screen-unaffected"),
+        ("test", "d08-test-learning"),
+    ],
+    9: [
+        ("text", "d09-screen-introduction"),
+        ("text", "d09-screen-its-murder"),
+        ("text", "d09-screen-illogical"),
+        ("text", "d09-screen-most-mispronounced"),
+        ("test", "d09-test-speller"),
+    ],
+    10: [
+        ("text", "d10-screen-part-three"),
+        ("text", "d10-screen-introduction"),
+        ("test", "d10-test-vocabulary"),
+        ("text", "d10-screen-how-to-make-words"),
+        ("text", "d10-screen-step-1"),
+        ("text", "d10-screen-step-2"),
+        ("text", "d10-screen-step-3"),
+        ("test", "d10-test-true-false"),
+        ("test", "d10-test-same-opposite"),
+        ("test", "d10-test-whats-the-word"),
+        ("text", "d10-screen-reading-plan"),
+        ("text", "d10-screen-recommended-readings"),
+        ("text", "d10-screen-lifelong"),
     ],
     11: [
         ("text", "d11-screen-introduction"),
@@ -104,6 +147,13 @@ EXPLAINED_TESTS = {
     "d04-test-11",
     "d05-test-fluency",
     "d05-test-think-of-words",
+    "d06-test-pronunciation",
+    "d08-test-learning",
+    "d09-test-speller",
+    "d10-test-vocabulary",
+    "d10-test-true-false",
+    "d10-test-same-opposite",
+    "d10-test-whats-the-word",
     "d14-test-whats-wrong",
 }
 
@@ -147,6 +197,15 @@ def test_day_three_has_no_closing_text_after_its_last_test() -> None:
 
     assert isinstance(day.screens[-1], models.TestScreen)
     assert day.screens[-1].id == "d03-test-9"
+
+
+def test_day_six_closes_with_reading_text_after_its_last_test() -> None:
+    day = _days()[6]
+    last_test = [screen for screen in day.screens if isinstance(screen, models.TestScreen)][-1]
+
+    assert last_test.id == "d06-test-pronunciation"
+    assert isinstance(day.screens[-1], models.TextScreen)
+    assert day.screens[-1].id == "d06-screen-watch-accent"
 
 
 def test_day_four_test_ten_is_self_check_with_no_score() -> None:

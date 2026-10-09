@@ -18,7 +18,7 @@ export function DayOverview({ day: dayNumber }: { day: number }) {
   const detail = day.data;
   const locked = detail.status === "locked";
   const items = dayItems(detail.screens);
-  const hasContent = items.length > 0;
+  const hasContent = detail.screens.length > 0;
   const chip = detail.status === "done" ? "ok" : detail.status === "current" ? "brand" : "";
   const chipText = detail.status === "done" ? "Done" : detail.status === "current" ? "Today" : "Locked";
 
@@ -49,7 +49,7 @@ export function DayOverview({ day: dayNumber }: { day: number }) {
       <section className="card stack" style={{ gap: "var(--s-2)" }}>
         <h2 className="t-label">Today’s goal</h2>
         <p className="t-body">{detail.objective}</p>
-        {hasContent ? <p className="t-small">{items.length} questions · you need 70% in one run to finish the day</p> : null}
+        {items.length > 0 ? <p className="t-small">{items.length} questions · you need 70% in one run to finish the day</p> : null}
       </section>
 
       {locked ? (

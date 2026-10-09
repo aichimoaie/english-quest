@@ -150,6 +150,7 @@ const days = dayFiles.map((name) => {
   return {
     dayNumber: source.day as number,
     title: source.title as string,
+    objective: source.objective as string,
     vocabulary: (source.vocabulary ?? []).map((item: { word: string; definition: string; example: string }) => ({
       word: item.word,
       definition: item.definition,
@@ -174,6 +175,7 @@ export interface GeneratedAnswer {
 export interface GeneratedDay {
   dayNumber: number;
   title: string;
+  objective: string;
   vocabulary: VocabularyItem[];
   /** The day's screens in order. Test screens hold their items. */
   screens: DayScreen[];

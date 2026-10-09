@@ -8,6 +8,7 @@
 # Status: draft until a human reviewer approves it (PRD section 11).
 day: 1
 title: "Test Your Pronunciation"
+objective: "Choose the preferred pronunciation of common, educated and unfamiliar words."
 
 vocabulary:
   - word: "epitome"

@@ -6,7 +6,8 @@
  * It mirrors the server rules that matter to the UI: days unlock in order, a run
  * completes a day at 70%, scoring uses each item's first answer in a run, and
  * the server returns `expected` only after an answer is recorded. Self-check
- * items are shown but not scored.
+ * items are shown but not scored. A day with no test screens has no score and
+ * completes when its run is finished.
  */
 import { ApiError } from "@/lib/api/errors";
 import type {
@@ -28,7 +29,7 @@ import type { GeneratedAnswer } from "./generated/curriculum";
 import { PASS_MARK_PCT, TOTAL_DAYS } from "@/lib/course";
 import { dayItems, dayReviewItems } from "@/lib/day-screens";
 import { isScored, scorePercent } from "@/lib/scoring";
-import { CONTENT_BY_DAY, DAY_OUTLINE, DEV_FIXTURE_EXERCISES } from "./days";
+import { CONTENT_BY_DAY, DEV_FIXTURE_EXERCISES, PLACEHOLDER_OUTLINE } from "./days";
 
 const ANSWERS: Record<string, GeneratedAnswer> = Object.assign({}, DEV_ANSWERS, ...Object.values(CONTENT_BY_DAY).map((day) => day.answers));
 
@@ -73,8 +74,13 @@ function isUnlocked(day: number): boolean {
   return statusOf(day) !== "locked";
 }
 
+function outlineFor(day: number): { title: string; objective: string } {
+  const content = CONTENT_BY_DAY[day];
+  return content ? { title: content.title, objective: content.objective } : PLACEHOLDER_OUTLINE[day];
+}
+
 function summaryFor(day: number): DaySummary {
-  const entry = DAY_OUTLINE[day - 1];
+  const entry = outlineFor(day);
   return {
     dayNumber: day,
     title: entry.title,
@@ -110,8 +116,8 @@ function startRun(day: number): StartedAttempt {
   if (status === "locked") {
     throw problem(409, "Day is locked", `Finish day ${day - 1} to unlock day ${day}.`);
   }
-  if (exercisesFor(day).length === 0) {
-    throw problem(422, "No exercises yet", `Day ${day} has no published exercises.`);
+  if (!CONTENT_BY_DAY[day]) {
+    throw problem(422, "No screens yet", `Day ${day} has no published screens.`);
   }
   const attemptId = `att_${state.nextRunId++}`;
   state.runs.set(attemptId, { day, runAnswers: new Map() });
@@ -147,14 +153,17 @@ function completeRun(attemptId: string): CompletedAttempt {
   if (!run) {
     throw problem(404, "Attempt not found", `There is no attempt ${attemptId}.`);
   }
-  const scorePct = scorePercent(exercisesFor(run.day), (exercise) => run.runAnswers.get(exercise.id)?.isCorrect === true);
-  const passed = scorePct >= PASS_MARK_PCT;
+  const exercises = exercisesFor(run.day);
+  const scorePct = exercises.length === 0 ? null : scorePercent(exercises, (exercise) => run.runAnswers.get(exercise.id)?.isCorrect === true);
+  const passed = scorePct === null || scorePct >= PASS_MARK_PCT;
 
   if (passed) {
     state.completedDays.add(run.day);
     state.longestStreak = Math.max(state.longestStreak, state.completedDays.size);
   }
-  state.bestScorePct.set(run.day, Math.max(scorePct, state.bestScorePct.get(run.day) ?? 0));
+  if (scorePct !== null) {
+    state.bestScorePct.set(run.day, Math.max(scorePct, state.bestScorePct.get(run.day) ?? 0));
+  }
   state.runs.delete(attemptId);
 
   return {

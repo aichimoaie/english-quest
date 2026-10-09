@@ -21,7 +21,7 @@ Success for the MVP means the learner completes the 30 days on the app and can s
 
 - The course has 30 days. Each day has a fixed set of screens: intro text, then tests with their exercises and reading text, in the book's order. Session length is **Open** (section 18).
 - **Order:** days unlock in order. Day N+1 unlocks only after Day N is complete.
-- **Completion:** a day counts as complete when one run of its tests reaches 70% (see section 6).
+- **Completion:** a day counts as complete as section 6 defines (see section 6).
 - **Missed days:** a missed calendar day pauses the schedule and resets the current streak. The learner resumes at the next unlocked day.
 - **Retries:** the learner can retry any exercise, and can start a new run of the day, without limit. Retries give feedback and never change accuracy (section 6).
 - **Content:** every day also includes a short review of earlier days. Whether each day has one focus area is **Open** (section 18).
@@ -44,7 +44,7 @@ Each type has one line of definition and one scoring rule. The scoring rules are
 
 | # | Type | Definition | Scoring rule |
 |---|---|---|---|
-| 1 | Multiple choice | Pick the one correct option from three or four written options. | 1 point if the first attempt is correct. |
+| 1 | Multiple choice | Pick the one correct option from two to five written options. | 1 point if the first attempt is correct. |
 | 2 | Fill in the blank | Type the missing word or short phrase in a sentence. | 1 point if the first attempt matches an accepted answer (case and surrounding spaces ignored; everything else must match). |
 | 3 | Choose the correct word | Select the word that fits a sentence from a row of similar-looking words. | 1 point if the first attempt is correct. |
 | 4 | Spelling correction | Retype a word or sentence that contains one misspelling, with the error fixed. | 1 point if the first attempt matches the correct spelling (case and surrounding spaces ignored; everything else must match). |
@@ -63,7 +63,7 @@ Each type has one line of definition and one scoring rule. The scoring rules are
 - **Points:** each scored item gives points as shown in section 5. Within a run, items are scored on the **first attempt only**.
 - **Run:** one pass through a day's test items. Each new run is scored separately, and any run that reaches 70% completes the day.
 - **Accuracy:** accuracy = points earned on each item's first-ever answer ÷ points available on those items, shown as a percentage. A repeat of an item, in any run, never counts. Daily review answers are practice only and do not change accuracy.
-- **Day completion threshold: 70%.** A day is complete when one run reaches at least 70%. The run uses the day's test items; daily review and pronunciation practice do not count toward it.
+- **Day completion threshold: 70%.** A day is complete when one run reaches at least 70%. The run uses the day's test items; daily review and pronunciation practice do not count toward it. A day with no test screens has no score and is complete once the learner reaches its day-end screen.
 - **Skill mastery:** the 80% skill-mastery threshold and its measurement window are **Open** (section 18).
 - **Vocabulary learned:** a word counts as learned when it is answered correctly on two separate days (section 10).
 - **Feedback:** the learner sees the result of each item immediately. On tests that show explanations, the feedback includes a short English explanation (see [content/README.md](../../content/README.md#screen-flow)).

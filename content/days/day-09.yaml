@@ -1,0 +1,228 @@
+# Day 9: Just for Fun (II).
+# Source: reference book, Ninth Day (pp. 50-56).
+# Transcribed from pages/page52.md through page55.md, in the book's order. Page 56 is blank.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref) were added for this app. origin is "original" only because the schema requires that value.
+# Parts I, II and III are reading text and are kept as text screens, with the book's keys as printed.
+# Part IV is a test of 10 items. Accepted answers are the book's key, one letter per item.
+# The book's tables are written as numbered lists. Page-break headers and "continued" notes are omitted.
+# Status: draft until a human reviewer approves it (PRD section 11).
+day: 9
+title: "Just for Fun (II)"
+objective: "Have fun with tricky words and find out what kind of speller you are."
+
+vocabulary:
+  - word: "fratricide"
+    definition: "the killing of one's brother or sister"
+    example: "The novel describes a fratricide between two brothers."
+    audio_ref: "d09-vocab-fratricide"
+  - word: "matricide"
+    definition: "the killing of one's mother"
+    example: "Matricide is one of the most serious crimes in the story."
+    audio_ref: "d09-vocab-matricide"
+  - word: "regicide"
+    definition: "the killing of a king"
+    example: "The play is about a regicide that changed the country."
+    audio_ref: "d09-vocab-regicide"
+  - word: "genocide"
+    definition: "the killing of whole groups of people of one race or nation"
+    example: "The court studied the history of the genocide."
+    audio_ref: "d09-vocab-genocide"
+  - word: "vermicide"
+    definition: "a substance that kills worms, especially intestinal parasites"
+    example: "The farmer bought a vermicide for the sick sheep."
+    audio_ref: "d09-vocab-vermicide"
+
+screens:
+  - kind: "text"
+    id: "d09-screen-introduction"
+    title: "Just for Fun (II)"
+    cards:
+      - title: "Ninth Day"
+        body: "JUST FOR FUN (II)"
+  - kind: "text"
+    id: "d09-screen-its-murder"
+    title: "I. It's Murder!"
+    cards:
+      - title: "It's Murder!"
+        body: |-
+          Killing anyone is generally illegal, usually unethical, and almost always unpleasant. But murder goes back at least as far as Cain and Abel and even in the most civilized of countries is always part of the current scene.
+
+          Here are 10 of the most popular victims of murder in one column, and the words that identify the type of killing in another column. How successfully can you match the word with the deed?
+
+          1. whole groups of races of people
+          2. one's mother
+          3. one's father
+          4. one's brother
+          5. one's sister
+          6. either parent or anyone in a parental capacity
+          7. one's king
+          8. any human being
+          9. one's wife
+          10. worms, especially the intestinal, parasitic variety
+
+          Options: (a) sororicide, (b) uxoricide, (c) vermicide, (d) homicide, (e) parricide, (f) fratricide, (g) genocide, (h) patricide, (i) regicide, (j) matricide
+
+          **KEY:** 1-g, 2-j, 3-h, 4-f, 5-a, 6-e, 7-i, 8-d, 9-b, 10-c.
+  - kind: "text"
+    id: "d09-screen-illogical"
+    title: "II. Illogical Expressions"
+    cards:
+      - title: "Illogical Expressions"
+        body: |-
+          - COMMENCEMENT comes at the END of a college course.
+          - We SAIL to Europe by STEAMship.
+          - Some airplanes can LAND on WATER.
+          - A hospital is MANNED by WOMEN.
+          - What was in yesterday's paper is OLD NEWS.
+          - Something GROWS SMALLER.
+  - kind: "text"
+    id: "d09-screen-most-mispronounced"
+    title: "III. The 13 Words Most Often Mispronounced"
+    cards:
+      - title: "The 13 Words Most Often Mispronounced"
+        body: |-
+          There are many hundreds of thousands of words in our language—and though few of us know or use all of them, it is likely that thousands of different ones pass our lips in a week's conversation.
+
+          Here's what is startling—out of these thousands of words in daily use, exactly 13 are more frequently mispronounced by the average speaker than any other words, common or uncommon, in the entire English language.
+
+          This statistic has been discovered through investigations made in vocabulary-improvement classes in the Division of General Education of New York University; and term after term, with different students, the result is confirmed—it's always the same thirteen words that cause the most trouble.
+
+          You will find this most-sinned-against baker's dozen of English words on the next page—and a chance to find out whether you tend to make the same mistakes as most other people. Check the pronunciation you honestly and habitually use, then compare your results with the key below. If you're average, you should get no more than 4 or 5 right; 6 to 8 correct choices will indicate a high degree of linguistic sophistication; 9 to 12 will mean that your command of English is remarkable; and a perfect score will mark you as unique, no less.
+
+          1. orgy (drunken revelry) — (a) OR'-jee; (b) OR'-gee
+          2. human — (a) YOO'-mən; (b) HYOO'-mən
+          3. forte (strong point) — (a) FOR'-tay; (b) FORT
+          4. genuine — (a) JEN'-yoo-win; (b) JEN'-yoo-wine
+          5. acumen (mental keenness) — (a) ə-KYOO'-mən; (b) AK'-yoo-mən
+          6. admirable — (a) ad-MIRE'-ə-bəl; (b) AD'-mə-rə-bəl
+          7. mischievous — (a) mis-CHEE'-vee-əs; (b) MIS'-chə-vəs
+          8. radiator — (a) RAY'-dee-ay-tər; (b) RAD'-ee-ay-tər
+          9. grimace (facial contortion) — (a) grə-MAYCE'; (b) GRIM'-ass
+          10. impious (against religion) — (a) im-PYE'-əs; (b) IM'-pee-əs
+          11. finis (the end) — (a) fee-NEE'; (b) FIN'-iss; (c) FYE'-niss
+          12. naïveté (artlessness) — (a) NAY'-və-tee; (b) nah-eev-TAY'; (c) nay-VET'
+          13. integral (essential) — (a) IN'-tə-grəl; (b) in-TEG'-rəl; (c) in-TEE'-grəl
+
+          **KEY:** 1-a, 2-b, 3-b, 4-a, 5-a, 6-b, 7-b, 8-a, 9-a, 10-b, 11-c, 12-b, 13-a.
+  - kind: "test"
+    id: "d09-test-speller"
+    title: "IV. What Kind of Speller Are You?"
+    intro: |-
+      English spelling is no cinch, and the 10 demons that follow may throw you if you don't keep an eye peeled.
+
+      Check the pattern you trust, then see below for answers.
+    explain: true
+    items:
+      - id: "d09-spell-01"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 1: embarrassing. Which spelling do you trust?"
+        choices: ["embarrassing", "embarassing", "embarrasing"]
+        answer: "embarrassing"
+        explanation: "Answer: (a)."
+      - id: "d09-spell-02"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 2: superintendent. Which spelling do you trust?"
+        choices: ["superintendent", "superintendant"]
+        answer: "superintendent"
+        explanation: "Answer: (a)."
+      - id: "d09-spell-03"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 3: category. Which spelling do you trust?"
+        choices: ["catagory", "category"]
+        answer: "category"
+        explanation: "Answer: (b)."
+      - id: "d09-spell-04"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 4: supersede. Which spelling do you trust?"
+        choices: ["supercede", "superceed", "supersede"]
+        answer: "supersede"
+        explanation: "Answer: (c)."
+      - id: "d09-spell-05"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 5: anoint. Which spelling do you trust?"
+        choices: ["annoint", "anoint"]
+        answer: "anoint"
+        explanation: "Answer: (b)."
+      - id: "d09-spell-06"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 6: absence. Which spelling do you trust?"
+        choices: ["absence", "abscence"]
+        answer: "absence"
+        explanation: "Answer: (a)."
+      - id: "d09-spell-07"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 7: occurrence. Which spelling do you trust?"
+        choices: ["occurrance", "occurrence", "occurence"]
+        answer: "occurrence"
+        explanation: "Answer: (b)."
+      - id: "d09-spell-08"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 8: exhilarate. Which spelling do you trust?"
+        choices: ["exhillarate", "exhilirate", "exhilarate"]
+        answer: "exhilarate"
+        explanation: "Answer: (c)."
+      - id: "d09-spell-09"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 9: despair. Which spelling do you trust?"
+        choices: ["dispair", "despair"]
+        answer: "despair"
+        explanation: "Answer: (b)."
+      - id: "d09-spell-10"
+        type: "multiple_choice"
+        learning_area: "Spelling"
+        origin: "original"
+        topics: ["spelling.word_roots"]
+        difficulty: 2
+        points: 1
+        prompt: "Test IV, item 10: dissipate. Which spelling do you trust?"
+        choices: ["dissipate", "dissapate", "disippate"]
+        answer: "dissipate"
+        explanation: "Answer: (a). (See Part IV to learn special tricks for improving your spelling.)"

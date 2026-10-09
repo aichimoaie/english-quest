@@ -88,7 +88,7 @@ def _normal(text: str) -> str:
 
 
 class _ChoiceExercise(ScoredExercise):
-    choices: list[NonBlank] = Field(min_length=2, max_length=4)
+    choices: list[NonBlank] = Field(min_length=2, max_length=5)
     answer: NonBlank
 
     @model_validator(mode="after")
@@ -198,6 +198,7 @@ Screen = Annotated[TextScreen | TestScreen, Field(discriminator="kind")]
 class Day(_Strict):
     day: int = Field(ge=DAY_MIN, le=DAY_MAX)
     title: NonBlank
+    objective: NonBlank
     vocabulary: list[VocabularyItem] = Field(min_length=1, max_length=12)
     screens: list[Screen] = Field(min_length=1)
 

@@ -21,7 +21,7 @@
         "recognition_options": {
           "type": "array",
           "minItems": 2,
-          "maxItems": 3,
+          "maxItems": 5,
           "items": {
             "type": "object",
             "required": [

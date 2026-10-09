@@ -32,6 +32,7 @@ screen that follows them.
 
 ```yaml
 day: 1                       # 1 to 30, must match the file name day-01.yaml
+objective: ...               # one line: what the learner can do after the day
 title: Greetings and the verb "be"
 vocabulary:                  # 1 to 12 words
   - word: brother
@@ -83,7 +84,9 @@ The learner meets a day's screens in order:
    day result.
 
 A test with no scored items (for example, all `self_check`) has no score. Its
-results screen says "Your answers are in" and notes each answer instead.
+results screen says "Your answers are in" and notes each answer instead. A day
+with no test screens has no score either; it is complete once the learner reaches
+its day-end screen (completion rules: [PRD section 6](../docs/prd/english-quest-prd.md)).
 
 ## Learning areas
 
@@ -96,7 +99,7 @@ The seven areas from PRD section 4. Use the exact spelling:
 
 | `type` | Fields | Rule |
 |---|---|---|
-| `multiple_choice` | `choices` (2 to 4, unique), `answer` | `answer` is one of `choices` |
+| `multiple_choice` | `choices` (2 to 5, unique), `answer` | `answer` is one of `choices` |
 | `listening_comprehension` | `audio_text`, `choices`, `answer` | As above. `audio_text` is the script the audio reads |
 | `pronunciation_practice` | `audio_text`, `choices`, `answer` | Recognition only |
 | `pronunciation_self_rating` | `audio_text` | Unscored. No `points`, `answer`, `choices` or `accepted`. The learner says the sentence aloud and rates it |
@@ -132,9 +135,9 @@ follow from them:
 - **Original wording only.** Write every word, example and explanation for this
   app. Do not copy from any published book, including the book named in the
   project brief. Do not copy the prototype's text either.
-  - **Exception: Days 1 to 5 and Days 11 to 14.** These are the reference book's
-    text, copied verbatim with the owner's written approval. Each file's header says
-    so. Do not use them as a model for new days.
+  - **Exception: Days 1 to 14.** These are the reference book's text, copied
+    verbatim with the owner's written approval. Each file's header says so. Days 15
+    and later must use original wording.
 - **English-only explanations.** Explanations use simple English (PRD section 2).
 - **Human review before publication.** Content is drafted with an LLM, then a
   person reviews it (PRD section 11). A file's status is draft until that review
@@ -145,14 +148,18 @@ follow from them:
 ## Reconciliation with content/schema
 
 The validator mirrors exercise envelope v1 from the exercise engine report
-(section 4). The JSON Schemas under `content/schema/` are not on main yet, so
-this file is the working reference for now. Before those schemas land, check
-the following:
+(section 4). The JSON Schemas under `content/schema/` are on main, but the
+content validator does not check day files against them yet. Until it does,
+the validator's own rules are the working reference. The schemas and the
+validator still differ in these places:
 
-- Field names and kind names match `content/schema`. Day 1 uses the kind names
-  in the table above. `vocabulary_matching` is the kind name the engine report
-  gives for vocabulary matching.
-- Limits match: choices 2 to 4, points 1 to 10, topics 1 to 4 items.
+- Field names and kind names are shared, but the schemas for
+  `listening_comprehension` and `pronunciation_practice` use a different shape
+  from the authoring format (`options` with `id` and `text`, and
+  `recognition_options` instead of `choices`). Day 1 uses the kind names in the
+  table above. `vocabulary_matching` is the kind name the engine report gives
+  for vocabulary matching.
+- Limits match: choices 2 to 5, points 1 to 10, topics 1 to 4 items.
 - The schema has a place for `kind_version` and `status`. The day files omit both,
   because the authoring format does not carry them yet.
 - The schema has a taxonomy file for `topics`. `content/tags.yaml` is the tag
@@ -161,8 +168,8 @@ the following:
   `apps/api/tests/curriculum/test_tagged_day_content.py` check the other
   tags against `tags.yaml`.
 
-Once the schemas exist, the validator should validate each file against them as
-well, and `content/days/day-01.yaml` should pass both checks.
+Once the validator checks each file against the schemas, `content/days/day-01.yaml`
+should pass both checks.
 
 ## Adding a day
 

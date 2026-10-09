@@ -153,7 +153,8 @@ export interface AnswerResult {
 }
 
 export interface CompletedAttempt {
-  scorePct: number;
+  /** Null for a day with no test screens, which has no score. */
+  scorePct: number | null;
   status: "passed" | "not_passed";
   dayStatus: DayStatus;
   nextDay: number | null;

@@ -1,0 +1,812 @@
+# Day 10: A Simple Program for Vocabulary Improvement.
+# Source: reference book, Part III divider and Tenth Day (pp. 55-75).
+# Transcribed from pages/page57.md through page75.md, in the book's order.
+# Imported verbatim at the owner's written instruction. The owner confirmed the rights to this text.
+# This departs from the content rule in content/README.md ("Original wording only").
+# App fields the book does not supply (difficulty, topics, points, vocabulary definition, example,
+# audio_ref) were added for this app. origin is "original" only because the schema requires that value.
+# Take This Vocabulary Test has 25 items. Accepted answers are the book's key, one letter per item.
+# Exercises 1 to 3 have their own keys. Step 1's eight words have no key in the book, so they are text.
+# The book's tables are written as numbered lists. Page-break headers and "continued" notes are omitted.
+# Status: draft until a human reviewer approves it (PRD section 11).
+day: 10
+title: "A Simple Program for Vocabulary Improvement"
+objective: "Build your vocabulary with a simple plan you can follow every day."
+
+vocabulary:
+  - word: "enervate"
+    definition: "to weaken or drain the strength of someone or something"
+    example: "A long, hot walk can enervate even a fit person."
+    audio_ref: "d10-vocab-enervate"
+  - word: "sycophant"
+    definition: "a person who flatters someone important to gain favor"
+    example: "The sycophant laughed at every joke the manager made."
+    audio_ref: "d10-vocab-sycophant"
+  - word: "introvert"
+    definition: "a person who is more interested in their own thoughts and feelings than in others"
+    example: "She is a quiet introvert who enjoys reading alone."
+    audio_ref: "d10-vocab-introvert"
+  - word: "altruistic"
+    definition: "showing concern for the welfare of others before one's own"
+    example: "His altruistic work helped many families in the town."
+    audio_ref: "d10-vocab-altruistic"
+  - word: "disparage"
+    definition: "to speak of someone or something as unimportant or of little value"
+    example: "It is unkind to disparage a friend's hard work."
+    audio_ref: "d10-vocab-disparage"
+  - word: "anathema"
+    definition: "something that people strongly hate or reject"
+    example: "Cheating is anathema to the members of the team."
+    audio_ref: "d10-vocab-anathema"
+
+screens:
+  - kind: "text"
+    id: "d10-screen-part-three"
+    title: "Part III: Improve Your Vocabulary!"
+    cards:
+      - title: "Improve Your Vocabulary!"
+        body: |-
+          Vocabulary is important! Success not only in school and college, but also in one's professional and business life, has an eminently logical connection with the number of words one knows and can recognize and use.
+
+          So in Part III we get down to some intensive work in vocabulary-building.
+  - kind: "text"
+    id: "d10-screen-introduction"
+    title: "A Simple Program for Vocabulary Improvement"
+    cards:
+      - title: "Tenth Day"
+        body: "To increase your vocabulary at a prodigious rate, you must learn to be on the alert for new words."
+      - title: "Vocabulary Is Important!"
+        body: |-
+          In our modern world, the person with a good vocabulary has a better chance of success, other things being equal—a better chance of success not only in his school career but also when he gets out into the business or professional world.
+
+          Let us take a look at some of the evidence that points to this intimate relationship between vocabulary and scholastic, business, and professional success.
+
+          Research has established that the person who scores high in vocabulary is likely to possess above-average mental endowment. A vocabulary test provides as reliable a measure of intelligence as any combination of the three units in the Stanford-Binet I.Q. tests, according to Professor Lewis S. Terman, one of the foremost authorities in the field.
+
+          At the University of Illinois, entering students are routinely given a short vocabulary test. From the results, an accurate prediction can be made of probable academic success — or lack of success — over the entire four-year college course.
+
+          At many other universities, groups of freshmen are put into experimental classes for the sole purpose of increasing their knowledge of English words. These students do far better in their sophomore, junior, and senior years than groups who have not received vocabulary training.
+
+          The Human Engineering Laboratory, an institution devoted to the investigation of people's aptitudes, tested the vocabularies of 100 young men in the graduating class of the Business School of a large university. Five years later, a survey of the careers of these 100 students revealed this spectacular pair of statistics: (1) every senior who had scored in the upper 10 percent of the group had become an executive; (2) not a single young man whose score was in the lowest 25 percent had attained an executive position.
+
+          The Laboratory, after testing the vocabularies of thousands of people in all age groups and in all walks of life, found that *the only common characteristic of successful people in this country was an unusual grasp of the meanings of words;* that the men and women drawing the highest salaries consistently made the highest scores. Consider very thoughtfully the explanation offered by Dr. Johnson O'Connor, director of the Laboratory:
+
+          "Why do large vocabularies characterize executives and possibly outstanding men and women in other fields? The final answer seems to be that words are the instruments by means of which men and women grasp the thoughts of others and with which they do much of their own thinking. They are the tools of thought."
+
+          The pages that follow will blueprint for you the most effective and productive techniques for permanently increasing your stock of the instruments of thinking and for sharpening your ability to grasp the thoughts of others. They will show you how to become more persuasive.
+
+          Systematically increasing your vocabulary, you will discover, can bring you unexpected dividends of personal satisfaction and self-fulfillment; it can be pleasurable and exciting perhaps beyond your fondest hopes.
+  - kind: "test"
+    id: "d10-test-vocabulary"
+    title: "Take This Vocabulary Test"
+    intro: |-
+      You are probably curious to learn how your own vocabulary stacks up against that of other people.
+
+      To find out, take this simple 10-minute test.
+
+      Below you will see 25 phrases, each containing an italicized word. Check what you consider the correct definition of every word with which you have any familiarity, however slight; omit an answer, however, if the italicized word is totally unfamiliar.
+    explain: true
+    items:
+      - id: "d10-vocab-test-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 1
+        points: 1
+        prompt: "Item 1: *disheveled* appearance. What does the italicized word mean?"
+        choices: ["untidy", "fierce", "foolish", "unhappy"]
+        answer: "untidy"
+        explanation: "Answer: (a)."
+      - id: "d10-vocab-test-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 1
+        points: 1
+        prompt: "Item 2: a *baffling* problem. What does the italicized word mean?"
+        choices: ["difficult", "simple", "puzzling", "old", "new"]
+        answer: "puzzling"
+        explanation: "Answer: (c)."
+      - id: "d10-vocab-test-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 3: extremely *lenient* parents. What does the italicized word mean?"
+        choices: ["tall", "not strict", "wise", "neglectful", "severe"]
+        answer: "not strict"
+        explanation: "Answer: (b)."
+      - id: "d10-vocab-test-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 4: an *audacious* attempt. What does the italicized word mean?"
+        choices: ["useless", "bold", "unwise", "crazy", "necessary"]
+        answer: "bold"
+        explanation: "Answer: (b)."
+      - id: "d10-vocab-test-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 5: *agile* climber. What does the italicized word mean?"
+        choices: ["lively", "tired", "skillful", "careful", "fast"]
+        answer: "lively"
+        explanation: "Answer: (a)."
+      - id: "d10-vocab-test-06"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 6: *prevalent* disease. What does the italicized word mean?"
+        choices: ["dangerous", "catching", "childhood", "fatal", "widespread"]
+        answer: "widespread"
+        explanation: "Answer: (e)."
+      - id: "d10-vocab-test-07"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 7: *ominous* report. What does the italicized word mean?"
+        choices: ["loud", "threatening", "untrue", "serious", "unpleasant"]
+        answer: "threatening"
+        explanation: "Answer: (b)."
+      - id: "d10-vocab-test-08"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 8: an *incredible* story. What does the italicized word mean?"
+        choices: ["true", "interesting", "well-known", "unbelievable", "unknown"]
+        answer: "unbelievable"
+        explanation: "Answer: (d)."
+      - id: "d10-vocab-test-09"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 9: will *supersede* the old law. What does the italicized word mean?"
+        choices: ["enforce", "specify penalties for", "take the place of", "repeal", "continue in force"]
+        answer: "take the place of"
+        explanation: "Answer: (c)."
+      - id: "d10-vocab-test-10"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 10: an *anonymous* donor. What does the italicized word mean?"
+        choices: ["generous", "stingy", "considerate", "one whose name is not known", "reluctant"]
+        answer: "one whose name is not known"
+        explanation: "Answer: (d)."
+      - id: "d10-vocab-test-11"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 11: an *indefatigable* worker. What does the italicized word mean?"
+        choices: ["well-paid", "conscientious", "courteous", "tireless", "pleasant"]
+        answer: "tireless"
+        explanation: "Answer: (d)."
+      - id: "d10-vocab-test-12"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 12: a *loquacious* woman. What does the italicized word mean?"
+        choices: ["motherly", "attractive", "homely", "seductive", "talkative"]
+        answer: "talkative"
+        explanation: "Answer: (e)."
+      - id: "d10-vocab-test-13"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 13: living in *affluence*. What does the italicized word mean?"
+        choices: ["filth", "countrified surroundings", "fear", "wealth", "poverty"]
+        answer: "wealth"
+        explanation: "Answer: (d)."
+      - id: "d10-vocab-test-14"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Item 14: to *simulate* interest. What does the italicized word mean?"
+        choices: ["pretend", "feel", "lose", "stir up", "ask for"]
+        answer: "pretend"
+        explanation: "Answer: (a)."
+      - id: "d10-vocab-test-15"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 15: a *congenital* deformity. What does the italicized word mean?"
+        choices: ["disfiguring", "crippling", "slight", "incurable", "occurring at or during birth"]
+        answer: "occurring at or during birth"
+        explanation: "Answer: (e)."
+      - id: "d10-vocab-test-16"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 16: took an *unequivocal* stand. What does the italicized word mean?"
+        choices: ["indecisive", "unexplainable", "unexpected", "definite", "hard to understand"]
+        answer: "definite"
+        explanation: "Answer: (d)."
+      - id: "d10-vocab-test-17"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 17: *vicarious* enjoyment. What does the italicized word mean?"
+        choices: ["complete", "unspoiled", "occurring from a feeling of identification with another", "long-continuing", "temporary"]
+        answer: "occurring from a feeling of identification with another"
+        explanation: "Answer: (c)."
+      - id: "d10-vocab-test-18"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 18: *anachronous* garb. What does the italicized word mean?"
+        choices: ["absurd", "religious", "belonging to a different time", "out of place", "unusual"]
+        answer: "belonging to a different time"
+        explanation: "Answer: (c)."
+      - id: "d10-vocab-test-19"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 19: his *iconoclastic* phase. What does the italicized word mean?"
+        choices: ["artistic", "sneering at tradition", "troubled", "juvenile", "emotional"]
+        answer: "sneering at tradition"
+        explanation: "Answer: (b)."
+      - id: "d10-vocab-test-20"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 20: *semantic* confusion. What does the italicized word mean?"
+        choices: ["relating to the meanings of words", "relating to hearing", "relating to emotions", "relating to mathematics", "relating to vision"]
+        answer: "relating to the meanings of words"
+        explanation: "Answer: (a)."
+      - id: "d10-vocab-test-21"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 21: *cavalier* treatment. What does the italicized word mean?"
+        choices: ["polite", "high-handed", "negligent", "incomplete", "expensive"]
+        answer: "high-handed"
+        explanation: "Answer: (b)."
+      - id: "d10-vocab-test-22"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 22: an *anomalous* situation. What does the italicized word mean?"
+        choices: ["dangerous", "intriguing", "uncommon", "pleasant", "tragic"]
+        answer: "uncommon"
+        explanation: "Answer: (c)."
+      - id: "d10-vocab-test-23"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 23: his *laconic* reply. What does the italicized word mean?"
+        choices: ["immediate", "truthful", "terse and meaningful", "unintelligible", "angry"]
+        answer: "terse and meaningful"
+        explanation: "Answer: (c)."
+      - id: "d10-vocab-test-24"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 24: an unusually *gregarious* person. What does the italicized word mean?"
+        choices: ["calm", "company-loving", "untrustworthy", "vicious", "self-sacrificing"]
+        answer: "company-loving"
+        explanation: "Answer: (b)."
+      - id: "d10-vocab-test-25"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 3
+        points: 1
+        prompt: "Item 25: the *cacophony* of the city. What does the italicized word mean?"
+        choices: ["political administration", "crowded living conditions", "cultural advantages", "harsh sounds", "foul odors"]
+        answer: "harsh sounds"
+        explanation: "Answer: (d)."
+  - kind: "text"
+    id: "d10-screen-how-to-make-words"
+    title: "How to Make New Words Come Alive"
+    cards:
+      - title: "Scoring"
+        body: |-
+          0-6 correct answers — *Below Average*; 7-13 correct answers — *Average*; 14-20 correct answers — *Above Average*; 21-25 correct answers — *Superior*
+      - title: "How to Make New Words Come Alive"
+        body: |-
+          Learning new words is a lot easier than you may think — provided you go about it in the right way.
+
+          The secret of successful vocabulary building is *repetition*.
+
+          To add a new word to your vocabulary so that it really sticks there — permanently, unforgettably, usefully — you must see or hear that word in many different contexts and in a variety of different forms.
+
+          Your first contact with a new word will be a fuzzy one — you will see in it no more than a meaningless pattern of syllables, a lifeless collection of letters. But at each successive contact, if the word is an integral part of a sentence, an idea, a thought, you will feel more and more life in the once-dead syllables, until finally you will be able to make an instantaneous mental reaction every time you read the word on a page of print or hear it from somebody's lips.
+
+          You will then have taken the first crucial step toward getting on friendly terms with a new word; you will have made it part of your *recognition vocabulary*.
+
+          Your attitude toward the word has thus far been a passive one. But you must also develop an active attitude. You must begin to use the word. You must learn to call it forth from the recesses of your recognition vocabulary whenever, in thinking, speaking, or writing, you have a use for it. You must, in short, add it to your *functional vocabulary*.
+
+          Here are the steps that will help you do all these things.
+  - kind: "text"
+    id: "d10-screen-step-1"
+    title: "Step 1: Consider Each New Word a Challenge"
+    cards:
+      - title: "Consider Each New Word a Challenge"
+        body: |-
+          There is always a great temptation to ignore an unfamiliar word that you meet in your reading — to skip over it quickly and blindly if you can manage to extract some meaning, however slight, from the sentence or paragraph in which it occurs. *Resist this temptation.* Consider a new word a red light, a stop sign, a challenge to your imagination and ingenuity. Look at it, become familiar with its appearance, puzzle out its possible meaning from the context.
+
+          Try this now. Here are eight words that may be new to you. They are admittedly not everyday terms, and they are fairly complex in meaning; indeed, they have been chosen for these very qualities. Examine the sentence fragment in which each word appears, arrive at a probable or possible meaning, even make a wild guess if you wish — but at least come to grips with the challenge with which each of the words will confront you.
+
+          1. felt so listless, so completely *enervated*: (a) weakened, (b) tired, (c) confused, (d) defeated
+          2. such contemptible *sycophancy*: (a) insincere virtuousness, (b) self-seeking flattery, (c) pretense at genuineness, (d) sneakiness and spying
+          3. no organic disease, but a kind of persistent *hypochondria*: (a) illness of psychological origin, (b) morbid fancies that one is ill, though physically healthy, (c) attitude of unhealthy fear, (d) state of mental delusions
+          4. so withdrawn and *introverted* as to seem positively unsociable: (a) preferring solitude to the company of others, (b) insulting and hostile in conversation, (c) morbidly silent, (d) more interested in one's thoughts, feelings, etc., than in the outside world
+          5. such outspoken *misogyny* as to alienate, if not repel, all women: (a) fear of women, (b) hatred of women, (c) pursuit of women, (d) discourtesy to women
+          6. her *altruistic* generosity: (a) showing more concern for the welfare of others than for one's own welfare, (b) unlimited, (c) pretended and insincere, (d) well advertised
+          7. his name, which is *anathema* to all patriots: (a) an object of speculation, (b) an object of the deepest loathing, (c) an object of respect and devotion, (d) an example of true and unselfish loyalty
+          8. *disparaged* every attempt he made: (a) blocked, (b) supported, (c) criticized, (d) belittled
+  - kind: "text"
+    id: "d10-screen-step-2"
+    title: "Step 2: Check Up on Your Response to the Challenge"
+    cards:
+      - title: "Check Up on Your Response to the Challenge"
+        body: |-
+          You have here been offered a choice of possible meanings for each of the italicized words; in your own efforts, of course, you will think of one or more possibilities by yourself. As you puzzle out each word in the context in which you find it, your guesses may be correct, they may be close though not absolutely exact, or they may be far, far afield. No matter. You're working with the word, you're thinking about it, you're developing a mind-set that gives the new word an unobstructed entry into your recognition vocabulary. Having done this, your next and obvious step is to refer to a good dictionary to check up on your success in figuring out meanings. For valuable practice, make such reference to a dictionary at this very moment in respect to the eight words, to see how well you figured out their meanings. (A key to this exercise is deliberately omitted.)
+  - kind: "text"
+    id: "d10-screen-step-3"
+    title: "Step 3: Practice Pronouncing and Spelling Each Word"
+    cards:
+      - title: "Practice Pronouncing and Spelling Each Word"
+        body: |-
+          Now you have the word in front of you in the dictionary. You see its pronunciation. You are getting a second visual impression of its appearance. And you will note that it may have other forms for use as different parts of speech (adjective, noun, verb, etc.). Say the word (and any of its derivative forms) aloud. Get accustomed to hearing it in your own voice. Write the word once or twice so that you will be reacting to it muscularly as well as visually and vocally. These activities will be a giant step forward in getting on such good terms with the word that it can easily pass into your functional vocabulary and be ready for immediate use when the occasion occurs.
+
+          Do this now with our eight words. Say them aloud. Then cover each one and try spelling it correctly in the blank provided for that purpose.
+
+          1. *enervated* ____ / *enervating* ____ / (to) *enervate* ____ / *eneveration* ____
+          2. *sycophancy* ____ / (a) *sycophant* ____ / *sycophantic* ____
+          3. *hypochondria* ____ / *hypochondriacal* ____ / (a) *hypochondriac* ____
+          4. *introverted* ____ / *introversion* ____ / (an) *introvert* ____
+          5. *misogyny* ____ / *misogynous* ____ / *misogynistic* ____ / (a) *misogynist* ____
+          6. *altruistic* ____ / *altruism* ____ / (an) *altruist* ____
+          7. *anathema* ____ / (to) *anathematize* ____ / *anathematization* ____
+          8. (to) *disparage* ____ / *disparagement* ____ / *disparaging* ____
+
+          Just three simple steps to add a new word to your recognition and functional vocabulary: keep a sharp eye open to its first appearance, and in meeting it, puzzle out a possible meaning; look it up to determine how successfully you reacted to it; then practice saying it aloud and writing it. Do this as time and circumstances and your reading habits make possible, and you will be truly amazed at how many words will enter your vocabulary almost every day; how you will become more and more aware of their deeper meanings and various forms and uses as you continue meeting them in your reading; how you will become so familiar with them that, practically without being aware of it, you will start to use them in your thinking, your speaking, and your writing.
+
+          Do not accept these promises on faith; learn how true they are from your own experience. Here are three more exercises to make these eight words come fully alive for you, to nail them down in your vocabulary, to make them integral factors in your thinking, understanding, and self-expression.
+  - kind: "test"
+    id: "d10-test-true-false"
+    title: "Exercise 1: True or False?"
+    intro: "Decide whether the following statements are substantially true or false, and check the appropriate box."
+    explain: true
+    items:
+      - id: "d10-ex1-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Staying up all night can be *enervating*."
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Answer: TRUE."
+      - id: "d10-ex1-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "*Sycophants* seek to curry favor with people of influence or wealth."
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Answer: TRUE."
+      - id: "d10-ex1-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "A *hypochondriac's* ailment can be readily discovered through a physical checkup."
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "Answer: FALSE."
+      - id: "d10-ex1-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "An *introvert* is more interested in other people than in himself."
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "Answer: FALSE."
+      - id: "d10-ex1-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "A *misogynist* enjoys the company of women."
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "Answer: FALSE."
+      - id: "d10-ex1-06"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "*Altruistic* people are often well liked."
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Answer: TRUE."
+      - id: "d10-ex1-07"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Communism is *anathema* to most Americans."
+        choices: ["TRUE", "FALSE"]
+        answer: "TRUE"
+        explanation: "Answer: TRUE."
+      - id: "d10-ex1-08"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "A *disparaging* remark is intended to express the speaker's praise."
+        choices: ["TRUE", "FALSE"]
+        answer: "FALSE"
+        explanation: "Answer: FALSE."
+  - kind: "test"
+    id: "d10-test-same-opposite"
+    title: "Exercise 2: Same or Opposite?"
+    intro: "Decide whether the paired words or phrases are more nearly the same or more nearly opposed in meaning, and circle the appropriate letter."
+    explain: true
+    items:
+      - id: "d10-ex2-01"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "enervate and strengthen"
+        choices: ["Same", "Opposite"]
+        answer: "Opposite"
+        explanation: "Answer: O (opposite)."
+      - id: "d10-ex2-02"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "sycophant and enemy"
+        choices: ["Same", "Opposite"]
+        answer: "Opposite"
+        explanation: "Answer: O (opposite)."
+      - id: "d10-ex2-03"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "hypochondriac and realist"
+        choices: ["Same", "Opposite"]
+        answer: "Opposite"
+        explanation: "Answer: O (opposite)."
+      - id: "d10-ex2-04"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.synonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "introvert and self-analytical person"
+        choices: ["Same", "Opposite"]
+        answer: "Same"
+        explanation: "Answer: S (same)."
+      - id: "d10-ex2-05"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "misogyny and love of women"
+        choices: ["Same", "Opposite"]
+        answer: "Opposite"
+        explanation: "Answer: O (opposite)."
+      - id: "d10-ex2-06"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "altruist and selfish person"
+        choices: ["Same", "Opposite"]
+        answer: "Opposite"
+        explanation: "Answer: O (opposite)."
+      - id: "d10-ex2-07"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "anathema and object of respect"
+        choices: ["Same", "Opposite"]
+        answer: "Opposite"
+        explanation: "Answer: O (opposite)."
+      - id: "d10-ex2-08"
+        type: "multiple_choice"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.antonyms"]
+        difficulty: 2
+        points: 1
+        prompt: "disparage and praise"
+        choices: ["Same", "Opposite"]
+        answer: "Opposite"
+        explanation: "Answer: O (opposite)."
+  - kind: "test"
+    id: "d10-test-whats-the-word"
+    title: "Exercise 3: What's the Word?"
+    intro: "Write in the appropriate blank the word which most closely fits each definition."
+    explain: true
+    items:
+      - id: "d10-ex3-01"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "An object of hatred ____"
+        accepted: ["anathema"]
+        explanation: "Key: 1-anathema."
+      - id: "d10-ex3-02"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Tendency to analyze one's thoughts, feelings, motives, etc. ____"
+        accepted: ["introversion"]
+        explanation: "Key: 2-introversion."
+      - id: "d10-ex3-03"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "To deprive of all force or strength ____"
+        accepted: ["enervate"]
+        explanation: "Key: 3-enervate."
+      - id: "d10-ex3-04"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "One who is interested in the welfare of others ____"
+        accepted: ["altruist"]
+        explanation: "Key: 4-altruist."
+      - id: "d10-ex3-05"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Self-seeking flatterer ____"
+        accepted: ["sycophant"]
+        explanation: "Key: 5-sycophant."
+      - id: "d10-ex3-06"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "One who has imaginary ailments ____"
+        accepted: ["hypochondriac"]
+        explanation: "Key: 6-hypochondriac."
+      - id: "d10-ex3-07"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "To belittle; to express a low estimate of ____"
+        accepted: ["disparage"]
+        explanation: "Key: 7-disparage."
+      - id: "d10-ex3-08"
+        type: "fill_blank"
+        learning_area: "Vocabulary"
+        origin: "original"
+        topics: ["vocabulary.word_meanings"]
+        difficulty: 2
+        points: 1
+        prompt: "Hatred of women ____"
+        accepted: ["misogyny"]
+        explanation: "Key: 8-misogyny."
+  - kind: "text"
+    id: "d10-screen-reading-plan"
+    title: "A Reading Plan for Enriching Your Vocabulary"
+    cards:
+      - title: "Keep Going"
+        body: |-
+          All right. You've seen these eight words. You've thought about them. You've looked them up. You've pronounced them. You've spelled them. You've reacted to them in a variety of different ways. And so now they are yours — no one can ever take them from you.
+
+          This has happened in perhaps only 30 minutes.
+
+          Is this good? *It is absolutely spectacular.* The average adult who takes no active steps toward improving his vocabulary learns at most 25 to 50 new words a year. Yet, by following the simple and easy procedures outlined here, you can add 8 to 14 new words (to say nothing of the scores of derivative forms) to your vocabulary every day you read — 2000 to 3000 words a year!
+
+          But how can you be sure to make the frequent and repeated contacts with new words that are so essential to building a large and rich vocabulary? The answer to this vital question will be spelled out in the remaining pages of this chapter.
+      - title: "A Reading Plan for Enriching Your Vocabulary"
+        body: |-
+          Building your vocabulary effectively will involve treating yourself to an all-around liberal education. You will become wholly engaged and completely engrossed in the pursuit not only of new words but also of new ideas — not only of words as symbols of information, knowledge, and understanding, but of the information, knowledge, and understanding itself.
+
+          This was, curiously enough, the system by which you operated in your childhood. During your earliest years you learned more new words, and at a faster rate, than at any other period in your life; day in and day out you squeezed every possible ounce of learning out of each waking moment, for a child has a constant and insatiable desire to know and to understand. And so, as your knowledge and your understanding increased, there was a corresponding daily increase in your store of those language symbols that described, and made it possible for you to think about and express, what you had learned.
+
+          Now that you are an adult, you have perhaps lost the strong inner drive to continue learning. If so, do not despair. You can reactivate this drive. You can recapture your former urge to know and understand, and as a direct result you can again increase your vocabulary at the same dynamic pace and in the same atmosphere of excitement that were characteristic of your childhood.
+
+          You can do this no matter what your present age or previous education.
+
+          *You can do this by exploring, through reading, new and unfamiliar fields of human knowledge, thinking, and experience.*
+
+          Below is a plan of systematic reading that will help you explore such fields — fields which will add to your vocabulary literally thousands of new, rich, meaningful, and useful words.
+
+          In each field you will find recommended the clearest and the most interesting volume available. These are not textbooks. On the contrary, they were written for the person with little or no background in the subject.
+
+          They are not necessarily easy books, yet none of them present difficulties of any major order. In combination, they offer a challenge which, when successfully met, will have a powerful effect on you. They will broaden your understanding and provide you with the words and concepts you need to express your thinking and to grasp the thoughts of others.
+
+          And this, bear in mind, is the ultimate purpose of any intelligent vocabulary building. *If words do not serve this purpose, they serve no purpose at all.*
+  - kind: "text"
+    id: "d10-screen-recommended-readings"
+    title: "Recommended Readings"
+    cards:
+      - title: "Recommended Readings"
+        body: |-
+          1. Psychology — *The Human Mind*, by Karl A. Menninger (Knopf)
+          2. Science — *Ever Since Darwin*, by Stephen Jay Gould (Norton)
+          3. Semantics — *Language in Thought and Action*, by S. I. Hayakawa (Harcourt, Brace Jovanovich)
+          4. Philosophy — *The Story of Philosophy*, by Will Durant (Washington Square Press)
+          5. Art and Music — *The Arts*, by Hendrik Willem van Loon (Liveright)
+          6. Mathematics — *Mathematics for the Million*, by Lancelot Hogben (Norton)
+
+          These six books will provide a point of departure. Each is, in its own field, a quick survey course. Together they are the core of a liberal-arts education.
+
+          When you have finished these volumes, you will have a running acquaintance with the general content of several vital fields of human knowledge. You will be ready to take another step in attaining a vocabulary that contains the tools for clear thinking and expression.
+
+          This step involves *specialization* in various branches of one or more fields that particularly intrigue you. Your own interests, as they develop from your survey reading, will dictate your choice of titles in each field. On pages 72 and 73 is a list of suggestions to guide you, and the abundant bibliographies contained in most survey volumes will serve as added guides. But feel free to make excursions down any side road of knowledge that your newly awakened interests may suggest.
+      - title: "Remain on the Alert for New Words"
+        body: |-
+          There will come a time, as you continue your explorations, when you discover that reading not only powerfully satisfies the urge to learn, but offers unique pleasures and mental stimulation.
+
+          You will then be impelled to strike out into new realms of reading. If previously you had read little, or had read only the lightest sort of material, you will find that reading has now become an enjoyable habit. And so you will begin to turn, for pure reading enjoyment, to the deeper and more significant novels; you will seek out general books and magazines that are addressed to the literate, discriminating, and thoughtful reader. The quantity of your reading will become considerably greater, its character much more varied, and its quality infinitely more mature and therefore infinitely more gratifying.
+
+          Turning to such reading will be an indication of your renewed intellectual growth, of a recaptured desire to reach out mentally and push back your horizons of thinking and understanding. And your new kind of reading will offer a rich source of valuable words — words of deeper, subtler, and more complex meaning than those you perhaps had previously been familiar with or accustomed to using.
+
+          Because you will have developed the habit of being alert and receptive to new words, of reacting to them, of looking them up in a dictionary, of working with them and thinking about them, a strange and wonderful thing will happen. A word which you have looked up, which you have said aloud and have actually put down in writing, will begin to appear over and over again in your varied reading — not because it has suddenly become popular with authors, but because you have let it register deeply in your mind. You have become strongly aware of its existence, and you are, without consciously realizing it, sharply alerted to the next appearance of the word in print.
+
+          Each succeeding time you meet this word in a different context, its meaning will become clearer, its use more familiar — until finally it will be an old friend and you will find yourself using it naturally and correctly in your speaking and writing.
+
+          This is the way new words enter fully, actively, and permanently into your vocabulary.
+      - title: "Listen for New Words"
+        body: |-
+          There is yet another source of material for building your vocabulary.
+
+          That source is the people around you.
+
+          If you actively *look* for new words, you will be amazed at how many you will find.
+
+          If you actively *listen* for new words, you will be equally amazed at how many you will hear.
+
+          But you must become as alert and as receptive in your listening as in your looking. Does someone you are speaking to use a word you have not heard before, or a word whose meaning is not completely clear to you? *Ask about it!* Have no reluctance, feel no shame in saying, forthrightly and immediately, "What does that word mean?" Anyone is flattered when such a question is posed. He will be eager and happy to attempt an answer — and you may not only learn a new word but often be on the trail of a new idea, a new bit of information or knowledge.
+
+          Do you play Scrabble, Keyword, Ghost, or similar games? These are excellent vocabulary builders if you remain on the alert for new words; if you ask, when a player offers an unfamiliar term, "What does that word mean?" and listen attentively to his answer.
+  - kind: "text"
+    id: "d10-screen-lifelong"
+    title: "A Lifelong Process"
+    cards:
+      - title: "A Lifelong Process"
+        body: |-
+          How long will it take you to build your word stock to full strength? The process of vocabulary improvement, since it is a by-product of learning and of intellectual growth, need never end; you can be engaged in the exciting and rewarding activities outlined in this chapter for the rest of your life.
+
+          But the dividends will accrue from the moment you begin — your vocabulary will start increasing, at a spectacular rate, from the day you take your first step.
+
+          The words, and the ideas and knowledge that words symbolize, are all there. You have only to develop the habit of actively hunting for them.
+      - title: "Additional Recommended Reading"
+        body: |-
+          *I. For specialization in various fields*
+
+          1. PSYCHOLOGY: *Cognitive Therapy & The Emotional Disorders*, by Aaron T. Beck (Meridian); *I'm O.K., You're O.K.*, by Thomas A. Harris (Avon).
+          2. SCIENCE: *Ascent of Man*, by Jacob Bronowski (Little, Brown); *The Sea Around Us*, by Rachel Carson (Oxford); *Red Giants & White Dwarfs*, by Robert Jastrow (Norton); *The ABC of Relativity*, by Bertrand Russell (Mentor); *The Lives of a Cell: Notes of a Biology Watcher*, by Lewis Thomas (Bantam); *The Double Helix*, by James D. Watson (Mentor).
+          3. SEMANTICS: *The Power of Words*, by Stuart Chase (Harcourt Brace Jovanovich); *The American Language: An Inquiry into the Development of English in the United States*, by H. L. Mencken, abr. 4th edition, Raven I. McDavid, Jr., ed. (Knopf).
+          4. PHILOSOPHY: *Against the Current: Essays in the History of Ideas*, by Isaiah Berlin, Henry Hardy, ed. (Penguin); *Pleasures of Philosophy*, by Will Durant (Simon and Schuster).
+          5. ART AND MUSIC: *The Story of Art*, by E. H. Gombrich (Prentice-Hall); *Lust for Life*, by Irving Stone (Doubleday); *What to Listen for in Music*, by Aaron Copeland (Mentor).
+          6. MATHEMATICS: *One, Two, Three . . . INFINITY*, by George Gamow (Bantam).
+
+          *II. Magazines for the general reader*
+
+          *The Atlantic Monthly; Harper's Magazine; Natural History; Newsweek; The New Yorker; Psychology Today; Time.*
+
+          *III. Dictionaries*
+
+          *Webster's New World Dictionary: Modern Desk Edition* (Collins); *Webster's Ninth New Collegiate Dictionary* (Merriam-Webster); *Random House College Dictionary* (Random House); *American Heritage Dictionary, New College Edition* (Houghton Mifflin).
