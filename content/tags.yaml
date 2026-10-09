@@ -33,23 +33,6 @@ exercise_types:
   - vocabulary_matching
   - sentence_ordering
 
-# Book section -> exercise type used in content/days. The book's self-check and
-# right/wrong sections are forced choices, because no non-pronunciation kind
-# records a self-assessment.
-book_section_mapping:
-  pronunciation_choice: multiple_choice
-  vocabulary_matching_pairs: vocabulary_matching
-  similar_or_opposite: multiple_choice
-  true_or_false: multiple_choice
-  spelling_choice: multiple_choice
-  spelling_find_misspelled: spelling_correction
-  grammar_yes_no: multiple_choice
-  grammar_right_wrong: multiple_choice
-  fluency_open_ended: fill_blank
-  think_of_words: fill_blank
-  name_behind_the_word: multiple_choice
-  did_you_know: lesson cards only (no exercise)
-
 topics:
   Pronunciation:
     - pronunciation.common_errors
