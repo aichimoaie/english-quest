@@ -49,6 +49,7 @@ exercises:                   # ids: dNN-<name>, lowercase, unique within the day
     learning_area: Grammar
     origin: original
     topics: [grammar.be.present]
+    difficulty: 1           # optional, 1 to 3; values in content/tags.yaml
     points: 1
     prompt: ...
     ...                      # fields depend on type, see below
@@ -121,8 +122,11 @@ the following:
 - Limits match: choices 2 to 4, points 1 to 10, topics 1 to 4 items.
 - The schema has a place for `kind_version` and `status`. The day files omit both,
   because the authoring format does not carry them yet.
-- The schema has a taxonomy file for `topics`. There is none yet, so topics are
-  checked only for their dotted shape.
+- The schema has a taxonomy file for `topics`. `content/tags.yaml` is the tag
+  vocabulary (skills, difficulty scale, topics, exercise types). The validator
+  checks only the dotted shape of `topics`; the tests in
+  `apps/api/tests/curriculum/test_days_three_to_five_content.py` check the other
+  tags against `tags.yaml`.
 
 Once the schemas exist, the validator should validate each file against them as
 well, and the Day 1 fixture should pass both checks.
@@ -130,6 +134,7 @@ well, and the Day 1 fixture should pass both checks.
 ## Adding a day
 
 1. Create `content/days/day-NN.yaml` with the next day number.
-2. Run `validate_content_dir` on `content/days` until its report is `ok`. There
+2. Tag every exercise with values from `content/tags.yaml`.
+3. Run `validate_content_dir` on `content/days` until its report is `ok`. There
    is no command-line entry point yet.
-3. Open a pull request. A reviewer checks wording and originality before merge.
+4. Open a pull request. A reviewer checks wording and originality before merge.
