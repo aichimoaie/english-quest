@@ -110,7 +110,7 @@ exercises:
     difficulty: 1
     points: 1
     prompt: "Write one word that starts with R and means the opposite of advance."
-    accepted: ["retreat", "recede"]
+    accepted: ["retreat", "recede", "regress"]
     explanation: "To retreat is to move back, the reverse of moving forward."
 
   - id: d05-fluency-03
@@ -143,7 +143,7 @@ exercises:
     difficulty: 2
     points: 1
     prompt: "Write one word that starts with R and means the opposite of smooth."
-    accepted: ["rough"]
+    accepted: ["rough", "rugged"]
     explanation: "A smooth surface is the reverse of a rough one."
 
   - id: d05-fluency-06
@@ -209,7 +209,7 @@ exercises:
     difficulty: 3
     points: 1
     prompt: "Write one word that starts with R and means the opposite of dim."
-    accepted: ["radiant"]
+    accepted: ["radiant", "resplendent"]
     explanation: "Radiant describes light that shines brightly, the reverse of dim."
 
   - id: d05-fluency-12
@@ -220,7 +220,7 @@ exercises:
     difficulty: 2
     points: 1
     prompt: "Write one word that starts with R and means the opposite of dismiss."
-    accepted: ["retain"]
+    accepted: ["retain", "recall"]
     explanation: "To retain means to keep someone, the reverse of letting them go."
 
   # Add one or two letters before -ank (book section: think of words, definition given).

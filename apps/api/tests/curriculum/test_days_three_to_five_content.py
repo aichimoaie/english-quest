@@ -9,6 +9,7 @@ import yaml
 
 from english_quest_api.curriculum import validate_content_dir
 from english_quest_api.curriculum.models import Day
+from english_quest_api.grading.text_input import evaluate_text
 
 CONTENT = Path(__file__).resolve().parents[4] / "content"
 CONTENT_DAYS = CONTENT / "days"
@@ -73,3 +74,20 @@ def test_every_new_day_exercise_is_original_and_explained() -> None:
         for exercise in days[number].exercises:
             assert exercise.origin == "original", exercise.id
             assert exercise.explanation.strip(), exercise.id
+
+
+def test_day_five_fluency_items_accept_each_fitting_opposite() -> None:
+    days = _days()
+    exercises = {exercise.id: exercise for exercise in days[5].exercises}
+    fitting = {
+        "d05-fluency-02": "regress",
+        "d05-fluency-05": "rugged",
+        "d05-fluency-11": "resplendent",
+        "d05-fluency-12": "recall",
+    }
+
+    for exercise_id, answer in fitting.items():
+        exercise = exercises[exercise_id]
+        result = evaluate_text(response=answer, accepted=exercise.accepted)
+
+        assert result.credit == 1.0, exercise_id
