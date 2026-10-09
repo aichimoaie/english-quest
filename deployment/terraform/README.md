@@ -81,7 +81,7 @@ Also set `operator_ip_address` in `single-project/vars/<env>.tfvars` to your pub
 | PostgreSQL Flexible Server, `B_Standard_B1ms`, 32 GiB | `postgres.tf` | No HA, 7-day backups. Public endpoint with TLS required, the `allow-azure-services` firewall rule and the optional operator rule. No VNet, subnet or private endpoint (owner decision). |
 | PostgreSQL login roles `english_quest_server` (NOLOGIN) and `english_quest_api` (LOGIN) | `postgres.tf` | Created by Terraform, which sets the API login's generated password. The API role is a member of the server role, which alone reads the answer keys. The migration keeps its `IF NOT EXISTS` guard. |
 | Key Vault (RBAC), `database-url` and `api-database-url` secrets | `keyvault.tf` | `database-url` is the administrator login, for the migration job only. `api-database-url` is the restricted API login. Purge protection on in prod only (D8). |
-| User-assigned identity | `iam.tf` | Read-only access to the vault (Key Vault Secrets User). The API reads `api-database-url` as `DATABASE_URL`. The migration job reads `database-url` as `MIGRATION_DATABASE_URL`. |
+| User-assigned identities | `iam.tf` | One for the API and one for the migration job. Each has Key Vault Secrets User on its own secret only. The API reads `api-database-url` as `DATABASE_URL`. The migration job reads `database-url` (administrator login) as `MIGRATION_DATABASE_URL`. |
 | Log Analytics workspace, 30 days, 1 GB daily cap | `telemetry.tf` | Container logs (D3). |
 | Five metric alerts and an action group (email) | `telemetry.tf` | PostgreSQL CPU and storage, API 5xx, API restarts, API has no running replica. |
 | Monthly budget, 40 USD, resource-group scope | `budget.tf` | Prod only (D2). 80% of actual and 100% forecast. |
@@ -99,7 +99,7 @@ No domain is decided. `single-project/variables.tf` has `custom_domain` with the
 - **PostgreSQL 18 in East US (D7).** Not verified, because the earlier `list-skus` query returned nothing. Check with `az postgres flexible-server list-skus --location eastus` before applying.
 - **Container Apps environment fee.** The earlier price check found a $0.10/hour "Environment Management" meter in the public API. It is believed to apply only to dedicated environments, not Consumption. Confirm in the pricing calculator.
 - **Alert metric dimension.** The 5xx alert filters the `Requests` metric on `StatusCodeCategory`. This name is not verified, because no Container App exists yet to list the metric definitions. Confirm it on the first plan after the first apply.
-- **Role propagation.** The app identity's vault role can take a minute to take effect. If the first apply fails on the Key Vault reference, run `up` again. It is idempotent.
+- **Role propagation.** The app identities' vault roles can take a minute to take effect. If the first apply fails on the Key Vault reference, run `up` again. It is idempotent.
 - **Budget and resource group.** Only prod has a budget (D2). Dev has none.
 - **Production down then up (D8, accepted).** Prod has purge protection on. After `down prod`, the Key Vault name stays reserved for the 7-day soft-delete retention, and the Log Analytics workspace name stays reserved for its retention period after deletion. `up prod` fails on those names until they are released. Wait for the retention period, then run `up prod` again. The names are not changed.
 

@@ -106,7 +106,7 @@ run_apply() {
   local mode="$1" env="$2"
   local work
   work="$(mktemp -d)"
-  trap 'rm -rf "$work"' EXIT
+  trap "rm -rf '$work'" EXIT
 
   init_root "$single_dir" "english-quest-$env.tfstate"
   init_root "$cicd_dir" "english-quest-cicd-$env.tfstate"

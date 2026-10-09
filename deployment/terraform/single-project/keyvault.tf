@@ -1,7 +1,7 @@
 data "azurerm_client_config" "current" {}
 
 # The runtime sources of the database URLs. The API and the migration job read
-# them through the app identity in iam.tf, so the URLs are not copied into app settings.
+# them through their own identities in iam.tf, so the URLs are not copied into app settings.
 resource "azurerm_key_vault" "this" {
   name                = module.shared.key_vault_name
   location            = var.location

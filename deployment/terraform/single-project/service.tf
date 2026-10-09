@@ -17,13 +17,13 @@ resource "azurerm_container_app" "api" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.app.id]
+    identity_ids = [azurerm_user_assigned_identity.api.id]
   }
 
   secret {
     name                = "api-database-url"
     key_vault_secret_id = azurerm_key_vault_secret.api_database_url.versionless_id
-    identity            = azurerm_user_assigned_identity.app.id
+    identity            = azurerm_user_assigned_identity.api.id
   }
 
   ingress {
@@ -72,7 +72,7 @@ resource "azurerm_container_app" "api" {
   }
 
   depends_on = [
-    azurerm_role_assignment.app_secrets_user,
+    azurerm_role_assignment.api_secrets_user,
     postgresql_role.api,
   ]
 }
@@ -91,13 +91,13 @@ resource "azurerm_container_app_job" "migrate" {
 
   identity {
     type         = "UserAssigned"
-    identity_ids = [azurerm_user_assigned_identity.app.id]
+    identity_ids = [azurerm_user_assigned_identity.migrate.id]
   }
 
   secret {
     name                = "database-url"
     key_vault_secret_id = azurerm_key_vault_secret.database_url.versionless_id
-    identity            = azurerm_user_assigned_identity.app.id
+    identity            = azurerm_user_assigned_identity.migrate.id
   }
 
   manual_trigger_config {
@@ -124,5 +124,5 @@ resource "azurerm_container_app_job" "migrate" {
     ignore_changes = [template[0].container[0].image]
   }
 
-  depends_on = [azurerm_role_assignment.app_secrets_user]
+  depends_on = [azurerm_role_assignment.migrate_secrets_user]
 }
