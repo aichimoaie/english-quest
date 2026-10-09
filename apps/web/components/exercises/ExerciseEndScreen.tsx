@@ -2,7 +2,7 @@ import type { AnswerResult, Exercise } from "@/lib/api/types";
 
 interface ExerciseEndScreenProps {
   exercises: Exercise[];
-  /** Server feedback keyed by exercise id. Missing entries were not reached. */
+  /** Server feedback keyed by exercise id. */
   results: Record<string, AnswerResult>;
   finishLabel: string;
   finishing: boolean;
@@ -32,22 +32,19 @@ function exerciseLabel(exercise: Exercise): string {
 }
 
 /** The answer key line for one item. Self-checks have no right answer, so they get a note instead. */
-function answerKey(exercise: Exercise, result: AnswerResult | undefined): string {
-  if (!result) return "Not reached";
+function answerKey(exercise: Exercise, result: AnswerResult): string {
   if (exercise.kind === "self_check") return "Your answer was noted";
   return result.expected ?? "The server did not send an answer key";
 }
 
 /**
- * The end of a set: the score, the items that were not reached, and the answer
- * key for each item. The learner finishes from here, which saves the run.
+ * The end of a set: the score and the answer key for each item. The learner
+ * finishes from here, which saves the run.
  */
 export function ExerciseEndScreen({ exercises, results, finishLabel, finishing, onFinish }: ExerciseEndScreenProps) {
   const scored = exercises.filter((exercise) => exercise.kind !== "self_check");
   const correct = scored.filter((exercise) => results[exercise.id]?.isCorrect).length;
-  const notReached = exercises.filter((exercise) => !results[exercise.id]).length;
   const headline = scored.length > 0 ? `${correct} of ${scored.length} correct` : "Your answers are in";
-  const lede = notReached > 0 ? `${notReached} not reached before the test ended.` : "Every question was checked.";
 
   return (
     <div className="stack">
@@ -56,7 +53,7 @@ export function ExerciseEndScreen({ exercises, results, finishLabel, finishing, 
         <h2 id="end-title" className="t-title" tabIndex={-1}>
           {headline}
         </h2>
-        <p className="lede">{lede}</p>
+        <p className="lede">Every question was checked.</p>
       </section>
 
       <section className="card flat">

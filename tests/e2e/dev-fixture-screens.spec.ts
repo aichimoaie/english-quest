@@ -20,8 +20,9 @@ const dayDetail: DayDetail = {
 
 function stubAnswer(exerciseId: string, submitted: Submitted): AnswerResult {
   const key = DEV_ANSWERS[exerciseId];
+  const typedCorrectly = exerciseId !== 'ex_dev_find' || ('text' in submitted && submitted.text.trim().toLowerCase() === 'receive');
   return {
-    isCorrect: isCorrect(submitted, key.check),
+    isCorrect: isCorrect(submitted, key.check) && typedCorrectly,
     expected: key.expected,
     explanation: key.explanation,
     feedbackKey: key.feedbackKey,
@@ -68,6 +69,7 @@ test.describe('@dev-fixture exercise screens from the dev fixture day', () => {
     await page.getByLabel('Correct spelling').fill('receive');
     await page.getByRole('button', { name: 'Check answer' }).click();
     await expect(page.getByRole('status').getByText('Correct', { exact: true })).toBeVisible();
+    expect(answerBodies.at(0)).toEqual({ exerciseId: 'ex_dev_find', submitted: { optionIndex: 0, text: 'receive' } });
     await page.getByRole('button', { name: 'Continue' }).click();
 
     await expect(page.getByText('I am agree with the plan.')).toBeVisible();
