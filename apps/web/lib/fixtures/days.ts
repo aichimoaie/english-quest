@@ -4,7 +4,7 @@
  * lib/fixtures/generated, so there is no second copy of the content here. Days
  * without a content file are placeholders until their content is reviewed.
  */
-import type { DaySummary } from "@/lib/api/types";
+import type { DaySummary, Exercise } from "@/lib/api/types";
 import { GENERATED_DAYS, type GeneratedDay } from "./generated/curriculum";
 
 export { TOTAL_DAYS } from "@/lib/course";
@@ -54,3 +54,40 @@ export const DAY_SUMMARIES: DaySummary[] = DAY_OUTLINE.map((entry, index) => ({
   status: index === 0 ? "current" : "locked",
   bestScorePct: null,
 }));
+
+/*
+ * DEV ONLY. One item of each new exercise kind, with the timed item last so
+ * the set clock is on screen. It is served only by the dev fixture route
+ * (GET /api/v1/dev/exercises). It is not in the day list, not in the day
+ * summaries, and not in the content files.
+ */
+export const DEV_FIXTURE_EXERCISES: Exercise[] = [
+  {
+    id: "ex_dev_find",
+    kind: "find_misspelled",
+    instructions: "Find the misspelled word, then type the sentence with it fixed.",
+    points: 1,
+    content: { prompt: "Which word is misspelled?", options: ["recieve", "letter", "every"] },
+  },
+  {
+    id: "ex_dev_self",
+    kind: "self_check",
+    instructions: "Be honest about how you say this.",
+    points: 1,
+    content: { prompt: "I am agree with the plan." },
+  },
+  {
+    id: "ex_dev_right",
+    kind: "right_wrong",
+    instructions: "Decide if the sentence is right or wrong.",
+    points: 1,
+    content: { prompt: "She are my friend." },
+  },
+  {
+    id: "ex_dev_timed",
+    kind: "timed_recall",
+    instructions: "Type the missing word before the clock runs out.",
+    points: 1,
+    content: { sentence: "A ____ is a small house in the country.", hint: "Type one word.", timeLimitSeconds: 60 },
+  },
+];

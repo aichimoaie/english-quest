@@ -336,4 +336,35 @@ describe("ExercisePlayer set timer and end screen", () => {
     fireEvent.click(screen.getByRole("button", { name: "Save run" }));
     await waitFor(() => expect(onFinish).toHaveBeenCalledTimes(1));
   });
+
+  it("ends the whole set when the clock runs out on a timed item that is not last", async () => {
+    vi.useFakeTimers();
+    try {
+      const submit = vi.fn(async () => ({ isCorrect: false, expected: "cottage", explanation: "Close.", feedbackKey: "x" }));
+      const timedThenChoice: Exercise[] = [
+        timedSet[0],
+        { id: "ex_later", kind: "multiple_choice", instructions: "Pick.", points: 1, content: { prompt: "Which is correct?", options: ["am", "is"] } },
+      ];
+      render(<ExercisePlayer exercises={timedThenChoice} submit={submit} onFinish={vi.fn()} finishLabel="See result" />);
+
+      fireEvent.click(screen.getByRole("button", { name: "Start timer" }));
+      fireEvent.change(screen.getByRole("textbox"), { target: { value: "shed" } });
+      act(() => {
+        vi.advanceTimersByTime(300_000);
+      });
+      await act(async () => {
+        for (let i = 0; i < 5; i++) await Promise.resolve();
+      });
+
+      expect(submit).toHaveBeenCalledTimes(1);
+      expect(screen.getByText("Your result")).toBeTruthy();
+      expect(screen.getByText("0 of 2 correct")).toBeTruthy();
+      expect(screen.getByText("1 not reached before the test ended.")).toBeTruthy();
+      expect(screen.getByText("Which is correct?")).toBeTruthy();
+      expect(screen.getByText("Not reached")).toBeTruthy();
+      expect(screen.queryByText("Question 2 of 2")).toBeNull();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
 });

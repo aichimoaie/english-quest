@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { AnswerInput, DayDetail, Exercise, Submitted, VocabularyEntry } from "@/lib/api/types";
+import type { AnswerInput, DayDetail, DaySummary, Exercise, Submitted, VocabularyEntry } from "@/lib/api/types";
 import { CONTENT_BY_DAY } from "./days";
 
 /** Each test gets a fresh fixture server, because the fixture keeps state in memory. */
@@ -175,5 +175,33 @@ describe("fixture server", () => {
       instructions: "Type your answer.",
       content: { sentence: "Write one word that starts with R and means the opposite of accept." },
     });
+  });
+
+  it("serves one dev item of each new kind and a timed item, outside the day list", async () => {
+    const { items } = await call<{ items: Exercise[] }>("GET", `${BASE}/dev/exercises`);
+    const kinds = items.map((exercise) => exercise.kind);
+
+    expect(kinds).toEqual(["find_misspelled", "self_check", "right_wrong", "timed_recall"]);
+    expect(items[3]).toMatchObject({ kind: "timed_recall", content: { timeLimitSeconds: 60 } });
+
+    const days = await call<DaySummary[]>("GET", `${BASE}/days`);
+    expect(days).toHaveLength(30);
+    const day1 = await call<DayDetail>("GET", `${BASE}/days/1`);
+    expect(day1.exercises.some((exercise) => exercise.id.startsWith("ex_dev_"))).toBe(false);
+    await expect(call("GET", `${BASE}/days/0`)).rejects.toMatchObject({ status: 404 });
+  });
+
+  it("grades the dev items on the server like any other item", async () => {
+    const right = await call<{ isCorrect: boolean; expected?: string | null }>("POST", `${BASE}/review/answers`, {
+      exerciseId: "ex_dev_timed",
+      submitted: { text: "cottage" },
+    });
+    const wrong = await call<{ isCorrect: boolean }>("POST", `${BASE}/review/answers`, {
+      exerciseId: "ex_dev_right",
+      submitted: { optionIndex: 0 },
+    });
+
+    expect(right.isCorrect).toBe(true);
+    expect(wrong.isCorrect).toBe(false);
   });
 });
