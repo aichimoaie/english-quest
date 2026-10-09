@@ -51,7 +51,13 @@ APPROVED_FLOW: dict[int, list[tuple[str, str]]] = {
 }
 
 
-EXPLAINED_TESTS = {"d03-test-8", "d03-test-9", "d04-test-10", "d05-test-fluency", "d05-test-think-of-words"}
+EXPLAINED_TESTS = {
+    "d03-test-8",
+    "d03-test-9",
+    "d04-test-10",
+    "d05-test-fluency",
+    "d05-test-think-of-words",
+}
 
 
 def _days() -> dict[int, Day]:
